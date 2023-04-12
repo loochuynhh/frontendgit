@@ -1,19 +1,27 @@
 const Users = `users`;
 const url = `https://localhost:44308`;
 const token = localStorage.getItem('token');
-
+var person = {
+    "name": "", 
+    "email": "",
+    "gender": "",
+    "birth": "",
+    "phone": "",
+    "address": "",
+    "username": "",
+    "password": ""
+};
 var dropdownlogout = document.getElementById("logout")
     dropdownlogout.onclick = function (){
         window.location.assign("./Layoutanonymous.html");
+        localStorage.clear();
     }
 
 const token2 = localStorage.getItem('token');
 function getInfo() {
-// Gửi request đến API để lấy thông tin người dùng
     fetch(`${url}/${Users}`, {
         method: 'GET',
         headers: {
-        //'Authorization': `Bearer ${token2}` // Thêm token vào header Authorization
         'Authorization' : "bearer " + token2
         }
     })
@@ -27,40 +35,61 @@ function getInfo() {
         return response.json();
     })
     .then(data => {
-        // Xử lý dữ liệu nhận được
-        console.log(data);
+        // person = {
+        //     "name": data.name, 
+        //     "email": data.email,
+        //     "gender": data.gender,
+        //     "birth": data.birth,
+        //     "phone": data.phone,
+        //     "address": data.address,
+        //     "username": data.username,
+        //     "password": data.password
+        // }
+        person = data;
+        console.log(person.name);
     })
     .catch(error => {
-        // Xử lý lỗi
         console.error('There was a problem with the fetch operation:', error);
     });
 }
-function users() {
-        fetch(`${url}/${Users}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        })
-        .then(response => {
-            console.log(response.status.toString());
-            if (!response.ok) {
-                throw new Error('Unauthorized');
-            }
-            else 
-            { 
-                //window.location.assign("./Layoutuser.html"); 
-                return response.json();
-            }
-            
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.error(error));
-      }
+var Overlay = document.getElementById("overlay");
+var OverlayInfor = document.getElementById("inforoverlay");
+
+var firstName = document.getElementById("firstName");
+var lastName = document.getElementById("lastName");
+var userName = document.getElementById("userName");
+var email = document.getElementById("email");
+var address = document.getElementById("address");
+var phoneNumber = document.getElementById("phoneNumber");
+var gender = document.getElementById("gender");
+var dateOfBirth = document.getElementById("dateOfBirth");
+var password = document.getElementById("password");
+var passwordConfirm = document.getElementById("passwordConfirm");
+
 var dropdowninfo = document.getElementById("info");
-    dropdowninfo.onclick = function (){
-        console.log(token);
-        getInfo();
-    }
+    dropdowninfo.addEventListener("click", function() {
+    Overlay.style.display = "block";
+    OverlayInfor.style.display = "block";
+    getInfo();
+
+    console.log(person);
+    console.log(person.email);
+
+    let words = person.name.split(" ");
+    let lastWord = words[words.length - 1];
+    let remainingWords = words.slice(0, -1);
+    firstName.value = lastWord;
+    lastName.value = remainingWords;
+    userName.value = person.username;
+    email.value = person.email;
+    address.value = peron.address;
+    phoneNumber.value = person.phone;
+    gender.value = person.gender;
+    dateOfBirth.value = person.birth;
+    password.value = person.password;
+    passwordConfirm.value = person.password;
+    
+    });
+        
+
+    
