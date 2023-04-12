@@ -1,16 +1,17 @@
 const Users = `users`;
-const url = `https://localhost:44308`;
+const url = `https://localhost:44310`;
 const token = localStorage.getItem('token');
-var person = {
-    "name": "", 
-    "email": "",
-    "gender": "",
-    "birth": "",
-    "phone": "",
-    "address": "",
-    "username": "",
-    "password": ""
-};
+// let person = {
+//     name: "", 
+//     email: "",
+//     gender: "",
+//     birth: "",
+//     phone: "",
+//     address: "",
+//     username: "",
+//     password: ""
+// };
+let person = {};
 var dropdownlogout = document.getElementById("logout")
     dropdownlogout.onclick = function (){
         window.location.assign("./Layoutanonymous.html");
@@ -35,23 +36,23 @@ function getInfo() {
         return response.json();
     })
     .then(data => {
-        // person = {
-        //     "name": data.name, 
-        //     "email": data.email,
-        //     "gender": data.gender,
-        //     "birth": data.birth,
-        //     "phone": data.phone,
-        //     "address": data.address,
-        //     "username": data.username,
-        //     "password": data.password
-        // }
-        person = data;
-        console.log(person.name);
+        person = {
+            name: data.name, 
+            email: data.email,
+            gender: data.gender,
+            birth: data.birth,
+            phone: data.phone,
+            address: data.address,
+            username: data.username,
+            password: data.password
+        }
+        // person = data;
+        // Show(data);
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-}
+} 
 var Overlay = document.getElementById("overlay");
 var OverlayInfor = document.getElementById("inforoverlay");
 
@@ -65,31 +66,38 @@ var gender = document.getElementById("gender");
 var dateOfBirth = document.getElementById("dateOfBirth");
 var password = document.getElementById("password");
 var passwordConfirm = document.getElementById("passwordConfirm");
-
-var dropdowninfo = document.getElementById("info");
-    dropdowninfo.addEventListener("click", function() {
+async function Show() {
     Overlay.style.display = "block";
     OverlayInfor.style.display = "block";
     getInfo();
+}
+Show().then(function() {
+        console.log(person);
+        console.log(person.email);
+        console.log(person.name);
 
-    console.log(person);
-    console.log(person.email);
-
-    let words = person.name.split(" ");
-    let lastWord = words[words.length - 1];
-    let remainingWords = words.slice(0, -1);
-    firstName.value = lastWord;
-    lastName.value = remainingWords;
-    userName.value = person.username;
-    email.value = person.email;
-    address.value = peron.address;
-    phoneNumber.value = person.phone;
-    gender.value = person.gender;
-    dateOfBirth.value = person.birth;
-    password.value = person.password;
-    passwordConfirm.value = person.password;
-    
+        let words = person.name.split(" ");
+        let lastWord = words[words.length - 1];
+        let remainingWords = words.slice(0, -1);
+        firstName.value = lastWord;
+        lastName.value = remainingWords;
+        userName.value = person.username;
+        email.value = person.email;
+        address.value = person.address;
+        phoneNumber.value = person.phone;
+        gender.value = person.gender;
+        dateOfBirth.value = person.birth;
+        password.value = person.password;
+        passwordConfirm.value = person.password;
     });
+
+var dropdowninfo = document.getElementById("info");
+dropdowninfo.addEventListener("click", function() {
+    Show();
+});
+
+    
+    
         
 
     
