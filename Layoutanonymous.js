@@ -10,7 +10,7 @@ function login() {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({ 
-        username: username, 
+        email: username, 
         password: password, 
       }),
   })
@@ -23,11 +23,11 @@ function login() {
       { 
         window.location.assign("./Layoutuser.html"); 
       }
-      return response.text();
+      return response.json();
   })
   .then(data => {
-    console.log(data);
-    localStorage.setItem('token', data);
+    console.log(data.accessToken);
+    localStorage.setItem('token', data.accessToken);
   });
 }
 function Signup() {
