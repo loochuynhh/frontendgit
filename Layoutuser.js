@@ -17,8 +17,8 @@ var dropdownlogout = document.getElementById("logout")
         localStorage.clear();
     }
 function showdata(person){
-        var firstName = document.getElementById("firstName");
-        var lastName = document.getElementById("lastName");
+        // var firstName = document.getElementById("firstName");
+        // var lastName = document.getElementById("lastName");
         var userName = document.getElementById("userName");
         var email = document.getElementById("email");
         var address = document.getElementById("address");
@@ -28,12 +28,12 @@ function showdata(person){
         var password = document.getElementById("password");
         var passwordConfirm = document.getElementById("passwordConfirm");
     
-        let words = person.name.split(" ");
-        let lastWord = words[words.length - 1];
-        let remainingWords = words.slice(0, -1);
-        firstName.value = lastWord;
-        lastName.value = remainingWords;
-        userName.value = person.username;
+        // let words = person.name.split(" ");
+        // let lastWord = words[words.length - 1];
+        // let remainingWords = words.slice(0, -1);
+        // firstName.value = lastWord;
+        // lastName.value = remainingWords;
+        userName.value = person.name;
         email.value = person.email;
         address.value = person.address;
         phoneNumber.value = person.phone;
@@ -69,7 +69,7 @@ function getInfo() {
             birth: data.birth,
             phone: data.phone,
             address: data.address,
-            username: data.username,
+            //username: data.username,
             password: data.password
         }
         showdata(data);

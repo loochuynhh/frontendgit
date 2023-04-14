@@ -32,14 +32,15 @@ function login() {
 }
 function Signup() {
   const id = 0;
-  const name = document.getElementById("firstName").value + document.getElementById("lastName").value;
-  const username = document.getElementById("userName").value;
+  //const name = document.getElementById("firstName").value + document.getElementById("lastName").value;
+  const name = document.getElementById("userName").value;
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phoneNumber").value;
   const address = document.getElementById("address").value;
   const Gender = document.getElementById("gender").value;
   const birth = document.getElementById("dateOfBirth").value;
   const password = document.getElementById("password").value;
+  const role = "USER";
   var gender = true;
   if(Gender === "Nu"){
     gender = false;
@@ -49,7 +50,7 @@ function Signup() {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ id, name, email, gender, birth, phone, address, username, password })
+    body: JSON.stringify({id, name, email, gender, birth, phone, address, password, role })
   })
   .then(response => {
     if (response.ok) {
