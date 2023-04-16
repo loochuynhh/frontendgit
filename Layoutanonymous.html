@@ -18,41 +18,46 @@
     <div class = "overlay" id="overlay" style="display:none">
       <div class="contentLogin whitebg text-center" id = "overlayLogin" style="display:none">
        <div class="form-signin w-100 m-auto">
-         <form>
+         <form class="needs-validation" id = "formLogin" novalidate>
            <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="25%" height="auto">
            <h1 class="h3 mb-3 fw-normal">Đăng nhập</h1>
        
-           <div class="form-floating">
-             <input type="email" class="form-control" id="emailLogin" name = "email" placeholder="name@example.com">
-             <label for="floatingInput">Địa chỉ Email</label>
+           <div class="form-floating has-validation">
+             <input type="email" class="form-control" id="emailLogin" placeholder="Nhập Email của bạn tại đây" required>
+             <div class="invalid-feedback">
+              Vui lòng nhập địa chỉ Email hợp lệ
+             </div>
+             <label for="emailLogin">Địa chỉ Email</label>
            </div>
            
-           <div class="form-floating">
-             <input type="password" class="form-control" id="passwordLogin" name = "password" placeholder="Password">
-             <label for="floatingPassword">Mật khẩu</label>
+           <div class="form-floating has-validation">
+             <input type="password" class="form-control" id="passwordLogin" placeholder="Password" required>
+             <div class="invalid-feedback">
+              Vui lòng nhập mật khẩu
+             </div>
+             <label for="passwordLogin">Mật khẩu</label>
            </div>
-           
-           <div class="checkbox mb-3">
-             <!-- <label>
+
+           <!-- <div class="checkbox mb-3">
+             <label>
                <input type="checkbox" value="remember-me"> Lưu mật khẩu
-             </label> -->
-           </div>
-           <button id = "buttonLogin" type="button" class="w-100 btn btn-lg btn-primary" >Đăng nhập</button>
+             </label>
+           </div> -->
+           <button type="submit" class="w-100 btn btn-lg btn-primary" >Đăng nhập</button>
          </form>
        </div>
       </div>
       <div class="contentSignup bg-body-tertiary" id="overlaySignup" style="display:none">
         <div class="container">
           <div class="py-5 text-center">
-            <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="20%" height="auto">
+            <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="18%" height="auto">
             <h2>Đăng ký tài khoản</h2>
           </div>
       
           <div class="col-8 mx-auto">
             <h4 class="mb-3">Điền thông tin của bạn</h4>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" id = "formSiginup" novalidate >
               <div class="row g-3">
-                
                 <div class="col-12">
                   <label for="name" class="form-label">Họ và tên</label>
                   <div class="input-group has-validation">
@@ -64,16 +69,18 @@
                 </div>
     
                 <div class="col-12">
-                  <label for="email" class="form-label">Email <span class="text-body-secondary"></span></label>
-                  <input type="email" class="form-control" id="email" placeholder="Nhập Email của bạn tại đây">
-                  <div class="invalid-feedback">
-                    Vui lòng nhập địa chỉ Email hợp lệ
+                  <label for="email" class="form-label">Email</label>
+                  <div class="input-group has-validation">
+                    <input type="email" class="form-control" id="email" placeholder="Nhập Email của bạn tại đây" required>
+                    <div class="invalid-feedback">
+                      Email phải có dạng example@abc.xyz
+                    </div>
                   </div>
                 </div>
     
                 <div class="col-12">
                   <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                  <input type="text" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
+                  <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
                   <div class="invalid-feedback">
                     Vui lòng nhập số điện thoại hợp lệ
                   </div>
@@ -98,9 +105,11 @@
     
                   <div class="col-md-7">
                     <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
-                    <input type="date" class="form-select" id="dateOfBirth">
-                    <div class="invalid-feedback">
-                      Vui lòng nhập ngày sinh
+                    <div class="input-group has-validation">
+                      <input type="date" class="form-select" id="dateOfBirth" required>
+                      <div class="invalid-feedback">
+                        Vui lòng nhập ngày sinh
+                      </div>
                     </div>
                   </div>
                   <div class="col-12">
@@ -124,8 +133,8 @@
               </div>
     
               <hr class="my-4">
-    
-              <button id="signup-button" type="button" class="w-100 btn btn-primary btn-lg" >Đăng ký</button>
+              <!-- id="signup-button" -->
+              <button type="submit" class="w-100 btn btn-primary btn-lg">Đăng ký</button>
             </form>
           </div>
         </div>
