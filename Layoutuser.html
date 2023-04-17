@@ -62,115 +62,178 @@
     </header>
     <div id="overlay" style="display:none">
       <div class="container" id ="inforoverlay" style="display:none">
-        <div class="container">
-          <div class="py-5 text-center">
-            <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="30%" height="auto">
-            <h2>Thông tin tài khoản</h2>
-          </div>
-      
-          <div class="col-8 mx-auto">
-            <!-- <h4 class="mb-3">Điền thông tin của bạn</h4> -->
-            <form class="needs-validation" novalidate>
-              <div class="row g-3">
-                <!-- <div class="col-sm-6">
-                  <label for="firstName" class="form-label">Họ </label>
-                  <input type="text" class="form-control" id="firstName" placeholder="Nguyễn Văn" required>
+        <div class="py-5 text-center">
+          <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="25%" height="auto">
+          <h2>Thông tin tài khoản</h2>
+        </div>
+    
+        <!-- <div class="col-8 mx-auto">
+          <form class="needs-validation" id = "formInfo"novalidate>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="name" class="form-label">Họ và tên</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="name" placeholder="Nhập tên ở đây" required>
                   <div class="invalid-feedback">
-                    Họ là thành phần bắt buộc
+                    Tên tài khoản là bắt buộc
                   </div>
                 </div>
-    
-                <div class="col-sm-6">
-                  <label for="lastName" class="form-label">Tên</label>
-                  <input type="text" class="form-control" id="lastName" placeholder="A" required>
+              </div>
+
+              <div class="col-12">
+                <label for="email" class="form-label">Email <span class="text-body-secondary"></span></label>
+                <input type="email" class="form-control" id="email" placeholder="example@abc.xyz">
+                <div class="invalid-feedback">
+                  Vui lòng nhập địa chỉ Email hợp lệ
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                <input type="text" class="form-control" id="phoneNumber" placeholder="123456789" required>
+                <div class="invalid-feedback">
+                  Vui lòng nhập số điện thoại hợp lệ
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="address" class="form-label">Địa chỉ<span class="text-body-secondary">(Optional)</span></label>
+                <input type="text" class="form-control" id="address" placeholder="Apartment or suite">
+              </div>
+
+              <div class="col-md-5">
+                <label for="gender" class="form-label">Giới tính</label>
+                <select class="form-select" id="gender" required>
+
+                  <option>Nam</option>
+                  <option>Nu</option>
+                </select>
+                <div class="invalid-feedback">
+                  Vui lòng chọn giới tính
+                </div>
+                </div>
+
+                <div class="col-md-7">
+                  <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
+                  <input type="date" class="form-select" id="dateOfBirth">
                   <div class="invalid-feedback">
-                    Tên là thành phần bắt buộc
+                    Vui lòng nhập ngày sinh
                   </div>
-                </div> -->
-    
+                </div>
                 <div class="col-12">
-                  <label for="userName" class="form-label">Tên tài khoản</label>
+                  <label for="password" class="form-label">Mật khẩu</label>
                   <div class="input-group has-validation">
-                    <input type="text" class="form-control" id="userName" placeholder="A Nguyễn" required>
+                    
+                    <input type="password" class="form-control" id="password" placeholder="anguyenabc" required>
                     <div class="invalid-feedback">
-                      Tên tài khoản là bắt buộc
+                      Mật khẩu là bắt buộc
                     </div>
                   </div>
                 </div>
-    
                 <div class="col-12">
-                  <label for="email" class="form-label">Email <span class="text-body-secondary"></span></label>
-                  <input type="email" class="form-control" id="email" placeholder="nguyenvana@example.com">
-                  <div class="invalid-feedback">
-                    Vui lòng nhập địa chỉ Email hợp lệ
+                  <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu</label>
+                  <div class="input-group has-validation">
+                    <input type="password" class="form-control" id="passwordConfirm" placeholder="anguyenabc" required>
+                    <div class="invalid-feedback">
+                      Cần xác nhận lại mật khẩu
+                    </div>
                   </div>
                 </div>
-    
-                <div class="col-12">
-                  <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                  <input type="text" class="form-control" id="phoneNumber" placeholder="123456789" required>
+            </div>
+
+
+            <hr class="my-4">
+
+            <button id="signup-button" type="button" class="w-100 btn btn-primary btn-lg" >Chỉnh sửa</button>
+          </form>
+        </div> -->
+        <div class="col-8 mx-auto">
+          <h4 class="mb-3">Chỉnh sửa thông tin của bạn</h4>
+          <form class="needs-validation" id = "formInfo" novalidate >
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="name" class="form-label">Họ và tên</label>
+                <div class="input-group has-validation">
+                  <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn tại đây" required>
                   <div class="invalid-feedback">
-                    Vui lòng nhập số điện thoại hợp lệ
+                    Tên tài khoản là bắt buộc
                   </div>
                 </div>
-    
-                <div class="col-12">
-                  <label for="address" class="form-label">Địa chỉ<span class="text-body-secondary">(Optional)</span></label>
-                  <input type="text" class="form-control" id="address" placeholder="Apartment or suite">
-                </div>
-    
-                <div class="col-md-5">
-                  <label for="gender" class="form-label">Giới tính</label>
-                  <select class="form-select" id="gender" required>
-    
-                    <option>Nam</option>
-                    <option>Nu</option>
-                  </select>
+              </div>
+
+              <div class="col-12">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group has-validation">
+                  <input type="email" class="form-control" id="email" placeholder="Nhập Email của bạn tại đây" required>
                   <div class="invalid-feedback">
-                    Vui lòng chọn giới tính
+                    Email phải có dạng example@abc.xyz
                   </div>
-                  </div>
-    
-                  <div class="col-md-7">
-                    <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
-                    <input type="date" class="form-select" id="dateOfBirth">
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
+                <div class="invalid-feedback">
+                  Vui lòng nhập số điện thoại hợp lệ
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="address" class="form-label">Địa chỉ<span class="text-body-secondary">(Optional)</span></label>
+                <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ của bạn tại đây">
+              </div>
+
+              <div class="col-md-5">
+                <label for="gender" class="form-label">Giới tính</label>
+                <select class="form-select" id="gender" required>
+
+                  <option>Nam</option>
+                  <option>Nữ</option>
+                </select>
+                <div class="invalid-feedback">
+                  Vui lòng chọn giới tính
+                </div>
+                </div>
+
+                <div class="col-md-7">
+                  <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
+                  <div class="input-group has-validation">
+                    <input type="date" class="form-select" id="dateOfBirth" required>
                     <div class="invalid-feedback">
                       Vui lòng nhập ngày sinh
                     </div>
                   </div>
-                  <div class="col-12">
-                    <label for="password" class="form-label">Mật khẩu</label>
-                    <div class="input-group has-validation">
-                      
-                      <input type="password" class="form-control" id="password" placeholder="anguyenabc" required>
-                      <div class="invalid-feedback">
-                        Mật khẩu là bắt buộc
-                      </div>
+                </div>
+                <!-- <div class="col-12">
+                  <label for="password" class="form-label">Mật khẩu</label>
+                  <div class="input-group has-validation">
+                    <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu tại đây" required>
+                    <div class="invalid-feedback">
+                      Mật khẩu là bắt buộc
                     </div>
                   </div>
-                  <div class="col-12">
-                    <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu</label>
-                    <div class="input-group has-validation">
-                      <input type="password" class="form-control" id="passwordConfirm" placeholder="anguyenabc" required>
-                      <div class="invalid-feedback">
-                        Cần xác nhận lại mật khẩu
-                      </div>
+                </div>
+                <div class="col-12">
+                  <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu</label>
+                  <div class="input-group has-validation">
+                    <input type="password" class="form-control" id="passwordConfirm" placeholder="Xác nhận lại mật khẩu" required>
+                    <div class="invalid-feedback">
+                      Cần xác nhận lại mật khẩu chính xác
                     </div>
                   </div>
-              </div>
-    
-    
-              <hr class="my-4">
-    
-              <button id="signup-button" type="button" class="w-100 btn btn-primary btn-lg" >Chỉnh sửa</button>
-            </form>
-          </div>
+                </div> -->
+            </div>
+
+            <hr class="my-4">
+            <button type="submit" class="w-100 btn btn-primary btn-lg">Chỉnh sửa</button>
+          </form>
         </div>
-    <div class="b-example-divider"></div>
+      </div>
+    </div>
+    <!-- <div class="b-example-divider"></div> -->
     
 </body>
-
 <script src = "./Layoutuser.js"></script>
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-
 </html>

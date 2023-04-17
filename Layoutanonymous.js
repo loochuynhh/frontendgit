@@ -130,7 +130,6 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
     event.target.classList.add('was-validated');
     return;
   }
-  console.log("1");
   const username = document.getElementById("emailLogin").value;
   const password = document.getElementById("passwordLogin").value;
   fetch(`${url}/${Login}`, {
@@ -144,7 +143,6 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
     }),
   })
     .then(response => {
-      console.log(response.status.toString());
       if (!response.ok) {
         throw new Error('Unauthorized');
       }
@@ -154,7 +152,6 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
       return response.json();
     })
     .then(data => {
-      console.log(data.accessToken);
       localStorage.setItem('token', data.accessToken);
     });
 });
