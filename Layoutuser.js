@@ -61,14 +61,12 @@ function getInfo() {
         }
     })
     .then(response => {
-        console.log(response.status.toString());
         if (!response.ok) {
         throw new Error('Network response was not ok');
         }
         return response.json();
     })
     .then(data => {
-        console.log(data);
         localStorage.setItem('id', data.id);
         localStorage.setItem('roleName', data.roleName);
         showdata(data);
@@ -103,18 +101,16 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
     var oldPassword = document.getElementById("oldPassword").value;
     var newPassword = document.getElementById("newPassword").value;
     var newPasswordConfirm = document.getElementById("newPasswordConfirm").value;
-    console.log(Gender);
     var gender = false;
     if(Gender == '0') {
         gender = true;
-        console.log(gender);
     }
     if(newPassword != newPasswordConfirm){
       document.getElementById("newPasswordConfirm").classList.add("is-invalid");
       return;
     }
     
-    var put = 0;
+    localStorage.setItem('put', 0);
     fetch(`${url}/${Users}`, {
       method: 'PUT',
       headers: {
@@ -138,11 +134,13 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
             
           } else {
             // showAlert("Chỉnh sửa thất bại!");
-            put = 1;
+            localStorage.setItem('put', 1);
+
           }
       })
       .catch(error => {
         showAlert("Chỉnh sửa thất bại!");
+        localStorage.setItem('put', 1);
         console.error(error);
       });
 
@@ -164,16 +162,17 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
               // showAlert("Thay đổi thành công!");
             } else {
               // showAlert("Thay đổi thất thất bại!");
-              put = 2;
+              localStorage.setItem('put', 2);
             }
         })
         .catch(error => {
           showAlert("Thay đổi thất bại!");
+          localStorage.setItem('put', 2);
           console.error(error);
         });
-    if(put == 0){
+    if(localStorage.getItem('put') == 0){
       showAlert("Chỉnh sửa thành công");
-    }else if(put == 1){
+    }else if(localStorage.getItem('put') == 1){
       showAlert("Thông tin cá nhân không hợp lệ");
     }
     else{
