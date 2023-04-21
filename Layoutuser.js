@@ -1,4 +1,5 @@
 const Users = `users`;
+const Password = "";
 const url = `https://localhost:44308`;
 const token = localStorage.getItem('token');
 
@@ -6,6 +7,17 @@ var Overlay = document.getElementById("overlay");
 var OverlayInfor = document.getElementById("inforoverlay");
 var dropdowninfo = document.getElementById("info");
 var dropdownlogout = document.getElementById("logout");
+var passwordChange = document.getElementById("passwordChange");
+var changePasswordForm = document.getElementById("changePasswordForm");
+
+
+passwordChange.addEventListener("change", function() {
+  if (this.checked) {
+    changePasswordForm.style.display = 'block';
+  } else {
+    changePasswordForm.style.display = 'none';
+  }
+});
 
 function showAlert(message) {
     document.getElementById("modal-message").innerHTML = message;
@@ -24,8 +36,8 @@ function showdata(person){
         var phoneNumber = document.getElementById("phoneNumber");
         var gender = document.getElementById("gender");
         var dateOfBirth = document.getElementById("dateOfBirth");
-        // var password = document.getElementById("password");
-        // var passwordConfirm = document.getElementById("passwordConfirm");
+        //var password = document.getElementById("password");
+        //var passwordConfirm = document.getElementById("passwordConfirm");
     
         name.value = person.name;
         email.value = person.email;
@@ -56,6 +68,9 @@ function getInfo() {
         return response.json();
     })
     .then(data => {
+        console.log(data);
+        localStorage.setItem('id', data.id);
+        localStorage.setItem('roleName', data.roleName);
         showdata(data);
     })
     .catch(error => {
@@ -73,22 +88,33 @@ dropdowninfo.addEventListener("click", function() {
 document.querySelector('#formInfo').addEventListener('submit', function(event) {
     event.preventDefault(); 
     event.stopPropagation(); 
+
     if (!event.target.checkValidity()) {
       event.target.classList.add('was-validated');
       return;
     }
-    var role = "USER";
+    
     var name = document.getElementById("name").value;
     var email = document.getElementById("email").value;
     var address = document.getElementById("address").value;
     var phoneNumber = document.getElementById("phoneNumber").value;
     var Gender = document.getElementById("gender").value;
-    var gender = false;
-    if(Gender.value == "0") {
-        gender = true;
-    }
     var birth = document.getElementById("dateOfBirth").value;
+    var oldPassword = document.getElementById("oldPassword").value;
+    var newPassword = document.getElementById("newPassword").value;
+    var newPasswordConfirm = document.getElementById("newPasswordConfirm").value;
+    console.log(Gender);
+    var gender = false;
+    if(Gender == '0') {
+        gender = true;
+        console.log(gender);
+    }
+    if(newPassword != newPasswordConfirm){
+      document.getElementById("newPasswordConfirm").classList.add("is-invalid");
+      return;
+    }
     
+    var put = 0;
     fetch(`${url}/${Users}`, {
       method: 'PUT',
       headers: {
@@ -96,27 +122,63 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
         'Authorization' : "bearer " + token
       },
       body: JSON.stringify({
-        id: 0,
+        id: localStorage.getItem('id'),
         name: name,
         email: email,
         gender: gender,
         birth: birth,
         phone: phoneNumber,
         address: address,
-        RoleName: role
+        RoleName: localStorage.getItem('roleName')
       })
     })
       .then(response => {
         if (response.ok) {
-            showAlert("Chỉnh sửa thành công!");
+            // showAlert("Chỉnh sửa thành công!");
+            
           } else {
-            showAlert("Chỉnh sửa thất bại!");
+            // showAlert("Chỉnh sửa thất bại!");
+            put = 1;
           }
       })
       .catch(error => {
         showAlert("Chỉnh sửa thất bại!");
         console.error(error);
       });
+
+      fetch(`${url}/${Password}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' : "bearer " + token
+        },
+        body: JSON.stringify({
+          id: localStorage.getItem('id'),
+          oldPassword: oldPassword,
+          newPassword: newPassword, 
+          RoleName: localStorage.getItem('roleName')
+        })
+      })
+        .then(response => {
+          if (response.ok) {
+              // showAlert("Thay đổi thành công!");
+            } else {
+              // showAlert("Thay đổi thất thất bại!");
+              put = 2;
+            }
+        })
+        .catch(error => {
+          showAlert("Thay đổi thất bại!");
+          console.error(error);
+        });
+    if(put == 0){
+      showAlert("Chỉnh sửa thành công");
+    }else if(put == 1){
+      showAlert("Thông tin cá nhân không hợp lệ");
+    }
+    else{
+      showAlert("Thay đổi mật khẩu không thành công");
+    }
   });
 
     
