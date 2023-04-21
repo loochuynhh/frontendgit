@@ -23,12 +23,12 @@
     <header class="header text-bg-dark">
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="Layout.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <!-- <a href="Layout.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
               <svg class="bi me-2" width="40" height="32" viewBox="0 0 100 100" role="img" aria-label="Bootstrap">
-                <image href = "fileanh/Screenshot 2023-02-20 224819.png" width= "100%" height= "100%" preserveAspectRatio="none"></image>
+                <image href = "./fileanh/cinema.jpg" width= "100%" height= "100%" preserveAspectRatio="none"></image>
                 
               </svg>
-            </a>
+            </a> -->
     
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-between mb-md-0">
               <li class = "nav-item"><a href="#" class="nav-link px-2 text-secondary">Trang chủ</a></li>
@@ -44,7 +44,7 @@
     
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="./fileanh/93-938537_png-file-fa-user-circle-o-transparent-png.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                  <img src="./fileanh/user.png" alt="mdo" width="50" height="auto" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small">
                   <li><a class="dropdown-item" id = "info" href="#">Thông tin</a></li>
@@ -188,8 +188,8 @@
                 <label for="gender" class="form-label">Giới tính</label>
                 <select class="form-select" id="gender" required>
 
-                  <option>Nam</option>
-                  <option>Nữ</option>
+                  <option value="0">Nam</option>
+                  <option value="1">Nữ</option>
                 </select>
                 <div class="invalid-feedback">
                   Vui lòng chọn giới tính
@@ -205,34 +205,32 @@
                     </div>
                   </div>
                 </div>
-                <!-- <div class="col-12">
-                  <label for="password" class="form-label">Mật khẩu</label>
-                  <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu tại đây" required>
-                    <div class="invalid-feedback">
-                      Mật khẩu là bắt buộc
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu</label>
-                  <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="passwordConfirm" placeholder="Xác nhận lại mật khẩu" required>
-                    <div class="invalid-feedback">
-                      Cần xác nhận lại mật khẩu chính xác
-                    </div>
-                  </div>
-                </div> -->
+                
             </div>
 
             <hr class="my-4">
-            <button type="submit" class="w-100 btn btn-primary btn-lg">Chỉnh sửa</button>
+            <button id ="updatebutton" type="submit" class="w-100 btn btn-primary btn-lg">Chỉnh sửa</button>
           </form>
         </div>
       </div>
     </div>
     <!-- <div class="b-example-divider"></div> -->
-    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal-message"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+      </div>
 </body>
 <script src = "./Layoutuser.js"></script>
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>

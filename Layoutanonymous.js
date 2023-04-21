@@ -42,52 +42,34 @@ signupButton.addEventListener("click", function () {
 });
 
 
-// buttonLogin.addEventListener("click", function () {
-//   if (document.getElementById("emailLogin").value == "") {
-//     document.getElementById("emailLogin").classList.add("is-invalid");
-//     document.getElementById("emailLogin").nextElementSibling.classList.add("d-block");
-//     return;
-//   } else {
-//     document.getElementById("emailLogin").classList.remove("is-invalid");
-//     document.getElementById("emailLogin").nextElementSibling.classList.remove("d-block");
-//   }
-//   if (document.getElementById("passwordLogin").value == "") {
-//     document.getElementById("passwordLogin").classList.add("is-invalid");
-//     document.getElementById("passwordLogin").nextElementSibling.classList.add("d-block");
-//     return;
-//   } else {
-//     document.getElementById("passwordLogin").classList.remove("is-invalid");
-//     document.getElementById("passwordLogin").nextElementSibling.classList.remove("d-block");
-//   }
-//   const username = document.getElementById("emailLogin").value;
-//   const password = document.getElementById("passwordLogin").value;
-//   fetch(`${url}/${Login}`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       email: username,
-//       password: password,
-//     }),
-//   })
-//     .then(response => {
-//       console.log(response.status.toString());
-//       if (!response.ok) {
-//         throw new Error('Unauthorized');
-//       }
-//       else {
-//         window.location.assign("./Layoutuser.html");
-//       }
-//       return response.json();
-//     })
-//     .then(data => {
-//       console.log(data.accessToken);
-//       localStorage.setItem('token', data.accessToken);
-//     });
-// })
+function showAlert(message) {
+  document.getElementById("modal-message").innerHTML = message;
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+  Overlay.style.display = "none";
+  OverlayLogin.style.display = "none";
+  OverlaySignup.style.display = "none";
+  myModal.show();
+}
+function showSuccess(){
+  var alertSuccess = document.querySelector('.alert-success'); 
+  alertSuccess.style.display = 'block'; 
+  Overlay.style.display = "none";
+  OverlaySignup.style.display = "none";
+  OverlayLogin.style.display = "none";
+  setTimeout(function() {
+    alertSuccess.style.display = 'none';
+  }, 2000);
+}
 
-document.querySelector('#formSiginup').addEventListener('submit', function(event) {
+function showUnsuccess(){
+  var alertDanger = document.querySelector('.alert-danger'); 
+  alertDanger.style.display = 'block'; 
+  setTimeout(function() {
+    alertDanger.style.display = 'none';
+  }, 2000);
+}
+
+document.querySelector('#formSignup').addEventListener('submit', function(event) {
   event.preventDefault(); 
   event.stopPropagation(); 
   if (!event.target.checkValidity()) {
@@ -97,30 +79,52 @@ document.querySelector('#formSiginup').addEventListener('submit', function(event
   if (document.getElementById("passwordConfirm").value != document.getElementById("password").value) {
     document.getElementById("passwordConfirm").classList.add("is-invalid");
     return;
-  } else {
-    document.getElementById("passwordConfirm").classList.remove("is-invalid");
+  } else { document.getElementById("passwordConfirm").classList.remove("is-invalid");}
+
+  var Name = document.getElementById("name").value;
+  var Email = document.getElementById("email").value;
+  var Address = document.getElementById("address").value;
+  var Phone = document.getElementById("phoneNumber").value;
+  var gender = document.getElementById("gender").value;
+  var Gender = false;
+  if(gender.value === "0") {
+    Gender = true;
   }
+  var Birth = document.getElementById("dateOfBirth").value;
+  var Password = document.getElementById("password").value;
+  var Role = "USER";
+
   fetch(`${url}/${signup}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ id, name, email, gender, birth, phone, address, password, role })
-  })
-    .then(response => {
-      if (response.ok) {
-        alert("Đăng ký tài khoản thành công!");
-        window.location.assign("./Layoutuser.html");
-        await(1);
-        localStorage.setItem('token', data.token);
-        console.log(data.token);
-      } else {
-        alert("Đăng ký tài khoản thất bại!");
-      }
+    body: JSON.stringify({ 
+      id: 0,
+      name: Name, 
+      email: Email, 
+      gender: Gender, 
+      birth: Birth, 
+      phone: Phone, 
+      address: Address, 
+      password: Password, 
+      role: Role
     })
-    .catch(error => {
-      console.error("Lỗi khi đăng ký tài khoản:", error);
-    });
+  })
+  .then(response => {
+    if (response.ok) {
+      // showSuccess();
+      showAlert("Đăng ký thành công!");
+    } else {
+      // showUnsuccess();
+      showAlert("Đăng ký thất bại!");
+    }
+  })
+  .catch(error => {
+    // showUnsuccess();
+    showAlert("Đăng ký thất bại!");
+    console.error("Lỗi khi đăng ký tài khoản:", error);
+  });
 });
 
 document.querySelector('#formLogin').addEventListener('submit', function(event) {
@@ -155,3 +159,4 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
       localStorage.setItem('token', data.accessToken);
     });
 });
+
