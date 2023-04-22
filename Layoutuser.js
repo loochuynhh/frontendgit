@@ -9,13 +9,21 @@ var dropdowninfo = document.getElementById("info");
 var dropdownlogout = document.getElementById("logout");
 var passwordChange = document.getElementById("passwordChange");
 var changePasswordForm = document.getElementById("changePasswordForm");
-
+var oldPassword = document.getElementById("oldPassword");
+var newPassword = document.getElementById("newPassword");
+var newPasswordConfirm = document.getElementById("newPasswordConfirm");
 
 passwordChange.addEventListener("change", function() {
   if (this.checked) {
     changePasswordForm.style.display = 'block';
+    oldPassword.setAttribute('required', '');
+    newPassword.setAttribute('required', '');
+    newPasswordConfirm.setAttribute('required', '');
   } else {
     changePasswordForm.style.display = 'none';
+    oldPassword.removeAttribute('required');
+    newPassword.removeAttribute('required');
+    newPasswordConfirm.removeAttribute('required');
   }
 });
 
@@ -89,6 +97,7 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
 
     if (!event.target.checkValidity()) {
       event.target.classList.add('was-validated');
+      console.log("1");
       return;
     }
     
@@ -105,8 +114,9 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
     if(Gender == '0') {
         gender = true;
     }
-    if(newPassword != newPasswordConfirm){
+    if(newPassword != newPasswordConfirm && changePasswordForm.style.display == 'block'){
       document.getElementById("newPasswordConfirm").classList.add("is-invalid");
+      console.log("2");
       return;
     }
     
@@ -128,22 +138,22 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
         RoleName: localStorage.getItem('roleName')
       })
     })
-      .then(response => {
-        if (response.ok) {
-            // showAlert("Chỉnh sửa thành công!");
-            
-          } else {
-            // showAlert("Chỉnh sửa thất bại!");
-            localStorage.setItem('put', 1);
+    .then(response => {
+      if (response.ok) {
+          // showAlert("Chỉnh sửa thành công!");
+          
+        } else {
+          // showAlert("Chỉnh sửa thất bại!");
+          localStorage.setItem('put', 1);
 
-          }
-      })
-      .catch(error => {
-        showAlert("Chỉnh sửa thất bại!");
-        localStorage.setItem('put', 1);
-        console.error(error);
-      });
+        }
+    })
+    .catch(error => {
+      localStorage.setItem('put', 1);
+      console.error(error);
+    });
 
+    if (changePasswordForm.style.display == 'block') {
       fetch(`${url}/${Password}`, {
         method: 'PUT',
         headers: {
@@ -157,19 +167,20 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
           RoleName: localStorage.getItem('roleName')
         })
       })
-        .then(response => {
-          if (response.ok) {
-              // showAlert("Thay đổi thành công!");
-            } else {
-              // showAlert("Thay đổi thất thất bại!");
-              localStorage.setItem('put', 2);
-            }
-        })
-        .catch(error => {
-          showAlert("Thay đổi thất bại!");
-          localStorage.setItem('put', 2);
-          console.error(error);
-        });
+      .then(response => {
+        if (response.ok) {
+            // showAlert("Thay đổi thành công!");
+          } else {
+            // showAlert("Thay đổi thất thất bại!");
+            localStorage.setItem('put', 2);
+          }
+      })
+      .catch(error => {
+        localStorage.setItem('put', 2);
+        console.error(error);
+      });
+    }     
+
     if(localStorage.getItem('put') == 0){
       showAlert("Chỉnh sửa thành công");
     }else if(localStorage.getItem('put') == 1){
