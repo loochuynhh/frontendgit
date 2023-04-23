@@ -59,4 +59,16 @@ ul.nav2 {
     padding: 20px; /* Khoảng cách giữa nội dung và viền của div con */
     border-radius: 10px; /* Bo tròn viền của div con */
   }
+  footer {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  
+  
   
