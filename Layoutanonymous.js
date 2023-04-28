@@ -12,6 +12,8 @@ var OverlayLogin = document.getElementById("overlayLogin");
 var buttonSignup = document.getElementById("signup-button");
 var signupButton = document.getElementById("signupButton");
 var OverlaySignup = document.getElementById("overlaySignup");
+var homeLink = document.getElementById('home'); 
+var overlayAddFilm = document.getElementById('overlayAddFilm'); 
 
 function handleOutsideClickLogin(event) {
   if (!OverlayLogin.contains(event.target)) {
@@ -160,3 +162,8 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
     });
 });
 
+
+homeLink.addEventListener('click', function(event) { 
+    Overlay.style.display = 'block';
+    overlayAddFilm.style.display = 'block';
+  });

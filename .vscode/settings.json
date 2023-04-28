@@ -6,5 +6,6 @@
         "utility": "cpp",
         "ostream": "cpp",
         "cmath": "cpp"
-    }
+    },
+    "liveServer.settings.port": 5502
 }

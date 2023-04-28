@@ -151,7 +151,138 @@
         <strong>Thành công!</strong> Đăng ký thành công.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-
+      <div class="contentSignup bg-body-tertiary" id="overlayAddFilm" style="display:none">
+        <form action="https://formbold.com/s/FORM_ID" method="POST">
+          <div class="formbold-input-flex">
+            <div>
+              <label for="name" class="formbold-form-label"> Tên Phim </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Tên Phim"
+                class="formbold-form-input"
+              />
+            </div>
+    
+            <div>
+              <label for="country" class="formbold-form-label"> Quốc gia </label>
+              <input
+                type="text"
+                name="country"
+                id="country"
+                placeholder="Quốc gia sản xuất"
+                class="formbold-form-input"
+              />
+            </div>
+          </div>
+    
+          <div class="formbold-input-flex">
+            <div>
+                <label for="actor" class="formbold-form-label"> Diễn viên </label>
+                <input
+                type="text"
+                name="actor"
+                id="actor"
+                placeholder="Diễn viên chính"
+                class="formbold-form-input"
+                />
+            </div>
+    
+            <div>
+              <label for="director" class="formbold-form-label"> Đạo diễn </label>
+              <input
+              type="text"
+              name="actor"
+              id="actor"
+              placeholder="Tên đạo diễn"
+              class="formbold-form-input"
+              />
+          </div>
+          </div>
+    
+          <div class="formbold-mb-3 formbold-input-wrapp">
+            <label for="tralier" class="formbold-form-label"> Tralier Phim </label>
+    
+            <input
+                type="text"
+                name="tralier"
+                id="tralier"
+                placeholder="Tralier phim"
+                class="formbold-form-input formbold-w-45"
+              />
+          </div>
+    
+          <div class="formbold-mb-3">
+            <label for="length" class="formbold-form-label"> Độ dài phim </label>
+            <input
+              type="number"
+              name="length"
+              id="length"
+              class="formbold-form-input"
+            />
+          </div>
+          <div class="formbold-mb-3">
+            <label for="age" class="formbold-form-label"> Giới hạn tuổi </label>
+            <input
+              type="number"
+              name="age"
+              id="age"
+              class="formbold-form-input"
+            />
+          </div>
+          <!-- <div class="formbold-mb-3">
+            <label for="dob" class="formbold-form-label"> When can you start? </label>
+            <input type="date" name="dob" id="dob" class="formbold-form-input" />
+          </div> -->
+    
+          <!-- <div class="formbold-mb-3">
+            <label for="actor" class="formbold-form-label"> Đạo diễn </label>
+    
+            <input
+              type="text"
+              name="actor"
+              id="actor"
+              placeholder="Street address"
+              class="formbold-form-input formbold-mb-3"
+            />
+            <input
+              type="text"
+              name="address2"
+              id="address2"
+              placeholder="Street address line 2"
+              class="formbold-form-input"
+            />
+          </div> -->
+    
+          <div class="formbold-mb-3">
+            <label for="content" class="formbold-form-label">
+              Nội dung chính phim
+            </label>
+            <textarea
+              rows="8"
+              name="content"
+              id="content"
+              class="formbold-form-input"
+            ></textarea>
+          </div>
+    
+          <div class="formbold-form-file-flex">
+            <label for="poster" class="formbold-form-label">
+              Poster Phim
+            </label>
+            <input
+              type="file"
+              name="poster"
+              id="poster"
+              class="formbold-form-file"
+            />
+          </div>
+    
+          <button class="formbold-btn">Thêm phim mới</button>
+        </form>
+      </div>
+      
       <div class="b-example-divider"></div>
     </div>
 
@@ -181,6 +312,8 @@
             <div class="text-end me-0">
               <button id = "login-button" type="button" class="btn btn-outline-light me-2">Đăng nhập</button>
               <button id = "signupButton" type="button" class="btn btn-warning">Đăng ký</button>
+              <button id = "home" type="button" class="btn btn-warning">themphim</button>
+
             </div>
             
           </div>
