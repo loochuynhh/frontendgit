@@ -3,6 +3,8 @@ const URLFILM = "https://636b935c7f47ef51e13457fd.mockapi.io/product";
 var addFilm = document.getElementById("addFilm");
 var overlay = document.getElementById("overlay");
 var overlayAddFilm = document.getElementById("overlayAddFilm")
+var btCancel = document.getElementById("btCancel");
+var btbtOK = document.getElementById("btOK");
 
 fetch(URLFILM)
     .then(response => response.json())
@@ -27,6 +29,15 @@ fetch(URLFILM)
             tdDelete.appendChild(btnDelete);
             btnDelete.addEventListener("click", function () {
                 showAlert("Are you about that?");
+                btCancel.addEventListener('click', function() {
+                    // Đóng modal khi nhấn Cancel
+                    const modal = document.getElementById('exampleModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                  });
+                  btOK.addEventListener('click', function() {
+                    
+                  });
             });
             tdName.innerHTML = data[i].Name;
             tdLength.innerHTML = data[i].Length;
