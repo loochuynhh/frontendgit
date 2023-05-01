@@ -115,7 +115,11 @@
         </div>     
         <div class = "overlay" id="overlay" style="display:none">
             <div class="contentSignup bg-body-tertiary" id="overlayAddFilm" style="display:none">
-                <form action="https://formbold.com/s/FORM_ID" method="POST">
+                <div class="py-5 text-center">
+                    <img class="mb-4" src="../fileanh/Logo.jpg" alt="" width="30%" height="auto">
+                    <h2>Thêm phim</h2>
+                </div>
+                <form>
                   <div class="formbold-input-flex">
                     <div>
                       <label for="name" class="formbold-form-label"> Tên Phim </label>
@@ -164,26 +168,54 @@
                   </div>
                   </div>
             
-                  <div class="formbold-mb-3 formbold-input-wrapp">
-                    <label for="tralier" class="formbold-form-label"> Tralier Phim </label>
-            
-                    <input
+                  <!-- <div class="formbold-input-flex">
+                    <div>
+                        <label for="tralier" class="formbold-form-label"> Tralier Phim </label>
+                        <input
+                            type="text"
+                            name="tralier"
+                            id="tralier"
+                            placeholder="Tralier phim"
+                            class="formbold-form-input formbold-w-45"
+                        />
+                    </div>
+                    <div>
+                        <input type="checkbox" id="action" name="action" value="action">
+                        <label for="action">Phim hành động</label>
+                    </div>
+                  </div> -->
+
+                  <div class="formbold-input-flex">
+                    <div>
+                        <label for="tralier" class="formbold-form-label"> Tralier Phim </label>
+                        <input
                         type="text"
                         name="tralier"
                         id="tralier"
                         placeholder="Tralier phim"
-                        class="formbold-form-input formbold-w-45"
-                      />
-                  </div>
+                        class="formbold-form-input"
+                        />
+                    </div>
             
-                  <div class="formbold-mb-3">
-                    <label for="length" class="formbold-form-label"> Độ dài phim </label>
-                    <input
+                    <div>
+                      <label for="length" class="formbold-form-label"> Độ dài phim </label>
+                      <input
                       type="number"
                       name="length"
                       id="length"
+                      placeholder="Độ dài phim"
                       class="formbold-form-input"
-                    />
+                      />
+                  </div>
+                  </div>
+                  <!-- <div class="formbold-mb-3 formbold-input-wrapp">
+                    
+                  </div> -->
+                  
+                  <div class="formbold-mb-3">
+                    <label for="genre" class="formbold-form-label"> Thể loại </label>
+                    <input type="checkbox" id="action" name="action" value="action">
+                    <label for="action">Phim hành động</label>
                   </div>
                   <div class="formbold-mb-3">
                     <label for="age" class="formbold-form-label"> Giới hạn tuổi </label>
@@ -194,29 +226,6 @@
                       class="formbold-form-input"
                     />
                   </div>
-                  <!-- <div class="formbold-mb-3">
-                    <label for="dob" class="formbold-form-label"> When can you start? </label>
-                    <input type="date" name="dob" id="dob" class="formbold-form-input" />
-                  </div> -->
-            
-                  <!-- <div class="formbold-mb-3">
-                    <label for="actor" class="formbold-form-label"> Đạo diễn </label>
-            
-                    <input
-                      type="text"
-                      name="actor"
-                      id="actor"
-                      placeholder="Street address"
-                      class="formbold-form-input formbold-mb-3"
-                    />
-                    <input
-                      type="text"
-                      name="address2"
-                      id="address2"
-                      placeholder="Street address line 2"
-                      class="formbold-form-input"
-                    />
-                  </div> -->
             
                   <div class="formbold-mb-3">
                     <label for="content" class="formbold-form-label">
@@ -286,3 +295,5 @@
         <script src = "../bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
         </body>
     </html>
+
+    <!-- action="https://formbold.com/s/FORM_ID" -->
