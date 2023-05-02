@@ -1,0 +1,66 @@
+/* Custom bootstrap */
+.form-select {
+    width: 16vw !important;
+    margin: 2vh 0vh;
+} 
+.input-group-text {
+    width: 16vw;
+} 
+.btn{   
+    width: auto;
+    height: auto;
+    margin: 0.8vw; 
+    line-height: 1px; ;
+}  
+.form-control {
+    text-align: left;
+    max-width: 16.4vw;
+}
+/* Own CSS */
+.change-room{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} 
+.seat-option, .room-option{
+    display: flex;
+    align-items: center; 
+    margin-left: 0.3vw;
+    /* margin: 0.9vw; */
+} 
+.name-feature {
+    margin-top: 1.5rem;
+}
+.seat-option label, .room-option label{
+    width: 16vw;
+} 
+.divSaveCancel{
+    display: inline-block;
+    text-align: center;
+} 
+.room-option label{
+    padding-right: 2%;
+}
+.divSaveCancel{
+    padding-left: 2.2vw;
+}
+.btn-save-cancel{ 
+    width: 7vw !important;
+    /* padding-left: 10vw; */
+}
+#seat{ 
+    text-align: center;
+}
+
+li {
+    /* text-align: center; */
+    display: inline-block;
+    background-color: #dcdee1;
+    width: 40px;
+    height: 40px;
+    margin-right: 7px;
+    text-align: center;
+    line-height: 40px;
+    color: 44464b;
+    cursor: pointer;
+}
