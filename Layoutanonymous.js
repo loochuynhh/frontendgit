@@ -1,7 +1,7 @@
 const url = 'https://localhost:44308';
 const Login = 'login';
 const signup = 'register';
-
+const genre = 'genre';
 
 var Overlay = document.getElementById("overlay");
 
@@ -153,13 +153,31 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
         throw new Error('Unauthorized');
       }
       else {
-        window.location.assign("./Layoutuser.html");
+        // 
+        
       }
       return response.json();
     })
     .then(data => {
       localStorage.setItem('token', data.accessToken);
+      fetch(`${url}/${genre}`, {
+        method: 'GET',
+        headers: {
+        'Authorization' : "bearer " + localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+          if(response.status == '403'){
+            window.location.assign("./Layoutuser.html");
+          }
+          else if(response.status == '200'){
+            window.location.assign("./Admin/Index.html");
+          }
+          
+      })
+      
     });
 });
+
 
 
