@@ -1,4 +1,27 @@
 const URLFILM = "https://636b935c7f47ef51e13457fd.mockapi.io/product";
+
+var addFilm = document.getElementById("addFilm");
+var overlay = document.getElementById("overlay");
+var overlayAddFilm = document.getElementById("overlayAddFilm")
+var btCancel = document.getElementById("btCancel");
+var btbtOK = document.getElementById("btOK");
+
+
+function deleteUsers(i) {
+    let url = "https://636b935c7f47ef51e13457fd.mockapi.io/product" + i;
+  
+    fetch(url, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // data?.map((user) => addRowJs(user));
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 fetch(URLFILM)
     .then(response => response.json())
     .then(data => {
@@ -20,7 +43,18 @@ fetch(URLFILM)
             // btnDelete.classList.add("btn","btn-danger");
             btnDelete.innerHTML = "X";
             tdDelete.appendChild(btnDelete);
-
+            btnDelete.addEventListener("click", function () {
+                showAlert("Are you about that?");
+                btCancel.addEventListener('click', function() {
+                    // Đóng modal khi nhấn Cancel
+                    const modal = document.getElementById('exampleModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                  });
+                  btOK.addEventListener('click', function() {
+                    deleteUsers(i);
+                  });
+            });
             tdName.innerHTML = data[i].Name;
             tdLength.innerHTML = data[i].Length;
             tdFilmStatus.innerHTML = data[i].FilmStatus;
@@ -36,4 +70,22 @@ fetch(URLFILM)
 
     })
     .catch(error => console.error(error));
- 
+
+function showAlert(message) {
+    document.getElementById("modal-message").innerHTML = message;
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+    myModal.show();
+}
+function handleOutsideClickAddFilm(event) {
+    if (!overlayAddFilm.contains(event.target)) {
+        overlay.style.display = "none";
+        overlayAddFilm.style.display = "none";
+        document.removeEventListener("click", handleOutsideClickAddFilm, true);
+    }
+}
+addFilm.addEventListener("click", function () {
+    overlay.style.display = "block";
+    overlayAddFilm.style.display = "block";
+    document.addEventListener("click", handleOutsideClickAddFilm, true);
+});
+

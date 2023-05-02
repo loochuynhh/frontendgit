@@ -163,7 +163,3 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
 });
 
 
-homeLink.addEventListener('click', function(event) { 
-    Overlay.style.display = 'block';
-    overlayAddFilm.style.display = 'block';
-  });
