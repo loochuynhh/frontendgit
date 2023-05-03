@@ -1,5 +1,7 @@
 const URLFILM = "https://636b935c7f47ef51e13457fd.mockapi.io/product";
-const url = "https://localhost:44308";
+const url = 'https://localhost:44308/api';
+const genre = 'genre';
+
 var addFilm = document.getElementById("addFilm");
 var overlay = document.getElementById("overlay");
 var overlayAddFilm = document.getElementById("overlayAddFilm")
@@ -91,7 +93,12 @@ addFilm.addEventListener("click", function () {
 
 
 
-fetch('url')
+fetch(`${url}/${genre}`, {
+  method: 'GET',
+  headers: {
+  'Authorization' : "bearer " + localStorage.getItem('token')
+  }
+  })
   .then(response => response.json())
   .then(genres => {
     genres.forEach(genre => {

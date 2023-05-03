@@ -1,4 +1,4 @@
-const url = 'https://localhost:44308';
+const url = 'https://localhost:44308/api';
 const Login = 'login';
 const signup = 'register';
 const genre = 'genre';
