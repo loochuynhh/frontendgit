@@ -1,18 +1,28 @@
-const URLROOM = "https://636b935c7f47ef51e13457fd.mockapi.io/room";
+// const URLROOM = "https://636b935c7f47ef51e13457fd.mockapi.io/room";
+const URLROOM = "https://localhost:7163/api/room";
 
 window.onload = loadListRoom();
 window.onload = loadData();
 
 var genre = 1, roomSelected = "", checkUpdate = 1;
 function loadListRoom() {
-    fetch(URLROOM)
+    fetch(URLROOM,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: username,
+            password: password,
+        }),
+    })
         .then(response => response.json())
         .then(data => {
             let selName = document.getElementById("RoomNameForSelect");
             for (let i = 0; i < data.length; i++) {
                 let optName = document.createElement("option");
-                optName.innerHTML = data[i].RoomName;
-                optName.setAttribute("value", data[i].IdRoom);
+                optName.innerHTML = data[i].name;
+                optName.setAttribute("value", data[i].id);
 
                 selName.appendChild(optName);
             }

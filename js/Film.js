@@ -2,9 +2,11 @@ const URLFILM = 'https://636b935c7f47ef51e13457fd.mockapi.io/product';
 
 fetch(URLFILM)
     .then(response => response.json())
-    .then(data => {
-        const divRow = document.createElement('div');
-        divRow.classList.add('row','float-md-start');
+    .then(data => { 
+        // const divRow = document.createElement('div');
+        // divRow.classList.add('row','float-md-start');
+
+        let divRow = document.getElementById('film-list');
 
         for (let i = 0; i < data.length; i++) {
 
@@ -85,6 +87,6 @@ fetch(URLFILM)
 
             divRow.appendChild(ulFilm); 
         }
-        document.body.appendChild(divRow);
+        // document.body.appendChild(divRow);
     })
     .catch(error => console.error(error));
