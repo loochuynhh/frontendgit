@@ -91,7 +91,7 @@ addFilm.addEventListener("click", function () {
     document.addEventListener("click", handleOutsideClickAddFilm, true);
 });
 
-
+console.log(localStorage.getItem('token'));
 
 fetch(`${url}/${genre}`, {
   method: 'GET',
@@ -101,6 +101,7 @@ fetch(`${url}/${genre}`, {
   })
   .then(response => response.json())
   .then(genres => {
+    console.log(genres);
     genres.forEach(genre => {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
