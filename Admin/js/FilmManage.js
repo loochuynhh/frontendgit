@@ -1,11 +1,13 @@
 const URLFILM = "https://636b935c7f47ef51e13457fd.mockapi.io/product";
+const url = 'https://localhost:44308/api';
+const genre = 'genre';
 
 var addFilm = document.getElementById("addFilm");
 var overlay = document.getElementById("overlay");
 var overlayAddFilm = document.getElementById("overlayAddFilm")
 var btCancel = document.getElementById("btCancel");
 var btbtOK = document.getElementById("btOK");
-
+const genreListDiv = document.getElementById('genre-list');
 
 function deleteUsers(i) {
     let url = "https://636b935c7f47ef51e13457fd.mockapi.io/product" + i;
@@ -88,4 +90,33 @@ addFilm.addEventListener("click", function () {
     overlayAddFilm.style.display = "block";
     document.addEventListener("click", handleOutsideClickAddFilm, true);
 });
+
+console.log(localStorage.getItem('token'));
+
+fetch(`${url}/${genre}`, {
+  method: 'GET',
+  headers: {
+  'Authorization' : "bearer " + localStorage.getItem('token')
+  }
+  })
+  .then(response => response.json())
+  .then(genres => {
+    console.log(genres);
+    genres.forEach(genre => {
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.name = genre.name;
+      checkbox.value = genre.id;
+      checkbox.id = `genre-${genre.id}`;
+
+      const label = document.createElement('label');
+      label.htmlFor = `genre-${genre.id}`;
+      label.appendChild(document.createTextNode(genre.name));
+
+      genreListDiv.appendChild(checkbox);
+      genreListDiv.appendChild(label);
+    });
+  });
+
+
 

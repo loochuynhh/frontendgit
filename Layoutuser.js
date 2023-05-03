@@ -1,6 +1,6 @@
 const Users = `users`;
 const Password = "";
-const url = `https://localhost:44308`;
+const url = `https://localhost:44308/api`;
 const token = localStorage.getItem('token');
 
 var Overlay = document.getElementById("overlay");
