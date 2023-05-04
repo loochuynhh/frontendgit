@@ -3,28 +3,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rạp Chiếu Phim</title>
-    <!-- <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap-grid.rtl.min.css">
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap-reboot.rtl.min.css">
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap-utilities.min.css">
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap-utilities.rtl.min.css"> -->
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap.rtl.min.css"> -->
-    <link rel="stylesheet" href="./style.css">
+    <title>Rạp Chiếu Phim</title>  
+    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="./css/Film.css">
     <link rel="stylesheet" href="./css/HomePage.css"> 
-    <link rel="stylesheet" href="./css/Film.css"> 
-    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/js/bootstrap.min.js">
+    <link rel="stylesheet" href="./css/style.css"> 
+    <link rel="stylesheet" href="/frontendgit/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+    <link rel="stylesheet" href="/frontendgit/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+    <link rel="stylesheet" href="/frontendgit/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
 
 </head>
 <body>
-  <!-- Đăng nhập -->
+  <!-- Overlay -->
   <div class = "overlay" id="overlay" style="display:none">
     <div class="contentLogin whitebg text-center" id = "overlayLogin" style="display:none">
      <div class="form-signin w-100 m-auto">
        <form class="needs-validation" id = "formLogin" novalidate>
-         <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="25%" height="auto">
+         <img class="mb-4" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
          <h1 class="h3 mb-3 fw-normal">Đăng nhập</h1>
      
          <div class="input-group mb-3 has-validation">
@@ -46,7 +41,7 @@
     <div class="contentSignup bg-body-tertiary" id="overlaySignup" style="display:none">
       <div class="container">
         <div class="py-5 text-center">
-          <img class="mb-4" src="./fileanh/z4135286649769_c89296e4f8708b90e36f7a501d2e54ff.jpg" alt="" width="20%" height="auto">
+          <img class="mb-4" src="./Image/Logo.jpg" alt="" width="20%" height="auto">
           <h2>Đăng ký tài khoản</h2>
         </div>
     
@@ -275,52 +270,53 @@
   
         <button class="formbold-btn">Thêm phim mới</button>
       </form>
-    </div>
-    
-    <div class="b-example-divider"></div>
+    </div>  
+  <div class="b-example-divider"></div>
   </div>
-  <!--  -->
+  <!-- /Overlay  -->
 
   <!-- Header -->
   <header class="header text-bg-dark">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">  
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-between mb-md-0">
-            <li class = "nav-item"><a href="#" class="nav-link px-2 text-secondary">Trang chủ</a></li>
-            <li class = "nav-item"><a href="#" class="nav-link px-2 text-white">Phim</a></li>
-            <li class = "nav-item"><a href="#" class="nav-link px-2 text-white">Lịch chiếu</a></li>
-            <li class = "nav-item"><a href="#" class="nav-link px-2 text-white">Mua vé</a></li>
-            <li class = "nav-item"><a href="#" class="nav-link px-2 text-white">Góp ý</a></li>
+            <li class = "nav-item"><a href="./Index.html" class="nav-link px-2 text-secondary">Trang chủ</a></li>
+            <li class = "nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-white">Phim</a></li>
+            <li class = "nav-item"><a href="./LayoutSchedule.html" class="nav-link px-2 text-white">Lịch chiếu</a></li>
+            <li class = "nav-item"><a href="./LayoutBook.html" class="nav-link px-2 text-white">Mua vé</a></li>
+            <li class = "nav-item"><a href="./LayoutFeedback.html" class="nav-link px-2 text-white">Góp ý</a></li>
           </ul> 
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 ms-auto" role="search">
+          <form class="col-12 col-lg-3 mb-3 mb-lg-0 me-lg-5 ms-auto" role="search">
             <input type="search" class="nav-item form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
           </form> 
           <div class="text-end me-0">
-            <button id = "login-button" type="button" class="btn btn-outline-light me-2">Đăng nhập</button>
+            <button id = "login-button" type="button" class="btn btn-outline-light">Đăng nhập</button>
             <button id = "signupButton" type="button" class="btn btn-warning">Đăng ký</button> 
           </div> 
         </div> 
       </div>
   </header>
-  <!-- Header -->
+  <!-- /Header -->
 
+  <!-- Thông báo -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="modal-message"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modal-message"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-    
+  <!-- Thông báo -->
+
   <!--Slide ảnh  -->
   <div id="carouselExampleIndicators" class="carousel slide h-75" data-bs-ride="carousel">  
     <div class="carousel-indicators">
@@ -366,16 +362,18 @@
   </div>
   <!-- HomePage phía dưới  -->
 
-  <!-- List Film -->
-  <div class="row float-md-start" id="film-list">
-
+  <!-- List Film --> 
+  <div class="container">
+    <div class="row text-center" id="film-list">
+    </div>
+    <button type="button" class="btn btn-outline-warning show-more">Xem thêm <i class="fa-solid fa-right-long"></i></button> 
   </div>
   <!-- List Film -->
      
   <footer>
-    <div class="container">
+    <!-- <div class="container"> -->
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
+        <div class="col-md-6 d-flex align-items-center">
           <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
             <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
           </a>
@@ -383,18 +381,18 @@
         </div>
     
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./fileanh/GithubLogo.png" alt="Github icon" width="24" height="24"></a></li>
-          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./fileanh/FacebookLogo.png" alt="Facebook icon" width="24" height="24"></svg></a></li>
-          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./fileanh/InstagramLogo.png" alt="Instagram icon" width="24" height="24"></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/GithubLogo.png" alt="Github icon" width="24" height="24"></a></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/FacebookLogo.png" alt="Facebook icon" width="24" height="24"></svg></a></li>
+          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/InstagramLogo.png" alt="Instagram icon" width="24" height="24"></li>
         </ul>
       </footer>
-    </div>
+    <!-- </div> -->
   </footer>
     
-</body>
-<script src = "./Layoutanonymous.js"></script>
+</body> 
+<script src = "./js/HomePage.js"></script>
 <script src = "./js/Film.js"></script>
-<script src="./bootstrap-5.2.2-dist/umd/poper.min.js"></script>
+<script src = "./bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 <script src="./bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-<!-- <script src = "./bootstrap-5.2.2-dist/js/bootstrap.min.js"></script> -->
+<script src="./bootstrap-5.2.2-dist/umd/poper.min.js"></script>
 </html>

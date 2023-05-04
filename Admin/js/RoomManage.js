@@ -1,20 +1,18 @@
 // const URLROOM = "https://636b935c7f47ef51e13457fd.mockapi.io/room";
-const URLROOM = "https://localhost:7163/api/room";
+const URLROOM = "https://localhost:44308/api/room";
+const token = localStorage.getItem('token'); 
+var genre = 1, roomSelected = "", checkUpdate = 1;
 
 window.onload = loadListRoom();
 window.onload = loadData();
 
-var genre = 1, roomSelected = "", checkUpdate = 1;
 function loadListRoom() {
+    console.log(token);
     fetch(URLROOM,{
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Authorization' : "bearer " + token
         },
-        body: JSON.stringify({
-            email: username,
-            password: password,
-        }),
     })
         .then(response => response.json())
         .then(data => {
@@ -35,24 +33,23 @@ function loadData() {
     if (roomSelected !== "-1" && roomSelected !== "-2") {
         fetch(URLROOM + "/" + roomSelected, {
             method: 'GET',
-            // headers: {
-            //     'Content-Type': 'application/json'
-            // },
-            // body: JSON.stringify({
-            //     email: username,
-            //     password: password,
-            // }),
+            headers: {
+            'Authorization' : "bearer " + token
+            },
         })
             .then(response => response.json())
             .then(data => {
                 //console.log(roomSelected);
-                document.getElementById("roomName").value = data.RoomName;
-                document.getElementById("row").value = data.Row;
-                document.getElementById("col").value = data.Col;
-                document.getElementById("selectedRoomStatus").value = "Đang sửa"; //Chưa có data, khi nào có đổi thành data.Status;      
-                // document.getElementById("selectedSeatGenre").value = data.Col;
-                GetRowCol();
+                document.getElementById("roomName").value = data.name;
+                document.getElementById("row").value = data.row;
+                document.getElementById("col").value = data.col;
 
+                if (data.roomStatus === "READY") 
+                    document.getElementById("selectedRoomStatus").value ="Bình thường";
+                if (data.roomStatus === "REPAIRING")
+                    document.getElementById("selectedRoomStatus").value ="Đang sửa";
+                // document.getElementById("selectedSeatGenre").value = data.Col;
+                GetRowCol(); 
             })
             .catch(error => console.error(error));
     }
@@ -71,33 +68,29 @@ function Seat() {
                 li.addEventListener("click", () => {
                     getSeatOption();
                     if (genre === "VIP") {
-                        if (!li.classList.contains("selected")) {
-                            li.style.backgroundColor = "red";
-                            li.style.color = "white";
-                            li.classList.add("selected");
-                        } else {
-                            // Nếu ô li đang được chọn, thì xoá thuộc tính style
-                            li.style.backgroundColor = "";
-                            li.style.color = "";
-                            li.classList.remove("selected");
+                        if (!li.classList.contains("selected")) { 
+                            li.classList.add("selected","VIP");
+                        } else { 
+                            if(li.classList.contains("Double")){
+                                li.classList.remove("Double");
+                                li.classList.add("VIP");
+                            }else
+                            li.classList.remove("selected","Double", "VIP");
                         }
                     }
                     if (genre === "Đôi") {
-                        if (!li.classList.contains("selected")) {
-                            li.style.backgroundColor = "green";
-                            li.style.color = "white";
-                            li.classList.add("selected");
+                        if (!li.classList.contains("selected")) { 
+                            li.classList.add("selected", "Double");
                         } else {
-                            // Nếu ô li đang được chọn, thì xoá thuộc tính style
-                            li.style.backgroundColor = "";
-                            li.style.color = "";
-                            li.classList.remove("selected");
+                            if(li.classList.contains("VIP")){
+                                li.classList.remove("VIP");
+                                li.classList.add("Double");
+                            }else
+                            li.classList.remove("selected","Double", "VIP"); 
                         }
                     }
-                    if (genre === "Thường") {
-                        li.style.backgroundColor = "";
-                        li.style.color = "";
-                        li.classList.remove("selected");
+                    if (genre === "Thường") { 
+                        li.classList.remove("selected", "VIP", "Double");
                     }
 
                 });
@@ -141,50 +134,44 @@ function AddRoom() {
     document.getElementById("selectedRoomStatus").value = "Bình thường";
     document.getElementById("selectedSeatGenre").value = "VIP";
     document.getElementById("RoomNameForSelect").value = "-2";
-    fetch(URLROOM + "/" + roomSelected, {
-        method: 'POST',
-        // headers: {
-        //     'Content-Type': 'application/json'
-        // },
-        // body: JSON.stringify({
-        //     email: username,
-        //     password: password,
-        // }),
-    })
-        .then(response => response.json())
-        .then(data => {
 
-        })
-        .catch(error => console.error(error));
+    const newRoom = {
+        name: document.getElementById("roomName").value,
+        row: document.getElementById("row").value,
+        col: document.getElementById("col").value, 
+    }
+
+    console.log(newRoom);
+    // fetch(URLROOM + "/" + roomSelected, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Authorization' : "bearer " + token
+    //     },
+    //     body: JSON.stringify({
+    //         email: username,
+    //         password: password,
+    //     }),
+    // })
+    //     .then(response => response.json())
+    //     .then(data => {
+
+    //     })
+    //     .catch(error => console.error(error));
 }
 
 function DeleteRoom() {
     if (roomSelected !== "-1" && roomSelected !== "-2") {
         fetch(URLROOM + "/" + roomSelected, {
-            method: 'Delete',
-            // headers: {
-            //     'Content-Type': 'application/json'
-            // },
-            // body: JSON.stringify({s
-            //     email: username,
-            //     password: password,
-            // }),
+            method: 'DELETE',
+            headers: {
+                'Authorization' : "bearer " + token
+            },
         })
-            .then(response => response.json())
-            .then(data => {
-                let select = document.getElementById("RoomNameForSelect");
-                for (let i = select.options.length - 1; i >= 2; i--) {
-                    select.remove(i);
-                }
-                loadListRoom();
-                document.getElementById("roomName").value = "";
-                document.getElementById("row").value = "";
-                document.getElementById("col").value = "";
-                document.getElementById("selectedRoomStatus").value = "Bình thường";
-                document.getElementById("selectedSeatGenre").value = "VIP";
-                document.getElementById("RoomNameForSelect").value = "-1";
-            })
-            .catch(error => console.error(error));
+        let select = document.getElementById("RoomNameForSelect");
+        for (let i = select.options.length - 1; i >= 2; i--) {
+            select.remove(i);
+        }
+        location.reload(); 
     }
 }
 

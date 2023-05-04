@@ -3,11 +3,22 @@ hr{
     /* border: 1px solid rgb(228, 35, 35); */
     border: 0.8px solid black;
 }
-
+.divInfo > div:not(.Name) {
+    display: none;
+}
+.row ul:nth-child(n+9) {
+    display: none;
+  }
 .container{
     /* margin-top: 2%; */
 }
-
+.show-more{
+    /* padding: ; */
+    font-size: 18px;
+    padding: 0.6% 2.2%; 
+    position: relative;
+    left: 85%;
+}
 .status-film{ 
     padding: 1%;
     font-weight: 520;
@@ -20,7 +31,7 @@ hr{
     color: rgb(242, 139, 4);
 }
 
-#film-list{ 
-    margin: 1% 21vw;
+/* #film-list{ 
+    margin: 1% 21vw; */
     /* text-align: center; */
-}
+/* } */

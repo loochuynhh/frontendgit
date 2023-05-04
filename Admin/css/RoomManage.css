@@ -17,6 +17,18 @@
     max-width: 16.4vw;
 }
 /* Own CSS */
+.VIP{
+    background-color: red;
+    color: white;
+}
+.Double{
+    background-color: green;
+    color: white;
+}
+.Normal{
+    background-color: #dcdee1; 
+    color: black;
+}
 .change-room{
     display: flex;
     align-items: center;

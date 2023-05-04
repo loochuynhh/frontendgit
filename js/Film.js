@@ -11,7 +11,7 @@ fetch(URLFILM)
         for (let i = 0; i < data.length; i++) {
 
             const ulFilm = document.createElement('ul');
-            ulFilm.classList.add('col-md-3');
+            ulFilm.classList.add('col-md-3','col-sm-6','col-xs-12');
 
             const liFilm = document.createElement('li'); 
 
@@ -44,7 +44,7 @@ fetch(URLFILM)
             const spDate = document.createElement('span');
 
             const btnBook = document.createElement('button');  
-            btnBook.className = 'btn';
+            btnBook.className = 'btn-book';
             btnBook.textContent = 'ĐẶT VÉ';
             btnBook.addEventListener('click', function() {
                 window.location.href = 'https://www.youtube.com/';
