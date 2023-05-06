@@ -9,9 +9,7 @@ hr{
 .row ul:nth-child(n+9) {
     display: none;
   }
-.container{
-    /* margin-top: 2%; */
-}
+
 .show-more{
     /* padding: ; */
     font-size: 18px;

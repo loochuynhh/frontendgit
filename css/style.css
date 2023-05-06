@@ -80,7 +80,42 @@ ul.nav2 {
   border-radius: 10px;
   /* Bo tròn viền của div con */
 }
-
+.contentInfo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  /* Chiều rộng của div con */
+  max-height: 85%;
+  /* Chiều cao tối đa của div con */
+  overflow-y: auto;
+  /* Cho phép cuộn nếu nội dung của div con quá dài */
+  background-color: white;
+  /* Màu nền của div con */
+  padding: 20px;
+  /* Khoảng cách giữa nội dung và viền của div con */
+  border-radius: 10px;
+  /* Bo tròn viền của div con */
+}
+.contentAddFilm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  /* Chiều rộng của div con */
+  max-height: 85%;
+  /* Chiều cao tối đa của div con */
+  overflow-y: auto;
+  /* Cho phép cuộn nếu nội dung của div con quá dài */
+  background-color: white;
+  /* Màu nền của div con */
+  padding: 20px;
+  /* Khoảng cách giữa nội dung và viền của div con */
+  border-radius: 10px;
+  /* Bo tròn viền của div con */
+}
 footer {
   bottom: 0;
   left: 0;
