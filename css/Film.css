@@ -1,9 +1,19 @@
-body img:not(header img):not(footer img) {
-    /* display: inline-block;
+.poster-film {
+    display: inline-block;
     height: 24vw;
-    width: 16vw; */
+    width: 16vw;
 }
-
+.status-film{ 
+    padding: 1%;
+    font-weight: 520;
+    font-size: 1.1em;
+    font-family: sans-serif;
+    color: black;
+    text-decoration: none; 
+}
+.status-film:hover{ 
+    color: rgb(242, 139, 4);
+} 
 ul li {
     list-style: none;
 }

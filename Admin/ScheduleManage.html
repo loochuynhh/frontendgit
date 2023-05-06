@@ -7,6 +7,7 @@
     <title>Quản lý phòng chiếu</title>
     <link href="./css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/RoomManage.css"> 
+    <link rel="stylesheet" href="./css/ScheduleManage.css"> 
     <link rel="stylesheet" href="/frontendgit/src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/frontendgit/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
     <link rel="stylesheet" href="/frontendgit/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
@@ -69,54 +70,45 @@
                 </div>
             </nav>
         </div>
-        <div id="layoutSidenav_content">
+        <div id="layoutSidenav_content"> 
             <div class="container-fluid px-4">
-                <h2 class="name-feature">Quản lý phòng chiếu</h2>
+                <h2 class="name-feature">Quản lý lịch chiếu</h2>  
                 <div class="change-room"> 
-                    <select class="form-select" id="RoomNameForSelect" onchange="loadData()">
-                        <option value="-2" style="display: none;" selected disabled ></option>
-                        <option value="-1" selected disabled>Chọn một lựa chọn</option> 
+                    <select class="form-select">
+                        <option value="Hôm nay" selected="">Hôm nay</option>
+                        <option value="7 ngày tới">7 ngày tới</option> 
                     </select>
                     <div class="add-remove-room">
-                        <button class="btn btn-primary" onclick="AddRoom()" ><i class="fa-solid fa-plus"></i> Thêm phòng chiếu</button>
-                        <button class="btn btn-danger" onclick="DeleteRoom()"><i class="fa-regular fa-trash"></i> Xóa phòng chiếu</button> 
+                        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm lịch chiếu</button> 
                     </div> 
                 </div>
-                <div class="info">  
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Tên phòng chiếu:</span>
-                        <input type="text" class="form-control" id="roomName">
+
+                <div class="card mb-4">                        
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Danh sách lịch chiếu
                     </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Số lượng hàng ghế:</span>
-                        <input type="text" class="form-control" id="row" onchange="GetRowCol()">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Số lượng cột ghế:</span>
-                        <input type="text" class="form-control" id="col" onchange="GetRowCol()">
+                    <div class="table-body"> 
+                        <table class="table table-bordered" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Giờ bắt đầu</th>
+                                    <th>Giờ kết thúc</th>
+                                    <th>Phim</th>
+                                    <th>Phòng chiếu</th>
+                                    <th>Xóa</th>
+                                </tr> 
+                            </thead>
+                            <tbody id="body-table"> 
+                            </tbody>
+                        </table>
                     </div> 
-                </div> 
-                <div class="room-option" >  
-                    <label>Trạng thái phòng chiếu:</label>
-                    <select class="form-select select-option" id="selectedRoomStatus" onchange="getRoomOption()">
-                        <option value="Bình thường" selected="" >Bình thường</option> 
-                        <option value="Đang sửa">Đang sửa</option>  
-                    </select>
                 </div>
-                <div class="seat-option" >  
-                    <label>Chọn loại ghế:</label>
-                    <select class="form-select select-option" id="selectedSeatGenre"  onchange="getSeatOption()">
-                        <option value="VIP" selected="">VIP</option> 
-                        <option value="Đôi">Đôi</option> 
-                        <option value="Thường">Thường</option> 
-                    </select>
-                </div>
-                <div id="seat">  
-                </div>   
-            </div> 
-        </div> 
+            </div>  
+        </div>
     <script src="js/scripts.js"></script> 
-    <script src="./js/RoomManage.js"></script>
+    <!-- <script src="./js/RoomManage.js"></script> -->
+    <script src="./js/ScheduleManage.js"></script>
     <script src="/frontendgit/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

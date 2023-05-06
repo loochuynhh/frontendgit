@@ -1,4 +1,5 @@
 const URLFILM = 'https://636b935c7f47ef51e13457fd.mockapi.io/product';
+const URLFILMDETAIL =  'http://127.0.0.1:5502/FilmDetails.html';
 
 fetch(URLFILM)
     .then(response => response.json())
@@ -18,6 +19,7 @@ fetch(URLFILM)
             const divImage = document.createElement('div');
             const aImage = document.createElement('a'); 
             const imgImage = document.createElement('img');
+            imgImage.className = 'poster-film';
 
             const divInfo = document.createElement('div');
             divInfo.className = 'divInfo';
@@ -40,7 +42,7 @@ fetch(URLFILM)
             const divSchedule = document.createElement('div'); 
             const sptxtSchedule = document.createElement('span');
             sptxtSchedule.className = 'sptxtSchedule';
-            sptxtSchedule.textContent = 'Ngày chiếu: ';
+            sptxtSchedule.textContent = 'Khởi chiếu: ';
             const spDate = document.createElement('span');
 
             const btnBook = document.createElement('button');  
@@ -51,13 +53,13 @@ fetch(URLFILM)
             });
 
             imgImage.src = data[i].Poster;
-            aImage.setAttribute('href', 'https://www.youtube.com/');
+            aImage.setAttribute('href', URLFILMDETAIL + '?filmId=' + data[i].id);
             aImage.appendChild(imgImage);
             divImage.appendChild(aImage); 
             
             divName.append(data[i].Name);
             divName.addEventListener('click', function() {
-                window.location.href = 'https://www.youtube.com/';
+                window.location.href = URLFILMDETAIL + '?filmId=' + data[i].id ;
             });
             divName.appendChild(aName);
 

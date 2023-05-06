@@ -1,0 +1,23 @@
+.film-info{
+    /* display: flex; */
+    flex-wrap: wrap;
+    width: 50vw;
+    margin-bottom: 1.8vh;
+    /* align-items: center; */
+}
+.spInfo{
+    flex-grow: 1;
+    word-wrap: break-word;
+    font-size: 18px;  
+    /* margin-right: 12px; */
+}
+.sptxt{
+    white-space: pre-wrap;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 0.5vw;
+}
+#imgFilm{
+    height: 24vw;
+    width: 16vw;
+} 
