@@ -1,4 +1,6 @@
-const URLFILM = 'https://636b935c7f47ef51e13457fd.mockapi.io/product';
+// const URLFILM = 'https://636b935c7f47ef51e13457fd.mockapi.io/product';
+// const URLFILMDETAIL =  'http://127.0.0.1:5502/FilmDetails.html';
+const URLFILM = 'https://localhost:44308/api/film';
 const URLFILMDETAIL =  'http://127.0.0.1:5502/FilmDetails.html';
 
 fetch(URLFILM)
@@ -25,10 +27,11 @@ fetch(URLFILM)
             divInfo.className = 'divInfo';
 
             const divName = document.createElement('div');
-            divName.className = 'Name';
+            divName.classList.add('Name', 'hide-content');
             const aName = document.createElement('a');  
 
             const divGenre = document.createElement('div');
+            divGenre.className = 'hide-content';
             const sptxtGenre = document.createElement('span');
             sptxtGenre.className = 'sptxtGenre';
             sptxtGenre.textContent = 'Thể loại: ';
@@ -36,6 +39,7 @@ fetch(URLFILM)
 
             const divLength = document.createElement('div'); 
             const spLength = document.createElement('span');
+            spLength.className = 'spLength';
             const spAgeLimit = document.createElement('span');
             spAgeLimit.className = 'spAgeLimit';
 
@@ -52,27 +56,36 @@ fetch(URLFILM)
                 window.location.href = 'https://www.youtube.com/';
             });
 
-            imgImage.src = data[i].Poster;
+            imgImage.src = data[i].posterUrl;
             aImage.setAttribute('href', URLFILMDETAIL + '?filmId=' + data[i].id);
             aImage.appendChild(imgImage);
             divImage.appendChild(aImage); 
             
-            divName.append(data[i].Name);
+            divName.append(data[i].name);
             divName.addEventListener('click', function() {
                 window.location.href = URLFILMDETAIL + '?filmId=' + data[i].id ;
             });
             divName.appendChild(aName);
 
-            spGenre.append(data[i].Genre);
+            let genres = data[i].genres; 
+            let nameGenres = "";
+            for(let j = 0; j<genres.length; j++){
+                if (j != genres.length - 1) nameGenres += genres[j].name + ", ";
+                else nameGenres += genres[j].name;
+            }
+            spGenre.append(nameGenres); 
             divGenre.appendChild(sptxtGenre);
             divGenre.appendChild(spGenre);
 
-            spLength.append(data[i].Length);
-            spAgeLimit.append(data[i].AgeLimit);
+            spLength.append(data[i].length + " Phút   |");
+            spAgeLimit.append("C" + data[i].ageLimit);
             divLength.appendChild(spLength);
             divLength.appendChild(spAgeLimit);
 
-            spDate.append(data[i].Schedule);
+            const datetimeString = data[i].releaseDate;
+            const datetime = new Date(datetimeString);
+            const formattedDate = datetime.toLocaleDateString();  
+            spDate.append(formattedDate);
             divSchedule.appendChild(sptxtSchedule);
             divSchedule.appendChild(spDate);
 

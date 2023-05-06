@@ -4,10 +4,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rạp Chiếu Phim</title>  
-    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">  
     <!-- <link rel="stylesheet" href="./css/HomePage.css">  -->
     <link rel="stylesheet" href="./css/style.css"> 
     <link rel="stylesheet" href="./css/FilmDetail.css"> 
+    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">  
     <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
     <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
     <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
@@ -321,13 +321,34 @@
   <div class="container mt-5 d-flex">
     <img id="imgFilm">
     <div class="ms-5" id="list-info"> 
+      <div class="film-info" id="divInfoDirector">
+        <span class="sptxt">Đạo diễn:           </span>
+      </div>
+      <div class="film-info" id="divInfoActor">
+        <span class="sptxt">Diễn viên:          </span>
+      </div>
+      <div class="film-info" id="divInfoGenre">
+        <span class="sptxt">Thể loại:             </span>
+      </div>
+      <div class="film-info" id="divInfoPremiere">
+        <span class="sptxt">Đạo diễn:           </span>
+      </div>
+      <div class="film-info" id="divInfoLength">
+        <span class="sptxt">Thời lượng:       </span>
+      </div>
+      <div class="film-info" id="divInfoAgeLimit">
+        <span class="sptxt">Giới hạn tuổi:    </span>
+      </div>
     </div>
     <div>
       <button class="btn btn-danger">Đặt vé</button>
     </div>   
+  </div> 
+  <div class="container mt-5 text-center">
+    <p id="content-film" class="text-justify"></p>
   </div>
-  <div class="d-flex justify-content-center mt-5" >
-    <iframe src="https://www.youtube.com/embed/GdFL8EKHR2I" frameborder="0" width="560" height="315" allowfullscreen></iframe>
+  <div class="container mt-5 text-center">
+    <iframe id="trailer" frameborder="0" width="560" height="315" allowfullscreen></iframe> 
   </div>
   
    <!-- FilmDetail -->
