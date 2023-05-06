@@ -24,3 +24,6 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+function adminlogout(){
+    localStorage.clear();
+}
