@@ -8,16 +8,21 @@
 .spInfo{
     flex-grow: 1;
     word-wrap: break-word;
-    font-size: 18px;  
+    font-size: 17px;  
     /* margin-right: 12px; */
 }
 .sptxt{
     white-space: pre-wrap;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
     margin-left: 0.5vw;
 }
 #imgFilm{
     height: 24vw;
     width: 16vw;
+} 
+#content-film{
+    text-align: justify;
+    font-size: 18px;
+    font-family: sans-serif;
 } 
