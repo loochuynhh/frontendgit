@@ -2,67 +2,86 @@
 .form-select {
     width: 16vw !important;
     margin: 2vh 0vh;
-} 
+}
+
 .input-group-text {
     width: 16vw;
-} 
-.btn{   
+}
+
+.btn {
     width: auto;
     height: auto;
-    margin: 0.8vw; 
-    line-height: 1px; ;
-}  
+    margin: 0.8vw;
+    line-height: 1px; 
+}
+
 .form-control {
     text-align: left;
     max-width: 16.4vw;
 }
+
 /* Own CSS */
-.VIP{
-    background-color: red;
+.seat-root {
+    background-color: transparent;
+    /* border: 0.2px solid #000; */
+    color: black;
+}
+
+.VIP {
+    background-color: #f5c342;
     color: white;
 }
-.Double{
+
+.Double {
     background-color: green;
     color: white;
 }
-.Normal{
-    background-color: #dcdee1; 
+
+.Normal {
+    background-color: #dcdee1;
     color: black;
 }
-.change-room{
+
+.change-room {
     display: flex;
     align-items: center;
     justify-content: space-between;
-} 
-.seat-option, .room-option{
+}
+
+.seat-option,
+.room-option {
     display: flex;
-    align-items: center; 
+    align-items: center;
     margin-left: 0.3vw;
     /* margin: 0.9vw; */
-} 
+}
+
 .name-feature {
     margin-top: 1.5rem;
 }
-.seat-option label, .room-option label{
+
+.seat-option label,
+.room-option label {
     width: 16vw;
-} 
-.divSaveCancel{
+}
+
+.divSaveCancel {
     display: inline-block;
     text-align: center;
-} 
-.room-option label{
+}
+
+.room-option label {
     padding-right: 2%;
 }
-.divSaveCancel{
-    padding-left: 2.2vw;
+
+.divSaveCancel {
+    /* padding-left: 2.2vw; */
 }
-.btn-save-cancel{ 
+
+.btn-save-cancel {
     width: 7vw !important;
     /* padding-left: 10vw; */
-}
-#seat{ 
-    text-align: center;
-}
+} 
 
 li {
     /* text-align: center; */
@@ -75,4 +94,16 @@ li {
     line-height: 40px;
     color: 44464b;
     cursor: pointer;
+}
+
+.screen {
+    width: 60%;
+    margin-top: 2vh;
+    margin-bottom: 4vh; 
+    background-image: repeating-linear-gradient(50deg, #E3E3E3 0px, #E3E3E3 3px,
+            transparent 3px, transparent 4px, #E3E3E3 0px);
+    color: #0e1d2f;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
 }

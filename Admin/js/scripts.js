@@ -27,3 +27,16 @@ window.addEventListener('DOMContentLoaded', event => {
 function adminlogout(){
     localStorage.clear();
 }
+ 
+//number-only
+const inputElements = document.getElementsByClassName("number-only");
+
+for (let i = 0; i < inputElements.length; i++) {
+  inputElements[i].addEventListener("keypress", function(event) {
+    const keyCode = event.keyCode;
+    if (keyCode < 48 || keyCode > 57) {
+      event.preventDefault();
+    }
+  });
+}
+//number-only

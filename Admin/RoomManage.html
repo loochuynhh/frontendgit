@@ -89,11 +89,11 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Số lượng hàng ghế:</span>
-                        <input type="text" class="form-control" id="row" onchange="GetRowCol()">
+                        <input type="number" class="form-control number-only" id="row" onchange="GetRowCol()">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Số lượng cột ghế:</span>
-                        <input type="text" class="form-control" id="col" onchange="GetRowCol()">
+                        <input type="text" class="form-control number-only" id="col" onchange="GetRowCol()">
                     </div> 
                 </div> 
                 <div class="room-option" >  
@@ -111,9 +111,9 @@
                         <option value="Thường">Thường</option> 
                     </select>
                 </div>
-                <div id="seat">  
+                <div class="d-flex flex-column align-items-center" id="seat">    
                 </div>   
-            </div> 
+            </div>  
         </div> 
     <script src="./js/scripts.js"></script> 
     <script src="./js/RoomManage.js"></script>

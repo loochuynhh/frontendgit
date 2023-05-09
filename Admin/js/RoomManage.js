@@ -130,15 +130,27 @@ function changeSeatOption(li) {
 }
 function Seat() {
     if (col !== "" && row !== "") {
+        const divScreen = document.createElement("div");
+        divScreen.innerHTML = "MÀN HÌNH";
+        divScreen.classList.add("screen");
+        document.getElementById("seat").appendChild(divScreen);
         for (let i = 1; i <= row; i++) {
             let ul = document.createElement("ul");
-            for (let j = 1; j <= col; j++) {
-                let li = document.createElement("li");
-                li.className = "seatMap";
-                li.textContent = j;
-                li.addEventListener("click", function () {
-                    changeSeatOption(this);
-                });
+            ul.className = "p-0";
+            for (let j = 0; j <= parseInt(col) + 1; j++) {
+                let li = document.createElement("li"); 
+                if(j == "0" || j == parseInt(col) + 1){
+                    li.className = "seat-root"; 
+                    // console.log(65 + i);
+                    li.textContent = String.fromCharCode(64 + i);
+                }else{
+                    li.className = "seatMap";
+                    li.textContent = j;
+                    li.addEventListener("click", function () {
+                        changeSeatOption(this);
+                    });
+                }
+                
                 ul.appendChild(li);
             }
             document.getElementById("seat").appendChild(ul);
