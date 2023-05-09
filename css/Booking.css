@@ -1,0 +1,31 @@
+.name-selected-type {
+    background: #14274E;
+    color: white;
+    padding: 0.4vw;
+    /* border-radius: 3.5%; */
+}
+
+.age-limit {
+    font-weight: bold;
+    color: white;
+    background: #e17346;
+    padding: 1%;
+    margin-right: 2%;
+    margin-left: auto;
+}
+
+.list-film-select:hover {
+    background-color: #e4dede;
+}
+#thead-food{
+    background: #FAD6A5;
+    color: black;
+}
+ul li{ 
+    list-style: none;
+}
+.page-control{
+    text-decoration: none;
+    
+    color: #e17346;
+}
