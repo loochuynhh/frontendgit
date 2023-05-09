@@ -79,11 +79,14 @@ function deleteUsers(i){
       console.log(response.status);
       if (!response.ok) {
         showAlertTimeOut('Xóa phim thất bại');
+        location.reload();
         throw new Error('Đã xảy ra lỗi khi thêm phim mới');
       }
       showAlertTimeOut('Đã xóa phim');
+      location.reload();
     })
     .catch((error) => {
+      location.reload();
       console.error("Error:", error);
     });
 }
@@ -209,11 +212,14 @@ formUpdate.addEventListener('submit', async (event) => {
     .then(response => {
       if (!response.ok) {
         showAlertTimeOut('Chỉnh sửa không thành công');
+        location.reload();
         throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
       }
       showAlertTimeOut('Sửa phim thành công');
+      location.reload();
     })
     .catch(error => {
+      location.reload();
       console.error(error);
     });
   }
@@ -406,15 +412,16 @@ formUpdate.addEventListener('submit', async (event) => {
 
     if(check == 0){
       showAlertTimeOut('Chỉnh sửa phim thành công');
+      location.reload();
     }else if(check == 1){
       showAlertTimeOut('Thông tin phim mới không hợp lệ');
-      console.log(1);
+      location.reload();
     }else if(check == 2){
-      showAlertTimeOut('Ảnh thêm vào Poster không hợp lệ');
-      console.log(2);
+      showAlertTimeOut('Ảnh thêm vào Poster không hợp lệ')
+      location.reload();
     }else{
       showAlertTimeOut('Ảnh thêm vào AdsPoster không hợp lệ');
-      console.log(3);
+      location.reload();
     }
   }
 })
@@ -530,7 +537,9 @@ fetch(`${url}/${film}`, {
       tdName.innerHTML = data[i].name;
       tdLength.innerHTML = data[i].length;
       tdFilmStatus.innerHTML = data[i].filmStatus;
+      var checkdelete = true;
       btnDelete.addEventListener("click", function () {
+        checkdelete = false;
         showAlert("Bạn có chắc chắn muốn xóa");
         btCancel.addEventListener('click', function() {
           const modal = document.getElementById('exampleModal');
@@ -541,12 +550,14 @@ fetch(`${url}/${film}`, {
           const modal = document.getElementById('exampleModal');
           const modalInstance = bootstrap.Modal.getInstance(modal);
           modalInstance.hide();
-          deleteUsers(i+1);
+          deleteUsers(data[i].id);
         });
       });
       trFilmTable.addEventListener("click", function () {
+        if(checkdelete == true){
         const id = this.getAttribute("data-id");
         updateFilm(id);
+        }
       });
       trFilmTable.appendChild(tdName);
       trFilmTable.appendChild(tdLength);
@@ -686,11 +697,14 @@ form.addEventListener('submit', async (event) => {
   .then(response => {
     if (!response.ok) {
       showAlertTimeOut('Thêm phim mới không thành công');
+      location.reload();
       throw new Error('Đã xảy ra lỗi khi thêm phim mới');
     }
     showAlertTimeOut('Thêm phim mới thành công');
+    location.reload();
   })
   .catch(error => {
+    location.reload();
     console.error(error);
   });
 });

@@ -162,7 +162,12 @@ function Seat() {
         let btnSave = document.createElement("button");
         btnSave.classList.add("btn", "btn-outline-primary", "btn-save-cancel");
         btnSave.textContent = "LƯU";
-        btnSave.addEventListener("click", Save);
+        //btnSave.addEventListener("click", Save);
+        btnSave.addEventListener("click", async (event) => {
+            if(document.getElementById("roomName").value == ''){
+                alert("Vui lòng nhập tên phòng");
+            }else{ Save();}
+        })
         let btnCancel = document.createElement("button");
         btnCancel.classList.add("btn", "btn-outline-secondary", "btn-save-cancel");
         btnCancel.addEventListener("click", loadData);

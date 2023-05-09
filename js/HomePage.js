@@ -22,11 +22,12 @@ var overlayHome = document.getElementById("overlayHome");
 var OverlayInfor = document.getElementById("overlayInfo");
 var dropdowninfo = document.getElementById("info");
 var dropdownlogout = document.getElementById("logout");
-var passwordChange = document.getElementById("passwordChange");
-var changePasswordForm = document.getElementById("changePasswordForm");
-var oldPassword = document.getElementById("oldPassword");
-var newPassword = document.getElementById("newPassword");
-var newPasswordConfirm = document.getElementById("newPasswordConfirm");
+var passwordChange = document.getElementById("passwordChangeInfo");
+var changePasswordForm = document.getElementById("changePasswordFormInfo");
+var oldPassword = document.getElementById("oldPasswordInfo");
+var newPassword = document.getElementById("newPasswordInfo");
+var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo");
+var passwordLogin = document.getElementById('passwordLogin');
 
 function handleOutsideClickLogin(event) {
   if (!OverlayLogin.contains(event.target)) {
@@ -100,12 +101,47 @@ function showAlertVer2(message) {
   OverlaySignup.style.display = "none";
   myModal.show();
 }
+
 function showAlertTimeOut(message) {
   document.getElementById("modal-message").innerHTML = message;
   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
   Overlay.style.display = "none";
   OverlayLogin.style.display = "none";
   OverlaySignup.style.display = "none";
+  myModal.show();
+  setTimeout(function(){
+    myModal.hide();
+  }, 800);
+}
+function showAlertTimeOutLogin(message) {
+  document.getElementById("modal-message").innerHTML = message;
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+  Overlay.style.display = "block";
+  OverlayLogin.style.display = "block";
+  OverlaySignup.style.display = "none";
+  myModal.show();
+  setTimeout(function(){
+    myModal.hide();
+  }, 800);
+}
+function showAlertTimeOutSignup(message) {
+  document.getElementById("modal-message").innerHTML = message;
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+  Overlay.style.display = "block";
+  OverlayLogin.style.display = "none";
+  OverlaySignup.style.display = "block";
+  myModal.show();
+  setTimeout(function(){
+    myModal.hide();
+  }, 800);
+}
+function showAlertTimeOutInfo(message) {
+  document.getElementById("modal-message").innerHTML = message;
+  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+  Overlay.style.display = "block";
+  OverlayLogin.style.display = "none";
+  OverlaySignup.style.display = "none";
+  OverlayInfor.style.display = "none";
   myModal.show();
   setTimeout(function(){
     myModal.hide();
@@ -141,6 +177,18 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
     return;
   } else { document.getElementById("passwordConfirm").classList.remove("is-invalid");}
 
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  var Password = document.getElementById("password").value;
+  if (!event.target.checkValidity()) {
+    event.target.classList.add('was-validated');
+    return;
+  }
+  if (passwordRegex.test(Password)) {
+  } else {
+    showAlertTimeOutSignup('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
+    return;
+  }
+
   var Name = document.getElementById("name").value;
   var Email = document.getElementById("email").value;
   var Address = document.getElementById("address").value;
@@ -151,7 +199,7 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
     Gender = true;
   }
   var Birth = document.getElementById("dateOfBirth").value;
-  var Password = document.getElementById("password").value;
+  
   var Role = "USER";
 
   fetch(`${url}/${signup}`, {
@@ -190,12 +238,19 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
 document.querySelector('#formLogin').addEventListener('submit', function(event) {
   event.preventDefault(); 
   event.stopPropagation(); 
+  
+  const username = document.getElementById("emailLogin").value;
+  const password = document.getElementById("passwordLogin").value;
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
   if (!event.target.checkValidity()) {
     event.target.classList.add('was-validated');
     return;
   }
-  const username = document.getElementById("emailLogin").value;
-  const password = document.getElementById("passwordLogin").value;
+  if (passwordRegex.test(password)) {
+  } else {
+    showAlertTimeOutLogin('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
+    return;
+  }
   fetch(`${url}/${Login}`, {
     method: 'POST',
     headers: {
@@ -208,16 +263,14 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
   })
     .then(response => {
       if (!response.ok) {
+        showAlertTimeOut('Tài khoản không chính xác');
         throw new Error('Unauthorized');
-      }
-      else {
-        // 
-        
       }
       return response.json();
     })
     .then(data => {
       localStorage.setItem('token', data.accessToken);
+      console.log(localStorage.getItem('token'));
       fetch(`${url}/${genre}`, {
         method: 'GET',
         headers: {
@@ -256,22 +309,21 @@ passwordChange.addEventListener("change", function() {
   }
 });
 
-
-
 dropdownlogout.onclick = function (){
   overlayHome.style.display = "block";
   overlayUser.style.display = "none";
   Overlay.style.display = "none";
   OverlayLogin.style.display = "none";
+  passwordLogin.value = '';
   localStorage.clear();
 }
 function showdata(person){
-        var name = document.getElementById("name");
-        var email = document.getElementById("email");
-        var address = document.getElementById("address");
-        var phoneNumber = document.getElementById("phoneNumber");
-        var gender = document.getElementById("gender");
-        var dateOfBirth = document.getElementById("dateOfBirth");
+        var name = document.getElementById("nameInfo");
+        var email = document.getElementById("emailInfo");
+        var address = document.getElementById("addressInfo");
+        var phoneNumber = document.getElementById("phoneNumberInfo");
+        var gender = document.getElementById("genderInfo");
+        var dateOfBirth = document.getElementById("dateOfBirthInfo");
         //var password = document.getElementById("password");
         //var passwordConfirm = document.getElementById("passwordConfirm");
     
@@ -285,15 +337,13 @@ function showdata(person){
         else{gender.value = "1"}
         const dateISO = person.birth.split('T')[0];
         dateOfBirth.value = dateISO;
-        // password.value = person.password;
-        // passwordConfirm.value = person.password;
-    
+        // console.log(person);
 }
 function getInfo() {
     fetch(`${url}/${Users}`, {
         method: 'GET',
         headers: {
-        'Authorization' : "bearer " + token
+        'Authorization' : "bearer " + localStorage.getItem('token')
         }
     })
     .then(response => {
@@ -312,9 +362,8 @@ function getInfo() {
     });
 } 
 
-
 function handleOutsideClickInfo(event) {
-  if (!OverlaySignup.contains(event.target)) {
+  if (!OverlayInfor.contains(event.target)) {
     OverlaySignup.style.display = "none";
     Overlay.style.display = "none";
     OverlayInfor.style.display = "none";
@@ -354,6 +403,12 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
     if(newPassword != newPasswordConfirm && changePasswordForm.style.display == 'block'){
       document.getElementById("newPasswordConfirm").classList.add("is-invalid");
       console.log("2");
+      return;
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    if (passwordRegex.test(newPassword)) {
+    } else {
+      showAlertTimeOutInfo('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
       return;
     }
     
@@ -426,6 +481,6 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
     else{
       showAlert("Thay đổi mật khẩu không thành công");
     }
-  });
+});
 
 
