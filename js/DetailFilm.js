@@ -19,17 +19,17 @@ fetch(URLFILM)
         const divInfoLength = document.getElementById("divInfoLength");  
         const divInfoAgeLimit = document.getElementById("divInfoAgeLimit");       
 
-        const spDirector = document.createElement("span");
+        const spDirector = document.createElement("div");
         spDirector.className = "spInfo"; 
-        const spActor = document.createElement("span");
+        const spActor = document.createElement("div");
         spActor.className = "spInfo"; 
-        const spGenre = document.createElement("span");
+        const spGenre = document.createElement("div");
         spGenre.className = "spInfo"; 
-        const spPremiere = document.createElement("span");
+        const spPremiere = document.createElement("div");
         spPremiere.className = "spInfo"; 
-        const spLength = document.createElement("span");
+        const spLength = document.createElement("div");
         spLength.className = "spInfo"; 
-        const spAgeLimit = document.createElement("span"); 
+        const spAgeLimit = document.createElement("div"); 
         spAgeLimit.classList.add("spInfo", "fw-bold", "text-danger"); 
 
         h2Name.append(data.name);

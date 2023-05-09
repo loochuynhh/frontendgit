@@ -19,8 +19,8 @@
     <div class="contentLogin whitebg text-center" id = "overlayLogin" style="display:none">
      <div class="form-signin w-100 m-auto">
        <form class="needs-validation" id = "formLogin" novalidate>
-         <img class="mb-4" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
-         <h1 class="h3 mb-3 fw-normal">Đăng nhập</h1>
+         <img class="mb-3" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
+         <h1 class="h3 mb-4 fw-normal">ĐĂNG NHẬP</h1>
      
          <div class="input-group mb-3 has-validation">
            <input type="email" class="form-control" id="emailLogin" placeholder="Địa chỉ Email" required>
@@ -40,9 +40,9 @@
     </div>
     <div class="contentSignup bg-body-tertiary" id="overlaySignup" style="display:none">
       <div class="container">
-        <div class="py-5 text-center">
+        <div class="pt-1 pb-3 text-center">
           <img class="mb-4" src="./Image/Logo.jpg" alt="" width="20%" height="auto">
-          <h2>Đăng ký tài khoản</h2>
+          <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
         </div>
     
         <div class="col-8 mx-auto">
@@ -133,22 +133,22 @@
       
     </div>
     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display:none">
-      <strong>Lỗi!</strong> Đăng ký thất bại.
+      <strong>Lỗi!</strong> Đăng nhập thất bại.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
-      <strong>Thành công!</strong> Đăng ký thành công.
+      <strong>Thành công!</strong> Đăng nhập thành công.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <div class="contentSignup bg-body-tertiary" id="overlayAddFilm" style="display:none">
       <form action="https://formbold.com/s/FORM_ID" method="POST">
         <div class="formbold-input-flex">
           <div>
-            <label for="name" class="formbold-form-label"> Tên Phim </label>
+            <label for="filmName" class="formbold-form-label"> Tên Phim </label>
             <input
               type="text"
-              name="name"
-              id="name"
+              name="filmName"
+              id="filmName"
               placeholder="Tên Phim"
               class="formbold-form-input"
             />
@@ -182,8 +182,8 @@
             <label for="director" class="formbold-form-label"> Đạo diễn </label>
             <input
             type="text"
-            name="actor"
-            id="actor"
+            name="director"
+            id="director"
             placeholder="Tên đạo diễn"
             class="formbold-form-input"
             />
@@ -220,29 +220,7 @@
             class="formbold-form-input"
           />
         </div>
-        <!-- <div class="formbold-mb-3">
-          <label for="dob" class="formbold-form-label"> When can you start? </label>
-          <input type="date" name="dob" id="dob" class="formbold-form-input" />
-        </div> -->
-  
-        <!-- <div class="formbold-mb-3">
-          <label for="actor" class="formbold-form-label"> Đạo diễn </label>
-  
-          <input
-            type="text"
-            name="actor"
-            id="actor"
-            placeholder="Street address"
-            class="formbold-form-input formbold-mb-3"
-          />
-          <input
-            type="text"
-            name="address2"
-            id="address2"
-            placeholder="Street address line 2"
-            class="formbold-form-input"
-          />
-        </div> -->
+        
   
         <div class="formbold-mb-3">
           <label for="content" class="formbold-form-label">
@@ -271,7 +249,113 @@
         <button class="formbold-btn">Thêm phim mới</button>
       </form>
     </div>  
-  <div class="b-example-divider"></div>
+    <div class="container contentInfo" id ="overlayInfo" style="display:none">
+      <div class="py-5 text-center">
+        <img class="mb-4" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
+        <h2>Thông tin tài khoản</h2>
+      </div>
+      <div class="col-8 mx-auto">
+        <h4 class="mb-3">Chỉnh sửa thông tin của bạn</h4>
+        <form class="needs-validation" id = "formInfo" novalidate >
+          <div class="row g-3 my-2">
+            <div class="col-12">
+              <label for="name" class="form-label">Họ và tên</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn tại đây" required>
+                <div class="invalid-feedback">
+                  Tên tài khoản là bắt buộc
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <div class="input-group has-validation">
+                <input type="email" class="form-control" id="email" placeholder="Nhập Email của bạn tại đây" required>
+                <div class="invalid-feedback">
+                  Email phải có dạng example@abc.xyz
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="phoneNumber" class="form-label">Số điện thoại</label>
+              <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
+              <div class="invalid-feedback">
+                Vui lòng nhập số điện thoại hợp lệ
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="address" class="form-label">Địa chỉ <span class="text-body-secondary">(Optional)</span></label>
+              <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ của bạn tại đây">
+            </div>
+
+            <div class="col-md-5">
+              <label for="gender" class="form-label">Giới tính</label>
+              <select class="form-select" id="gender" required>
+
+                <option value="0">Nam</option>
+                <option value="1">Nữ</option>
+              </select>
+              <div class="invalid-feedback">
+                Vui lòng chọn giới tính
+              </div>
+              </div>
+
+              <div class="col-md-7">
+                <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
+                <div class="input-group has-validation">
+                  <input type="date" class="form-select" id="dateOfBirth" required>
+                  <div class="invalid-feedback">
+                    Vui lòng nhập ngày sinh
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+          <div>
+            <input class = "my-2" type="checkbox" id="passwordChange">
+            <label for="passwordChange">Thay đổi mật khẩu</label>
+          </div>
+          <div class="row g-3" id ="changePasswordForm" style="display:none">
+            <div class="col-12">
+              <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="oldPassword" placeholder="Nhập mật khẩu cũ của bạn tại đây" novalidate>
+                <div class="invalid-feedback">
+                  Yêu cầu nhập mật khẩu trước đó
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="newPassword" class="form-label">Mật khẩu mới</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="newPassword" placeholder="Nhập mật khẩu mới của bạn tại đây" novalidate>
+                <div class="invalid-feedback">
+                  Vui lòng nhập mật khẩu mới 
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="newPasswordConfirm" class="form-label">Xác nhận mật khẩu mới</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="newPasswordConfirm" placeholder="Xác nhận mật khẩu mới của bạn tại đây" novalidate>
+                <div class="invalid-feedback">
+                  Vui lòng nhập mật khẩu mới chính xác 
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4">
+          <div class="col-8 mx-auto">
+            <button id ="updatebutton" type="submit" class="w-100 btn btn-primary btn-lg">Chỉnh sửa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <div class="b-example-divider"></div>
   </div>
   <!-- /Overlay  -->
 
@@ -280,16 +364,30 @@
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">  
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-between mb-md-0">
-            <li class = "nav-item"><a href="./Index.html" class="nav-link px-2 text-secondary">Trang chủ</a></li>
-            <li class = "nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-white">Phim</a></li>
+            <li class = "nav-item"><a href="./HomePage.html" class="nav-link px-2 text-white">Trang chủ</a></li>
+            <li class = "nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-secondary">Phim</a></li>
             <li class = "nav-item"><a href="./LayoutSchedule.html" class="nav-link px-2 text-white">Lịch chiếu</a></li>
-            <li class = "nav-item"><a href="./LayoutBook.html" class="nav-link px-2 text-white">Mua vé</a></li>
+            <li class = "nav-item"><a href="./LayoutBooking.html" class="nav-link px-2 text-white">Mua vé</a></li>
             <li class = "nav-item"><a href="./LayoutFeedback.html" class="nav-link px-2 text-white">Góp ý</a></li>
           </ul> 
           <form class="col-12 col-lg-3 mb-3 mb-lg-0 me-lg-5 ms-auto" role="search">
             <input type="search" class="nav-item form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
           </form> 
-          <div class="text-end me-0">
+
+          <div class="dropdown text-end" id = "overlayUser" style="display: none">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="./Image/user.png" alt="mdo" width="50" height="auto" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" id = "info" href="#">Thông tin</a></li>
+              <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+              <li><a class="dropdown-item" href="#">Giới thiệu</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" id = "logout">Đăng xuất</a></li>
+            </ul>
+          </div>
+
+          <div class="text-end me-0" id = "overlayHome" style="display: block">
             <button id = "login-button" type="button" class="btn btn-outline-light">Đăng nhập</button>
             <button id = "signupButton" type="button" class="btn btn-warning">Đăng ký</button> 
           </div> 
@@ -376,6 +474,7 @@
 </body> 
 <!-- <script src = "./js/HomePage.js"></script>  -->
 <script src="/js/DetailFilm.js"></script>
+<script src="/js/HomePage.js"></script>
 <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
 <script src="./src/bootstrap-5.2.2-dist/umd/poper.min.js"></script>
