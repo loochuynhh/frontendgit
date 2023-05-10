@@ -11,3 +11,22 @@ thead{
 .highlight-row:hover {
     background-color: #f5f5f5; 
   }
+
+.form-select {
+    width: 24vw !important;
+    margin: 1vh 0vh;
+}
+.name-feature {
+    margin-top: 1.5rem;
+}
+.schedule-option {
+    display: flex;
+    align-items: center;
+    margin-left: 0.3vw;
+    /* margin: 0.9vw; */
+} 
+
+.schedule-option label {
+    width: 16vw;
+} 
+  
