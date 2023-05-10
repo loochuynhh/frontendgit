@@ -1,7 +1,7 @@
 // const URLROOM = "https://636b935c7f47ef51e13457fd.mockapi.io/room";
 const URLROOM = "https://localhost:44308/api/room";
 const token = localStorage.getItem('token');
-var genre = 1, roomSelected = "", checkUpdate = 1;
+var genre = 1, roomSelected = "", checkUpdate = 1, checkRoomStatus;
 
 window.onload = loadListRoom();
 window.onload = loadData();
@@ -42,10 +42,6 @@ function loadData() {
                 document.getElementById("row").value = data.row; 
                 document.getElementById("col").value = data.col; 
 
-                if (data.roomStatus === "READY")
-                    document.getElementById("selectedRoomStatus").value = "Bình thường";
-                if (data.roomStatus === "REPAIRING")
-                    document.getElementById("selectedRoomStatus").value = "Đang sửa";
                 var listSeat = [];
                 (data.seats).forEach(element => {
                     var seat = {
@@ -55,9 +51,28 @@ function loadData() {
                     };
                     listSeat.push(seat);
                 }); 
-                // Seat(listSeat);
+
+                if (data.roomStatus === "READY"){
+                    document.getElementById("selectedRoomStatus").value = "Bình thường";
+                    document.getElementById("roomName").disabled = true;
+                    document.getElementById("row").disabled = true;
+                    document.getElementById("col").disabled = true;
+                    document.getElementById("selectedSeatGenre").disabled = true; 
+                    checkRoomStatus = "Bình thường";
+
+                }
+                if (data.roomStatus === "REPAIRING"){
+                    document.getElementById("selectedRoomStatus").value = "Đang sửa"; 
+                    document.getElementById("roomName").disabled = false;
+                    document.getElementById("row").disabled = false;
+                    document.getElementById("col").disabled = false;
+                    document.getElementById("selectedSeatGenre").disabled = false;
+                    checkRoomStatus = "Đang sửa";
+                }
                 GetRowCol();
                 loadTypeSeat(listSeat);
+                 
+                
             })
             .catch(error => console.error(error));
     }else{
@@ -146,9 +161,11 @@ function Seat() {
                 }else{
                     li.className = "seatMap";
                     li.textContent = j;
-                    li.addEventListener("click", function () {
-                        changeSeatOption(this);
-                    });
+                    if(checkRoomStatus === "Đang sửa"){
+                        li.addEventListener("click", function () {
+                            changeSeatOption(this);
+                        });
+                    } 
                 }
                 
                 ul.appendChild(li);
@@ -187,7 +204,13 @@ function GetRowCol() {
     Seat();
 } 
 function AddRoom() {
-    checkUpdate = 0;
+    checkUpdate = 0; 
+    checkRoomStatus = "Đang sửa";
+    document.getElementById("roomName").disabled = false;
+    document.getElementById("row").disabled = false;
+    document.getElementById("col").disabled = false;
+    document.getElementById("selectedSeatGenre").disabled = false;
+
     document.getElementById("roomName").value = "";
     document.getElementById("row").value = "";
     document.getElementById("col").value = "";
@@ -225,6 +248,34 @@ function createRoom(){
     } 
     return newRoom;
 }
+function createRoomforUpdate(){
+    let liList = document.querySelectorAll(".seatMap");
+    let colCount = document.getElementById("col").value;
+    let listSeat = [];
+
+    liList.forEach((li, index) => {
+        let rowCoords = Math.floor(index / colCount) + 1; // lấy tọa độ hàng
+        let colCoords = index % colCount + 1; // lấy tọa độ cột 
+        let seatType = 3;
+        if (li.classList.contains("VIP")) seatType = 1;
+        if (li.classList.contains("Double")) seatType = 2;
+
+        let seat = { 
+            position: rowCoords + "-" + colCoords,
+            seatTypeId: seatType
+        };
+        listSeat.push(seat);
+    });
+
+    var newRoom = {
+        id: document.getElementById("RoomNameForSelect").value,
+        name: document.getElementById("roomName").value,
+        row: document.getElementById("row").value,
+        col: document.getElementById("col").value,
+        seats: listSeat
+    } 
+    return newRoom;
+}
 function DeleteRoom() {
     if (roomSelected !== "-1" && roomSelected !== "-2") {
         fetch(URLROOM + "/" + roomSelected, {
@@ -244,6 +295,35 @@ function DeleteRoom() {
 function Save() {
     if (checkUpdate === 1) {            //Thuc hien update
         console.log("update");
+        if(document.getElementById("selectedRoomStatus").value !== checkRoomStatus){
+            console.log("request change status");
+            var roomStatus = "READY";
+            if (document.getElementById("selectedRoomStatus").value === "Đang sửa") roomStatus = "REPAIRING"; 
+            const URLSTATUSROOM = 'https://localhost:44308/api/room/status/' + document.getElementById("RoomNameForSelect").value + '?roomStatus=' + roomStatus
+            console.log("idroom url:", URLSTATUSROOM);
+            fetch(URLSTATUSROOM, {
+                method: "PUT",
+                headers: {  
+                    "Authorization": "bearer " + token
+                }, 
+            })
+            location.reload();
+        }else{
+            console.log("request change room");
+            var newRoomforUpdate = createRoomforUpdate(); 
+            console.log(newRoomforUpdate);
+            const URLSTATUSROOM = 'https://localhost:44308/api/room';
+            fetch(URLSTATUSROOM, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "bearer " + token
+                },
+                body: JSON.stringify(newRoomforUpdate)
+            })
+            location.reload();
+        }
+        
     }
     if (checkUpdate === 0) {
         console.log("add");
