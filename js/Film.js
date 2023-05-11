@@ -5,9 +5,7 @@
 var URLFILM = 'https://localhost:44308/api/film/showing';
 const URLFILMDETAIL = 'http://127.0.0.1:5502/FilmDetails.html';
 
-window.onload = function(){ 
-    loadFilm(URLFILM);
-}
+window.onload = loadFilm(URLFILM);
 
 function selectShowingFilm(event) {  
     const links = document.querySelectorAll('.status-film');

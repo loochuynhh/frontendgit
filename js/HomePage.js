@@ -29,6 +29,23 @@ var newPassword = document.getElementById("newPasswordInfo");
 var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo");
 var passwordLogin = document.getElementById('passwordLogin');
 
+window.onload = loadSlide();
+
+function loadSlide(){ 
+    fetch("https://localhost:44308/api/film/showing")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("slide-img1").src = data[0].adPosterUrl;
+      document.getElementById("slide-img2").src = data[1].adPosterUrl;
+      document.getElementById("slide-img3").src = data[2].adPosterUrl;
+      document.getElementById("slide-img4").src = data[3].adPosterUrl;
+      document.getElementById("slide-img5").src = data[4].adPosterUrl;
+    })
+    .catch(error => console.error(error));
+} 
+function showmore(){
+  window.location.href = "/LayoutFilm.html";
+}
 function handleOutsideClickLogin(event) {
   if (!OverlayLogin.contains(event.target)) {
     OverlayLogin.style.display = "none";
