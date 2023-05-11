@@ -11,22 +11,32 @@ var overlayAddFilm = document.getElementById("overlayAddFilm");
 var overlayUpdateFilm = document.getElementById("overlayUpdateFilm");
 var btCancel = document.getElementById("btCancel");
 var btOK = document.getElementById("btOK");
+var updateMoviePoster = document.getElementById('updateMoviePoster');
+var updateMovieAdposter = document.getElementById('updateMovieAdposter');
 
 const genreListDiv1 = document.getElementById('genre-list1');
 const genreListDiv2 = document.getElementById('genre-list2');
-const viewImagePoster = document.getElementById('viewImagePoster');
-const viewImageAdPoster = document.getElementById('viewImageAdPoster');
+const reviewImagePoster = document.getElementById('reviewImagePoster');
+const reviewImageAdPoster = document.getElementById('reviewImageAdPoster');
 const form = document.querySelector('#movie-form');
 const formUpdate = document.querySelector('#movieformUpdate');
 const posterChange = document.getElementById("posterChange"); 
 const poterfile = document.getElementById("poterfile");
-
+const viewImagePoster = document.getElementById("viewImagePoster");
+const viewImageAdPoster = document.getElementById("viewImageAdPoster");
+const reviewPoster = document.getElementById("reviewPoster");
+const reviewAdPoster = document.getElementById("reviewAdPoster");
+const overlayReview = document.getElementById("overlayReview");
 
 posterChange.addEventListener("change", function() {
   if (this.checked) {
     poterfile.style.display = "block";
+    viewImagePoster.style.display = "none";
+    viewImageAdPoster.style.display = "none";
   } else {
     poterfile.style.display = "none";
+    viewImagePoster.style.display = "inline-block";
+    viewImageAdPoster.style.display = "inline-block";
   }
 });
 
@@ -144,16 +154,64 @@ async function updateFilm(id){
     });
   }
   viewImagePoster.addEventListener("click", function () {
-    console.log(movie);
-    console.log(movie.posterUrl);
     window.open(movie.posterUrl, 'Ảnh Poster');
   });
   viewImageAdPoster.addEventListener("click", function () {
-    console.log(movie.adPosterUrl);
     window.open(movie.adPosterUrl, 'Ảnh Poser');
   });
   idglobal = id;
 }
+function handleOutsideClickReviewPoster(event) {
+  if (!reviewPoster.contains(event.target)) {
+    overlayReview.style.display = 'none';
+    reviewPoster.style.display = 'none';
+    overlay.style.display = 'block';
+    overlayUpdateFilm.style.display = 'block';
+    document.removeEventListener("click", handleOutsideClickReviewPoster, true);
+    document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+  }
+}
+reviewImagePoster.addEventListener('click', function() {
+  //const file = updateMoviePoster.files[0]; 
+  if (updateMoviePoster.files && updateMoviePoster.files[0]) {
+    const reader = new FileReader(); 
+    reader.addEventListener('load', function() {
+      reviewPoster.src = reader.result;
+      overlayUpdateFilm.style.display = 'none';
+      overlayReview.style.display = 'block';
+      reviewPoster.style.display = 'block';
+      document.addEventListener("click", handleOutsideClickReviewPoster, true);
+    });
+    reader.readAsDataURL(updateMoviePoster.files[0]);
+  } else {
+    alert('Vui lòng chọn file');
+  }
+});
+function handleOutsideClickReviewAdPoster(event) {
+  if (!reviewAdPoster.contains(event.target)) {
+    overlayReview.style.display = 'none';
+    reviewAdPoster.style.display = 'none';
+    overlay.style.display = 'block';
+    overlayUpdateFilm.style.display = 'block';
+    document.removeEventListener("click", handleOutsideClickReviewAdPoster, true);
+    document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+  }
+}
+reviewImageAdPoster.addEventListener('click', function() {
+  if (updateMovieAdposter.files && updateMovieAdposter.files[0]) {
+    const reader = new FileReader(); 
+    reader.addEventListener('load', function() {
+      reviewAdPoster.src = reader.result;
+      overlayUpdateFilm.style.display = 'none';
+      overlayReview.style.display = 'block';
+      reviewAdPoster.style.display = 'block';
+      document.addEventListener("click", handleOutsideClickReviewAdPoster, true);
+    });
+    reader.readAsDataURL(updateMovieAdposter.files[0]);
+  } else {
+    alert('Vui lòng chọn file');
+  }
+});
 
 formUpdate.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -235,8 +293,7 @@ formUpdate.addEventListener('submit', async (event) => {
     //   alert('Vui lòng chọn ít nhất một thể loại!');
     //   return;
     // }
-    const updateMoviePoster = document.getElementById('updateMoviePoster');
-    const updateMovieAdposter = document.getElementById('updateMovieAdposter');
+
     if (!updateMoviePoster.files || updateMoviePoster.files.length === 0) {
       alert('Vui lòng chọn ảnh Poster');
       return;

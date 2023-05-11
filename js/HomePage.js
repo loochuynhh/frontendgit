@@ -133,7 +133,7 @@ function showAlertTimeOutSignup(message) {
   myModal.show();
   setTimeout(function(){
     myModal.hide();
-  }, 800);
+  }, 1000);
 }
 function showAlertTimeOutInfo(message) {
   document.getElementById("modal-message").innerHTML = message;
@@ -141,7 +141,7 @@ function showAlertTimeOutInfo(message) {
   Overlay.style.display = "block";
   OverlayLogin.style.display = "none";
   OverlaySignup.style.display = "none";
-  OverlayInfor.style.display = "none";
+  OverlayInfor.style.display = "block";
   myModal.show();
   setTimeout(function(){
     myModal.hide();
@@ -165,6 +165,12 @@ function showUnsuccess(){
   }, 2000);
 }
 
+function isValidPhoneNumber(phoneNumber) {
+  // Xác thực theo chuẩn số điện thoại Việt Nam
+  const regex = /^(0[1-9]|1[0-9]|2[0-9]|3[2-9]|5[6|8|9]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{8}$/;
+  return regex.test(phoneNumber);
+}
+
 document.querySelector('#formSignup').addEventListener('submit', function(event) {
   event.preventDefault(); 
   event.stopPropagation(); 
@@ -185,10 +191,10 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
   }
   if (passwordRegex.test(Password)) {
   } else {
-    showAlertTimeOutSignup('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
+    showAlertTimeOutSignup('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
     return;
   }
-
+  
   var Name = document.getElementById("name").value;
   var Email = document.getElementById("email").value;
   var Address = document.getElementById("address").value;
@@ -198,8 +204,19 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
   if(gender.value === "0") {
     Gender = true;
   }
+  if (!isValidPhoneNumber(Phone)) {
+    showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
+    return;
+  }
   var Birth = document.getElementById("dateOfBirth").value;
-  
+  let dateObj = new Date(Birth);
+  let year = dateObj.getFullYear();
+  let currentYear = new Date().getFullYear() - 3;
+  if (year >= 1900 && year <= currentYear) {
+  } else{
+    showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
+    return;
+  }
   var Role = "USER";
 
   fetch(`${url}/${signup}`, {
@@ -225,12 +242,12 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
       showAlert("Đăng ký thành công!");
     } else {
       // showUnsuccess();
-      showAlert("Đăng ký thất bại!");
+      showAlertTimeOutSignup("Đăng ký thất bại!");
     }
   })
   .catch(error => {
     // showUnsuccess();
-    showAlert("Đăng ký thất bại!");
+    showAlertTimeOutSignup("Đăng ký thất bại!");
     console.error("Lỗi khi đăng ký tài khoản:", error);
   });
 });
@@ -263,7 +280,7 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
   })
     .then(response => {
       if (!response.ok) {
-        showAlertTimeOut('Tài khoản không chính xác');
+        showAlertTimeOutLogin('Tài khoản không chính xác');
         throw new Error('Unauthorized');
       }
       return response.json();
@@ -387,31 +404,32 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
       return;
     }
     
-    var name = document.getElementById("name").value;
-    var email = document.getElementById("email").value;
-    var address = document.getElementById("address").value;
-    var phoneNumber = document.getElementById("phoneNumber").value;
-    var Gender = document.getElementById("gender").value;
-    var birth = document.getElementById("dateOfBirth").value;
-    var oldPassword = document.getElementById("oldPassword").value;
-    var newPassword = document.getElementById("newPassword").value;
-    var newPasswordConfirm = document.getElementById("newPasswordConfirm").value;
+    var name = document.getElementById("nameInfo").value;
+    var email = document.getElementById("emailInfo").value;
+    var address = document.getElementById("addressInfo").value;
+    var phoneNumber = document.getElementById("phoneNumberInfo").value;
+    var Gender = document.getElementById("genderInfo").value;
+    var birth = document.getElementById("dateOfBirthInfo").value;
+    var oldPassword = document.getElementById("oldPasswordInfo").value;
+    var newPassword = document.getElementById("newPasswordInfo").value;
+    var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo").value;
     var gender = false;
     if(Gender == '0') {
         gender = true;
     }
-    if(newPassword != newPasswordConfirm && changePasswordForm.style.display == 'block'){
-      document.getElementById("newPasswordConfirm").classList.add("is-invalid");
-      console.log("2");
-      return;
-    }
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    if (passwordRegex.test(newPassword)) {
-    } else {
-      showAlertTimeOutInfo('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
-      return;
-    }
     
+    if (!isValidPhoneNumber(phoneNumber)) {
+      showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
+      return;
+    }
+    let dateObj = new Date(birth);
+    let year = dateObj.getFullYear();
+    let currentYear = new Date().getFullYear() - 3;
+    if (year >= 1900 && year <= currentYear) {
+    } else{
+      showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
+      return;
+    }
     localStorage.setItem('put', 0);
     fetch(`${url}/${Users}`, {
       method: 'PUT',
@@ -446,6 +464,17 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
     });
 
     if (changePasswordForm.style.display == 'block') {
+      if(newPassword != newPasswordConfirm){
+        document.getElementById("newPasswordConfirmInfo").classList.add("is-invalid");
+        console.log("2");
+        return;
+      }
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+      if (passwordRegex.test(newPassword)) {
+      } else {
+        showAlertTimeOutInfo('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
+        return;
+      }
       fetch(`${url}/${Password}`, {
         method: 'PUT',
         headers: {
@@ -476,10 +505,10 @@ document.querySelector('#formInfo').addEventListener('submit', function(event) {
     if(localStorage.getItem('put') == 0){
       showAlert("Chỉnh sửa thành công");
     }else if(localStorage.getItem('put') == 1){
-      showAlert("Thông tin cá nhân không hợp lệ");
+      showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
     }
     else{
-      showAlert("Thay đổi mật khẩu không thành công");
+      showAlertTimeOutInfo("Thay đổi mật khẩu không thành công");
     }
 });
 

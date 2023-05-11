@@ -7,10 +7,18 @@
     <title>Quản lý phòng chiếu</title>
     <link href="./css/styles.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="./css/RoomManage.css">  -->
-    <link rel="stylesheet" href="./css/ScheduleManage.css"> 
+    <!-- <link rel="stylesheet" href="./css/ScheduleManage.css"> 
     <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">  -->
+    <link rel="stylesheet" href="./css/FilmManage.css">
+    <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="./css/ScheduleManage.css">
+    <link rel="stylesheet" href="./css/styles.css"> 
+    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
 </head>
 <body>
@@ -28,6 +36,38 @@
                 Hello, admin</div>
         </ul>
     </nav>
+    <div class="overlay" id="overlay" style="display: none">
+      <div class="contentAddSchedule bg-body-tertiary" id="overlayAddSchedule" style="display:none">
+          <div class="py-5 text-center">
+              <img class="mb-4" src="Image/logo.png" alt="" width="20%" height="auto">
+              <h3>Thêm lịch chiếu</h3>
+          </div>
+          <form id="schedule-form">
+            <div class="schedule-option" >  
+              <label>Phim:</label>
+              <select class="form-select" id = "formFilm">
+                  <option value="Chọn một phim" selected="" >Chọn một phim</option>  
+              </select>
+            </div>
+            <div class="schedule-option" >  
+                <label>Phòng chiếu:</label>
+                <select class="form-select" id = "formRoom">
+                    <option value="VIP" selected="">Chọn một phòng chiếu</option>  
+                </select>
+            </div>
+            <div class="schedule-option" >  
+                <label>Ngày chiếu:</label>
+                <input type="date" class="form-select" id = "dateSchedule">
+            </div>   
+
+            <div class="schedule-option" >  
+                <label>Giờ chiếu:</label>
+                <input type="time" class="form-select" id = "hourSchedule">
+            </div>
+            <button class="formbold-btn" id="buttonAddSchedule">Thêm lịch chiếu mới</button>
+          </form>
+      </div>
+    </div>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark"
@@ -58,9 +98,9 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Thống kê
                         </a>
-                        <a class="nav-link" href="/frontendgit/Index.html">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></div>
-                            Đăng xuất
+                        <a class="nav-link" onclick="adminlogout()" href="/HomePage.html">
+                          <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></div>
+                          Đăng xuất
                         </a>
                     </div>
                 </div>
@@ -70,20 +110,25 @@
                 </div>
             </nav>
         </div>
-        <!-- Add Schedule -->
         <div id="layoutSidenav_content"> 
-            <div class="container-fluid px-4 d-none"  >
+            <div class="container-fluid px-4">
                 <h2 class="name-feature">Quản lý lịch chiếu</h2>  
-                <div class="change-room"> 
-                    <select class="form-select">
-                        <option value="Hôm nay" selected="">Hôm nay</option>
-                        <option value="7 ngày tới">7 ngày tới</option> 
-                    </select>
-                    <div class="add-remove-room">
-                        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm lịch chiếu</button> 
+                <div class = "d-flex justify-content-between">
+                    <div class="change-room"> 
+                        <select class="form-select" id ="selectTimeSchedule">
+                            <option value="Hôm nay" selected="">Hôm nay</option>
+                            <option value="Ngày mai">Ngày mai</option> 
+                            <option value="Ngày mốt">Ngày mốt</option> 
+                            <option value="5 Ngày tới">5 Ngày tới</option> 
+                        </select>
+                    </div>
+                    <div class="add-film">
+                        <button type="button" id = "btAddSchedule" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                            <i class="fa-solid fa-plus"></i>
+                            THÊM LỊCH CHIẾU
+                        </button>
                     </div> 
                 </div>
-
                 <div class="card mb-4">                        
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
@@ -106,7 +151,7 @@
                     </div> 
                 </div>
             </div>  
-            <div class="container-fluid px-4">
+            <!-- <div class="container-fluid px-4">
                 <h2 class="name-feature">Quản lý lịch chiếu</h2>  
                 <h5 class="name-feature text-secondary pb-3">Quản lý lịch chiếu / Thêm lịch chiếu</h5>   
                 <div class="schedule-option" >  
@@ -152,11 +197,47 @@
                     <label>Giờ chiếu:</label>
                     <input type="time" class="form-select">
                 </div>  
-            </div>
+            </div> -->
+            
         </div>
-    <script src="js/scripts.js"></script> 
-    <!-- <script src="./js/RoomManage.js"></script> -->
-    <script src="./js/ScheduleManage.js"></script>
-    <script src="/frontendgit/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal-message"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id = "btOK" data-bs-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-secondary" id = "btCancel" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modal-message2"></p>
+          </div>
+          <!-- <div class="modal-footer">
+            
+          </div> -->
+        </div>
+      </div>
+    </div>
 </body>
+    <script src="./js/scripts.js"></script>
+    <script src="./js/datatables-simple-demo.js"></script>
+    <script src="./js/ScheduleManage.js"></script>
+    <script src="/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
 </html>

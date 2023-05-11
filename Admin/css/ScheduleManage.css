@@ -29,4 +29,13 @@ thead{
 .schedule-option label {
     width: 16vw;
 } 
-  
+.btnDelete{
+    width: 50%;
+    background-color: rgba(221, 28, 28, 0.771);
+    color: white;
+    border: 0;
+    border-radius: 8%;
+}
+.tdCenter{
+    text-align: center;
+}

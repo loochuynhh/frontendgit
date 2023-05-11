@@ -130,7 +130,7 @@
           />
         </div>
         <div class="formbold-mb-3">
-          <label for="dateOfRelease" class="form-label">Ngày Phát hành <label class="text-danger">*</label></label>
+          <label for="dateOfRelease" class="formbold-form-label">Ngày Phát hành <label class="text-danger">*</label></label>
           <div class="input-group has-validation">
             <input type="date" class="form-select" id="dateOfRelease" required>
           </div>
@@ -166,11 +166,10 @@
             required
           />
         </div>
-        
         <button class="formbold-btn" id="buttonAddFilm">Thêm phim mới</button>
       </form>
     </div>
-    <div class="contentSignup bg-body-tertiary" id="overlayUpdateFilm" style="display:none">
+    <div class="contentSignup bg-body-tertiary" id="overlayUpdateFilm" style="display:none; z-index: 1;">
       <div class="py-5 text-center">
           <img class="mb-4" src="Image/logo.png" alt="" width="30%" height="auto">
           <h2>Chỉnh sửa thông tin phim</h2>
@@ -266,7 +265,7 @@
           />
         </div>
         <div class="formbold-mb-3">
-          <label for="updateMovieDateOfRelease" class="form-label">Ngày Phát hành</label>
+          <label for="updateMovieDateOfRelease" class="formbold-form-label">Ngày Phát hành <label class="text-danger">*</label></label>
           <div class="input-group has-validation">
             <input type="date" class="form-select" id="updateMovieDateOfRelease" required>
           </div>
@@ -286,7 +285,10 @@
         <div>
           <input class = "my-2" type="checkbox" id="posterChange">
           <label for="posterChange">Thay đổi các Poster</label>
+          <button id = "viewImagePoster" class="btn btn-outline-dark custombuttonViewPoster">Xem Poster</button>
+          <button id = "viewImageAdPoster" class="btn btn-outline-dark custombuttonViewAdsPoster">Xem AdsPoster</button>
         </div>
+        
         <div class="formbold-form-file-flex" style="display:none" id = "poterfile">
           <label for="updateMoviePoster" class="formbold-form-label">Poster</label>
           <input
@@ -294,9 +296,8 @@
             name="updateMoviePoster"
             id="updateMoviePoster"
             class="formbold-form-file"
-            
           />
-          <button id = "viewImagePoster" class="btn btn-outline-dark custombuttonposter">Xem Poster</button>
+          <button id = "reviewImagePoster" class="btn btn-outline-dark custombuttonposter">Xem trước Poster</button>
           <label for="updateMovieAdposter" class="formbold-form-label">AdsPoster</label>
           <input
             type="file"
@@ -305,11 +306,15 @@
             class="formbold-form-file"
             
           />
-          <button id = "viewImageAdPoster" class="btn btn-outline-dark custombuttonadposter">Xem AdsPoster</button>
+          <button id = "reviewImageAdPoster" class="btn btn-outline-dark custombuttonadposter">Xem trước AdsPoster</button>
         </div>
         
         <button class="formbold-btn" id="buttonUpdateFilm">Chỉnh sửa</button>
       </form>
+    </div>
+    <div class="col-6 position-relative top-50 start-50 translate-middle" id = "overlayReview" style="display:none; z-index: 10;">
+      <img src="" alt="" id = "reviewPoster" class = "img-fluid col-8" style="display:none">
+      <img src="" alt="" id = "reviewAdPoster" class = "img-fluid" style="display:none">
     </div>
   </div>
   <div id="layoutSidenav">
@@ -419,7 +424,7 @@
         </div> -->
       </div>
     </div>
-</div>
+  </div>
   <script src="./js/scripts.js"></script>
   <script src="./js/datatables-simple-demo.js"></script>
   <script src="./js/FilmManage.js"></script>
