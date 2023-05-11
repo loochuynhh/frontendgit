@@ -77,7 +77,7 @@ selectTimeSchedule.addEventListener('change', function () {
                         tdDelete.appendChild(btnDelete);
                         let tdRoom = document.createElement("td");
                         tdRoom.className = "tdCenter";
-                        tdStartTime.innerHTML = data[i][j].startTime;
+                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime)); 
                         tdEndTime.innerHTML = data[i][j].endTime;
                         tdFilm.innerHTML = data[i][j].filmName;
                         for (let t = 0; t < formRoom.options.length; t++) {
@@ -566,4 +566,17 @@ async function getSchedule() {
             }
         })
         .catch(error => console.error(error));
+}
+
+function formatDate(date) {
+    const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString('vi-VN', options);
+    return formattedDate;
+}
+
+function formatTime(date) {
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`;
+    return formattedTime;
 }
