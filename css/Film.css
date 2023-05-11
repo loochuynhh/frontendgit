@@ -14,6 +14,10 @@
 .status-film:hover{ 
     color: rgb(242, 139, 4);
 } 
+
+.active-film-status { 
+    color: rgb(242, 139, 4);
+}
 ul li {
     list-style: none;
 }
