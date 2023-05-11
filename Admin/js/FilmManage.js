@@ -243,7 +243,7 @@ formUpdate.addEventListener('submit', async (event) => {
       });
     });
     const ReleaseDate = document.getElementById('updateMovieDateOfRelease').value;
-    const filmStatus = "NOSCHEDULED";
+    const filmStatus = "AVAILABLE";
 
     const Movie = {
       id: idglobal,
@@ -369,7 +369,7 @@ formUpdate.addEventListener('submit', async (event) => {
       });
     });
     const ReleaseDate = document.getElementById('updateMovieDateOfRelease').value;
-    const filmStatus = "NOSCHEDULED";
+    const filmStatus = "AVAILABLE";
 
     const Movie = {
       id: idglobal,
@@ -720,7 +720,7 @@ form.addEventListener('submit', async (event) => {
     });
   });
   const ReleaseDate = document.getElementById('dateOfRelease').value;
-  const filmStatus = "NOSCHEDULED";
+  const filmStatus = "AVAILABLE";
   const newMovie = {
     name,
     country,
