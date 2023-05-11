@@ -577,7 +577,9 @@ fetch(`${url}/${film}`, {
       let trFilmTable = document.createElement("tr");
       trFilmTable.setAttribute("data-id", data[i].id);
       let tdName = document.createElement("td"); 
+      tdName.classList.add("text-start")
       let tdLength = document.createElement("td");
+      let tdDirector = document.createElement("td");
       // tdLength.className = "tdCenter"; 
       tdLength.classList.add("tdCenter","col-4");
       let tdFilmStatus = document.createElement("td");
@@ -592,6 +594,7 @@ fetch(`${url}/${film}`, {
       btnDelete.innerHTML = "X";
       tdDelete.appendChild(btnDelete);
       tdName.innerHTML = data[i].name;
+      tdDirector.innerHTML = data[i].director;
       tdLength.innerHTML = data[i].length;
       tdFilmStatus.innerHTML = data[i].filmStatus;
       var checkdelete = true;
@@ -617,6 +620,7 @@ fetch(`${url}/${film}`, {
         }
       });
       trFilmTable.appendChild(tdName);
+      trFilmTable.appendChild(tdDirector);
       trFilmTable.appendChild(tdLength);
       trFilmTable.appendChild(tdFilmStatus);
       trFilmTable.appendChild(tdDelete);

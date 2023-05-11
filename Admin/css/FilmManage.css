@@ -66,3 +66,26 @@ thead{
     width: 110px !important;
     height: fit-content !important;
 }
+
+#thFilm {
+    width: 30%;
+}
+
+#thDirector {
+    width: 15%;
+}
+
+#thLength {
+    width: 10%;
+}
+
+#thStatus {
+    width: 15%;
+}
+#thDel {
+    width: 8%;
+}
+
+.fixed-table {
+    table-layout: fixed;
+} 
