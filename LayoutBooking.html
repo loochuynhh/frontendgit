@@ -50,7 +50,7 @@
           <form class="needs-validation" id = "formSignup" novalidate >
             <div class="row g-3">
               <div class="col-12">
-                <label for="name" class="form-label">Họ và tên</label>
+                <label for="name" class="form-label">Họ và tên <label class="text-danger">*</label></label> 
                 <div class="input-group has-validation">
                   <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn tại đây" required>
                   <div class="invalid-feedback">
@@ -60,7 +60,7 @@
               </div>
   
               <div class="col-12">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email <label class="text-danger">*</label></label>
                 <div class="input-group has-validation">
                   <input type="email" class="form-control" id="email" placeholder="Nhập Email của bạn tại đây" required>
                   <div class="invalid-feedback">
@@ -70,7 +70,7 @@
               </div>
   
               <div class="col-12">
-                <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                <label for="phoneNumber" class="form-label">Số điện thoại <label class="text-danger">*</label></label>
                 <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
                 <div class="invalid-feedback">
                   Vui lòng nhập số điện thoại hợp lệ
@@ -78,7 +78,7 @@
               </div>
   
               <div class="col-12">
-                <label for="address" class="form-label">Địa chỉ<span class="text-body-secondary">(Optional)</span></label>
+                <label for="address" class="form-label">Địa chỉ</label>
                 <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ của bạn tại đây">
               </div>
   
@@ -95,7 +95,7 @@
                 </div>
   
                 <div class="col-md-7">
-                  <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
+                  <label for="dateOfBirth" class="form-label">Ngày Sinh <label class="text-danger">*</label></label>
                   <div class="input-group has-validation">
                     <input type="date" class="form-select" id="dateOfBirth" required>
                     <div class="invalid-feedback">
@@ -104,7 +104,7 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="password" class="form-label">Mật khẩu</label>
+                  <label for="password" class="form-label">Mật khẩu <label class="text-danger">*</label></label>
                   <div class="input-group has-validation">
                     <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu tại đây" required>
                     <div class="invalid-feedback">
@@ -113,7 +113,7 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu</label>
+                  <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu <label class="text-danger">*</label></label>
                   <div class="input-group has-validation">
                     <input type="password" class="form-control" id="passwordConfirm" placeholder="Xác nhận lại mật khẩu" required>
                     <div class="invalid-feedback">
@@ -140,7 +140,7 @@
       <strong>Thành công!</strong> Đăng nhập thành công.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="contentSignup bg-body-tertiary" id="overlayAddFilm" style="display:none">
+    <!-- <div class="contentSignup bg-body-tertiary" id="overlayAddFilm" style="display:none">
       <form action="https://formbold.com/s/FORM_ID" method="POST">
         <div class="formbold-input-flex">
           <div>
@@ -248,7 +248,7 @@
   
         <button class="formbold-btn">Thêm phim mới</button>
       </form>
-    </div>  
+    </div>   -->
     <div class="container contentInfo" id ="overlayInfo" style="display:none">
       <div class="py-5 text-center">
         <img class="mb-4" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
@@ -259,9 +259,9 @@
         <form class="needs-validation" id = "formInfo" novalidate >
           <div class="row g-3 my-2">
             <div class="col-12">
-              <label for="name" class="form-label">Họ và tên</label>
+              <label for="nameInfo" class="form-label">Họ và tên <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn tại đây" required>
+                <input type="text" class="form-control" id="nameInfo" placeholder="Nhập tên của bạn tại đây" required>
                 <div class="invalid-feedback">
                   Tên tài khoản là bắt buộc
                 </div>
@@ -269,9 +269,9 @@
             </div>
 
             <div class="col-12">
-              <label for="email" class="form-label">Email</label>
+              <label for="emailInfo" class="form-label">Email <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="email" class="form-control" id="email" placeholder="Nhập Email của bạn tại đây" required>
+                <input type="email" class="form-control" id="emailInfo" placeholder="Nhập Email của bạn tại đây" required>
                 <div class="invalid-feedback">
                   Email phải có dạng example@abc.xyz
                 </div>
@@ -279,21 +279,21 @@
             </div>
 
             <div class="col-12">
-              <label for="phoneNumber" class="form-label">Số điện thoại</label>
-              <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
+              <label for="phoneNumberInfo" class="form-label">Số điện thoại <label class="text-danger">*</label></label>
+              <input type="tel" class="form-control" id="phoneNumberInfo" placeholder="Nhập số điện thoại của bạn tại đây" required>
               <div class="invalid-feedback">
                 Vui lòng nhập số điện thoại hợp lệ
               </div>
             </div>
 
             <div class="col-12">
-              <label for="address" class="form-label">Địa chỉ <span class="text-body-secondary">(Optional)</span></label>
-              <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ của bạn tại đây">
+              <label for="addressInfo" class="form-label">Địa chỉ </label>
+              <input type="text" class="form-control" id="addressInfo" placeholder="Nhập địa chỉ của bạn tại đây">
             </div>
 
             <div class="col-md-5">
-              <label for="gender" class="form-label">Giới tính</label>
-              <select class="form-select" id="gender" required>
+              <label for="genderInfo" class="form-label">Giới tính</label>
+              <select class="form-select" id="genderInfo" required>
 
                 <option value="0">Nam</option>
                 <option value="1">Nữ</option>
@@ -304,9 +304,9 @@
               </div>
 
               <div class="col-md-7">
-                <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
+                <label for="dateOfBirthInfo" class="form-label">Ngày Sinh <label class="text-danger">*</label></label>
                 <div class="input-group has-validation">
-                  <input type="date" class="form-select" id="dateOfBirth" required>
+                  <input type="date" class="form-select" id="dateOfBirthInfo" required>
                   <div class="invalid-feedback">
                     Vui lòng nhập ngày sinh
                   </div>
@@ -315,32 +315,32 @@
               
           </div>
           <div>
-            <input class = "my-2" type="checkbox" id="passwordChange">
-            <label for="passwordChange">Thay đổi mật khẩu</label>
+            <input class = "my-2" type="checkbox" id="passwordChangeInfo">
+            <label for="passwordChangeInfo">Thay đổi mật khẩu</label>
           </div>
-          <div class="row g-3" id ="changePasswordForm" style="display:none">
+          <div class="row g-3" id ="changePasswordFormInfo" style="display:none">
             <div class="col-12">
-              <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
+              <label for="oldPasswordInfo" class="form-label">Mật khẩu cũ <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="oldPassword" placeholder="Nhập mật khẩu cũ của bạn tại đây" novalidate>
+                <input type="password" class="form-control" id="oldPasswordInfo" placeholder="Nhập mật khẩu cũ của bạn tại đây" novalidate>
                 <div class="invalid-feedback">
                   Yêu cầu nhập mật khẩu trước đó
                 </div>
               </div>
             </div>
             <div class="col-12">
-              <label for="newPassword" class="form-label">Mật khẩu mới</label>
+              <label for="newPasswordInfo" class="form-label">Mật khẩu mới <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="newPassword" placeholder="Nhập mật khẩu mới của bạn tại đây" novalidate>
+                <input type="password" class="form-control" id="newPasswordInfo" placeholder="Nhập mật khẩu mới của bạn tại đây" novalidate>
                 <div class="invalid-feedback">
                   Vui lòng nhập mật khẩu mới 
                 </div>
               </div>
             </div>
             <div class="col-12">
-              <label for="newPasswordConfirm" class="form-label">Xác nhận mật khẩu mới</label>
+              <label for="newPasswordConfirmInfo" class="form-label">Xác nhận mật khẩu mới <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="newPasswordConfirm" placeholder="Xác nhận mật khẩu mới của bạn tại đây" novalidate>
+                <input type="password" class="form-control" id="newPasswordConfirmInfo" placeholder="Xác nhận mật khẩu mới của bạn tại đây" novalidate>
                 <div class="invalid-feedback">
                   Vui lòng nhập mật khẩu mới chính xác 
                 </div>
@@ -569,4 +569,6 @@
 <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
 <script src="./src/bootstrap-5.2.2-dist/umd/poper.min.js"></script>
+<script src = "./js/javascriptHome.js"></script>
+<script src="./src/sweeralert/sweetalert.min.js"></script>
 </html>
