@@ -67,6 +67,36 @@
             <button class="formbold-btn" id="buttonAddSchedule">Thêm lịch chiếu mới</button>
           </form>
       </div>
+      <div class="contentAddSchedule bg-body-tertiary" id="overlayUpdateSchedule" style="display:none">
+        <div class="py-5 text-center">
+            <img class="mb-4" src="Image/logo.png" alt="" width="20%" height="auto">
+            <h3>Sửa lịch chiếu</h3>
+        </div>
+        <form id="schedule-form-Update">
+          <div class="schedule-option" >  
+            <label>Phim:</label>
+            <select class="form-select" id = "formFilmUpdate">
+                <option value="Chọn một phim" selected="" >Chọn một phim</option>  
+            </select>
+          </div>
+          <div class="schedule-option" >  
+              <label>Phòng chiếu:</label>
+              <select class="form-select" id = "formRoomUpdate">
+                  <option value="VIP" selected="">Chọn một phòng chiếu</option>  
+              </select>
+          </div>
+          <div class="schedule-option" >  
+              <label>Ngày chiếu:</label>
+              <input type="date" class="form-select" id = "dateScheduleUpdate">
+          </div>   
+
+          <div class="schedule-option" >  
+              <label>Giờ chiếu:</label>
+              <input type="time" class="form-select" id = "hourScheduleUpdate">
+          </div>
+          <button class="formbold-btn" id="buttonAddSchedule">Sửa lịch chiếu</button>
+        </form>
+    </div>
     </div>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">

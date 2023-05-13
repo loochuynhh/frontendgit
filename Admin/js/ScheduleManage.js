@@ -4,16 +4,22 @@ const genre = 'genre';
 const film = 'film';
 const show = 'show';
 const room = 'room';
+const bill = 'bill';
+const refund = 'refund';
+var idglobal = -1;
+
 var overlayAddSchedule = document.getElementById("overlayAddSchedule");
 var btAddSchedule = document.getElementById("btAddSchedule");
 var overlay = document.getElementById("overlay");
 var formFilm = document.getElementById("formFilm");
 var formRoom = document.getElementById("formRoom");
+var formFilmUpdate = document.getElementById("formFilmUpdate");
+var formRoomUpdate = document.getElementById("formRoomUpdate");
 var buttonAddSchedule = document.getElementById("buttonAddSchedule");
 var scheduleform = document.getElementById("schedule-form");
 var selectTimeSchedule = document.getElementById("selectTimeSchedule");
-// var overlayAddSchedule = document.getElementById("overlayAddSchedule");
-// var overlayAddSchedule = document.getElementById("overlayAddSchedule");
+var overlayUpdateSchedule = document.getElementById("overlayUpdateSchedule");
+var formUpdateSchedule = document.getElementById("schedule-form-Update");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
@@ -78,7 +84,7 @@ selectTimeSchedule.addEventListener('change', function () {
                         let tdRoom = document.createElement("td");
                         tdRoom.className = "tdCenter";
                         tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
+                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
                         //tdEndTime.innerHTML = data[i][j].endTime;
                         tdFilm.innerHTML = data[i][j].filmName;
                         for (let t = 0; t < formRoom.options.length; t++) {
@@ -102,12 +108,28 @@ selectTimeSchedule.addEventListener('change', function () {
                             //     console.log("abc");
                             // });
                         });
-                        // Hoover
-
-                        // dbclick
-
-
-                        //dbclick
+                        var checkdelete = true;
+                        btnDelete.addEventListener("click", function () {
+                            checkdelete = false;
+                            showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                            btCancel.addEventListener('click', function () {
+                                const modal = document.getElementById('exampleModal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                            });
+                            btOK.addEventListener('click', function () {
+                                const modal = document.getElementById('exampleModal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                                deleteSchedule(data[i][j].id);
+                            });
+                        });
+                        trFilmTable.addEventListener("click", function () {
+                            if (checkdelete == true) {
+                                // const id = this.getAttribute("data-id");
+                                updateSchedule(data[i][j].id);
+                            }
+                        });
 
                         trFilmTable.appendChild(tdStartTime);
                         trFilmTable.appendChild(tdEndTime);
@@ -165,7 +187,7 @@ selectTimeSchedule.addEventListener('change', function () {
                         //tdStartTime.innerHTML = data[i][j].startTime;
                         //tdEndTime.innerHTML = data[i][j].endTime;
                         tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
+                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
                         tdFilm.innerHTML = data[i][j].filmName;
                         console.log(formRoom.options.length);
                         for (let t = 0; t < formRoom.options.length; t++) {
@@ -189,12 +211,28 @@ selectTimeSchedule.addEventListener('change', function () {
                             //     console.log("abc");
                             // });
                         });
-                        // Hoover
-
-                        // dbclick
-
-
-                        //dbclick
+                        var checkdelete = true;
+                        btnDelete.addEventListener("click", function () {
+                            checkdelete = false;
+                            showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                            btCancel.addEventListener('click', function () {
+                                const modal = document.getElementById('exampleModal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                            });
+                            btOK.addEventListener('click', function () {
+                                const modal = document.getElementById('exampleModal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                                deleteSchedule(data[i][j].id);
+                            });
+                        });
+                        trFilmTable.addEventListener("click", function () {
+                            if (checkdelete == true) {
+                                // const id = this.getAttribute("data-id");
+                                updateSchedule(data[i][j].id);
+                            }
+                        });
 
                         trFilmTable.appendChild(tdStartTime);
                         trFilmTable.appendChild(tdEndTime);
@@ -252,7 +290,7 @@ selectTimeSchedule.addEventListener('change', function () {
                         //tdStartTime.innerHTML = data[i][j].startTime;
                         //tdEndTime.innerHTML = data[i][j].endTime;
                         tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
+                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
                         tdFilm.innerHTML = data[i][j].filmName;
                         console.log(formRoom.options.length);
                         for (let t = 0; t < formRoom.options.length; t++) {
@@ -276,12 +314,28 @@ selectTimeSchedule.addEventListener('change', function () {
                             //     console.log("abc");
                             // });
                         });
-                        // Hoover
-
-                        // dbclick
-
-
-                        //dbclick
+                        var checkdelete = true;
+                        btnDelete.addEventListener("click", function () {
+                            checkdelete = false;
+                            showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                            btCancel.addEventListener('click', function () {
+                                const modal = document.getElementById('exampleModal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                            });
+                            btOK.addEventListener('click', function () {
+                                const modal = document.getElementById('exampleModal');
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                                deleteSchedule(data[i][j].id);
+                            });
+                        });
+                        trFilmTable.addEventListener("click", function () {
+                            if (checkdelete == true) {
+                                // const id = this.getAttribute("data-id");
+                                updateSchedule(data[i][j].id);
+                            }
+                        });
 
                         trFilmTable.appendChild(tdStartTime);
                         trFilmTable.appendChild(tdEndTime);
@@ -296,6 +350,67 @@ selectTimeSchedule.addEventListener('change', function () {
     }
 });
 
+formUpdateSchedule.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if(document.getElementById('formFilmUpdate').value == 'Chọn một phim'){
+        showAlertTimeOut('Vui lòng chọn 1 phim'); return;
+    }
+    if(document.getElementById('formRoomUpdate').value == 'Chọn một phòng chiếu'){
+        showAlertTimeOut('Vui lòng chọn 1 phòng chiếu');
+        return;
+    }
+    const filmEl = document.querySelector('#formFilmUpdate');
+    const roomEl = document.querySelector('#formRoomUpdate');
+    const dateValue = document.getElementById('dateScheduleUpdate').value;
+    const timeValue = document.getElementById('hourScheduleUpdate').value;
+    const datetimeString = dateValue + 'T' + timeValue + ':00.000Z';
+    const startTime = new Date(datetimeString);
+    const Schedule = {
+        id: idglobal,
+        startTime: startTime,
+        endTime: "2023-05-11T01:56:00",
+        filmName: "filmName",
+        poster: "poster",
+        filmId: filmEl.options[formFilmUpdate.selectedIndex].id,
+        ageLimit: 0,
+        roomId: roomEl.options[formRoomUpdate.selectedIndex].id
+    };
+    fetch(`${url}/${show}`, {
+    method: 'PUT',
+    headers: {
+        "Content-Type": "application/json",
+        'Authorization' : "bearer " + localStorage.getItem('token')
+    },
+    body: JSON.stringify(Schedule)
+    })
+    .then(response => {
+    if (!response.ok) {
+        response.text().then(errorMessage => {
+            if(errorMessage == 'This room has schedule conflict'){
+                showAlertTimeOut("Phòng chiếu này đã có lịch chiếu trong khung giờ này");
+            }
+            if(errorMessage == 'Film deleted'){
+                showAlertTimeOut("Phim này đã bị xóa");
+            }
+            if(errorMessage == 'Room is repairing'){
+                showAlertTimeOut("Phòng chiếu đang sửa chữa");
+            }
+        })
+        //showAlertTimeOut('Chỉnh sửa không thành công');
+        //location.reload();
+        throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+    }
+    
+    showAlertTimeOut('Sửa lịch chiếu thành công');
+    //location.reload();
+    })
+    .catch(error => {
+    //location.reload();
+    console.error(error);
+    });
+    
+})
+  
 
 fetch(`${url}/${film}`, {
     method: 'GET',
@@ -312,6 +427,11 @@ fetch(`${url}/${film}`, {
             optionEl.id = movie.id;
             optionEl.textContent = movie.name;
             formFilm.appendChild(optionEl);
+            const optionEl2 = document.createElement('option');
+            optionEl2.value = movie.name;
+            optionEl2.id = movie.id;
+            optionEl2.textContent = movie.name;
+            formFilmUpdate.appendChild(optionEl2);
         });
     })
     .catch(error => console.error(error));
@@ -331,10 +451,12 @@ async function getRoom() {
                 optionEl.id = room.id;
                 optionEl.textContent = room.name;
                 formRoom.appendChild(optionEl);
+                const optionEl2 = document.createElement('option');
+                optionEl2.value = room.name;
+                optionEl2.id = room.id;
+                optionEl2.textContent = room.name;
+                formRoomUpdate.appendChild(optionEl2);
             });
-        })
-        .then({
-
         })
         .catch(error => console.error(error));
 }
@@ -353,6 +475,7 @@ btAddSchedule.addEventListener("click", function () {
     overlayAddSchedule.style.display = "block";
     document.addEventListener("click", handleOutsideClickAddSchedule, true);
 });
+
 scheduleform.addEventListener('submit', async (event) => {
     event.preventDefault();
     const filmEl = document.querySelector('#formFilm');
@@ -402,15 +525,15 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-                location.reload();
+                //location.reload();
                 showAlertTimeOut('Thêm lịch chiếu mới không thành công');
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
-            location.reload();
+            //location.reload();
             showAlertTimeOut('Thêm lịch chiếu mới thành công');
         })
         .catch(error => {
-            location.reload();
+            //location.reload();
             showAlertTimeOut('Thêm lịch chiếu không thành công');
             console.error(error);
         });
@@ -492,6 +615,98 @@ async function load() {
     await getSchedule();
 }
 
+function deleteSchedule(i) {
+    // const param = new URLSearchParams({
+    //     id: i
+    // })
+    fetch(`${url}/${bill}/${refund}/${i}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': "bearer " + localStorage.getItem('token')
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                //location.reload();
+                showAlertTimeOut('Xóa lịch chiếu không thành công');
+                throw new Error('Đã xảy ra lỗi khi thêm phim mới');
+            }
+            //location.reload();
+            showAlertTimeOut('Xóa lịch chiếu mới thành công');
+        })
+        .catch(error => {
+            //location.reload();
+            showAlertTimeOut('Xóa lịch chiếu không thành công');
+            console.error(error);
+        });
+}
+
+async function getScheduleById(id) {
+    try {
+        const response = await fetch(`${url}/${show}/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        const Schedule = await response.json();
+        return Schedule;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function handleOutsideClickUpdateSchedule(event) {
+    if (!overlayUpdateSchedule.contains(event.target)) {
+        overlay.style.display = "none";
+        overlayUpdateSchedule.style.display = "none";
+        document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
+    }
+}
+async function updateSchedule(id) {
+    overlay.style.display = "block";
+    overlayUpdateSchedule.style.display = "block";
+    document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+
+    var Schedule = await getScheduleById(id);
+    document.getElementById('formFilmUpdate').value = Schedule.filmName;
+    document.getElementById('formRoomUpdate').value = Schedule.roomName;
+    // document.getElementById('dateScheduleUpdate').value = movie.actor;
+    // document.getElementById('hourScheduleUpdate').value = movie.director;
+    var date = new Date(Schedule.startTime);
+    var day = date.getDate();
+    var month = date.getMonth() + 1; // Tháng tính từ 0 đến 11, cần cộng thêm 1 để đúng tháng
+    var year = date.getFullYear();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+
+    // Đặt giá trị vào các thẻ input
+    document.getElementById("dateScheduleUpdate").value = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+    document.getElementById("hourScheduleUpdate").value = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute);
+    // const releaseDate = new Date(movie.releaseDate);
+    // const formattedReleaseDate = releaseDate.toISOString().slice(0,10);
+    // document.getElementById('updateMovieDateOfRelease').value = formattedReleaseDate;
+
+    // const checkboxes = document.querySelectorAll('#genre-list2 input[type=checkbox]');
+    // if (movie && movie.genres) {
+    //   const genres = movie.genres;
+    //   checkboxes.forEach((checkbox) => {
+    //     checkbox.checked = false;
+    //     genres.forEach((genre) => {
+    //       if(genre.id == checkbox.value){
+    //         checkbox.checked = true;
+    //       }
+    //     })
+    //   });
+    // }
+    // viewImagePoster.addEventListener("click", function () {
+    //   window.open(movie.posterUrl, 'Ảnh Poster');
+    // });
+    // viewImageAdPoster.addEventListener("click", function () {
+    //   window.open(movie.adPosterUrl, 'Ảnh Poser');
+    // });
+    idglobal = id;
+}
+
 async function getSchedule() {
     const today = new Date();
     const dateStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
@@ -505,7 +720,6 @@ async function getSchedule() {
     })
         .then(response => response.json())
         .then(data => {
-
             let tbody = document.getElementById("body-table");
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].length; j++) {
@@ -534,7 +748,7 @@ async function getSchedule() {
                     //tdStartTime.innerHTML = data[i][j].startTime;
                     //tdEndTime.innerHTML = data[i][j].endTime;
                     tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                    tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
+                    tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
                     tdFilm.innerHTML = data[i][j].filmName;
                     for (let t = 0; t < formRoom.options.length; t++) {
                         if (data[i][j].roomId == formRoom.options[t].id) {
@@ -557,12 +771,28 @@ async function getSchedule() {
                         //     console.log("abc");
                         // });
                     });
-                    // Hoover
-
-                    // dbclick
-
-
-                    //dbclick
+                    var checkdelete = true;
+                    btnDelete.addEventListener("click", function () {
+                        checkdelete = false;
+                        showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                        btCancel.addEventListener('click', function () {
+                            const modal = document.getElementById('exampleModal');
+                            const modalInstance = bootstrap.Modal.getInstance(modal);
+                            modalInstance.hide();
+                        });
+                        btOK.addEventListener('click', function () {
+                            const modal = document.getElementById('exampleModal');
+                            const modalInstance = bootstrap.Modal.getInstance(modal);
+                            modalInstance.hide();
+                            deleteSchedule(data[i][j].id);
+                        });
+                    });
+                    trFilmTable.addEventListener("click", function () {
+                        if (checkdelete == true) {
+                            // const id = this.getAttribute("data-id");
+                            updateSchedule(data[i][j].id);
+                        }
+                    });
 
                     trFilmTable.appendChild(tdStartTime);
                     trFilmTable.appendChild(tdEndTime);

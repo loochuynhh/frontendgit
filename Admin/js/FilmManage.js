@@ -13,7 +13,7 @@ var btCancel = document.getElementById("btCancel");
 var btOK = document.getElementById("btOK");
 var updateMoviePoster = document.getElementById('updateMoviePoster');
 var updateMovieAdposter = document.getElementById('updateMovieAdposter');
-
+var errorMessageglobal = '';
 const genreListDiv1 = document.getElementById('genre-list1');
 const genreListDiv2 = document.getElementById('genre-list2');
 const reviewImagePoster = document.getElementById('reviewImagePoster');
@@ -89,14 +89,14 @@ function deleteUsers(i){
       console.log(response.status);
       if (!response.ok) {
         showAlertTimeOut('Xóa phim thất bại');
-        location.reload();
+        //location.reload();
         throw new Error('Đã xảy ra lỗi khi thêm phim mới');
       }
       showAlertTimeOut('Đã xóa phim');
-      location.reload();
+      //location.reload();
     })
     .catch((error) => {
-      location.reload();
+      //location.reload();
       console.error("Error:", error);
     });
 }
@@ -269,15 +269,22 @@ formUpdate.addEventListener('submit', async (event) => {
     })
     .then(response => {
       if (!response.ok) {
-        showAlertTimeOut('Chỉnh sửa không thành công');
-        location.reload();
+        response.text().then(errorMessage => {
+          if(errorMessage == 'The movie has a schedule but hasn\'t shown yet'){
+              showAlertTimeOut("Phim đã có đặt lịch chiếu");
+          }
+          else{
+            showAlertTimeOut('Chỉnh sửa không thành công');
+          }
+        })
+        //location.reload();
         throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
       }
       showAlertTimeOut('Sửa phim thành công');
-      location.reload();
+      //location.reload();
     })
     .catch(error => {
-      location.reload();
+      //location.reload();
       console.error(error);
     });
   }
@@ -416,6 +423,9 @@ formUpdate.addEventListener('submit', async (event) => {
     })
     .then(response => {
       if (!response.ok) {
+        response.text().then(errorMessage => {
+          errorMessageglobal = errorMessage;
+        })
         check = 1;
         throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
       }
@@ -469,16 +479,19 @@ formUpdate.addEventListener('submit', async (event) => {
 
     if(check == 0){
       showAlertTimeOut('Chỉnh sửa phim thành công');
-      location.reload();
+      //location.reload();
     }else if(check == 1){
+      if(errorMessageglobal != ''){
+        showAlertTimeOut('Phim đã đặt lịch chiếu');
+      }
       showAlertTimeOut('Thông tin phim mới không hợp lệ');
-      location.reload();
+      //location.reload();
     }else if(check == 2){
       showAlertTimeOut('Ảnh thêm vào Poster không hợp lệ')
-      location.reload();
+      //location.reload();
     }else{
       showAlertTimeOut('Ảnh thêm vào AdsPoster không hợp lệ');
-      location.reload();
+      //location.reload();
     }
   }
 })
@@ -758,14 +771,14 @@ form.addEventListener('submit', async (event) => {
   .then(response => {
     if (!response.ok) {
       showAlertTimeOut('Thêm phim mới không thành công');
-      location.reload();
+      //location.reload();
       throw new Error('Đã xảy ra lỗi khi thêm phim mới');
     }
     showAlertTimeOut('Thêm phim mới thành công');
-    location.reload();
+    //location.reload();
   })
   .catch(error => {
-    location.reload();
+    //location.reload();
     console.error(error);
   });
 });
