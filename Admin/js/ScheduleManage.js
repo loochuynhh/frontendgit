@@ -111,18 +111,35 @@ selectTimeSchedule.addEventListener('change', function () {
                         var checkdelete = true;
                         btnDelete.addEventListener("click", function () {
                             checkdelete = false;
-                            showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                            btCancel.addEventListener('click', function () {
-                                const modal = document.getElementById('exampleModal');
-                                const modalInstance = bootstrap.Modal.getInstance(modal);
-                                modalInstance.hide();
-                            });
-                            btOK.addEventListener('click', function () {
-                                const modal = document.getElementById('exampleModal');
-                                const modalInstance = bootstrap.Modal.getInstance(modal);
-                                modalInstance.hide();
-                                deleteSchedule(data[i][j].id);
-                            });
+                            // showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                            Swal.fire({
+                                title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  deleteSchedule(data[i][j].id);
+                                  Swal.fire(
+                                    'Deleted!',
+                                    'Lịch chiếu đã được xóa',
+                                    'success'
+                                  )
+                                }
+                              })
+                            // btCancel.addEventListener('click', function () {
+                            //     const modal = document.getElementById('exampleModal');
+                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                            //     modalInstance.hide();
+                            // });
+                            // btOK.addEventListener('click', function () {
+                            //     const modal = document.getElementById('exampleModal');
+                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                            //     modalInstance.hide();
+                            //     deleteSchedule(data[i][j].id);
+                            // });
                         });
                         trFilmTable.addEventListener("click", function () {
                             if (checkdelete == true) {
@@ -214,18 +231,35 @@ selectTimeSchedule.addEventListener('change', function () {
                         var checkdelete = true;
                         btnDelete.addEventListener("click", function () {
                             checkdelete = false;
-                            showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                            btCancel.addEventListener('click', function () {
-                                const modal = document.getElementById('exampleModal');
-                                const modalInstance = bootstrap.Modal.getInstance(modal);
-                                modalInstance.hide();
-                            });
-                            btOK.addEventListener('click', function () {
-                                const modal = document.getElementById('exampleModal');
-                                const modalInstance = bootstrap.Modal.getInstance(modal);
-                                modalInstance.hide();
-                                deleteSchedule(data[i][j].id);
-                            });
+                            // showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                            Swal.fire({
+                                title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  deleteSchedule(data[i][j].id);
+                                  Swal.fire(
+                                    'Deleted!',
+                                    'Lịch chiếu đã được xóa',
+                                    'success'
+                                  )
+                                }
+                              })
+                            // btCancel.addEventListener('click', function () {
+                            //     const modal = document.getElementById('exampleModal');
+                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                            //     modalInstance.hide();
+                            // });
+                            // btOK.addEventListener('click', function () {
+                            //     const modal = document.getElementById('exampleModal');
+                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                            //     modalInstance.hide();
+                            //     deleteSchedule(data[i][j].id);
+                            // });
                         });
                         trFilmTable.addEventListener("click", function () {
                             if (checkdelete == true) {
@@ -317,18 +351,35 @@ selectTimeSchedule.addEventListener('change', function () {
                         var checkdelete = true;
                         btnDelete.addEventListener("click", function () {
                             checkdelete = false;
-                            showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                            btCancel.addEventListener('click', function () {
-                                const modal = document.getElementById('exampleModal');
-                                const modalInstance = bootstrap.Modal.getInstance(modal);
-                                modalInstance.hide();
-                            });
-                            btOK.addEventListener('click', function () {
-                                const modal = document.getElementById('exampleModal');
-                                const modalInstance = bootstrap.Modal.getInstance(modal);
-                                modalInstance.hide();
-                                deleteSchedule(data[i][j].id);
-                            });
+                            //showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                            Swal.fire({
+                                title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  deleteSchedule(data[i][j].id);
+                                  Swal.fire(
+                                    'Deleted!',
+                                    'Lịch chiếu đã được xóa',
+                                    'success'
+                                  )
+                                }
+                              })
+                            // btCancel.addEventListener('click', function () {
+                            //     const modal = document.getElementById('exampleModal');
+                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                            //     modalInstance.hide();
+                            // });
+                            // btOK.addEventListener('click', function () {
+                            //     const modal = document.getElementById('exampleModal');
+                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                            //     modalInstance.hide();
+                            //     deleteSchedule(data[i][j].id);
+                            // });
                         });
                         trFilmTable.addEventListener("click", function () {
                             if (checkdelete == true) {
@@ -353,10 +404,13 @@ selectTimeSchedule.addEventListener('change', function () {
 formUpdateSchedule.addEventListener('submit', async (event) => {
     event.preventDefault();
     if(document.getElementById('formFilmUpdate').value == 'Chọn một phim'){
-        showAlertTimeOut('Vui lòng chọn 1 phim'); return;
+        // showAlertTimeOut('Vui lòng chọn 1 phim');
+        Swal.fire('Vui lòng chọn 1 phim', 1000);
+        return;
     }
     if(document.getElementById('formRoomUpdate').value == 'Chọn một phòng chiếu'){
-        showAlertTimeOut('Vui lòng chọn 1 phòng chiếu');
+        // showAlertTimeOut('Vui lòng chọn 1 phòng chiếu');
+        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1000);
         return;
     }
     const filmEl = document.querySelector('#formFilmUpdate');
@@ -387,21 +441,58 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
     if (!response.ok) {
         response.text().then(errorMessage => {
             if(errorMessage == 'This room has schedule conflict'){
-                showAlertTimeOut("Phòng chiếu này đã có lịch chiếu trong khung giờ này");
+                // showAlertTimeOut("Phòng chiếu này đã có lịch chiếu trong khung giờ này");
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Sửa lịch chiếu không thành công',
+                    footer: '<a>Phòng chiếu đã có lịch trong khung giờ này</a>',
+                    timer: 1000
+                  })
             }
             if(errorMessage == 'Film deleted'){
-                showAlertTimeOut("Phim này đã bị xóa");
+                // showAlertTimeOut("Phim này đã bị xóa");
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Sửa lịch chiếu không thành công',
+                    footer: '<a>Phim này đã bị xóa</a>',
+                    timer: 1000
+                  })
             }
             if(errorMessage == 'Room is repairing'){
-                showAlertTimeOut("Phòng chiếu đang sửa chữa");
+                // showAlertTimeOut("Phòng chiếu đang sửa chữa");
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Sửa lịch chiếu không thành công',
+                    footer: '<a>Phòng chiếu đang sửa chữa</a>',
+                    timer: 1000
+                  })
             }
         })
         //showAlertTimeOut('Chỉnh sửa không thành công');
+        Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Chỉnh sửa không thành công',
+            timer: 1000
+          })
         //location.reload();
         throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
     }
-    
-    showAlertTimeOut('Sửa lịch chiếu thành công');
+    // showAlertTimeOut('Sửa lịch chiếu thành công');
+    Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Sửa lịch chiếu thành công',
+        showConfirmButton: false,
+        timer: 800
+      })
     //location.reload();
     })
     .catch(error => {
@@ -483,22 +574,26 @@ scheduleform.addEventListener('submit', async (event) => {
     const dateEl = document.querySelector('.form-select[type="date"]');
     const timeEl = document.querySelector('.form-select[type="time"]');
     if (!filmEl.value || filmEl.value === 'Chọn một phim') {
-        showAlertTimeOut('Vui lòng chọn một phim.');
+        // showAlertTimeOut('Vui lòng chọn một phim.');
+        Swal.fire('Vui lòng chọn 1 phim', 1000);
         return;
     }
 
     if (!roomEl.value || roomEl.value === 'Chọn một phòng chiếu') {
-        showAlertTimeOut('Vui lòng chọn một phòng chiếu.');
+        // showAlertTimeOut('Vui lòng chọn một phòng chiếu.');
+        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1000);
         return;
     }
 
     if (!dateEl.value) {
-        showAlertTimeOut('Vui lòng nhập ngày chiếu.');
+        // showAlertTimeOut('Vui lòng nhập ngày chiếu.');
+        Swal.fire('Vui lòng nhập ngày chiếu', 1000);
         return;
     }
 
     if (!timeEl.value) {
-        showAlertTimeOut('Vui lòng nhập giờ chiếu.');
+        // showAlertTimeOut('Vui lòng nhập giờ chiếu.');
+        Swal.fire('Vui lòng nhập giờ chiếu', 1000);
         return;
     }
     const dateValue = document.getElementById('dateSchedule').value;
@@ -526,15 +621,36 @@ scheduleform.addEventListener('submit', async (event) => {
         .then(response => {
             if (!response.ok) {
                 //location.reload();
-                showAlertTimeOut('Thêm lịch chiếu mới không thành công');
+                // showAlertTimeOut('Thêm lịch chiếu mới không thành công');
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Thêm lịch chiếu mới không thành công',
+                    timer: 1000
+                  })
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
             //location.reload();
-            showAlertTimeOut('Thêm lịch chiếu mới thành công');
+            // showAlertTimeOut('Thêm lịch chiếu mới thành công');
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'Thêm lịch chiếu mới thành công',
+                showConfirmButton: false,
+                timer: 800
+              })
         })
         .catch(error => {
             //location.reload();
-            showAlertTimeOut('Thêm lịch chiếu không thành công');
+            // showAlertTimeOut('Thêm lịch chiếu không thành công');
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Thêm lịch chiếu mới không thành công',
+                timer: 1000
+              })
             console.error(error);
         });
 
@@ -628,15 +744,39 @@ function deleteSchedule(i) {
         .then(response => {
             if (!response.ok) {
                 //location.reload();
-                showAlertTimeOut('Xóa lịch chiếu không thành công');
+                // showAlertTimeOut('Xóa lịch chiếu không thành công');
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Xóa lịch chiếu không thành công',
+                    footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+                    timer: 1000
+                  })
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
             //location.reload();
-            showAlertTimeOut('Xóa lịch chiếu mới thành công');
+            // showAlertTimeOut('Xóa lịch chiếu mới thành công');
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Xóa lịch chiếu không thành công',
+                footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+                timer: 1000
+              })
         })
         .catch(error => {
             //location.reload();
-            showAlertTimeOut('Xóa lịch chiếu không thành công');
+            // showAlertTimeOut('Xóa lịch chiếu không thành công');
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Xóa lịch chiếu không thành công',
+                footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+                timer: 1000
+              })
             console.error(error);
         });
 }
@@ -774,18 +914,35 @@ async function getSchedule() {
                     var checkdelete = true;
                     btnDelete.addEventListener("click", function () {
                         checkdelete = false;
-                        showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                        btCancel.addEventListener('click', function () {
-                            const modal = document.getElementById('exampleModal');
-                            const modalInstance = bootstrap.Modal.getInstance(modal);
-                            modalInstance.hide();
-                        });
-                        btOK.addEventListener('click', function () {
-                            const modal = document.getElementById('exampleModal');
-                            const modalInstance = bootstrap.Modal.getInstance(modal);
-                            modalInstance.hide();
-                            deleteSchedule(data[i][j].id);
-                        });
+                        //showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                        Swal.fire({
+                            title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'OK'
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              deleteSchedule(data[i][j].id);
+                              Swal.fire(
+                                'Deleted!',
+                                'Lịch chiếu đã được xóa',
+                                'success'
+                              )
+                            }
+                          })
+                        // btCancel.addEventListener('click', function () {
+                        //     const modal = document.getElementById('exampleModal');
+                        //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                        //     modalInstance.hide();
+                        // });
+                        // btOK.addEventListener('click', function () {
+                        //     const modal = document.getElementById('exampleModal');
+                        //     const modalInstance = bootstrap.Modal.getInstance(modal);
+                        //     modalInstance.hide();
+                        //     deleteSchedule(data[i][j].id);
+                        // });
                     });
                     trFilmTable.addEventListener("click", function () {
                         if (checkdelete == true) {

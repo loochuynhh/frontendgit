@@ -20,7 +20,7 @@ const reviewImagePoster = document.getElementById('reviewImagePoster');
 const reviewImageAdPoster = document.getElementById('reviewImageAdPoster');
 const form = document.querySelector('#movie-form');
 const formUpdate = document.querySelector('#movieformUpdate');
-const posterChange = document.getElementById("posterChange"); 
+const posterChange = document.getElementById("posterChange");
 const poterfile = document.getElementById("poterfile");
 const viewImagePoster = document.getElementById("viewImagePoster");
 const viewImageAdPoster = document.getElementById("viewImageAdPoster");
@@ -28,7 +28,7 @@ const reviewPoster = document.getElementById("reviewPoster");
 const reviewAdPoster = document.getElementById("reviewAdPoster");
 const overlayReview = document.getElementById("overlayReview");
 
-posterChange.addEventListener("change", function() {
+posterChange.addEventListener("change", function () {
   if (this.checked) {
     poterfile.style.display = "block";
     viewImagePoster.style.display = "none";
@@ -46,7 +46,7 @@ addFilm.addEventListener("click", function () {
   document.addEventListener("click", handleOutsideClickAddFilm, true);
 });
 
-function hover(){
+function hover() {
   // Lấy danh sách tất cả các hàng trong bảng
   let rows = document.querySelectorAll('tr');
 
@@ -72,27 +72,41 @@ function showAlertTimeOut(message) {
   document.getElementById("modal-message2").innerHTML = message;
   var myModal = new bootstrap.Modal(document.getElementById('exampleModal2'), {});
   myModal.show();
-  setTimeout(function(){
+  setTimeout(function () {
     myModal.hide();
   }, 800);
 }
 
-function deleteUsers(i){
+function deleteUsers(i) {
   console.log(`${url}/${film}/${i}`);
   fetch(`${url}/${film}/${i}`, {
     method: "DELETE",
     headers: {
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
   })
     .then(response => {
       console.log(response.status);
       if (!response.ok) {
-        showAlertTimeOut('Xóa phim thất bại');
+        // showAlertTimeOut('Xóa phim thất bại');
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Lỗi',
+          text: 'Xóa phim thất bại',
+          timer: 1000
+        })
         //location.reload();
-        throw new Error('Đã xảy ra lỗi khi thêm phim mới');
+        throw new Error('Đã xảy ra lỗi khi xóa phim');
       }
-      showAlertTimeOut('Đã xóa phim');
+      // showAlertTimeOut('Đã xóa phim');
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Xóa phim thành công',
+        showConfirmButton: false,
+        timer: 800
+      })
       //location.reload();
     })
     .catch((error) => {
@@ -103,9 +117,9 @@ function deleteUsers(i){
 
 function handleOutsideClickUpdateFilm(event) {
   if (!overlayUpdateFilm.contains(event.target)) {
-      overlay.style.display = "none";
-      overlayUpdateFilm.style.display = "none";
-      document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+    overlay.style.display = "none";
+    overlayUpdateFilm.style.display = "none";
+    document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
   }
 }
 
@@ -123,7 +137,7 @@ async function getMovieById(id) {
   }
 }
 
-async function updateFilm(id){
+async function updateFilm(id) {
   overlay.style.display = "block";
   overlayUpdateFilm.style.display = "block";
   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
@@ -138,16 +152,16 @@ async function updateFilm(id){
   document.getElementById('updateMovieAge').value = movie.ageLimit;
   document.getElementById('updateMovieContent').value = movie.content;
   const releaseDate = new Date(movie.releaseDate);
-  const formattedReleaseDate = releaseDate.toISOString().slice(0,10);
+  const formattedReleaseDate = releaseDate.toISOString().slice(0, 10);
   document.getElementById('updateMovieDateOfRelease').value = formattedReleaseDate;
-  
+
   const checkboxes = document.querySelectorAll('#genre-list2 input[type=checkbox]');
   if (movie && movie.genres) {
     const genres = movie.genres;
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false;
       genres.forEach((genre) => {
-        if(genre.id == checkbox.value){
+        if (genre.id == checkbox.value) {
           checkbox.checked = true;
         }
       })
@@ -171,11 +185,11 @@ function handleOutsideClickReviewPoster(event) {
     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
   }
 }
-reviewImagePoster.addEventListener('click', function() {
+reviewImagePoster.addEventListener('click', function () {
   //const file = updateMoviePoster.files[0]; 
   if (updateMoviePoster.files && updateMoviePoster.files[0]) {
-    const reader = new FileReader(); 
-    reader.addEventListener('load', function() {
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
       reviewPoster.src = reader.result;
       overlayUpdateFilm.style.display = 'none';
       overlayReview.style.display = 'block';
@@ -184,7 +198,8 @@ reviewImagePoster.addEventListener('click', function() {
     });
     reader.readAsDataURL(updateMoviePoster.files[0]);
   } else {
-    alert('Vui lòng chọn file');
+    // alert('Vui lòng chọn file');
+    Swal.fire('Vui lòng chọn file', 1000);
   }
 });
 function handleOutsideClickReviewAdPoster(event) {
@@ -197,10 +212,10 @@ function handleOutsideClickReviewAdPoster(event) {
     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
   }
 }
-reviewImageAdPoster.addEventListener('click', function() {
+reviewImageAdPoster.addEventListener('click', function () {
   if (updateMovieAdposter.files && updateMovieAdposter.files[0]) {
-    const reader = new FileReader(); 
-    reader.addEventListener('load', function() {
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
       reviewAdPoster.src = reader.result;
       overlayUpdateFilm.style.display = 'none';
       overlayReview.style.display = 'block';
@@ -209,13 +224,14 @@ reviewImageAdPoster.addEventListener('click', function() {
     });
     reader.readAsDataURL(updateMovieAdposter.files[0]);
   } else {
-    alert('Vui lòng chọn file');
+    // alert('Vui lòng chọn file');
+    Swal.fire('Vui lòng chọn file', 1000);
   }
 });
 
 formUpdate.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if(poterfile.style.display == "none"){
+  if (poterfile.style.display == "none") {
     const checkboxes = document.querySelectorAll('#genre-list2 input[type=checkbox]:checked');
     let isChecked = false;
     checkboxes.forEach((checkbox) => {
@@ -224,131 +240,129 @@ formUpdate.addEventListener('submit', async (event) => {
       }
     });
     if (!isChecked) {
-      alert('Vui lòng chọn ít nhất một thể loại!');
+      // alert('Vui lòng chọn ít nhất một thể loại!');
+      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1000);
       return;
     }
-    const name = document.getElementById('updateMovieName').value;
-    const country = document.getElementById('updateMovieCountry').value;
-    const actor = document.getElementById('updateMovieActor').value;
-    const director = document.getElementById('updateMovieDirector').value;
-    const trailer = document.getElementById('updateMovieTrailer').value;
-    const length = document.getElementById('updateMovieLength').value;
-    const ageLimit = document.getElementById('updateMovieAge').value;
-    const content = document.getElementById('updateMovieContent').value;
-    const Genres = [];
-    checkboxes.forEach((checkbox) => {
-      Genres.push({
-        id: checkbox.value,
-        name: checkbox.name
-      });
-    });
-    const ReleaseDate = document.getElementById('updateMovieDateOfRelease').value;
-    const filmStatus = "AVAILABLE";
+    Swal.fire({
+      title: 'Lưu các chỉnh sửa',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Lưu',
+      denyButtonText: `Không lưu`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        const name = document.getElementById('updateMovieName').value;
+        const country = document.getElementById('updateMovieCountry').value;
+        const actor = document.getElementById('updateMovieActor').value;
+        const director = document.getElementById('updateMovieDirector').value;
+        const trailer = document.getElementById('updateMovieTrailer').value;
+        const length = document.getElementById('updateMovieLength').value;
+        const ageLimit = document.getElementById('updateMovieAge').value;
+        const content = document.getElementById('updateMovieContent').value;
+        const Genres = [];
+        checkboxes.forEach((checkbox) => {
+          Genres.push({
+            id: checkbox.value,
+            name: checkbox.name
+          });
+        });
+        const ReleaseDate = document.getElementById('updateMovieDateOfRelease').value;
+        const filmStatus = "AVAILABLE";
 
-    const Movie = {
-      id: idglobal,
-      name,
-      country,
-      actor,
-      director,
-      length,
-      Genres,
-      ageLimit,
-      content: content,
-      trailer,
-      ReleaseDate,
-      filmStatus
-    };
-    fetch(`${url}/${film}`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization' : "bearer " + localStorage.getItem('token')
-      },
-      body: JSON.stringify(Movie)
-    })
-    .then(response => {
-      if (!response.ok) {
-        response.text().then(errorMessage => {
-          if(errorMessage == 'The movie has a schedule but hasn\'t shown yet'){
-              showAlertTimeOut("Phim đã có đặt lịch chiếu");
-          }
-          else{
-            showAlertTimeOut('Chỉnh sửa không thành công');
-          }
+        const Movie = {
+          id: idglobal,
+          name,
+          country,
+          actor,
+          director,
+          length,
+          Genres,
+          ageLimit,
+          content: content,
+          trailer,
+          ReleaseDate,
+          filmStatus
+        };
+        fetch(`${url}/${film}`, {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': "bearer " + localStorage.getItem('token')
+          },
+          body: JSON.stringify(Movie)
         })
-        //location.reload();
-        throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+          .then(response => {
+            if (!response.ok) {
+              response.text().then(errorMessage => {
+                if (errorMessage == 'The movie has a schedule but hasn\'t shown yet') {
+                  // showAlertTimeOut("Phim đã có đặt lịch chiếu");
+                  Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Phim đã có đặt lịch chiếu',
+                    timer: 1000
+                  })
+                }
+                else {
+                  // showAlertTimeOut('Chỉnh sửa không thành công');
+                  Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Chỉnh sửa thất bại',
+                    timer: 1000
+                  })
+                }
+              })
+              //location.reload();
+              throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+            }
+            showAlertTimeOut('Sửa phim thành công');
+            Swal.fire({
+              position: 'top',
+              icon: 'success',
+              title: 'Sửa phim thành công',
+              showConfirmButton: false,
+              timer: 800
+            })
+            //location.reload();
+          })
+          .catch(error => {
+            //location.reload();
+            console.error(error);
+          });
+        //Swal.fire('Đã lưu', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('Các thay đổi không được lưu', '', 'info')
       }
-      showAlertTimeOut('Sửa phim thành công');
-      //location.reload();
     })
-    .catch(error => {
-      //location.reload();
-      console.error(error);
-    });
-  }
-  else{
-    // const checkboxes = document.querySelectorAll('#genre-list2 input[type=checkbox]:checked');
-    // let isChecked = false;
-    // checkboxes.forEach((checkbox) => {
-    //   if (checkbox.checked) {
-    //     isChecked = true;
-    //   }
-    // });
-    // if (!isChecked) {
-    //   alert('Vui lòng chọn ít nhất một thể loại!');
-    //   return;
-    // }
 
+  }
+  else {
     if (!updateMoviePoster.files || updateMoviePoster.files.length === 0) {
-      alert('Vui lòng chọn ảnh Poster');
+      // alert('Vui lòng chọn Poster');
+      Swal.fire('Vui lòng chọn ảnh Poster', 1000);
       return;
     }
     if (!updateMovieAdposter.files || updateMovieAdposter.files.length === 0) {
-      alert('Vui lòng chọn ảnh AdsPoster');
+      // alert('Vui lòng chọn ảnh AdsPoster');
+      Swal.fire('Vui lòng chọn AdsPoster', 1000);
       return;
     }
-    // const name = document.getElementById('updateMovieName').value;
-    // const country = document.getElementById('updateMovieCountry').value;
-    // const actor = document.getElementById('updateMovieActor').value;
-    // const director = document.getElementById('updateMovieDirector').value;
-    // const trailer = document.getElementById('updateMovieTrailer').value;
-    // const length = document.getElementById('updateMovieLength').value;
-    // const ageLimit = document.getElementById('updateMovieAge').value;
-    // const content = document.getElementById('updateMovieContent').value;
-    // const Genres = [];
-    // checkboxes.forEach((checkbox) => {
-    //   Genres.push({
-    //     id: checkbox.value,
-    //     name: checkbox.name
-    //   });
-    // });
-    // const ReleaseDate = document.getElementById('updateMovieDateOfRelease').value;
-    // const filmStatus = "NOSCHEDULED";
+
     var check = 0;
 
     const formData = new FormData();
     const inputFile1 = document.querySelector('#updateMoviePoster');
     formData.append('poster', inputFile1.files[0]);
-    
+
     const formData2 = new FormData();
     const inputFile2 = document.querySelector('#updateMovieAdposter');
     formData2.append('adposter', inputFile2.files[0]);
-    // const Movie = {
-    //   id: idglobal,
-    //   name,
-    //   country,
-    //   actor,
-    //   director,
-    //   length,
-    //   Genres,
-    //   ageLimit,
-    //   content,
-    //   trailer,
-    //   ReleaseDate,
-    //   filmStatus
-    // };
+
     const checkboxes = document.querySelectorAll('#genre-list2 input[type=checkbox]:checked');
     let isChecked = false;
     checkboxes.forEach((checkbox) => {
@@ -357,7 +371,8 @@ formUpdate.addEventListener('submit', async (event) => {
       }
     });
     if (!isChecked) {
-      alert('Vui lòng chọn ít nhất một thể loại!');
+      // alert('Vui lòng chọn ít nhất một thể loại!');
+      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1000);
       return;
     }
     const name = document.getElementById('updateMovieName').value;
@@ -392,112 +407,162 @@ formUpdate.addEventListener('submit', async (event) => {
       ReleaseDate,
       filmStatus
     };
-    fetch(`${url}/${film}`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization' : "bearer " + localStorage.getItem('token')
-      },
-      body: JSON.stringify(Movie)
-    })
-    .then(response => {
-      if (!response.ok) {
-        check = 1;
-        throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
-      }
-      console.log(idglobal);
-      change = true;
-    })
-    .catch(error => {
-      console.error(error);
-    });
-
-
-    fetch(`${url}/${film}`, {
-      method: 'PUT',
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization' : "bearer " + localStorage.getItem('token')
-      },
-      body: JSON.stringify(Movie)
-    })
-    .then(response => {
-      if (!response.ok) {
-        response.text().then(errorMessage => {
-          errorMessageglobal = errorMessage;
+    Swal.fire({
+      title: 'Lưu các chỉnh sửa',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Lưu',
+      denyButtonText: `Không lưu`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        fetch(`${url}/${film}`, {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': "bearer " + localStorage.getItem('token')
+          },
+          body: JSON.stringify(Movie)
         })
-        check = 1;
-        throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
-      }
-      console.log(idglobal);
-      change = true;
-    })
-    .catch(error => {
-      check = 1;
-      console.error(error);
-    });
+          .then(response => {
+            if (!response.ok) {
+              check = 1;
+              throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+            }
+            console.log(idglobal);
+            change = true;
+          })
+          .catch(error => {
+            console.error(error);
+          });
 
-    fetch(`${url}/${film}/${poster}/${idglobal}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization' : "bearer " + localStorage.getItem('token')
-      },
-      body: formData
-    })
-    .then(response => {
-      if (!response.ok) {
-        check = 2;
-        throw new Error('Đã xảy ra lỗi khi thêm Poster');
-      }
-      console.log(idglobal);
-      change = true;
-    })
-    .catch(error => {
-      check = 2;
-      console.error(error);
-    });
 
-    fetch(`${url}/${film}/${adsposter}/${idglobal}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization' : "bearer " + localStorage.getItem('token')
-      },
-      body: formData2
-    })
-    .then(response => {
-      if (!response.ok) {
-        check = 3;
-        throw new Error('Đã xảy ra lỗi khi thêm AdsPoster');
-      }
-      console.log(response.status);
-      change = true;
-    })
-    .catch(error => {
-      check = 3;
-      console.error(error);
-    });
+        fetch(`${url}/${film}`, {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': "bearer " + localStorage.getItem('token')
+          },
+          body: JSON.stringify(Movie)
+        })
+          .then(response => {
+            if (!response.ok) {
+              response.text().then(errorMessage => {
+                errorMessageglobal = errorMessage;
+              })
+              check = 1;
+              throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+            }
+            console.log(idglobal);
+            change = true;
+          })
+          .catch(error => {
+            check = 1;
+            console.error(error);
+          });
 
-    if(check == 0){
-      showAlertTimeOut('Chỉnh sửa phim thành công');
-      //location.reload();
-    }else if(check == 1){
-      if(errorMessageglobal != ''){
-        showAlertTimeOut('Phim đã đặt lịch chiếu');
+        fetch(`${url}/${film}/${poster}/${idglobal}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': "bearer " + localStorage.getItem('token')
+          },
+          body: formData
+        })
+          .then(response => {
+            if (!response.ok) {
+              check = 2;
+              throw new Error('Đã xảy ra lỗi khi thêm Poster');
+            }
+            console.log(idglobal);
+            change = true;
+          })
+          .catch(error => {
+            check = 2;
+            console.error(error);
+          });
+
+        fetch(`${url}/${film}/${adsposter}/${idglobal}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': "bearer " + localStorage.getItem('token')
+          },
+          body: formData2
+        })
+          .then(response => {
+            if (!response.ok) {
+              check = 3;
+              throw new Error('Đã xảy ra lỗi khi thêm AdsPoster');
+            }
+            console.log(response.status);
+            change = true;
+          })
+          .catch(error => {
+            check = 3;
+            console.error(error);
+          });
+
+        if (check == 0) {
+          // showAlertTimeOut('Chỉnh sửa phim thành công');
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Chỉnh sửa phim thành công',
+            showConfirmButton: false,
+            timer: 800
+          })
+          //location.reload();
+        } else if (check == 1) {
+          if (errorMessageglobal != '') {
+            //showAlertTimeOut('Phim đã đặt lịch chiếu');
+            Swal.fire({
+              position: 'top',
+              icon: 'error',
+              title: 'Lỗi',
+              text: 'Phim đã đặt lịch chiếu',
+              timer: 1000
+            })
+          }
+          // showAlertTimeOut('Thông tin phim mới không hợp lệ');
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Thông tin phim mới không hợp lệ',
+            timer: 1000
+          })
+          //location.reload();
+        } else if (check == 2) {
+          // showAlertTimeOut('Ảnh thêm vào Poster không hợp lệ')
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Ảnh thêm vào poster không hợp lệ',
+            timer: 1000
+          })
+          //location.reload();
+        } else {
+          // showAlertTimeOut('Ảnh thêm vào AdsPoster không hợp lệ');
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Ảnh thêm vào AdsPoster không hợp lệ',
+            timer: 1000
+          })
+          //location.reload();
+        }
+        //Swal.fire('Đã lưu', '', 'success')
       }
-      showAlertTimeOut('Thông tin phim mới không hợp lệ');
-      //location.reload();
-    }else if(check == 2){
-      showAlertTimeOut('Ảnh thêm vào Poster không hợp lệ')
-      //location.reload();
-    }else{
-      showAlertTimeOut('Ảnh thêm vào AdsPoster không hợp lệ');
-      //location.reload();
-    }
+      else if (result.isDenied) {
+        Swal.fire('Các thay đổi không được lưu', '', 'info')
+      }
+    })
   }
 })
 
 async function makeApiCalls(Movie, formData, formData2) {
-  
+
   try {
     await callApi1(Movie);
     // Xử lý kết quả của API thứ nhất
@@ -511,93 +576,93 @@ async function makeApiCalls(Movie, formData, formData2) {
     // Xử lý lỗi nếu có
   }
 }
-async function callApi1(Movie){
+async function callApi1(Movie) {
   fetch(`${url}/${film}`, {
     method: 'PUT',
     headers: {
       "Content-Type": "application/json",
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
     body: JSON.stringify(Movie)
   })
-  .then(response => {
-    if (!response.ok) {
+    .then(response => {
+      if (!response.ok) {
+        check = 1;
+        throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+      }
+      change = true;
+    })
+    .catch(error => {
       check = 1;
-      throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
-    }
-    change = true;
-  })
-  .catch(error => {
-    check = 1;
-    console.error(error);
-  });
+      console.error(error);
+    });
 }
-async function callApi2(formData){
+async function callApi2(formData) {
   fetch(`${url}/${film}/${poster}/${idglobal}`, {
     method: 'PUT',
     headers: {
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
     body: formData
   })
-  .then(response => {
-    if (!response.ok) {
+    .then(response => {
+      if (!response.ok) {
+        check = 2;
+        throw new Error('Đã xảy ra lỗi khi thêm Poster');
+      }
+      console.log(response.status);
+      change = true;
+    })
+    .catch(error => {
       check = 2;
-      throw new Error('Đã xảy ra lỗi khi thêm Poster');
-    }
-    console.log(response.status);
-    change = true;
-  })
-  .catch(error => {
-    check = 2;
-    console.error(error);
-  });
+      console.error(error);
+    });
 
 }
-async function callApi3(formData3){
+async function callApi3(formData3) {
   fetch(`${url}/${film}/${poster}/${idglobal}`, {
     method: 'PUT',
     headers: {
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
     body: formData
   })
-  .then(response => {
-    if (!response.ok) {
+    .then(response => {
+      if (!response.ok) {
+        check = 2;
+        throw new Error('Đã xảy ra lỗi khi thêm Poster');
+      }
+      console.log(response.status);
+      change = true;
+    })
+    .catch(error => {
       check = 2;
-      throw new Error('Đã xảy ra lỗi khi thêm Poster');
-    }
-    console.log(response.status);
-    change = true;
-  })
-  .catch(error => {
-    check = 2;
-    console.error(error);
-  });
+      console.error(error);
+    });
 
 }
 
 fetch(`${url}/${film}`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json"
-    },
-  })
+  method: 'GET',
+  headers: {
+    "Content-Type": "application/json"
+  },
+})
   .then(response => response.json())
   .then(data => {
     let tbody = document.getElementById("body-table");
     for (let i = 0; i < data.length; i++) {
       let trFilmTable = document.createElement("tr");
       trFilmTable.setAttribute("data-id", data[i].id);
-      let tdName = document.createElement("td"); 
+      let tdName = document.createElement("td");
       tdName.classList.add("text-start")
       let tdLength = document.createElement("td");
       let tdDirector = document.createElement("td");
       // tdLength.className = "tdCenter"; 
-      tdLength.classList.add("tdCenter","col-4");
+      tdLength.classList.add("tdCenter", "col-4");
       let tdFilmStatus = document.createElement("td");
       // tdFilmStatus.className = "tdCenter";
-      tdFilmStatus.classList.add("tdCenter","col-2");
+      tdFilmStatus.classList.add("tdCenter", "col-2");
       let tdDelete = document.createElement("td");
       tdDelete.className = "tdCenter";
       let btnDelete = document.createElement("button");
@@ -613,23 +678,40 @@ fetch(`${url}/${film}`, {
       var checkdelete = true;
       btnDelete.addEventListener("click", function () {
         checkdelete = false;
-        showAlert("Bạn có chắc chắn muốn xóa");
-        btCancel.addEventListener('click', function() {
-          const modal = document.getElementById('exampleModal');
-          const modalInstance = bootstrap.Modal.getInstance(modal);
-          modalInstance.hide();
-        });
-        btOK.addEventListener('click', function() {
-          const modal = document.getElementById('exampleModal');
-          const modalInstance = bootstrap.Modal.getInstance(modal);
-          modalInstance.hide();
-          deleteUsers(data[i].id);
-        });
+        //showAlert("Bạn có chắc chắn muốn xóa");
+        Swal.fire({
+          title: 'Bạn có chắc chắn muốn xóa',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'OK'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteUsers(data[i].id);
+            Swal.fire(
+              'Deleted!',
+              'Phim đã được xóa',
+              'success'
+            )
+          }
+        })
+        // btCancel.addEventListener('click', function() {
+        //   const modal = document.getElementById('exampleModal');
+        //   const modalInstance = bootstrap.Modal.getInstance(modal);
+        //   modalInstance.hide();
+        // });
+        // btOK.addEventListener('click', function() {
+        //   const modal = document.getElementById('exampleModal');
+        //   const modalInstance = bootstrap.Modal.getInstance(modal);
+        //   modalInstance.hide();
+        //   deleteUsers(data[i].id);
+        // });
       });
       trFilmTable.addEventListener("click", function () {
-        if(checkdelete == true){
-        const id = this.getAttribute("data-id");
-        updateFilm(id);
+        if (checkdelete == true) {
+          const id = this.getAttribute("data-id");
+          updateFilm(id);
         }
       });
       trFilmTable.appendChild(tdName);
@@ -644,19 +726,19 @@ fetch(`${url}/${film}`, {
   .catch(error => console.error(error));
 
 function handleOutsideClickAddFilm(event) {
-    if (!overlayAddFilm.contains(event.target)) {
-        overlay.style.display = "none";
-        overlayAddFilm.style.display = "none";
-        document.removeEventListener("click", handleOutsideClickAddFilm, true);
-    }
+  if (!overlayAddFilm.contains(event.target)) {
+    overlay.style.display = "none";
+    overlayAddFilm.style.display = "none";
+    document.removeEventListener("click", handleOutsideClickAddFilm, true);
+  }
 }
 
 fetch(`${url}/${genre}`, {
-    method: 'GET',
-    headers: {
-    'Authorization' : "bearer " + localStorage.getItem('token')
-    }
-  })
+  method: 'GET',
+  headers: {
+    'Authorization': "bearer " + localStorage.getItem('token')
+  }
+})
   .then(response => response.json())
   .then(genres => {
     genres.forEach(genre => {
@@ -682,33 +764,33 @@ fetch(`${url}/${genre}`, {
 fetch(`${url}/${genre}`, {
   method: 'GET',
   headers: {
-  'Authorization' : "bearer " + localStorage.getItem('token')
+    'Authorization': "bearer " + localStorage.getItem('token')
   }
 })
-.then(response => response.json())
-.then(genres => {
-  genres.forEach(genre => {
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.name = genre.name;
-    checkbox.value = genre.id;
-    checkbox.id = `genre-${genre.id}`;
-    checkbox.style.marginRight = '15px';
-    checkbox.style.marginLeft = '30px';
-    // checkbox.style.marginLeft = '20px';
-    const label = document.createElement('label');
-    label.htmlFor = `genre-${genre.id}`;
-    label.appendChild(document.createTextNode(genre.name));
-    // checkbox.style.marginLeft = '50px';
-    label.style.width = '170px';
-    // checkbox.style.marginLeft = '25px';
-    genreListDiv2.appendChild(checkbox);
-    genreListDiv2.appendChild(label);
+  .then(response => response.json())
+  .then(genres => {
+    genres.forEach(genre => {
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.name = genre.name;
+      checkbox.value = genre.id;
+      checkbox.id = `genre-${genre.id}`;
+      checkbox.style.marginRight = '15px';
+      checkbox.style.marginLeft = '30px';
+      // checkbox.style.marginLeft = '20px';
+      const label = document.createElement('label');
+      label.htmlFor = `genre-${genre.id}`;
+      label.appendChild(document.createTextNode(genre.name));
+      // checkbox.style.marginLeft = '50px';
+      label.style.width = '170px';
+      // checkbox.style.marginLeft = '25px';
+      genreListDiv2.appendChild(checkbox);
+      genreListDiv2.appendChild(label);
+    });
   });
-});
 
 form.addEventListener('submit', async (event) => {
-  event.preventDefault(); 
+  event.preventDefault();
   const checkboxes = document.querySelectorAll('#genre-list1 input[type=checkbox]:checked');
   let isChecked = false;
   checkboxes.forEach((checkbox) => {
@@ -719,6 +801,7 @@ form.addEventListener('submit', async (event) => {
 
   if (!isChecked) {
     alert('Vui lòng chọn ít nhất một thể loại!');
+    Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1000);
     return;
   }
   const name = document.getElementById('name').value;
@@ -755,7 +838,7 @@ form.addEventListener('submit', async (event) => {
   const formData = new FormData();
   const inputFile1 = document.querySelector('#poster');
   const inputFile2 = document.querySelector('#adposter');
-  formData.append('film',newMovieJson);
+  formData.append('film', newMovieJson);
   formData.append('poster', inputFile1.files[0]);
   formData.append('adposter', inputFile2.files[0]);
   // formData.forEach((value, key) => {
@@ -764,23 +847,38 @@ form.addEventListener('submit', async (event) => {
   fetch(`${url}/${film}`, {
     method: 'POST',
     headers: {
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
     body: formData
   })
-  .then(response => {
-    if (!response.ok) {
-      showAlertTimeOut('Thêm phim mới không thành công');
+    .then(response => {
+      if (!response.ok) {
+        // showAlertTimeOut('Thêm phim mới không thành công');
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Lỗi',
+          text: 'Thêm phim mới không thành công',
+          footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+          timer: 1000
+        })
+        //location.reload();
+        throw new Error('Đã xảy ra lỗi khi thêm phim mới');
+      }
+      // showAlertTimeOut('Thêm phim mới thành công');
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Thêm phim mới thành công',
+        showConfirmButton: false,
+        timer: 800
+      })
       //location.reload();
-      throw new Error('Đã xảy ra lỗi khi thêm phim mới');
-    }
-    showAlertTimeOut('Thêm phim mới thành công');
-    //location.reload();
-  })
-  .catch(error => {
-    //location.reload();
-    console.error(error);
-  });
+    })
+    .catch(error => {
+      //location.reload();
+      console.error(error);
+    });
 });
 
 

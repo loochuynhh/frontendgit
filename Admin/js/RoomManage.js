@@ -189,7 +189,8 @@ function Seat() {
         //btnSave.addEventListener("click", Save);
         btnSave.addEventListener("click", async (event) => {
             if(document.getElementById("roomName").value == ''){
-                alert("Vui lòng nhập tên phòng");
+                // alert("Vui lòng nhập tên phòng");
+                Swal.fire('Vui lòng nhập tên phòng', 1000);
             }else{ Save();}
         })
         let btnCancel = document.createElement("button");
@@ -294,10 +295,24 @@ function DeleteRoom() {
             }).then(response => {
                 console.log(response.status);
                 if (response.status == '400') {
-                    alert("Xóa phòng chiếu thất bại! Phòng chiếu đã tồn tại lịch chiếu");
+                    // alert("Xóa phòng chiếu thất bại! Phòng chiếu đã tồn tại lịch chiếu");
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Xóa phòng chiếu thất bại',
+                        timer: 1000
+                      })
                 }
                 if(response.ok){
-                    alert("Xóa phòng chiếu thành công");
+                    // alert("Xóa phòng chiếu thành công");
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'success',
+                        title: 'Xóa phòng chiếu thành công',
+                        showConfirmButton: false,
+                        timer: 800
+                      })
                     let select = document.getElementById("RoomNameForSelect");
                     for (let i = select.options.length - 1; i >= 2; i--) {
                         select.remove(i);
@@ -327,9 +342,26 @@ function Save() {
                 }, 
             }).then(response => {
                 console.log(response.status); 
-                if (response.status == '400') alert("Đổi trạng thái phòng chiếu thất bại! Phòng chiếu đã có lịch đặt");
+                if (response.status == '400') {
+                    // alert("Đổi trạng thái phòng chiếu thất bại! Phòng chiếu đã có lịch đặt");
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Đổi trạng thái phòng chiếu thất bại!',
+                        footer: '<a>Phòng chiếu đã có lịch đặt</a>',
+                        timer: 1000
+                      })
+                }
                 if(response.ok){
-                    alert("Đổi trạng thái phòng chiếu thành công!");
+                    // alert("Đổi trạng thái phòng chiếu thành công!");
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'success',
+                        title: 'Đổi trạng thái phòng chiếu thành công',
+                        showConfirmButton: false,
+                        timer: 800
+                      })
                     location.reload();
                 }
             })
@@ -350,7 +382,14 @@ function Save() {
                 console.log(response.status); 
                 if (response.status == '400') alert("Đổi trạng thái phòng chiếu thất bại! Phòng chiếu phải ở trạng thái đang sửa");
                 if(response.ok){
-                    alert("Cập nhật phòng chiếu thành công!");
+                    // alert("Cập nhật phòng chiếu thành công!");
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'success',
+                        title: 'Cập nhật phòng chiếu thành công',
+                        showConfirmButton: false,
+                        timer: 800
+                      })
                     location.reload();
                 }
             }) 
@@ -370,10 +409,24 @@ function Save() {
         }).then(response => {
             console.log(response.status);
             if (response.status == '400') {
-                alert("Thêm phòng chiếu thất bại! Tên phòng chiếu đã tồn tại")
+                // alert("Thêm phòng chiếu thất bại! Tên phòng chiếu đã tồn tại");
+                Swal.fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Thêm phòng chiếu thất bại! Tên phòng chiếu đã tồn tại',
+                    timer: 1000
+                  })
             }
             if(response.ok){
-                alert("Thêm phòng chiếu thành công");
+                // alert("Thêm phòng chiếu thành công");
+                Swal.fire({
+                    position: 'top',
+                    icon: 'success',
+                    title: 'Thêm phòng chiếu thành công',
+                    showConfirmButton: false,
+                    timer: 800
+                  })
                 location.reload();
             }
         })

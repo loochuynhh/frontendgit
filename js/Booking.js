@@ -270,7 +270,8 @@ function prev(){
 function contToPay(){ 
     // console.log(document.querySelectorAll(".selected .seatMap").length);
     if (billInfo.seat.length === 0){
-        alert("Vui lòng chọn số ghế");
+        // alert("Vui lòng chọn số ghế");
+        Swal.fire('Vui lòng chọn số ghế');
     }else{
         document.getElementById("select-seat").classList.add("d-none");
         document.getElementById("select-food").classList.add("d-none");
@@ -382,7 +383,14 @@ function pay(){
             foodOrderDTOs: foodOrderDTOs
         })
     }) 
-    alert("Mua vé thành công");
+    // alert("Mua vé thành công");
+    Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Mua vé thành công',
+        showConfirmButton: false,
+        timer: 800
+      })
     location.reload();
     
 } 
