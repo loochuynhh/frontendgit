@@ -382,6 +382,8 @@ function pay(){
             foodOrderDTOs: foodOrderDTOs
         })
     }) 
+    alert("Mua vé thành công");
+    location.reload();
     
 } 
 function formatDate(date) {

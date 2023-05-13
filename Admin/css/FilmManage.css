@@ -72,7 +72,7 @@ thead{
 }
 
 #thDirector {
-    width: 15%;
+    width: 20%;
 }
 
 #thLength {
@@ -80,7 +80,7 @@ thead{
 }
 
 #thStatus {
-    width: 15%;
+    width: 10%;
 }
 #thDel {
     width: 8%;

@@ -77,8 +77,9 @@ selectTimeSchedule.addEventListener('change', function () {
                         tdDelete.appendChild(btnDelete);
                         let tdRoom = document.createElement("td");
                         tdRoom.className = "tdCenter";
-                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime)); 
-                        tdEndTime.innerHTML = data[i][j].endTime;
+                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
+                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
+                        //tdEndTime.innerHTML = data[i][j].endTime;
                         tdFilm.innerHTML = data[i][j].filmName;
                         for (let t = 0; t < formRoom.options.length; t++) {
                             if (data[i][j].roomId == formRoom.options[t].id) {
@@ -160,8 +161,11 @@ selectTimeSchedule.addEventListener('change', function () {
                         tdDelete.appendChild(btnDelete);
                         let tdRoom = document.createElement("td");
                         tdRoom.className = "tdCenter";
-                        tdStartTime.innerHTML = data[i][j].startTime;
-                        tdEndTime.innerHTML = data[i][j].endTime;
+                        //tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
+                        //tdStartTime.innerHTML = data[i][j].startTime;
+                        //tdEndTime.innerHTML = data[i][j].endTime;
+                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
+                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
                         tdFilm.innerHTML = data[i][j].filmName;
                         console.log(formRoom.options.length);
                         for (let t = 0; t < formRoom.options.length; t++) {
@@ -245,8 +249,10 @@ selectTimeSchedule.addEventListener('change', function () {
                         tdDelete.appendChild(btnDelete);
                         let tdRoom = document.createElement("td");
                         tdRoom.className = "tdCenter";
-                        tdStartTime.innerHTML = data[i][j].startTime;
-                        tdEndTime.innerHTML = data[i][j].endTime;
+                        //tdStartTime.innerHTML = data[i][j].startTime;
+                        //tdEndTime.innerHTML = data[i][j].endTime;
+                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
+                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
                         tdFilm.innerHTML = data[i][j].filmName;
                         console.log(formRoom.options.length);
                         for (let t = 0; t < formRoom.options.length; t++) {
@@ -525,8 +531,10 @@ async function getSchedule() {
                     tdDelete.appendChild(btnDelete);
                     let tdRoom = document.createElement("td");
                     tdRoom.className = "tdCenter";
-                    tdStartTime.innerHTML = data[i][j].startTime;
-                    tdEndTime.innerHTML = data[i][j].endTime;
+                    //tdStartTime.innerHTML = data[i][j].startTime;
+                    //tdEndTime.innerHTML = data[i][j].endTime;
+                    tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
+                    tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));  
                     tdFilm.innerHTML = data[i][j].filmName;
                     for (let t = 0; t < formRoom.options.length; t++) {
                         if (data[i][j].roomId == formRoom.options[t].id) {

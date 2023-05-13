@@ -596,7 +596,7 @@ fetch(`${url}/${film}`, {
       tdName.innerHTML = data[i].name;
       tdDirector.innerHTML = data[i].director;
       tdLength.innerHTML = data[i].length;
-      tdFilmStatus.innerHTML = data[i].filmStatus;
+      tdFilmStatus.innerHTML = data[i].country;
       var checkdelete = true;
       btnDelete.addEventListener("click", function () {
         checkdelete = false;

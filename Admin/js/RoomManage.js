@@ -294,7 +294,7 @@ function DeleteRoom() {
             }).then(response => {
                 console.log(response.status);
                 if (response.status == '400') {
-                    alert("Thêm phòng chiếu thất bại! Tên phòng chiếu đã tồn tại")
+                    alert("Xóa phòng chiếu thất bại! Phòng chiếu đã tồn tại lịch chiếu");
                 }
                 if(response.ok){
                     alert("Xóa phòng chiếu thành công");
