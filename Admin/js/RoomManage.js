@@ -285,45 +285,53 @@ function createRoomforUpdate(){
     return newRoom;
 }
 function DeleteRoom() {
-    if(confirm("Bạn muốn chắc chắn xóa phòng này?")){
-        if (roomSelected !== "-1" && roomSelected !== "-2") {
-            fetch(URLROOM + "/" + roomSelected, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': "bearer " + token
-                },
-            }).then(response => {
-                console.log(response.status);
-                if (response.status == '400') {
-                    // alert("Xóa phòng chiếu thất bại! Phòng chiếu đã tồn tại lịch chiếu");
-                    Swal.fire({
-                        position: 'top',
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Xóa phòng chiếu thất bại',
-                        timer: 1000
-                      })
-                }
-                if(response.ok){
-                    // alert("Xóa phòng chiếu thành công");
-                    Swal.fire({
-                        position: 'top',
-                        icon: 'success',
-                        title: 'Xóa phòng chiếu thành công',
-                        showConfirmButton: false,
-                        timer: 800
-                      })
-                    let select = document.getElementById("RoomNameForSelect");
-                    for (let i = select.options.length - 1; i >= 2; i--) {
-                        select.remove(i);
+    Swal.fire({
+        title: 'Bạn có chắc chắn muốn xóa phòng này',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            if (roomSelected !== "-1" && roomSelected !== "-2") {
+                fetch(URLROOM + "/" + roomSelected, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': "bearer " + token
+                    },
+                }).then(response => {
+                    console.log(response.status);
+                    if (response.status == '400') {
+                        // alert("Xóa phòng chiếu thất bại! Phòng chiếu đã tồn tại lịch chiếu");
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Xóa phòng chiếu thất bại',
+                            timer: 1000
+                          })
                     }
-                    location.reload(); 
-                }
-            })
-            
+                    if(response.ok){
+                        // alert("Xóa phòng chiếu thành công");
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'success',
+                            title: 'Xóa phòng chiếu thành công',
+                            showConfirmButton: false,
+                            timer: 800
+                          })
+                        let select = document.getElementById("RoomNameForSelect");
+                        for (let i = select.options.length - 1; i >= 2; i--) {
+                            select.remove(i);
+                        }
+                        location.reload(); 
+                    }
+                })
+                
+            }
         }
-    }
-    
+      })
 }
 
 function Save() {
