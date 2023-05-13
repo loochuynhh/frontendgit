@@ -319,7 +319,7 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
   }
   if (passwordRegex.test(password)) {
   } else {
-    showAlertTimeOutLogin('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
+    // showAlertTimeOutLogin('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
     Swal.fire({
       position: 'top',
       icon: 'error',
