@@ -7,16 +7,13 @@ const Password = "";
 const token = localStorage.getItem('token');
 // const myObject = new wn();
 var Overlay = document.getElementById("overlay");
-
 var loginButton = document.getElementById("login-button");
 var buttonLogin = document.getElementById("buttonLogin");
 var OverlayLogin = document.getElementById("overlayLogin");
-
 var buttonSignup = document.getElementById("signup-button");
 var signupButton = document.getElementById("signupButton");
 var OverlaySignup = document.getElementById("overlaySignup");
-var homeLink = document.getElementById('home'); 
-var overlayAddFilm = document.getElementById('overlayAddFilm'); 
+var homeLink = document.getElementById('home');
 var overlayUser = document.getElementById("overlayUser");
 var overlayHome = document.getElementById("overlayHome");
 var OverlayInfor = document.getElementById("overlayInfo");
@@ -31,8 +28,17 @@ var passwordLogin = document.getElementById('passwordLogin');
 
 window.onload = loadSlide();
 
-function loadSlide(){ 
-    fetch("https://localhost:44308/api/film/showing")
+function loadSlide() {
+  if (localStorage.getItem('token') != null) {
+    console.log('user');
+    document.getElementById('overlayUser').style.display = 'block';
+    document.getElementById('overlayHome').style.display = 'none';
+  } else {
+    console.log('home');
+    document.getElementById('overlayUser').style.display = 'none';
+    document.getElementById('overlayHome').style.display = 'block';
+  }
+  fetch("https://localhost:44308/api/film/showing")
     .then(response => response.json())
     .then(data => {
       document.getElementById("slide-img1").src = data[0].adPosterUrl;
@@ -42,8 +48,9 @@ function loadSlide(){
       document.getElementById("slide-img5").src = data[4].adPosterUrl;
     })
     .catch(error => console.error(error));
-} 
-function showmore(){
+}
+
+function showmore() {
   window.location.href = "/LayoutFilm.html";
 }
 function handleOutsideClickLogin(event) {
@@ -99,7 +106,7 @@ function showOverlay(title, message) {
   modal.classList.add('show')
   modal.style.display = 'block'
   modal.removeAttribute('aria-hidden')
-  setTimeout(function(){
+  setTimeout(function () {
     modal.classList.remove('show')
     modal.style.display = 'none'
     modal.setAttribute('aria-hidden', 'true')
@@ -126,7 +133,7 @@ function showAlertTimeOut(message) {
   OverlayLogin.style.display = "none";
   OverlaySignup.style.display = "none";
   myModal.show();
-  setTimeout(function(){
+  setTimeout(function () {
     myModal.hide();
   }, 800);
 }
@@ -137,7 +144,7 @@ function showAlertTimeOutLogin(message) {
   OverlayLogin.style.display = "block";
   OverlaySignup.style.display = "none";
   myModal.show();
-  setTimeout(function(){
+  setTimeout(function () {
     myModal.hide();
   }, 800);
 }
@@ -148,7 +155,7 @@ function showAlertTimeOutSignup(message) {
   OverlayLogin.style.display = "none";
   OverlaySignup.style.display = "block";
   myModal.show();
-  setTimeout(function(){
+  setTimeout(function () {
     myModal.hide();
   }, 1000);
 }
@@ -160,24 +167,24 @@ function showAlertTimeOutInfo(message) {
   OverlaySignup.style.display = "none";
   OverlayInfor.style.display = "block";
   myModal.show();
-  setTimeout(function(){
+  setTimeout(function () {
     myModal.hide();
   }, 800);
 }
-function showSuccess(){
-  var alertSuccess = document.querySelector('.alert-success'); 
-  alertSuccess.style.display = 'block'; 
+function showSuccess() {
+  var alertSuccess = document.querySelector('.alert-success');
+  alertSuccess.style.display = 'block';
   Overlay.style.display = "none";
   OverlaySignup.style.display = "none";
   OverlayLogin.style.display = "none";
-  setTimeout(function() {
+  setTimeout(function () {
     alertSuccess.style.display = 'none';
   }, 2000);
 }
-function showUnsuccess(){
-  var alertDanger = document.querySelector('.alert-danger'); 
-  alertDanger.style.display = 'block'; 
-  setTimeout(function() {
+function showUnsuccess() {
+  var alertDanger = document.querySelector('.alert-danger');
+  alertDanger.style.display = 'block';
+  setTimeout(function () {
     alertDanger.style.display = 'none';
   }, 2000);
 }
@@ -188,9 +195,9 @@ function isValidPhoneNumber(phoneNumber) {
   return regex.test(phoneNumber);
 }
 
-document.querySelector('#formSignup').addEventListener('submit', function(event) {
-  event.preventDefault(); 
-  event.stopPropagation(); 
+document.querySelector('#formSignup').addEventListener('submit', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
   if (!event.target.checkValidity()) {
     event.target.classList.add('was-validated');
     return;
@@ -198,7 +205,7 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
   if (document.getElementById("passwordConfirm").value != document.getElementById("password").value) {
     document.getElementById("passwordConfirm").classList.add("is-invalid");
     return;
-  } else { document.getElementById("passwordConfirm").classList.remove("is-invalid");}
+  } else { document.getElementById("passwordConfirm").classList.remove("is-invalid"); }
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
   var Password = document.getElementById("password").value;
@@ -218,14 +225,14 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
     })
     return;
   }
-  
+
   var Name = document.getElementById("name").value;
   var Email = document.getElementById("email").value;
   var Address = document.getElementById("address").value;
   var Phone = document.getElementById("phoneNumber").value;
   var gender = document.getElementById("gender").value;
   var Gender = false;
-  if(gender.value === "0") {
+  if (gender.value === "0") {
     Gender = true;
   }
   if (!isValidPhoneNumber(Phone)) {
@@ -245,7 +252,7 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
   let year = dateObj.getFullYear();
   let currentYear = new Date().getFullYear() - 3;
   if (year >= 1900 && year <= currentYear) {
-  } else{
+  } else {
     // showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
     Swal.fire({
       position: 'top',
@@ -263,53 +270,53 @@ document.querySelector('#formSignup').addEventListener('submit', function(event)
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ 
+    body: JSON.stringify({
       id: 0,
-      name: Name, 
-      email: Email, 
-      gender: Gender, 
-      birth: Birth, 
-      phone: Phone, 
-      address: Address, 
-      password: Password, 
+      name: Name,
+      email: Email,
+      gender: Gender,
+      birth: Birth,
+      phone: Phone,
+      address: Address,
+      password: Password,
       role: Role
     })
   })
-  .then(response => {
-    if (response.ok) {
-      // showSuccess();
-      //showAlert("Đăng ký thành công!");
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Đăng ký thành công',
-        showConfirmButton: false,
-        timer: 800
-      })
-    } else {
+    .then(response => {
+      if (response.ok) {
+        // showSuccess();
+        //showAlert("Đăng ký thành công!");
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Đăng ký thành công',
+          showConfirmButton: false,
+          timer: 800
+        })
+      } else {
+        // showUnsuccess();
+        // showAlertTimeOutSignup("Đăng ký thất bại!");
+      }
+    })
+    .catch(error => {
       // showUnsuccess();
       // showAlertTimeOutSignup("Đăng ký thất bại!");
-    }
-  })
-  .catch(error => {
-    // showUnsuccess();
-    // showAlertTimeOutSignup("Đăng ký thất bại!");
-    Swal.fire({
-      position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
-      text: 'Đăng ký thất bại',
-      footer: '<a>Thông tin đăng ký không hợp lệ/a>',
-      timer: 1000
-    })
-    console.error("Lỗi khi đăng ký tài khoản:", error);
-  });
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Đăng ký thất bại',
+        footer: '<a>Thông tin đăng ký không hợp lệ/a>',
+        timer: 1000
+      })
+      console.error("Lỗi khi đăng ký tài khoản:", error);
+    });
 });
 
-document.querySelector('#formLogin').addEventListener('submit', function(event) {
-  event.preventDefault(); 
-  event.stopPropagation(); 
-  
+document.querySelector('#formLogin').addEventListener('submit', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+
   const username = document.getElementById("emailLogin").value;
   const password = document.getElementById("passwordLogin").value;
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
@@ -360,11 +367,11 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
       fetch(`${url}/${genre}`, {
         method: 'GET',
         headers: {
-        'Authorization' : "bearer " + localStorage.getItem('token')
+          'Authorization': "bearer " + localStorage.getItem('token')
         }
       })
-      .then(response => {
-          if(response.status == '403'){
+        .then(response => {
+          if (response.status == '403') {
             Swal.fire({
               position: 'top',
               icon: 'success',
@@ -377,18 +384,18 @@ document.querySelector('#formLogin').addEventListener('submit', function(event) 
             Overlay.style.display = "none";
             OverlayLogin.style.display = "none";
           }
-          else if(response.status == '200'){
+          else if (response.status == '200') {
             // showAlertTimeOut('Đăng nhập thành công');
             window.location.assign("./Admin/Index.html");
             // new sweetAlert('Đăng nhập thành công');
           }
-          
-      })
-      
+
+        })
+
     });
 });
 
-passwordChange.addEventListener("change", function() {
+passwordChange.addEventListener("change", function () {
   if (this.checked) {
     changePasswordForm.style.display = 'block';
     oldPassword.setAttribute('required', '');
@@ -402,7 +409,7 @@ passwordChange.addEventListener("change", function() {
   }
 });
 
-dropdownlogout.onclick = function (){
+dropdownlogout.onclick = function () {
   overlayHome.style.display = "block";
   overlayUser.style.display = "none";
   Overlay.style.display = "none";
@@ -410,50 +417,50 @@ dropdownlogout.onclick = function (){
   passwordLogin.value = '';
   localStorage.clear();
 }
-function showdata(person){
-        var name = document.getElementById("nameInfo");
-        var email = document.getElementById("emailInfo");
-        var address = document.getElementById("addressInfo");
-        var phoneNumber = document.getElementById("phoneNumberInfo");
-        var gender = document.getElementById("genderInfo");
-        var dateOfBirth = document.getElementById("dateOfBirthInfo");
-        //var password = document.getElementById("password");
-        //var passwordConfirm = document.getElementById("passwordConfirm");
-    
-        name.value = person.name;
-        email.value = person.email;
-        address.value = person.address;
-        phoneNumber.value = person.phone;
-        if(person.gender == true){
-            gender.value = "0";
-        }
-        else{gender.value = "1"}
-        const dateISO = person.birth.split('T')[0];
-        dateOfBirth.value = dateISO;
-        // console.log(person);
+function showdata(person) {
+  var name = document.getElementById("nameInfo");
+  var email = document.getElementById("emailInfo");
+  var address = document.getElementById("addressInfo");
+  var phoneNumber = document.getElementById("phoneNumberInfo");
+  var gender = document.getElementById("genderInfo");
+  var dateOfBirth = document.getElementById("dateOfBirthInfo");
+  //var password = document.getElementById("password");
+  //var passwordConfirm = document.getElementById("passwordConfirm");
+
+  name.value = person.name;
+  email.value = person.email;
+  address.value = person.address;
+  phoneNumber.value = person.phone;
+  if (person.gender == true) {
+    gender.value = "0";
+  }
+  else { gender.value = "1" }
+  const dateISO = person.birth.split('T')[0];
+  dateOfBirth.value = dateISO;
+  // console.log(person);
 }
 function getInfo() {
-    fetch(`${url}/${Users}`, {
-        method: 'GET',
-        headers: {
-        'Authorization' : "bearer " + localStorage.getItem('token')
-        }
-    })
+  fetch(`${url}/${Users}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': "bearer " + localStorage.getItem('token')
+    }
+  })
     .then(response => {
-        if (!response.ok) {
+      if (!response.ok) {
         throw new Error('Network response was not ok');
-        }
-        return response.json();
+      }
+      return response.json();
     })
     .then(data => {
-        localStorage.setItem('id', data.id);
-        localStorage.setItem('roleName', data.roleName);
-        showdata(data);
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('roleName', data.roleName);
+      showdata(data);
     })
     .catch(error => {
-        console.error('Lỗi API: ', error);
+      console.error('Lỗi API: ', error);
     });
-} 
+}
 
 function handleOutsideClickInfo(event) {
   if (!OverlayInfor.contains(event.target)) {
@@ -463,173 +470,173 @@ function handleOutsideClickInfo(event) {
     document.removeEventListener("click", handleOutsideClickInfo, true);
   }
 }
-dropdowninfo.addEventListener("click", function() {
-    Overlay.style.display = "block";
-    OverlayInfor.style.display = "block";
-    getInfo();
-    document.addEventListener("click", handleOutsideClickInfo, true);
+dropdowninfo.addEventListener("click", function () {
+  Overlay.style.display = "block";
+  OverlayInfor.style.display = "block";
+  getInfo();
+  document.addEventListener("click", handleOutsideClickInfo, true);
 });
 
-document.querySelector('#formInfo').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    event.stopPropagation(); 
+document.querySelector('#formInfo').addEventListener('submit', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
 
-    if (!event.target.checkValidity()) {
-      event.target.classList.add('was-validated');
-      console.log("1");
-      return;
-    }
-    
-    var name = document.getElementById("nameInfo").value;
-    var email = document.getElementById("emailInfo").value;
-    var address = document.getElementById("addressInfo").value;
-    var phoneNumber = document.getElementById("phoneNumberInfo").value;
-    var Gender = document.getElementById("genderInfo").value;
-    var birth = document.getElementById("dateOfBirthInfo").value;
-    var oldPassword = document.getElementById("oldPasswordInfo").value;
-    var newPassword = document.getElementById("newPasswordInfo").value;
-    var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo").value;
-    var gender = false;
-    if(Gender == '0') {
-        gender = true;
-    }
-    
-    if (!isValidPhoneNumber(phoneNumber)) {
-      // showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Số điện thoại không hợp lệ',
-        footer: '<a>Số điện thoại gồm 10 số</a>',
-        timer: 1000
-      })
-      return;
-    }
-    let dateObj = new Date(birth);
-    let year = dateObj.getFullYear();
-    let currentYear = new Date().getFullYear() - 3;
-    if (year >= 1900 && year <= currentYear) {
-    } else{
-      // showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Ngày sinh không quá 3 tuổi và trước 1900',
-        timer: 1000
-      })
-      return;
-    }
-    localStorage.setItem('put', 0);
-    fetch(`${url}/${Users}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : "bearer " + token
-      },
-      body: JSON.stringify({
-        id: localStorage.getItem('id'),
-        name: name,
-        email: email,
-        gender: gender,
-        birth: birth,
-        phone: phoneNumber,
-        address: address,
-        RoleName: localStorage.getItem('roleName')
-      })
+  if (!event.target.checkValidity()) {
+    event.target.classList.add('was-validated');
+    console.log("1");
+    return;
+  }
+
+  var name = document.getElementById("nameInfo").value;
+  var email = document.getElementById("emailInfo").value;
+  var address = document.getElementById("addressInfo").value;
+  var phoneNumber = document.getElementById("phoneNumberInfo").value;
+  var Gender = document.getElementById("genderInfo").value;
+  var birth = document.getElementById("dateOfBirthInfo").value;
+  var oldPassword = document.getElementById("oldPasswordInfo").value;
+  var newPassword = document.getElementById("newPasswordInfo").value;
+  var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo").value;
+  var gender = false;
+  if (Gender == '0') {
+    gender = true;
+  }
+
+  if (!isValidPhoneNumber(phoneNumber)) {
+    // showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Lỗi',
+      text: 'Số điện thoại không hợp lệ',
+      footer: '<a>Số điện thoại gồm 10 số</a>',
+      timer: 1000
     })
+    return;
+  }
+  let dateObj = new Date(birth);
+  let year = dateObj.getFullYear();
+  let currentYear = new Date().getFullYear() - 3;
+  if (year >= 1900 && year <= currentYear) {
+  } else {
+    // showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Lỗi',
+      text: 'Ngày sinh không quá 3 tuổi và trước 1900',
+      timer: 1000
+    })
+    return;
+  }
+  localStorage.setItem('put', 0);
+  fetch(`${url}/${Users}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "bearer " + token
+    },
+    body: JSON.stringify({
+      id: localStorage.getItem('id'),
+      name: name,
+      email: email,
+      gender: gender,
+      birth: birth,
+      phone: phoneNumber,
+      address: address,
+      RoleName: localStorage.getItem('roleName')
+    })
+  })
     .then(response => {
       if (response.ok) {
-          // showAlert("Chỉnh sửa thành công!");
-          
-        } else {
-          // showAlert("Chỉnh sửa thất bại!");
-          localStorage.setItem('put', 1);
+        // showAlert("Chỉnh sửa thành công!");
 
-        }
+      } else {
+        // showAlert("Chỉnh sửa thất bại!");
+        localStorage.setItem('put', 1);
+
+      }
     })
     .catch(error => {
       localStorage.setItem('put', 1);
       console.error(error);
     });
 
-    if (changePasswordForm.style.display == 'block') {
-      if(newPassword != newPasswordConfirm){
-        document.getElementById("newPasswordConfirmInfo").classList.add("is-invalid");
-        console.log("2");
-        return;
-      }
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-      if (passwordRegex.test(newPassword)) {
-      } else {
-        // showAlertTimeOutInfo('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Lỗi',
-          text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-          timer: 1000
-        })
-        return;
-      }
-      fetch(`${url}/${Password}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization' : "bearer " + token
-        },
-        body: JSON.stringify({
-          id: localStorage.getItem('id'),
-          oldPassword: oldPassword,
-          newPassword: newPassword, 
-          RoleName: localStorage.getItem('roleName')
-        })
+  if (changePasswordForm.style.display == 'block') {
+    if (newPassword != newPasswordConfirm) {
+      document.getElementById("newPasswordConfirmInfo").classList.add("is-invalid");
+      console.log("2");
+      return;
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    if (passwordRegex.test(newPassword)) {
+    } else {
+      // showAlertTimeOutInfo('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
+        timer: 1000
       })
+      return;
+    }
+    fetch(`${url}/${Password}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      },
+      body: JSON.stringify({
+        id: localStorage.getItem('id'),
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        RoleName: localStorage.getItem('roleName')
+      })
+    })
       .then(response => {
         if (response.ok) {
-            // showAlert("Thay đổi thành công!");
-          } else {
-            // showAlert("Thay đổi thất thất bại!");
-            localStorage.setItem('put', 2);
-          }
+          // showAlert("Thay đổi thành công!");
+        } else {
+          // showAlert("Thay đổi thất thất bại!");
+          localStorage.setItem('put', 2);
+        }
       })
       .catch(error => {
         localStorage.setItem('put', 2);
         console.error(error);
       });
-    }     
+  }
 
-    if(localStorage.getItem('put') == 0){
-      // showAlert("Chỉnh sửa thành công");
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Chỉnh sửa thành công',
-        showConfirmButton: false,
-        timer: 800
-      })
-    }else if(localStorage.getItem('put') == 1){
-      // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Thông tin cá nhân không hợp lệ',
-        footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
-        timer: 1000
-      })
-    }
-    else{
-      // showAlertTimeOutInfo("Thay đổi mật khẩu không thành công");
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'Lỗi',
-        text: 'Thay đổi mật khẩu không thành công',
-        timer: 1000
-      })
-    }
+  if (localStorage.getItem('put') == 0) {
+    // showAlert("Chỉnh sửa thành công");
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'Chỉnh sửa thành công',
+      showConfirmButton: false,
+      timer: 800
+    })
+  } else if (localStorage.getItem('put') == 1) {
+    // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Lỗi',
+      text: 'Thông tin cá nhân không hợp lệ',
+      footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
+      timer: 1000
+    })
+  }
+  else {
+    // showAlertTimeOutInfo("Thay đổi mật khẩu không thành công");
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: 'Lỗi',
+      text: 'Thay đổi mật khẩu không thành công',
+      timer: 1000
+    })
+  }
 });
 
 

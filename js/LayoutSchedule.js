@@ -1,6 +1,15 @@
 window.onload = loadCalendar(); 
 
 function loadCalendar() {  
+    if (localStorage.getItem('token') != null) {
+        console.log('user');
+        document.getElementById('overlayUser').style.display = 'block';
+        document.getElementById('overlayHome').style.display = 'none';
+      } else {
+        console.log('home');
+        document.getElementById('overlayUser').style.display = 'none';
+        document.getElementById('overlayHome').style.display = 'block';
+      }
     var currentDate = new Date(); 
     var nextDays = [];
     for (var i = 0; i <= 6; i++) {

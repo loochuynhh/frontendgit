@@ -5,6 +5,18 @@ var maxColCoords = 0;
 var seatId = [];
 var billInfo = {}
 billInfo.seat = [];
+window.onload = setLayout();
+function setLayout(){
+    if (localStorage.getItem('token') != null) {
+        console.log('user');
+        document.getElementById('overlayUser').style.display = 'block';
+        document.getElementById('overlayHome').style.display = 'none';
+      } else {
+        console.log('home');
+        document.getElementById('overlayUser').style.display = 'none';
+        document.getElementById('overlayHome').style.display = 'block';
+      }
+}
 // window.onload = test();
 // console.log("token",token);
 // if (localStorage.getItem('token') === null){

@@ -2,6 +2,18 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString); 
 const id = urlParams.get('filmId'); 
 
+window.onload = setLayout();
+function setLayout(){
+    if (localStorage.getItem('token') != null) {
+        console.log('user');
+        document.getElementById('overlayUser').style.display = 'block';
+        document.getElementById('overlayHome').style.display = 'none';
+      } else {
+        console.log('home');
+        document.getElementById('overlayUser').style.display = 'none';
+        document.getElementById('overlayHome').style.display = 'block';
+      }
+}
 // Truy vấn API để lấy tên của ảnh
 // const URLFILM = `https://636b935c7f47ef51e13457fd.mockapi.io/product/${id}`;
 const URLFILM = `https://localhost:44308/api/film/${id}`;

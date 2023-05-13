@@ -33,6 +33,15 @@ function selectIncomingFilm(event){
 }
 
 function loadFilm(URLFILM){
+    if (localStorage.getItem('token') != null) {
+        console.log('user');
+        document.getElementById('overlayUser').style.display = 'block';
+        document.getElementById('overlayHome').style.display = 'none';
+      } else {
+        console.log('home');
+        document.getElementById('overlayUser').style.display = 'none';
+        document.getElementById('overlayHome').style.display = 'block';
+      }
     console.log(URLFILM);
     fetch(URLFILM)
     .then(response => response.json())
