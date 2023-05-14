@@ -29,15 +29,31 @@
             Vui lòng nhập địa chỉ Email hợp lệ
            </div> 
          </div> 
-         <div class="input-group col-md-4 mb-4 has-validation">
+         <div class="input-group col-md-4  has-validation">
            <input type="password" class="form-control" id="passwordLogin" placeholder="Mật khẩu" required>
            <div class="invalid-feedback">
             Vui lòng nhập mật khẩu
            </div> 
          </div> 
+         <a href="#" id="forgot-password-link" class="btn btn-link">Quên mật khẩu</a>
          <button type="submit" class="w-100 btn btn-lg btn-primary" >Đăng nhập</button>
        </form>
      </div>
+    </div>
+    <div class="contentLogin whitebg text-center" id = "overlayForgotPassword" style="display:none">
+      <div class="form-signin w-100 m-auto">
+        <form class="needs-validation" id = "formForgotPassword" novalidate>
+          <img class="mb-3" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
+          <h1 class="h3 mb-4 fw-normal">Nhập Email của bạn</h1>
+          <div class="input-group mb-3 has-validation">
+            <input type="email" class="form-control" id="emailForgotPassword" placeholder="Địa chỉ Email" required>
+            <div class="invalid-feedback">
+             Vui lòng nhập địa chỉ Email hợp lệ
+            </div> 
+          </div> 
+          <button type="submit" class="w-100 btn btn-lg btn-primary" >Xác nhận</button>
+        </form>
+      </div>
     </div>
     <div class="contentSignup bg-body-tertiary" id="overlaySignup" style="display:none">
       <div class="container">
