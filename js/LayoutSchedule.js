@@ -1,4 +1,6 @@
 window.onload = loadCalendar(); 
+const URLBOOKING = "http://127.0.0.1:5502/LayoutBooking.html"
+var daySended = ""
 
 function loadCalendar() {  
     if (localStorage.getItem('token') != null) {
@@ -31,18 +33,16 @@ function loadCalendar() {
         btnDayOption.appendChild(spDayOfWeek);
         btnDayOption.appendChild(spDayOfMonth);
 
-        btnDayOption.addEventListener("click", function(){
-            // if (this.classList.contains("selectedButton")){
-            //     this.classList.remove('selectedButton')
-            // }
-            // else{
-                const buttons = document.querySelectorAll("#day-option .btn");
-                buttons.forEach(button => button.classList.remove('selectedButton'));
-                this.classList.add("selectedButton");
-                document.getElementById("film-for-select-schedule").innerHTML = "";
-            // }
+        btnDayOption.addEventListener("click", function(){ 
+            const buttons = document.querySelectorAll("#day-option .btn");
+            buttons.forEach(button => button.classList.remove('selectedButton'));
+            this.classList.add("selectedButton");
+            document.getElementById("film-for-select-schedule").innerHTML = "";
+
             const daySelected = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" +  dayOfMonth.toString().padStart(2, '0'); 
             const URLSCHEDULE = "https://localhost:44308/api/show?" + "date=" + daySelected +"&filmId=0&roomId=0";
+
+            daySended = "Thứ " + getDayOfWeek(date) + ", " + formatDate(date);
             // const URLSCHEDULE = "https://localhost:44308/api/show?" + "date=" + "2023-05-08" +"&filmId=0&roomId=0";
             
             selectDay(URLSCHEDULE);
@@ -104,6 +104,14 @@ function selectDay(URLSCHEDULE){
                 const btnSchedule = document.createElement("button");
                 btnSchedule.classList.add("btn", "btn-outline-primary", "m-2", "btn-sm", "text-center");
                 btnSchedule.innerHTML = startTimeFormated + " - " + endTimeFormated;
+
+                var showTimeSended = startTimeFormated + " - " + endTimeFormated + " | " + daySended
+
+                btnSchedule.addEventListener("click", function(){
+                    window.location.href = URLBOOKING + '?filmId=' + (data[i])[0].filmId + "&showId=" + (data[i])[0].id + "&roomId=" + (data[i])[0].roomId 
+                                            + "&roomName=" + (data[i])[0].roomName + "&showTime=" + showTimeSended
+                })
+
                 divBtn.appendChild(btnSchedule);
             });
 
@@ -119,3 +127,14 @@ function selectDay(URLSCHEDULE){
     .catch(error => console.error(error));
 }
 
+function getDayOfWeek(date) {
+    const daysOfWeek = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+    return daysOfWeek[date.getDay()];
+}
+
+function formatDate(date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+    return `${day}/${month}/${year}`;
+}

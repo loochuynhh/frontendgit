@@ -1,26 +1,23 @@
 const queryString = window.location.search; 
 const urlParams = new URLSearchParams(queryString); 
 const id = urlParams.get('filmId'); 
+const URLBOOKING = "http://127.0.0.1:5502/LayoutBooking.html"
 
 window.onload = setLayout();
 function setLayout(){
-    if (localStorage.getItem('token') != null) {
-        console.log('user');
+    if (localStorage.getItem('token') != null) { 
         document.getElementById('overlayUser').style.display = 'block';
         document.getElementById('overlayHome').style.display = 'none';
-      } else {
-        console.log('home');
+      } else { 
         document.getElementById('overlayUser').style.display = 'none';
         document.getElementById('overlayHome').style.display = 'block';
       }
-}
-// Truy vấn API để lấy tên của ảnh
-// const URLFILM = `https://636b935c7f47ef51e13457fd.mockapi.io/product/${id}`;
+} 
+
 const URLFILM = `https://localhost:44308/api/film/${id}`;
 fetch(URLFILM)
     .then(response => response.json())
-    .then(data => {  
-        console.log(data);
+    .then(data => {   
         const h2Name = document.createElement("h2");
         h2Name.classList.add("text-uppercase", "fw-bold");
 
@@ -54,11 +51,16 @@ fetch(URLFILM)
             if (j != genres.length - 1) nameGenres += genres[j].name + ", ";
             else nameGenres += genres[j].name;
         }
-        spGenre.append(nameGenres); 
-        
+        spGenre.append(nameGenres);  
+
         const datetimeString = data.releaseDate;
         const datetime = new Date(datetimeString);
-        const formattedDate = datetime.toLocaleDateString(); 
+        const day = datetime.getDate();
+        const month = datetime.getMonth() + 1; 
+        const year = datetime.getFullYear(); 
+        const formattedDay = (day < 10) ? '0' + day : day;
+        const formattedMonth = (month < 10) ? '0' + month : month;
+        const formattedDate = formattedDay + '/' + formattedMonth + '/' + year;  
         spPremiere.append(formattedDate);
 
         spLength.append(data.length);
@@ -87,3 +89,13 @@ fetch(URLFILM)
         document.getElementById("trailer").src = "https://www.youtube.com/embed/" + urlTrailer.substring(urlTrailer.indexOf("=") + 1);
 
     });
+
+function Booking(){
+    window.location.href = URLBOOKING + '?filmId=' + id;
+}
+
+function formatDate(date) {
+    const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString('vi-VN', options);
+    return formattedDate;
+}

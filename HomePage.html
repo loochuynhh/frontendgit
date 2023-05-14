@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/Film.css">
     <link rel="stylesheet" href="./css/HomePage.css"> 
     <link rel="stylesheet" href="./css/style.css"> 
-    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="stylesheet" href="/css/style.css">  
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
@@ -456,7 +456,7 @@
   <!-- HomePage phía dưới  -->
   <div class="container mt-3 mb-3"> 
     <!-- <a href="#" class="status-film">PHIM ĐANG CHIẾU</a> -->
-    <span class="status-film">PHIM ĐANG CHIẾU</span>
+    <span class="status-film-homepage">PHIM ĐANG CHIẾU</span>
     <!-- <a href="#" class="status-film">PHIM SẮP CHIẾU</a>  -->
     <hr>
   </div>
@@ -466,7 +466,9 @@
   <div class="container">
     <div class="row text-center" id="film-list">
     </div>
-    <button type="button" class="btn btn-outline-warning show-more" onclick= "showmore()">Xem thêm <i class="fa-solid fa-right-long"></i></button> 
+    <div class="container d-flex justify-content-end">
+      <button type="button" class="btn btn-outline-success" onclick= "showmore()">Xem thêm <i class="fa-solid fa-right-long"></i></button> 
+    </div>
   </div>
   <!-- List Film -->
      

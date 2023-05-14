@@ -1,0 +1,18 @@
+.name-feature {
+    margin-top: 1.5rem;
+}
+
+.ui-datepicker-calendar {
+    display: none;
+}
+
+.chart-double{
+    /* padding-top: 1px; */
+    height: 80vh
+}
+#revenueBySeatType{
+    margin-top: 4vh; 
+} 
+#revenueBySeatStatus{
+    margin-left: 10%;
+}

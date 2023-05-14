@@ -26,11 +26,11 @@ hr{
     color: rgb(242, 139, 4);
     text-decoration: none; 
 }
-/* .status-film:hover{ 
-    color: rgb(242, 139, 4);
-} */
-
-/* #film-list{ 
-    margin: 1% 21vw; */
-    /* text-align: center; */
-/* } */
+.status-film-homepage{ 
+    padding: 1%;
+    font-weight: 520;
+    font-size: 1.4em;
+    font-family: sans-serif;
+    color: rgb(242, 107, 4);
+    text-decoration: none;  
+} 
