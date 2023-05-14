@@ -1,25 +1,12 @@
 // var URLSTATISTIC = "https://localhost:44308/api/statistic?year=";
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 var chartRevenueByMonth = null;
 var chartRevenueByFilm = null;
 var chartRevenueBySeatType = null;
 var chartRevenueBySeatStatus = null;
-document.getElementById('yearpicker').value = new Date().getFullYear();
+document.getElementById('yearpicker').value = new Date().getFullYear();  
 
-
-// document.getElementById('monthpicker').value = new Date().getMonth() + 1;
-
-// $("#yearpicker").yearpicker({
-//     format: "yyyy",
-//     viewMode: "years", 
-//     minViewMode: "years",
-//     defaultViewDate: "2023"
-// });
-
-
-// window.onload = generateCalendar();
-window.onload = loadRevenueByMonth();
-// window.onload = loadRevenueByFilm();
+window.onload = loadRevenueByMonth(); 
 
 function loadRevenueByMonth() {
     generateCalendar();
@@ -49,10 +36,18 @@ function loadRevenueByMonth() {
         fetch(URLSTATISTIC, {
             method: 'GET',
             headers: {
-                'Authorization': "bearer " + token
+                'Authorization': "bearer " + localStorage.getItem('token')
             },
         })
-            .then(response => response.json())
+            .then(response => {
+                if (response.status == '403') {
+                    window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                }
+                if (response.status == '401') {
+                    window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                }
+                return response.json()
+            })
             .then(data => {
                 console.log(data);
                 var revenue = []
@@ -129,8 +124,6 @@ function generateCalendar() {
     }
 }
 
-
-
 function loadRevenueByFilm() {
     URLSTATISTIC = "https://localhost:44308/api/statistic?year=" + document.getElementById('yearpicker').value;
     console.log(URLSTATISTIC);
@@ -138,10 +131,18 @@ function loadRevenueByFilm() {
     fetch(URLSTATISTIC, {
         method: 'GET',
         headers: {
-            'Authorization': "bearer " + token
+            'Authorization': "bearer " + localStorage.getItem('token')
         },
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+            }
+            if (response.status == '401') {
+                window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+            }
+            return response.json()
+        })
         .then(data => {
             console.log("film", data.filmRevenue[document.getElementById("monthPickerForFilm").value - 1]);
             var keys = Object.keys(data.filmRevenue[document.getElementById("monthPickerForFilm").value - 1]);
@@ -196,10 +197,18 @@ function loadRevenueBySeatType() {
     fetch(URLSTATISTIC, {
         method: 'GET',
         headers: {
-            'Authorization': "bearer " + token
+            'Authorization': "bearer " + localStorage.getItem('token')
         },
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+            }
+            if (response.status == '401') {
+                window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+            }
+            return response.json()
+        })
         .then(data => { 
 
             var revenue = []
@@ -248,10 +257,18 @@ function loadRevenueBySeatStatus() {
     fetch(URLSTATISTIC, {
         method: 'GET',
         headers: {
-            'Authorization': "bearer " + token
+            'Authorization': "bearer " + localStorage.getItem('token')
         },
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+            }
+            if (response.status == '401') {
+                window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+            }
+            return response.json()
+        })
         .then(data => { 
 
             var seatSold  = data.seatSold[document.getElementById("monthPickerForSeatStatus").value - 1];
@@ -269,11 +286,7 @@ function loadRevenueBySeatStatus() {
                 plugins: {
                     legend: {
                         position: 'right',
-                    },
-                    // title: {
-                    //     display: true,
-                    //     text: 'Chart.js Pie Chart'
-                    // }
+                    }, 
                 } 
             };
             var ctx = document.getElementById("revenueBySeatStatus").getContext("2d");
@@ -284,8 +297,7 @@ function loadRevenueBySeatStatus() {
                 type: "pie",
                 data: chartData,
                 options: options
-            });
-
+            }); 
         })
         .catch(error => console.error(error));
 }

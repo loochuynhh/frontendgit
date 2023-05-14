@@ -1,19 +1,27 @@
 // const URLROOM = "https://636b935c7f47ef51e13457fd.mockapi.io/room";
 const URLROOM = "https://localhost:44308/api/room";
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 var genre = 1, roomSelected = "", checkUpdate = 1, checkRoomStatus;
 
 window.onload = loadListRoom();
 window.onload = loadData();
 
-function loadListRoom() { 
+function loadListRoom() {
     fetch(URLROOM, {
         method: 'GET',
         headers: {
-            'Authorization': "bearer " + token
+            'Authorization': "bearer " + localStorage.getItem('token')
         },
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+            }
+            if (response.status == '401') {
+                window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+            }
+            return response.json()
+        })
         .then(data => {
             let selName = document.getElementById("RoomNameForSelect");
             for (let i = 0; i < data.length; i++) {
@@ -23,24 +31,31 @@ function loadListRoom() {
 
                 selName.appendChild(optName);
             }
-        })
-        .catch(error => console.error(error));
+        }).catch(error => console.error(error));
 }
 function loadData() {
     roomSelected = document.getElementById("RoomNameForSelect").value;
-    document.getElementById("selectedRoomStatus").disabled = false; 
+    document.getElementById("selectedRoomStatus").disabled = false;
     if (roomSelected !== "-1" && roomSelected !== "-2") {
         fetch(URLROOM + "/" + roomSelected, {
             method: 'GET',
             headers: {
-                'Authorization': "bearer " + token
+                'Authorization': "bearer " + localStorage.getItem('token')
             },
         })
-            .then(response => response.json())
-            .then(data => { 
+            .then(response => {
+                if (response.status == '403') {
+                    window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                }
+                if (response.status == '401') {
+                    window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                }
+                return response.json()
+            })
+            .then(data => {
                 document.getElementById("roomName").value = data.name;
-                document.getElementById("row").value = data.row; 
-                document.getElementById("col").value = data.col; 
+                document.getElementById("row").value = data.row;
+                document.getElementById("col").value = data.col;
 
                 var listSeat = [];
                 (data.seats).forEach(element => {
@@ -50,19 +65,19 @@ function loadData() {
                         seatTypeId: element.seatTypeId
                     };
                     listSeat.push(seat);
-                }); 
+                });
 
-                if (data.roomStatus === "READY"){
+                if (data.roomStatus === "READY") {
                     document.getElementById("selectedRoomStatus").value = "Bình thường";
                     document.getElementById("roomName").disabled = true;
                     document.getElementById("row").disabled = true;
                     document.getElementById("col").disabled = true;
-                    document.getElementById("selectedSeatGenre").disabled = true; 
+                    document.getElementById("selectedSeatGenre").disabled = true;
                     checkRoomStatus = "Bình thường";
 
                 }
-                if (data.roomStatus === "REPAIRING"){
-                    document.getElementById("selectedRoomStatus").value = "Đang sửa"; 
+                if (data.roomStatus === "REPAIRING") {
+                    document.getElementById("selectedRoomStatus").value = "Đang sửa";
                     document.getElementById("roomName").disabled = false;
                     document.getElementById("row").disabled = false;
                     document.getElementById("col").disabled = false;
@@ -71,21 +86,14 @@ function loadData() {
                 }
                 GetRowCol();
                 loadTypeSeat(listSeat);
-                 
-                
+
+
             })
             .catch(error => console.error(error));
-    }else{
-        // document.getElementById("roomName").value = "";
-        // document.getElementById("row").value = "";
-        // document.getElementById("col").value = "";
-        // document.getElementById("selectedRoomStatus").value = "Bình thường";
-        // document.getElementById("selectedSeatGenre").value = "VIP";  
-        // document.getElementById("RoomNameForSelect").value = "-1";
-
+    } else { 
         document.getElementById("roomName").disabled = true;
-        document.getElementById("row").disabled = true; 
-        document.getElementById("col").disabled = true; 
+        document.getElementById("row").disabled = true;
+        document.getElementById("col").disabled = true;
         document.getElementById("selectedRoomStatus").disabled = true;
         document.getElementById("selectedSeatGenre").disabled = true;
         document.getElementById("RoomNameForSelect").disabled = false;
@@ -100,17 +108,17 @@ function loadTypeSeat(listSeat) {
     liList.forEach((li, index) => {
         let rowCoords = Math.floor(index / colCount) + 1; // lấy tọa độ hàng
         let colCoords = index % colCount + 1; // lấy tọa độ cột  
-        listSeat.forEach(element => { 
+        listSeat.forEach(element => {
             if (rowCoords == element.rowCoords && colCoords == element.colCoords) {
                 console.log("map", element.rowCoords, element.colCoords);
                 switch (element.seatTypeId) {
                     case 1:
-                        { 
+                        {
                             liList[index].classList.add("selected", "VIP");
                             break;
                         }
                     case 2:
-                        { 
+                        {
                             liList[index].classList.add("selected", "Double");
                             break;
                         }
@@ -120,7 +128,7 @@ function loadTypeSeat(listSeat) {
     });
 }
 function getSeatOption() {
-    genre = document.getElementById("selectedSeatGenre").value; 
+    genre = document.getElementById("selectedSeatGenre").value;
 }
 function changeSeatOption(li) {
     getSeatOption();
@@ -160,21 +168,21 @@ function Seat() {
             let ul = document.createElement("ul");
             ul.className = "p-0";
             for (let j = 0; j <= parseInt(col) + 1; j++) {
-                let li = document.createElement("li"); 
-                if(j == "0" || j == parseInt(col) + 1){
-                    li.className = "seat-root"; 
+                let li = document.createElement("li");
+                if (j == "0" || j == parseInt(col) + 1) {
+                    li.className = "seat-root";
                     // console.log(65 + i);
                     li.textContent = String.fromCharCode(64 + i);
-                }else{
+                } else {
                     li.className = "seatMap";
                     li.textContent = j;
-                    if(checkRoomStatus === "Đang sửa"){
+                    if (checkRoomStatus === "Đang sửa") {
                         li.addEventListener("click", function () {
                             changeSeatOption(this);
                         });
-                    } 
+                    }
                 }
-                
+
                 ul.appendChild(li);
             }
             document.getElementById("seat").appendChild(ul);
@@ -188,10 +196,10 @@ function Seat() {
         btnSave.textContent = "LƯU";
         //btnSave.addEventListener("click", Save);
         btnSave.addEventListener("click", async (event) => {
-            if(document.getElementById("roomName").value == ''){
+            if (document.getElementById("roomName").value == '') {
                 // alert("Vui lòng nhập tên phòng");
                 Swal.fire('Vui lòng nhập tên phòng', 1000);
-            }else{ Save();}
+            } else { Save(); }
         })
         let btnCancel = document.createElement("button");
         btnCancel.classList.add("btn", "btn-outline-secondary", "btn-save-cancel");
@@ -210,9 +218,9 @@ function GetRowCol() {
     col = document.getElementById("col").value;
     document.getElementById("seat").innerHTML = "";
     Seat();
-} 
+}
 function AddRoom() {
-    checkUpdate = 0; 
+    checkUpdate = 0;
     checkRoomStatus = "Đang sửa";
     document.getElementById("roomName").disabled = false;
     document.getElementById("row").disabled = false;
@@ -223,13 +231,13 @@ function AddRoom() {
     document.getElementById("row").value = "";
     document.getElementById("col").value = "";
     document.getElementById("selectedRoomStatus").value = "Bình thường";
-    document.getElementById("selectedSeatGenre").value = "VIP";  
+    document.getElementById("selectedSeatGenre").value = "VIP";
     document.getElementById("RoomNameForSelect").value = "-2";
     document.getElementById("selectedRoomStatus").disabled = true;
     document.getElementById("seat").innerHTML = "";
-    createRoom(); 
+    createRoom();
 }
-function createRoom(){
+function createRoom() {
     let liList = document.querySelectorAll(".seatMap");
     let colCount = document.getElementById("col").value;
     let listSeat = [];
@@ -253,10 +261,10 @@ function createRoom(){
         row: document.getElementById("row").value,
         col: document.getElementById("col").value,
         seats: listSeat
-    } 
+    }
     return newRoom;
 }
-function createRoomforUpdate(){
+function createRoomforUpdate() {
     let liList = document.querySelectorAll(".seatMap");
     let colCount = document.getElementById("col").value;
     let listSeat = [];
@@ -268,7 +276,7 @@ function createRoomforUpdate(){
         if (li.classList.contains("VIP")) seatType = 1;
         if (li.classList.contains("Double")) seatType = 2;
 
-        let seat = { 
+        let seat = {
             position: rowCoords + "-" + colCoords,
             seatTypeId: seatType
         };
@@ -281,7 +289,7 @@ function createRoomforUpdate(){
         row: document.getElementById("row").value,
         col: document.getElementById("col").value,
         seats: listSeat
-    } 
+    }
     return newRoom;
 }
 function DeleteRoom() {
@@ -292,156 +300,184 @@ function DeleteRoom() {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'OK'
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
             if (roomSelected !== "-1" && roomSelected !== "-2") {
                 fetch(URLROOM + "/" + roomSelected, {
                     method: 'DELETE',
                     headers: {
-                        'Authorization': "bearer " + token
+                        'Authorization': "bearer " + localStorage.getItem('token')
                     },
                 }).then(response => {
                     console.log(response.status);
-                    if (response.status == '400') {
-                        // alert("Xóa phòng chiếu thất bại! Phòng chiếu đã tồn tại lịch chiếu");
+                    if (response.status == '403') {
+                        window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                    }
+                    if (response.status == '401') {
+                        window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                    } 
+                    if (response.status == '400') { 
+                        console.log("vao 400")
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Xóa phòng chiếu thất bại',
-                            timer: 1000
-                          })
+                            title: 'Xóa phòng chiếu thất bại',
+                            text: 'Phòng chiếu đã tồn tại lịch chiếu',
+                            timer: 2000
+                        })
                     }
-                    if(response.ok){
-                        // alert("Xóa phòng chiếu thành công");
+                    if (response.ok) { 
                         Swal.fire({
                             position: 'top',
                             icon: 'success',
                             title: 'Xóa phòng chiếu thành công',
                             showConfirmButton: false,
-                            timer: 800
-                          })
-                        let select = document.getElementById("RoomNameForSelect");
-                        for (let i = select.options.length - 1; i >= 2; i--) {
-                            select.remove(i);
-                        }
-                        location.reload(); 
+                            timer: 1000
+                        }).then((result) => {
+                            let select = document.getElementById("RoomNameForSelect");
+                            for (let i = select.options.length - 1; i >= 2; i--) {
+                                select.remove(i);
+                            } 
+                            location.reload();
+                        });  
                     }
                 })
-                
+
             }
         }
-      })
+    })
 }
 
 function Save() {
     if (checkUpdate === 1) {            //Thuc hien update
         console.log("update");
-        if(document.getElementById("selectedRoomStatus").value !== checkRoomStatus){
+        if (document.getElementById("selectedRoomStatus").value !== checkRoomStatus) {
             console.log("request change status");
             var roomStatus = "READY";
-            if (document.getElementById("selectedRoomStatus").value === "Đang sửa") roomStatus = "REPAIRING"; 
+            if (document.getElementById("selectedRoomStatus").value === "Đang sửa") roomStatus = "REPAIRING";
             const URLSTATUSROOM = 'https://localhost:44308/api/room/status/' + document.getElementById("RoomNameForSelect").value + '?roomStatus=' + roomStatus
             console.log("idroom url:", URLSTATUSROOM);
             fetch(URLSTATUSROOM, {
                 method: "PUT",
-                headers: {  
-                    "Authorization": "bearer " + token
-                }, 
+                headers: {
+                    "Authorization": "bearer " + localStorage.getItem('token')
+                },
             }).then(response => {
-                console.log(response.status); 
+                if (response.status == '403') {
+                    window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                }
+                if (response.status == '401') {
+                    window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                } 
                 if (response.status == '400') {
                     // alert("Đổi trạng thái phòng chiếu thất bại! Phòng chiếu đã có lịch đặt");
                     Swal.fire({
                         position: 'top',
                         icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Đổi trạng thái phòng chiếu thất bại!',
-                        footer: '<a>Phòng chiếu đã có lịch đặt</a>',
-                        timer: 1000
-                      })
+                        title: 'Đổi trạng thái phòng chiếu thất bại',
+                        text: 'Phòng chiếu đã có lịch đặt',
+                        // footer: '<a>Phòng chiếu đã có lịch đặt</a>',
+                        timer: 2000
+                    })
                 }
-                if(response.ok){
+                if (response.ok) {
                     // alert("Đổi trạng thái phòng chiếu thành công!");
                     Swal.fire({
                         position: 'top',
                         icon: 'success',
                         title: 'Đổi trạng thái phòng chiếu thành công',
                         showConfirmButton: false,
-                        timer: 800
-                      })
-                    location.reload();
+                        timer: 1000
+                    }).then((result) => {
+                        location.reload();
+                    });  
                 }
             })
-            
-        }else{
+
+        } else {
             console.log("request change room");
-            var newRoomforUpdate = createRoomforUpdate(); 
+            var newRoomforUpdate = createRoomforUpdate();
             console.log(newRoomforUpdate);
             const URLSTATUSROOM = 'https://localhost:44308/api/room';
             fetch(URLSTATUSROOM, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "bearer " + token
+                    "Authorization": "bearer " + localStorage.getItem('token')
                 },
                 body: JSON.stringify(newRoomforUpdate)
-            }).then(response => {
-                console.log(response.status); 
-                if (response.status == '400') alert("Đổi trạng thái phòng chiếu thất bại! Phòng chiếu phải ở trạng thái đang sửa");
-                if(response.ok){
+            }).then(response => { 
+                if (response.status == '403') {
+                    window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                }
+                if (response.status == '401') {
+                    window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                } 
+                if (response.status == '400'){
+                    Swal.fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Đổi trạng thái phòng chiếu thất bại',
+                        text: 'Phòng chiếu phải ở trạng thái đang sửa',
+                        timer: 2000, 
+                    })
+                } 
+                if (response.ok) {
                     // alert("Cập nhật phòng chiếu thành công!");
                     Swal.fire({
                         position: 'top',
                         icon: 'success',
                         title: 'Cập nhật phòng chiếu thành công',
                         showConfirmButton: false,
-                        timer: 800
-                      })
-                    location.reload();
+                        timer: 1000
+                    }).then((result) => {
+                        location.reload();
+                    });  
                 }
-            }) 
+            })
         }
-        
+
     }
     if (checkUpdate === 0) {
         console.log("add");
-        var newRoom = createRoom(); 
+        var newRoom = createRoom();
         fetch(URLROOM, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "bearer " + token
+                "Authorization": "bearer " + localStorage.getItem('token')
             },
             body: JSON.stringify(newRoom)
         }).then(response => {
             console.log(response.status);
-            if (response.status == '400') {
-                // alert("Thêm phòng chiếu thất bại! Tên phòng chiếu đã tồn tại");
+            if (response.status == '403') {
+                window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+            }
+            if (response.status == '401') {
+                window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+            } 
+            if (response.status == '400') { 
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Thêm phòng chiếu thất bại! Tên phòng chiếu đã tồn tại',
-                    timer: 1000
-                  })
+                    title: 'Thêm phòng chiếu thất bại',
+                    text: 'Tên phòng chiếu đã tồn tại',
+                    timer: 2000
+                })
             }
-            if(response.ok){
-                // alert("Thêm phòng chiếu thành công");
+            if (response.ok) { 
                 Swal.fire({
                     position: 'top',
                     icon: 'success',
                     title: 'Thêm phòng chiếu thành công',
                     showConfirmButton: false,
-                    timer: 800
-                  })
-                location.reload();
+                    timer: 1000
+                }).then((result) => {
+                    location.reload();
+                });  
             }
-        })
-        
-        
-    }
-
+        }) 
+    } 
 }
 
 
