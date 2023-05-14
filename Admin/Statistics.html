@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý phòng chiếu</title>
+    <link href="./css/styles.css" rel="stylesheet" /> 
+    <link rel="stylesheet" href="./css/Statistics.css">
+    <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
+
+    <!-- <script src="/src/bootstapYearPicker/jquery.min.js"></script>
+    <script src="/src/bootstapYearPicker/bootstrap-datepicker.js"></script>
+    <link href="/src/bootstapYearPicker/bootstrap-datepicker.css" rel="stylesheet"/>  
+    <link href="/src/bootstapYearPicker/bootstrap.min.css" rel="stylesheet"/>   -->
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Logo cinema-->
+        <a class="navbar-brand ps-5 pt-2" href="index.html">
+            <img src="./Image/logo.png" width="65%" height="auto" alt="">
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+            id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Logo admin -->
+        <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="nav-link"><i class="fas fa-user-tie fa-fw"></i>
+                Hello, admin</div>
+        </ul>
+    </nav>
+    <div id="layoutSidenav"> 
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark"
+                id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav pt-3"> 
+                        <a class="nav-link" href="Index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="StaffManage.html">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+                            Thêm nhân viên
+                        </a>
+                        <a class="nav-link" href="ScheduleManage.html">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-tv"></i></div>
+                            Quản lý lịch chiếu
+                        </a>
+                        <a class="nav-link" href="FilmManage.html">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
+                            Quản lý phim
+                        </a>
+                        <a class="nav-link" href="RoomManage.html">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-couch"></i></div>
+                            Quản lý phòng chiếu
+                        </a>
+                        <a class="nav-link" href="Statistics.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Thống kê
+                        </a>
+                        <a class="nav-link" onclick="adminlogout()" href="/HomePage.html">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></div>
+                            Đăng xuất
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Admin
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content"> 
+            <div class="container-fluid px-4">
+                <h2 class="name-feature">Thống kê</h2>
+                <div class="d-flex align-items-center">
+                    <p class="">Năm thống kê:</p>
+                    <input class="mx-2 mb-3 form-control w-25" type="number" max="2023" id="yearpicker" onchange="loadRevenueByMonth()">  
+                </div>
+                
+                <!-- chart doanh thu theo thang -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Doanh thu theo tháng
+                    </div> 
+                    <canvas class="ms-3 py-3 px-2" width="1557" height="467" style="display: block; height: 417px; width: 1391px;" id="revenueByMonth"></canvas> 
+                </div> 
+                <!-- chart chung hang -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4 ">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Doanh thu theo loại ghế
+                            </div>  
+                            <div class="chart-double d-flex justify-content-center">
+                                <canvas class="ms-3 mt-4" width="500" height="347" style="display: block; height: 248; width: 496;"  id="revenueBySeatType"></canvas> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Tỉ lệ vé bán, vé hoàn tiền
+                            </div>  
+                            <div class="chart-double ">
+                                <select class="mx-3 mt-2 mb-0 form-control w-25 monthpicker" id="monthPickerForSeatStatus" onchange="loadRevenueBySeatStatus()"></select> 
+                                <canvas class="" width="500" height="347" style="display: block; height: 248; width: 496;" id="revenueBySeatStatus"></canvas> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- chart theo phim -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Doanh số theo phim
+                    </div> 
+                    <select class="mx-3 my-3 form-control w-25 monthpicker" id="monthPickerForFilm" onchange="loadRevenueByFilm()"></select> 
+                    <canvas class="ms-3 py-3 px-2" width="1557" height="467" style="display: block; height: 417px; width: 1391px;" id="revenueByFilm"></canvas> 
+                </div>
+                
+                 
+            </div>  
+        </div> 
+    <script src="./js/scripts.js"></script> 
+    <script src="/src/chartjs/chart.min.js"></script>
+    <script src="./js/Statistics.js"></script>
+    <script src="/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
