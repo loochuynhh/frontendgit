@@ -17,6 +17,9 @@
 .list-film-select:hover {
     background-color: #e4dede;
 }
+.film-selected {
+    background-color: #e4dede;
+}
 #thead-food{
     /* background: #FAD6A5; */
     background: #14274E;
@@ -118,6 +121,7 @@ ul li{
 .Normal{
     background-color: #b8babc;
 }
-/* .color-red{
-    background: f5c342;
-} */
+.equal-height-rows td {
+    height: 80px; 
+    vertical-align: middle; 
+}
