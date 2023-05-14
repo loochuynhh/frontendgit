@@ -86,31 +86,34 @@ function deleteUsers(i) {
     },
   })
     .then(response => {
-      console.log(response.status);
-      if (!response.ok) {
-        // showAlertTimeOut('Xóa phim thất bại');
+      if (response.status == '403') {
+        window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+      }
+      if (response.status == '401') {
+          window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+      }  
+      if (response.status == '400') {
         Swal.fire({
           position: 'top',
           icon: 'error',
-          title: 'Lỗi',
-          text: 'Xóa phim thất bại',
-          timer: 1000
+          title: 'Xóa phim thất bại',
+          text: 'Phim đã có lịch chiếu',
+          timer: 2000, 
         })
-        //location.reload();
-        throw new Error('Đã xảy ra lỗi khi xóa phim');
-      }
-      // showAlertTimeOut('Đã xóa phim');
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Xóa phim thành công',
-        showConfirmButton: false,
-        timer: 800
-      })
-      //location.reload();
+      } 
+      if (response.ok) { 
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Xóa phim thành công',
+          showConfirmButton: false,
+          timer: 1000
+        }).then((result) => {
+          location.reload();
+        });  
+      } 
     })
-    .catch((error) => {
-      //location.reload();
+    .catch((error) => { 
       console.error("Error:", error);
     });
 }
