@@ -3,7 +3,7 @@ const Login = 'login';
 const signup = 'register';
 const genre = 'genre';
 const Users = `users`;
-const Password = "";
+const Password = "change-password";
 const token = localStorage.getItem('token');
 // const myObject = new wn();
 var Overlay = document.getElementById("overlay");
@@ -553,29 +553,51 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       })
       return;
     }
-    fetch(`${url}/${Password}`, {
+    fetch(`${url}/${Users}/${Password}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "bearer " + token
       },
       body: JSON.stringify({
-        id: localStorage.getItem('id'),
         oldPassword: oldPassword,
-        newPassword: newPassword,
-        RoleName: localStorage.getItem('roleName')
+        newPassword: newPassword
       })
     })
       .then(response => {
         if (response.ok) {
           // showAlert("Thay đổi thành công!");
-        } else {
+        } 
+        else {
+          response.text().then(errorMessage => {
+            if (errorMessage == 'Wrong password') {
+              // showAlertTimeOut("Phim đã có đặt lịch chiếu");
+              Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Mật khẩu cũ không chính xác',
+                timer: 1000
+              })
+              localStorage.setItem('put', 4);
+            }
+            else {
+              // showAlertTimeOut('Chỉnh sửa không thành công');
+              Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Chỉnh sửa mật khẩu thất bại',
+                timer: 1000
+              })
+            }
+            localStorage.setItem('put', 4);
+          })
           // showAlert("Thay đổi thất thất bại!");
-          localStorage.setItem('put', 2);
         }
       })
       .catch(error => {
-        localStorage.setItem('put', 2);
+        localStorage.setItem('put', 4);
         console.error(error);
       });
   }
@@ -597,16 +619,6 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       title: 'Lỗi',
       text: 'Thông tin cá nhân không hợp lệ',
       footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
-      timer: 1000
-    })
-  }
-  else {
-    // showAlertTimeOutInfo("Thay đổi mật khẩu không thành công");
-    Swal.fire({
-      position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
-      text: 'Thay đổi mật khẩu không thành công',
       timer: 1000
     })
   }
