@@ -4,6 +4,7 @@ const signup = 'register';
 const genre = 'genre';
 const Users = `users`;
 const Password = "change-password";
+const ForgotPassword = "forgot-password";
 const token = localStorage.getItem('token');
 // const myObject = new wn();
 var Overlay = document.getElementById("overlay");
@@ -25,6 +26,66 @@ var oldPassword = document.getElementById("oldPasswordInfo");
 var newPassword = document.getElementById("newPasswordInfo");
 var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo");
 var passwordLogin = document.getElementById('passwordLogin');
+var forgotPasswordLink = document.getElementById('forgot-password-link');
+var overlayForgotPassword = document.getElementById('overlayForgotPassword');
+
+document.querySelector('#formForgotPassword').addEventListener('submit', function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const username = document.getElementById("emailForgotPassword").value;
+  if (!event.target.checkValidity()) {
+    event.target.classList.add('was-validated');
+    return;
+  }
+  const params = new URLSearchParams({
+    email: username
+  });
+  // getNewPassword(params);
+  fetch(`${url}/${Users}/${ForgotPassword}?`+ params.toString(), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Lỗi',
+          text: 'Email không hợp lệ',
+          timer: 1000
+        })
+        throw new Error('Unauthorized');
+      }else{
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Mật khẩu mới được gửi về Email',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    })
+});
+
+function handleOutsideClickForgotPassword(event) {
+  if (!overlayForgotPassword.contains(event.target)) {
+    overlayForgotPassword.style.display = "none";
+    Overlay.style.display = "block";
+    OverlayLogin.style.display = "block";
+    document.addEventListener("click", handleOutsideClickLogin, true);
+    document.removeEventListener("click", handleOutsideClickForgotPassword, true);
+  }
+}
+forgotPasswordLink.addEventListener("click", function () {
+  Overlay.style.display = "block";
+  OverlayLogin.style.display = "none";
+  overlayForgotPassword.style.display = "block";
+  document.removeEventListener("click", handleOutsideClickLogin, true);
+  document.addEventListener("click", handleOutsideClickForgotPassword, true);
+});
 
 window.onload = loadSlide();
 
@@ -359,7 +420,7 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
           }
           else if (response.status == '200') {
             // showAlertTimeOut('Đăng nhập thành công');
-            window.location.assign("./Admin/Index.html");
+            window.location.assign("./Admin/Statistics.html");
             // new sweetAlert('Đăng nhập thành công');
           }
 
@@ -557,7 +618,7 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "bearer " + token
+        'Authorization': "bearer " + localStorage.getItem('token')
       },
       body: JSON.stringify({
         oldPassword: oldPassword,
