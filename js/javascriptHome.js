@@ -420,7 +420,7 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
           }
           else if (response.status == '200') {
             // showAlertTimeOut('Đăng nhập thành công');
-            window.location.assign("./Admin/Statistic.html");
+            window.location.assign("./Admin/Statistics.html");
             // new sweetAlert('Đăng nhập thành công');
           }
 
