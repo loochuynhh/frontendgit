@@ -26,76 +26,75 @@ function setLayout() {
         document.getElementById('overlayHome').style.display = 'block'; 
     }
 }
+ 
+fetch(URLALLFILM)
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(film => {
+            const liFilm = document.createElement("li");
+            liFilm.classList.add("d-flex", "align-items-center", "border", "text-wrap", "py-2", "list-film-select");
+            liFilm.setAttribute("film-id-value", film.id);
+            liFilm.setAttribute("film-name-value", film.name);
 
-if (filmIdSended !== null && showIdSended !== null && roomIdSended !== null) {
-    showId = showIdSended;
-    loadSeat(showIdSended, roomIdSended);
+            const imgFilm = document.createElement("img");
+            imgFilm.classList.add("ms-4");
+            imgFilm.setAttribute("width", "10%");
+            imgFilm.src = film.posterUrl;
 
-    const allFilmSelect = document.querySelectorAll(".list-film-select");
-    allFilmSelect.forEach(element => {
-        if (element.getAttribute("film-id-value") === filmIdSended) billInfo.filmName = element.getAttribute("film-name-value");
+            const pFilmName = document.createElement("p");
+            pFilmName.classList.add("text-uppercase", "ms-3");
+            pFilmName.innerHTML = film.name;
 
+            const pAgeLimit = document.createElement("p");
+            pAgeLimit.classList.add("age-limit");
+            pAgeLimit.innerHTML = "C" + film.ageLimit;
+
+            liFilm.appendChild(imgFilm);
+            liFilm.appendChild(pFilmName);
+            liFilm.appendChild(pAgeLimit);
+
+            liFilm.addEventListener("click", function () {
+                const li = document.querySelectorAll("li");
+                li.forEach(element => {
+                    element.classList.remove("film-selected");
+                })
+                liFilm.classList.add("film-selected")
+                document.getElementById("list-showpanel").innerHTML = "";
+                billInfo.filmName = film.name;
+                filmIdSended = null;
+                loadShow(film.id);
+            })
+            document.getElementById("list-filmpanel").appendChild(liFilm);
+        });
+        if (filmIdSended !== null && showIdSended !== null && roomIdSended !== null) {
+            showId = showIdSended;
+            loadSeat(showIdSended, roomIdSended);
+        
+            const allFilmSelect = document.querySelectorAll(".list-film-select");
+            allFilmSelect.forEach(element => { 
+                if (element.getAttribute("film-id-value") === filmIdSended){
+                    billInfo.filmName = element.getAttribute("film-name-value"); 
+                }  
+            }) 
+            billInfo.room = roomNameSended;
+            billInfo.filmShow = showTimeSended;
+        
+            // filmIdSended = null;
+            // showIdSended = null;
+            // roomIdSended = null; 
+        }
+        if (filmIdSended !== null) {
+            const allFilmSelect = document.querySelectorAll(".list-film-select");
+            allFilmSelect.forEach(element => {
+                if (element.getAttribute("film-id-value") === filmIdSended) {
+                    element.classList.add("film-selected");
+                    billInfo.filmName = element.getAttribute("film-name-value");
+                }
+            })
+            loadShow(filmIdSended);
+        }
     })
-
-    billInfo.room = roomNameSended;
-    billInfo.filmShow = showTimeSended;
-
-    // filmIdSended = null;
-    // showIdSended = null;
-    // roomIdSended = null; 
-} else { 
-    fetch(URLALLFILM)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(film => {
-                const liFilm = document.createElement("li");
-                liFilm.classList.add("d-flex", "align-items-center", "border", "text-wrap", "py-2", "list-film-select");
-                liFilm.setAttribute("film-id-value", film.id);
-                liFilm.setAttribute("film-name-value", film.name);
-
-                const imgFilm = document.createElement("img");
-                imgFilm.classList.add("ms-4");
-                imgFilm.setAttribute("width", "10%");
-                imgFilm.src = film.posterUrl;
-
-                const pFilmName = document.createElement("p");
-                pFilmName.classList.add("text-uppercase", "ms-3");
-                pFilmName.innerHTML = film.name;
-
-                const pAgeLimit = document.createElement("p");
-                pAgeLimit.classList.add("age-limit");
-                pAgeLimit.innerHTML = "C" + film.ageLimit;
-
-                liFilm.appendChild(imgFilm);
-                liFilm.appendChild(pFilmName);
-                liFilm.appendChild(pAgeLimit);
-
-                liFilm.addEventListener("click", function () {
-                    const li = document.querySelectorAll("li");
-                    li.forEach(element => {
-                        element.classList.remove("film-selected");
-                    })
-                    liFilm.classList.add("film-selected")
-                    document.getElementById("list-showpanel").innerHTML = "";
-                    billInfo.filmName = film.name;
-                    filmIdSended = null;
-                    loadShow(film.id);
-                })
-                document.getElementById("list-filmpanel").appendChild(liFilm);
-            });
-            if (filmIdSended !== null) {
-                const allFilmSelect = document.querySelectorAll(".list-film-select");
-                allFilmSelect.forEach(element => {
-                    if (element.getAttribute("film-id-value") === filmIdSended) {
-                        element.classList.add("film-selected");
-                        billInfo.filmName = element.getAttribute("film-name-value");
-                    }
-                })
-                loadShow(filmIdSended);
-            }
-        })
-        .catch(error => console.error(error));
-}
+    .catch(error => console.error(error)); 
 
 function loadShow(filmId) {
     const URLSHOW = "https://localhost:44308/api/show?filmId=" + filmId + "&roomId=0";
