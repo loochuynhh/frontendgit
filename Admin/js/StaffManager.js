@@ -104,7 +104,7 @@ fetch(`${url}/${admins}/${getStaff}`, {
     .catch(error => console.error(error));
 function hover() {
   // Lấy danh sách tất cả các hàng trong bảng
-  let rows = document.querySelectorAll('tr');
+  let rows = document.querySelectorAll('tbody tr');
 
   // Duyệt qua từng hàng và gán sự kiện hover
   rows.forEach(row => {

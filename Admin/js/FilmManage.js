@@ -48,7 +48,7 @@ addFilm.addEventListener("click", function () {
 
 function hover() {
   // Lấy danh sách tất cả các hàng trong bảng
-  let rows = document.querySelectorAll('tr');
+  let rows = document.querySelectorAll('tbody tr');
 
   // Duyệt qua từng hàng và gán sự kiện hover
   rows.forEach(row => {
@@ -780,14 +780,16 @@ fetch(`${url}/${genre}`, {
       checkbox.name = genre.name;
       checkbox.value = genre.id;
       checkbox.id = `genre-${genre.id}`;
-      checkbox.style.marginRight = '15px';
-      checkbox.style.marginLeft = '30px';
+      checkbox.className = 'chk-genre-film';
+      // checkbox.style.marginRight = '15px';
+      // checkbox.style.marginLeft = '30px';
       // checkbox.style.marginLeft = '20px';
       const label = document.createElement('label');
       label.htmlFor = `genre-${genre.id}`;
       label.appendChild(document.createTextNode(genre.name));
-      // checkbox.style.marginLeft = '50px';
-      label.style.width = '170px';
+      // checkbox.style.marginLeft = '50px'
+      label.className = 'lb-genre-film';
+      // label.style.width = '170px';
       // checkbox.style.marginLeft = '25px';
       genreListDiv2.appendChild(checkbox);
       genreListDiv2.appendChild(label);
