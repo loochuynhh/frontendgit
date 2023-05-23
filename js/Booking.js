@@ -5,6 +5,9 @@ var showIdSended = urlParams.get('showId');
 var roomIdSended = urlParams.get('roomId');
 var roomNameSended = urlParams.get('roomName');
 var showTimeSended = urlParams.get('showTime');
+var Overlay = document.getElementById("overlay");
+var OverlayLogin = document.getElementById("overlayLogin");
+var OverlaySignup = document.getElementById("overlaySignup");
 
 const URLALLFILM = "https://localhost:44308/api/film";
 var showId;                 //dùng cho hàm LoadSeat()
@@ -17,6 +20,7 @@ var billInfo = {}
 billInfo.seat = [];
 
 window.onload = setLayout();
+
 function setLayout() {
     if (localStorage.getItem('token') != null) {
         document.getElementById('overlayUser').style.display = 'block';
@@ -24,9 +28,18 @@ function setLayout() {
     } else {
         document.getElementById('overlayUser').style.display = 'none';
         document.getElementById('overlayHome').style.display = 'block'; 
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('overlayLogin').style.display = 'block';
+        document.addEventListener("click", handleOutsideClickLogin, true);
     }
 }
- 
+function handleOutsideClickLogin(event) {
+    if (!OverlayLogin.contains(event.target)) {
+      OverlayLogin.style.display = "none";
+      Overlay.style.display = "none";
+      document.removeEventListener("click", handleOutsideClickLogin, true);
+    }
+}
 fetch(URLALLFILM)
     .then(response => response.json())
     .then(data => {

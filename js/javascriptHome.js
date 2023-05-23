@@ -87,18 +87,19 @@ forgotPasswordLink.addEventListener("click", function () {
   document.addEventListener("click", handleOutsideClickForgotPassword, true);
 });
 
-window.onload = loadSlide();
+// window.onload = loadSlide();
 
-function loadSlide() {
-  if (localStorage.getItem('token') != null) {
-    console.log(localStorage.getItem('token'));
-    document.getElementById('overlayUser').style.display = 'block';
-    document.getElementById('overlayHome').style.display = 'none';
-  } else {
-    document.getElementById('overlayUser').style.display = 'none';
-    document.getElementById('overlayHome').style.display = 'block';
-  }
-}
+// function loadSlide() {
+//   if (localStorage.getItem('token') != null) {
+//     console.log(localStorage.getItem('token'));
+//     document.getElementById('overlayUser').style.display = 'block';
+//     document.getElementById('overlayHome').style.display = 'none';
+//   } 
+//   else {
+//     document.getElementById('overlayUser').style.display = 'none';
+//     document.getElementById('overlayHome').style.display = 'block';
+//   }
+// }
 
 
 function handleOutsideClickLogin(event) {
@@ -686,3 +687,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
 });
 
 
+function muaVe(){
+  
+  // Overlay.style.display = "block";
+  // OverlayLogin.style.display = "block";
+  // OverlaySignup.style.display = "none";
+  // document.addEventListener("click", handleOutsideClickLogin, true);
+
+}
