@@ -50,13 +50,14 @@ document.querySelector('#formForgotPassword').addEventListener('submit', functio
   })
     .then(response => {
       if (!response.ok) {
+        document.removeEventListener("click", handleOutsideClickForgotPassword, true);
         Swal.fire({
           position: 'top',
           icon: 'error',
           title: 'Lỗi',
           text: 'Email không hợp lệ',
-          timer: 1000
-        })
+          timer: 2000
+        }).then(()=>{document.addEventListener("click", handleOutsideClickForgotPassword, true);});
         throw new Error('Unauthorized');
       }else{
         Swal.fire({
@@ -130,99 +131,6 @@ signupButton.addEventListener("click", function () {
   document.addEventListener("click", handleOutsideClickSignup, true);
 });
 
-// function showOverlay(title, message) {
-//   // Lấy thẻ modal
-//   var modal = document.getElementById('exampleModal')
-//   // Đặt tiêu đề cho modal
-//   modal.querySelector('.modal-title').textContent = title
-//   // Đặt thông báo cho modal
-//   modal.querySelector('.modal-body #overlay-message').textContent = message
-//   // Hiển thị modal
-//   modal.classList.add('show')
-//   modal.style.display = 'block'
-//   modal.removeAttribute('aria-hidden')
-//   setTimeout(function () {
-//     modal.classList.remove('show')
-//     modal.style.display = 'none'
-//     modal.setAttribute('aria-hidden', 'true')
-//   }, 2000)
-// }
-// function showAlert(message) {
-//   document.getElementById("modal-message").innerHTML = message;
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-//   myModal.show();
-// }
-// function showAlertVer2(message) {
-//   document.getElementById("modal-message").innerHTML = message;
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-//   Overlay.style.display = "none";
-//   OverlayLogin.style.display = "none";
-//   OverlaySignup.style.display = "none";
-//   myModal.show();
-// }
-
-// function showAlertTimeOut(message) {
-//   document.getElementById("modal-message").innerHTML = message;
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-//   Overlay.style.display = "none";
-//   OverlayLogin.style.display = "none";
-//   OverlaySignup.style.display = "none";
-//   myModal.show();
-//   setTimeout(function () {
-//     myModal.hide();
-//   }, 800);
-// }
-// function showAlertTimeOutLogin(message) {
-//   document.getElementById("modal-message").innerHTML = message;
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-//   Overlay.style.display = "block";
-//   OverlayLogin.style.display = "block";
-//   OverlaySignup.style.display = "none";
-//   myModal.show();
-//   setTimeout(function () {
-//     myModal.hide();
-//   }, 800);
-// }
-// function showAlertTimeOutSignup(message) {
-//   document.getElementById("modal-message").innerHTML = message;
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-//   Overlay.style.display = "block";
-//   OverlayLogin.style.display = "none";
-//   OverlaySignup.style.display = "block";
-//   myModal.show();
-//   setTimeout(function () {
-//     myModal.hide();
-//   }, 1000);
-// }
-// function showAlertTimeOutInfo(message) {
-//   document.getElementById("modal-message").innerHTML = message;
-//   var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-//   Overlay.style.display = "block";
-//   OverlayLogin.style.display = "none";
-//   OverlaySignup.style.display = "none";
-//   OverlayInfor.style.display = "block";
-//   myModal.show();
-//   setTimeout(function () {
-//     myModal.hide();
-//   }, 800);
-// }
-// function showSuccess() {
-//   var alertSuccess = document.querySelector('.alert-success');
-//   alertSuccess.style.display = 'block';
-//   Overlay.style.display = "none";
-//   OverlaySignup.style.display = "none";
-//   OverlayLogin.style.display = "none";
-//   setTimeout(function () {
-//     alertSuccess.style.display = 'none';
-//   }, 2000);
-// }
-// function showUnsuccess() {
-//   var alertDanger = document.querySelector('.alert-danger');
-//   alertDanger.style.display = 'block';
-//   setTimeout(function () {
-//     alertDanger.style.display = 'none';
-//   }, 2000);
-// }
 
 function isValidPhoneNumber(phoneNumber) {
   // Xác thực theo chuẩn số điện thoại Việt Nam
@@ -251,12 +159,13 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
   if (passwordRegex.test(Password)) {
   } else {
     // showAlertTimeOutSignup('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
+
     Swal.fire({
       position: 'top',
       icon: 'error',
       title: 'Lỗi',
       text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-      timer: 1000
+      timer: 2000
     })
     return;
   }
@@ -288,14 +197,14 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
   let currentYear = new Date().getFullYear() - 3;
   if (year >= 1900 && year <= currentYear) {
   } else {
-    // showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
+    document.removeEventListener("click", handleOutsideClickSignup, true);
     Swal.fire({
       position: 'top',
       icon: 'error',
       title: 'Lỗi',
       text: 'Ngày sinh không quá 3 tuổi và trước 1900',
-      timer: 1000
-    })
+      timer: 2500
+    }).then( () => {document.addEventListener("click", handleOutsideClickSignup, true);});
     return;
   }
   var Role = "USER";
@@ -326,7 +235,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
           icon: 'success',
           title: 'Đăng ký thành công',
           showConfirmButton: false,
-          timer: 800
+          timer: 1000
         })
       } else {
         // showUnsuccess();
@@ -336,14 +245,15 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     .catch(error => {
       // showUnsuccess();
       // showAlertTimeOutSignup("Đăng ký thất bại!");
+      document.removeEventListener("click", handleOutsideClickSignup, true);
       Swal.fire({
         position: 'top',
         icon: 'error',
         title: 'Lỗi',
         text: 'Đăng ký thất bại',
         footer: '<a>Thông tin đăng ký không hợp lệ/a>',
-        timer: 1000
-      })
+        timer: 2000
+      }).then( () => {document.addEventListener("click", handleOutsideClickSignup, true);});
       console.error("Lỗi khi đăng ký tài khoản:", error);
     });
 });
@@ -362,13 +272,16 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
   if (passwordRegex.test(password)) {
   } else {
     // showAlertTimeOutLogin('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
+    document.removeEventListener("click", handleOutsideClickLogin, true);
     Swal.fire({
       position: 'top',
       icon: 'error',
       title: 'Lỗi',
-      text: 'Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số',
-      timer: 1000
-    })
+      text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
+      timer: 3000
+    }).then(() => {
+      document.addEventListener("click", handleOutsideClickLogin, true);
+    });
     return;
   }
   fetch(`${url}/${Login}`, {
@@ -384,14 +297,17 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
     .then(response => {
       if (!response.ok) {
         //showAlertTimeOutLogin('Tài khoản không chính xác');
+        document.removeEventListener("click", handleOutsideClickLogin, true);
         Swal.fire({
           position: 'top',
           icon: 'error',
           title: 'Lỗi',
           text: 'Tài khoản không chính xác',
           footer: '<a>Có thể bạn đã nhập sai mật khẩu hoặc tài khoản không tồn tại</a>',
-          timer: 1000
-        })
+          timer: 2000
+        }).then(() => {
+          document.addEventListener("click", handleOutsideClickLogin, true);
+        });
         throw new Error('Unauthorized');
       }
       return response.json();
@@ -412,7 +328,7 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
               icon: 'success',
               title: 'Đăng nhập thành công',
               showConfirmButton: false,
-              timer: 800
+              timer: 1000
             })
             overlayHome.style.display = "none";
             overlayUser.style.display = "block";
@@ -538,14 +454,17 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
 
   if (!isValidPhoneNumber(phoneNumber)) {
     // showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
+    document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
       icon: 'error',
       title: 'Lỗi',
       text: 'Số điện thoại không hợp lệ',
       footer: '<a>Số điện thoại gồm 10 số</a>',
-      timer: 1000
-    })
+      timer: 2000
+    }).then(() => {
+      document.addEventListener("click", handleOutsideClickInfo, true);
+    });
     return;
   }
   let dateObj = new Date(birth);
@@ -554,13 +473,16 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
   if (year >= 1900 && year <= currentYear) {
   } else {
     // showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
+    document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
       icon: 'error',
       title: 'Lỗi',
       text: 'Ngày sinh không quá 3 tuổi và trước 1900',
-      timer: 1000
-    })
+      timer: 2000
+    }).then(() => {
+      document.addEventListener("click", handleOutsideClickInfo, true);
+    });
     return;
   }
   localStorage.setItem('put', 0);
@@ -606,13 +528,16 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     if (passwordRegex.test(newPassword)) {
     } else {
       // showAlertTimeOutInfo('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
+      document.removeEventListener("click", handleOutsideClickInfo, true);
       Swal.fire({
         position: 'top',
         icon: 'error',
         title: 'Lỗi',
         text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-        timer: 1000
-      })
+        timer: 2000
+      }).then(() => {
+        document.addEventListener("click", handleOutsideClickInfo, true);
+      });
       return;
     }
     fetch(`${url}/${Users}/${Password}`, {
@@ -634,24 +559,30 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
           response.text().then(errorMessage => {
             if (errorMessage == 'Wrong password') {
               // showAlertTimeOut("Phim đã có đặt lịch chiếu");
+              document.removeEventListener("click", handleOutsideClickInfo, true);
               Swal.fire({
                 position: 'top',
                 icon: 'error',
                 title: 'Lỗi',
                 text: 'Mật khẩu cũ không chính xác',
-                timer: 1000
-              })
+                timer: 2000
+              }).then(() => {
+                document.addEventListener("click", handleOutsideClickInfo, true);
+              });
               localStorage.setItem('put', 4);
             }
             else {
               // showAlertTimeOut('Chỉnh sửa không thành công');
+              document.removeEventListener("click", handleOutsideClickInfo, true);
               Swal.fire({
                 position: 'top',
                 icon: 'error',
                 title: 'Lỗi',
                 text: 'Chỉnh sửa mật khẩu thất bại',
-                timer: 1000
-              })
+                timer: 2000
+              }).then(() => {
+                document.addEventListener("click", handleOutsideClickInfo, true);
+              });
             }
             localStorage.setItem('put', 4);
           })
@@ -671,10 +602,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       icon: 'success',
       title: 'Chỉnh sửa thành công',
       showConfirmButton: false,
-      timer: 800
+      timer: 1000
     })
   } else if (localStorage.getItem('put') == 1) {
     // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
+    document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
       icon: 'error',
@@ -682,16 +614,8 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       text: 'Thông tin cá nhân không hợp lệ',
       footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
       timer: 1000
-    })
+    }).then(() => {
+      document.addEventListener("click", handleOutsideClickInfo, true);
+    });
   }
 });
-
-
-function muaVe(){
-  
-  // Overlay.style.display = "block";
-  // OverlayLogin.style.display = "block";
-  // OverlaySignup.style.display = "none";
-  // document.addEventListener("click", handleOutsideClickLogin, true);
-
-}

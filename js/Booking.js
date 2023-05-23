@@ -450,6 +450,7 @@ function pay() {
                 title: 'Mua vé thất bại',
                 text: 'Khách hàng chưa đủ tuổi đặt phim này',
                 showConfirmButton: true,
+                timer: 2000
                 // timer: 5000
             }).then((result) => {
                 if (result.isConfirmed) window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
@@ -462,7 +463,7 @@ function pay() {
                 icon: 'success',
                 text: 'Mua vé thành công',
                 showConfirmButton: false,
-                timer: 1000
+                timer: 1500
             }).then((result) => {
                 window.location.href = "http://127.0.0.1:5502/LayoutBooking.html" 
             }); 
