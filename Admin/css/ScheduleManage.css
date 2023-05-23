@@ -66,3 +66,7 @@ thead {
 .fixed-table {
     table-layout: fixed;
 }
+
+.hover-row:hover{
+    background-color: red;
+}
