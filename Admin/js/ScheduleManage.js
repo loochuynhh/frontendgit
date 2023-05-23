@@ -1,4 +1,3 @@
-const URLSCHEDULE = "https://636b935c7f47ef51e13457fd.mockapi.io/Schedule"
 const url = 'https://localhost:44308/api';
 const genre = 'genre';
 const film = 'film';
@@ -17,18 +16,24 @@ var formFilmUpdate = document.getElementById("formFilmUpdate");
 var formRoomUpdate = document.getElementById("formRoomUpdate");
 var buttonAddSchedule = document.getElementById("buttonAddSchedule");
 var scheduleform = document.getElementById("schedule-form");
-var selectTimeSchedule = document.getElementById("selectTimeSchedule");
 var overlayUpdateSchedule = document.getElementById("overlayUpdateSchedule");
 var formUpdateSchedule = document.getElementById("schedule-form-Update");
+// var selectTimeSchedule = document.getElementById("selectTimeSchedule");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
-// var overlayAddSchedule = document.getElementById("overlayAddSchedule");
+// var overlayAddSchedule = document.getElementById("overlayAddSchedule"); 
+
+window.onload = loadSchedule(getCurrentDate(),getCurrentDate());
+
 $('input[name="dates"]').daterangepicker({
     opens: 'right',
-    format: 'DD/MM/YYYY' 
+    locale: {
+        format: 'DD/MM/YYYY'
+    }
 },function(start, end) {
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-}) 
+    loadSchedule(start.format('YYYY-MM-DD'),end.format('YYYY-MM-DD'));
+})  
 
 load();
 
@@ -46,366 +51,107 @@ function showAlertTimeOut(message) {
         myModal.hide();
     }, 800);
 }
-selectTimeSchedule.addEventListener('change', function () {
-    if (this.value === 'Hôm nay') {
-        let tbody = document.getElementById("body-table");
-        tbody.innerHTML = '';
-        const today = new Date();
-        const dateStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-        const params = new URLSearchParams({
-            date: dateStr,
-            filmId: 0,
-            roomId: 0
-        });
-        fetch(`${url}/${show}?` + params.toString(), {
-            method: 'GET',
+function loadSchedule(startTime,endTime){
+    let tbody = document.getElementById("body-table");
+    tbody.innerHTML = ''; 
+    var URLSCHEDULE = "https://localhost:44308/api/show/time?startDate=" + startTime + "&endDate=" + endTime; 
+    fetch(URLSCHEDULE, {
+        method: 'GET',
+        headers: { 
+            'Authorization' : "bearer " + localStorage.getItem('token')
+        },
+    })
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "/Forbidden.html"; 
+            }
+            if (response.status == '401') {
+                window.location.href = "/Unauthorized.html" 
+            }
+            return response.json();
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                let tbody = document.getElementById("body-table");
-                for (let i = 0; i < data.length; i++) {
-                    for (let j = 0; j < data[i].length; j++) {
-                        let trFilmTable = document.createElement("tr");
-                        trFilmTable.addEventListener('dblclick', function () {
-                            click(data[i]);
-                        });
-                        let tdStartTime = document.createElement("td");
-                        let tdEndTime = document.createElement("td");
-                        tdStartTime.className = "tdCenter";
-                        tdEndTime.classList.add("tdCenter", "col-4");
-                        let tdFilm = document.createElement("td");
-                        tdFilm.className = "tdCenter";
-                        //tdFilmStatus.classList.add("tdCenter","col-2");
-                        let tdDelete = document.createElement("td");
-                        tdDelete.className = "tdCenter";
-                        let btnDelete = document.createElement("button");
-                        //tdRoom.className = "tdCenter";
-                        //btnDelete.className = "btnDelete";
-                        //btnDelete.className = "tdCenter";
-                        btnDelete.classList.add("btn", "btn-danger");
-                        btnDelete.innerHTML = "X";
-                        tdDelete.appendChild(btnDelete);
-                        let tdRoom = document.createElement("td");
-                        tdRoom.className = "tdCenter";
-                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
-                        //tdEndTime.innerHTML = data[i][j].endTime;
-                        tdFilm.innerHTML = data[i][j].filmName;
-                        for (let t = 0; t < formRoom.options.length; t++) {
-                            if (data[i][j].roomId == formRoom.options[t].id) {
-                                tdRoom.innerHTML = formRoom.options[t].value;
-                            }
-                        }
-                        // Hoover
-                        let rows = document.querySelectorAll('tr');
-
-                        rows.forEach(row => {
-                            row.addEventListener('mouseover', () => {
-                                row.classList.add('highlight-row');
-                            });
-
-                            row.addEventListener('mouseout', () => {
-                                row.classList.remove('highlight-row');
-                            });
-                            // row.addEventListener("dblclick", function () {
-                            //     // editRow(this);
-                            //     console.log("abc");
-                            // });
-                        });
-                        var checkdelete = true;
-                        btnDelete.addEventListener("click", function () {
-                            checkdelete = false;
-                            // showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                            Swal.fire({
-                                title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'OK'
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  deleteSchedule(data[i][j].id);
-                                  Swal.fire(
-                                    'Deleted!',
-                                    'Lịch chiếu đã được xóa',
-                                    'success'
-                                  )
-                                }
-                              })
-                            // btCancel.addEventListener('click', function () {
-                            //     const modal = document.getElementById('exampleModal');
-                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
-                            //     modalInstance.hide();
-                            // });
-                            // btOK.addEventListener('click', function () {
-                            //     const modal = document.getElementById('exampleModal');
-                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
-                            //     modalInstance.hide();
-                            //     deleteSchedule(data[i][j].id);
-                            // });
-                        });
-                        trFilmTable.addEventListener("click", function () {
-                            if (checkdelete == true) {
-                                // const id = this.getAttribute("data-id");
-                                updateSchedule(data[i][j].id);
-                            }
-                        });
-
-                        trFilmTable.appendChild(tdStartTime);
-                        trFilmTable.appendChild(tdEndTime);
-                        trFilmTable.appendChild(tdFilm);
-                        trFilmTable.appendChild(tdRoom);
-                        trFilmTable.appendChild(tdDelete);
-                        tbody.appendChild(trFilmTable);
+        .then(data => {
+            console.log(data);
+            let tbody = document.getElementById("body-table");
+            for (let j = 0; j < data.length; j++) {
+                let trFilmTable = document.createElement("tr"); 
+                let tdStartTime = document.createElement("td");
+                let tdEndTime = document.createElement("td");
+                tdStartTime.className = "tdCenter";
+                tdEndTime.classList.add("tdCenter", "col-4");
+                let tdFilm = document.createElement("td");
+                tdFilm.className = "tdCenter";
+                //tdFilmStatus.classList.add("tdCenter","col-2");
+                let tdDelete = document.createElement("td");
+                tdDelete.className = "tdCenter";
+                let btnDelete = document.createElement("button");
+                //tdRoom.className = "tdCenter";
+                //btnDelete.className = "btnDelete";
+                //btnDelete.className = "tdCenter";
+                btnDelete.classList.add("btn", "btn-danger");
+                btnDelete.innerHTML = "X";
+                tdDelete.appendChild(btnDelete);
+                let tdRoom = document.createElement("td");
+                tdRoom.className = "tdCenter"; 
+                tdStartTime.innerHTML = formatTime(new Date(data[j].startTime)) + " - " + formatDate(new Date(data[j].startTime));
+                tdEndTime.innerHTML = formatTime(new Date(data[j].endTime)) + " - " + formatDate(new Date(data[j].endTime));
+                //tdEndTime.innerHTML = data[i][j].endTime;
+                tdFilm.innerHTML = data[j].filmName;
+                for (let t = 0; t < formRoom.options.length; t++) {
+                    if (data[j].roomId == formRoom.options[t].id) {
+                        tdRoom.innerHTML = formRoom.options[t].value;
                     }
-                }
-            })
-            .catch(error => console.error(error));
-    }
-    else if (this.value === 'Ngày mai') {
-        let tbody = document.getElementById("body-table");
-        tbody.innerHTML = '';
-        const today = new Date();
-        const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-        const dateStr = `${tomorrow.getFullYear()}-${tomorrow.getMonth() + 1}-${tomorrow.getDate()}`;
-        const params = new URLSearchParams({
-            date: dateStr,
-            filmId: 0,
-            roomId: 0
-        });
-        fetch(`${url}/${show}?` + params.toString(), {
-            method: 'GET',
+                } 
+                var checkdelete = true;
+                btnDelete.addEventListener("click", function () {
+                    checkdelete = false;
+                    // showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
+                    Swal.fire({
+                        title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          deleteSchedule(data[j].id);
+                          Swal.fire(
+                            'Deleted!',
+                            'Lịch chiếu đã được xóa',
+                            'success'
+                          )
+                        }
+                      }) 
+                });
+                trFilmTable.addEventListener("click", function () {
+                    if (checkdelete == true) { 
+                        updateSchedule(data[j].id);
+                    }
+                }); 
+                trFilmTable.appendChild(tdStartTime);
+                trFilmTable.appendChild(tdEndTime);
+                trFilmTable.appendChild(tdFilm);
+                trFilmTable.appendChild(tdRoom);
+                trFilmTable.appendChild(tdDelete);
+                tbody.appendChild(trFilmTable);
+            }
+            hover();
         })
-            .then(response => response.json())
-            .then(data => {
-                let tbody = document.getElementById("body-table");
-                for (let i = 0; i < data.length; i++) {
-                    for (let j = 0; j < data[i].length; j++) {
-                        let trFilmTable = document.createElement("tr");
-                        trFilmTable.addEventListener('dblclick', function () {
-                            click(data[i]);
-                        });
-                        let tdStartTime = document.createElement("td");
-                        let tdEndTime = document.createElement("td");
-                        tdStartTime.className = "tdCenter";
-                        tdEndTime.classList.add("tdCenter", "col-4");
-                        let tdFilm = document.createElement("td");
-                        tdFilm.className = "tdCenter";
-                        //tdFilmStatus.classList.add("tdCenter","col-2");
-                        let tdDelete = document.createElement("td");
-                        tdDelete.className = "tdCenter";
-                        let btnDelete = document.createElement("button");
-                        //tdRoom.className = "tdCenter";
-                        //btnDelete.className = "btnDelete";
-                        //btnDelete.className = "tdCenter";
-                        btnDelete.classList.add("btn", "btn-danger");
-                        btnDelete.innerHTML = "X";
-                        tdDelete.appendChild(btnDelete);
-                        let tdRoom = document.createElement("td");
-                        tdRoom.className = "tdCenter";
-                        //tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        //tdStartTime.innerHTML = data[i][j].startTime;
-                        //tdEndTime.innerHTML = data[i][j].endTime;
-                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
-                        tdFilm.innerHTML = data[i][j].filmName;
-                        console.log(formRoom.options.length);
-                        for (let t = 0; t < formRoom.options.length; t++) {
-                            if (data[i][j].roomId == formRoom.options[t].id) {
-                                tdRoom.innerHTML = formRoom.options[t].value;
-                            }
-                        }
-                        // Hoover
-                        let rows = document.querySelectorAll('tr');
-
-                        rows.forEach(row => {
-                            row.addEventListener('mouseover', () => {
-                                row.classList.add('highlight-row');
-                            });
-
-                            row.addEventListener('mouseout', () => {
-                                row.classList.remove('highlight-row');
-                            });
-                            // row.addEventListener("dblclick", function () {
-                            //     // editRow(this);
-                            //     console.log("abc");
-                            // });
-                        });
-                        var checkdelete = true;
-                        btnDelete.addEventListener("click", function () {
-                            checkdelete = false;
-                            // showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                            Swal.fire({
-                                title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'OK'
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  deleteSchedule(data[i][j].id);
-                                  Swal.fire(
-                                    'Deleted!',
-                                    'Lịch chiếu đã được xóa',
-                                    'success'
-                                  )
-                                }
-                              })
-                            // btCancel.addEventListener('click', function () {
-                            //     const modal = document.getElementById('exampleModal');
-                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
-                            //     modalInstance.hide();
-                            // });
-                            // btOK.addEventListener('click', function () {
-                            //     const modal = document.getElementById('exampleModal');
-                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
-                            //     modalInstance.hide();
-                            //     deleteSchedule(data[i][j].id);
-                            // });
-                        });
-                        trFilmTable.addEventListener("click", function () {
-                            if (checkdelete == true) {
-                                // const id = this.getAttribute("data-id");
-                                updateSchedule(data[i][j].id);
-                            }
-                        });
-
-                        trFilmTable.appendChild(tdStartTime);
-                        trFilmTable.appendChild(tdEndTime);
-                        trFilmTable.appendChild(tdFilm);
-                        trFilmTable.appendChild(tdRoom);
-                        trFilmTable.appendChild(tdDelete);
-                        tbody.appendChild(trFilmTable);
-                    }
-                }
-            })
-            .catch(error => console.error(error));
-    }
-    else if (this.value === 'Ngày mốt') {
-        let tbody = document.getElementById("body-table");
-        tbody.innerHTML = '';
-        const today = new Date();
-        const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-        const dayAfterTomorrow = new Date(tomorrow.getTime() + (24 * 60 * 60 * 1000));
-        const dateStr = `${dayAfterTomorrow.getFullYear()}-${dayAfterTomorrow.getMonth() + 1}-${dayAfterTomorrow.getDate()}`;
-        const params = new URLSearchParams({
-            date: dateStr,
-            filmId: 0,
-            roomId: 0
-        });
-        fetch(`${url}/${show}?` + params.toString(), {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then(data => {
-                let tbody = document.getElementById("body-table");
-                for (let i = 0; i < data.length; i++) {
-                    for (let j = 0; j < data[i].length; j++) {
-                        let trFilmTable = document.createElement("tr");
-                        trFilmTable.addEventListener('dblclick', function () {
-                            click(data[i]);
-                        });
-                        let tdStartTime = document.createElement("td");
-                        let tdEndTime = document.createElement("td");
-                        tdStartTime.className = "tdCenter";
-                        tdEndTime.classList.add("tdCenter", "col-4");
-                        let tdFilm = document.createElement("td");
-                        tdFilm.className = "tdCenter";
-                        //tdFilmStatus.classList.add("tdCenter","col-2");
-                        let tdDelete = document.createElement("td");
-                        tdDelete.className = "tdCenter";
-                        let btnDelete = document.createElement("button");
-                        //tdRoom.className = "tdCenter";
-                        //btnDelete.className = "btnDelete";
-                        //btnDelete.className = "tdCenter";
-                        btnDelete.classList.add("btn", "btn-danger");
-                        btnDelete.innerHTML = "X";
-                        tdDelete.appendChild(btnDelete);
-                        let tdRoom = document.createElement("td");
-                        tdRoom.className = "tdCenter";
-                        //tdStartTime.innerHTML = data[i][j].startTime;
-                        //tdEndTime.innerHTML = data[i][j].endTime;
-                        tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-                        tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
-                        tdFilm.innerHTML = data[i][j].filmName;
-                        console.log(formRoom.options.length);
-                        for (let t = 0; t < formRoom.options.length; t++) {
-                            if (data[i][j].roomId == formRoom.options[t].id) {
-                                tdRoom.innerHTML = formRoom.options[t].value;
-                            }
-                        }
-                        // Hoover
-                        let rows = document.querySelectorAll('tr');
-
-                        rows.forEach(row => {
-                            row.addEventListener('mouseover', () => {
-                                row.classList.add('highlight-row');
-                            });
-
-                            row.addEventListener('mouseout', () => {
-                                row.classList.remove('highlight-row');
-                            });
-                            // row.addEventListener("dblclick", function () {
-                            //     // editRow(this);
-                            //     console.log("abc");
-                            // });
-                        });
-                        var checkdelete = true;
-                        btnDelete.addEventListener("click", function () {
-                            checkdelete = false;
-                            //showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-                            Swal.fire({
-                                title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'OK'
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  deleteSchedule(data[i][j].id);
-                                  Swal.fire(
-                                    'Deleted!',
-                                    'Lịch chiếu đã được xóa',
-                                    'success'
-                                  )
-                                }
-                              })
-                            // btCancel.addEventListener('click', function () {
-                            //     const modal = document.getElementById('exampleModal');
-                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
-                            //     modalInstance.hide();
-                            // });
-                            // btOK.addEventListener('click', function () {
-                            //     const modal = document.getElementById('exampleModal');
-                            //     const modalInstance = bootstrap.Modal.getInstance(modal);
-                            //     modalInstance.hide();
-                            //     deleteSchedule(data[i][j].id);
-                            // });
-                        });
-                        trFilmTable.addEventListener("click", function () {
-                            if (checkdelete == true) {
-                                // const id = this.getAttribute("data-id");
-                                updateSchedule(data[i][j].id);
-                            }
-                        });
-
-                        trFilmTable.appendChild(tdStartTime);
-                        trFilmTable.appendChild(tdEndTime);
-                        trFilmTable.appendChild(tdFilm);
-                        trFilmTable.appendChild(tdRoom);
-                        trFilmTable.appendChild(tdDelete);
-                        tbody.appendChild(trFilmTable);
-                    }
-                }
-            })
-            .catch(error => console.error(error));
-    }
-});
-
+        .catch(error => console.error(error));
+}
+function hover() { 
+    let rows = document.querySelectorAll('tbody tr'); 
+    rows.forEach(row => {
+      row.addEventListener('mouseover', () => {
+        row.classList.add('highlight-row');
+      });
+  
+      row.addEventListener('mouseout', () => {
+        row.classList.remove('highlight-row');
+      });
+    });
+}
 formUpdateSchedule.addEventListener('submit', async (event) => {
     event.preventDefault();
     if(document.getElementById('formFilmUpdate').value == 'Chọn một phim'){
@@ -541,7 +287,7 @@ async function getRoom() {
     })
         .then(response => response.json())
         .then(data => {
-            data.forEach(room => {
+            data.forEach(room => { 
                 const optionEl = document.createElement('option');
                 optionEl.value = room.name;
                 optionEl.id = room.id;
@@ -659,78 +405,7 @@ scheduleform.addEventListener('submit', async (event) => {
             console.error(error);
         });
 
-});
-
-// fetch(`${url}/${show}`, {
-//     method: 'GET',
-//   })
-// .then(response => response.json())
-// .then(data => {
-//     console.log(data);
-//     let tbody = document.getElementById("body-table");
-//     for (let i = 0; i < data.length; i++) {
-//         let trFilmTable = document.createElement("tr");
-//         trFilmTable.addEventListener('dblclick', function () {
-//             click(data[i]);
-//         });
-//         let tdStartTime = document.createElement("td");
-//         let tdEndTime = document.createElement("td");
-//         // tdLength.className = "tdCenter"; 
-//         // tdLength.classList.add("tdCenter","col-4");
-//         let tdFilm = document.createElement("td");
-//         // tdFilmStatus.className = "tdCenter";
-//         // tdFilmStatus.classList.add("tdCenter","col-2");
-//         let tdDelete = document.createElement("td");
-//         // tdDelete.className = "tdCenter";
-//         let btnDelete = document.createElement("button");
-//         tdDelete.className = "tdCenter";
-//         btnDelete.className = "btnDelete";
-//         // btnDelete.className = "tdCenter";
-//         // btnDelete.classList.add("btn","btn-danger");
-//         btnDelete.innerHTML = "X";
-//         tdDelete.appendChild(btnDelete);
-//         let tdRoom = document.createElement("td");
-
-//         tdStartTime.innerHTML = data[i].StartTime;
-//         tdEndTime.innerHTML = data[i].EndTime;
-//         tdFilm.innerHTML = data[i].Film;
-//         tdRoom.innerHTML = data[i].Room;
-
-//         // Hoover
-//         let rows = document.querySelectorAll('tr'); 
-
-//         rows.forEach(row => {
-//             row.addEventListener('mouseover', () => {
-//                 row.classList.add('highlight-row');
-//             });
-
-//             row.addEventListener('mouseout', () => {
-//                 row.classList.remove('highlight-row');
-//             });
-//             // row.addEventListener("dblclick", function () {
-//             //     // editRow(this);
-//             //     console.log("abc");
-//             // });
-//         });
-//         // Hoover
-
-//         // dbclick
-
-
-//         //dbclick
-
-//         trFilmTable.appendChild(tdStartTime);
-//         trFilmTable.appendChild(tdEndTime);
-//         trFilmTable.appendChild(tdFilm);
-//         trFilmTable.appendChild(tdRoom);
-//         trFilmTable.appendChild(tdDelete);
-//         // trFilmTable.appendChild(tdDelete);
-
-//         tbody.appendChild(trFilmTable);
-//     }
-
-// })
-// .catch(error => console.error(error));
+}); 
 async function load() {
     await getRoom();
     await getSchedule();
@@ -863,7 +538,15 @@ async function getSchedule() {
     await fetch(`${url}/${show}?` + params.toString(), {
         method: 'GET',
     })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "/Forbidden.html"; 
+            }
+            if (response.status == '401') {
+                window.location.href = "/Unauthorized.html" 
+            }
+            return response.json();
+        })
         .then(data => {
             let tbody = document.getElementById("body-table");
             for (let i = 0; i < data.length; i++) {
@@ -899,23 +582,7 @@ async function getSchedule() {
                         if (data[i][j].roomId == formRoom.options[t].id) {
                             tdRoom.innerHTML = formRoom.options[t].value;
                         }
-                    }
-                    // Hoover
-                    let rows = document.querySelectorAll('tr');
-
-                    rows.forEach(row => {
-                        row.addEventListener('mouseover', () => {
-                            row.classList.add('highlight-row');
-                        });
-
-                        row.addEventListener('mouseout', () => {
-                            row.classList.remove('highlight-row');
-                        });
-                        // row.addEventListener("dblclick", function () {
-                        //     // editRow(this);
-                        //     console.log("abc");
-                        // });
-                    });
+                    } 
                     var checkdelete = true;
                     btnDelete.addEventListener("click", function () {
                         checkdelete = false;
@@ -964,6 +631,7 @@ async function getSchedule() {
                     tbody.appendChild(trFilmTable);
                 }
             }
+            hover();
         })
         .catch(error => console.error(error));
 }
@@ -980,3 +648,11 @@ function formatTime(date) {
     const formattedTime = `${hours}:${minutes}`;
     return formattedTime;
 }
+function getCurrentDate() {
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    var day = String(currentDate.getDate()).padStart(2, '0');
+    var formattedDate = year + '-' + month + '-' + day;
+    return formattedDate;
+}   

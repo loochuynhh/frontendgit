@@ -9,11 +9,7 @@ tr th {
 
 thead {
     font-size: 1.1em;
-}
-
-.highlight-row:hover {
-    background-color: #f5f5f5;
-}
+} 
 
 .form-select {
     width: 24vw !important;
@@ -65,8 +61,8 @@ thead {
 
 .fixed-table {
     table-layout: fixed;
-}
+} 
 
-.hover-row:hover{
-    background-color: red;
+.highlight-row:hover {
+    background-color: #f5f5f5; 
 }
