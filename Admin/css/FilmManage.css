@@ -89,3 +89,10 @@ thead{
 .fixed-table {
     table-layout: fixed;
 } 
+.chk-genre-film{ 
+    margin: 0% 5%;
+}
+
+.lb-genre-film{ 
+    width: 20%;
+}
