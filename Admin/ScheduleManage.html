@@ -5,13 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý lịch chiếu</title>
-    <link href="./css/styles.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" href="./css/RoomManage.css">  -->
-    <!-- <link rel="stylesheet" href="./css/ScheduleManage.css"> 
-    <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
-    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
-    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">  -->
+    <link href="./css/styles.css" rel="stylesheet" /> 
     <link rel="stylesheet" href="./css/FilmManage.css">
     <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="./css/ScheduleManage.css">
@@ -19,7 +13,13 @@
     <link rel="stylesheet" href="/css/style.css"> 
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
-    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
+    
+    
+<script type="text/javascript" src="/src/datetimepicker/jquery.min.js"></script>
+<script type="text/javascript" src="/src/datetimepicker/moment.min.js"></script>
+<script type="text/javascript" src="/src/datetimepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/src/datetimepicker/daterangepicker.css" />
 </head>
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -139,13 +139,22 @@
         <div id="layoutSidenav_content"> 
             <div class="container-fluid px-4">
                 <h2 class="name-feature">Quản lý lịch chiếu</h2>  
-                <div class = "d-flex justify-content-between">
-                    <div class="change-room"> 
+                <div class = "d-flex justify-content-between align-items-center mt-2 mb-3">
+                    <div class="d-flex align-items-center "> 
+                        <span class="w-75">Chọn khoảng ngày: </span>
+                        <input  type="text" name="dates" class="form-control pull-right" > 
+                    </div>
+                    <div class="ms-auto">
+                        <button type="button" id = "btAddSchedule" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                            <i class="fa-solid fa-plus"></i>
+                            THÊM LỊCH CHIẾU
+                        </button>
+                    </div>  
+                    <!-- <div class="change-room"> 
                         <select class="form-select" id ="selectTimeSchedule">
                             <option value="Hôm nay" selected="">Hôm nay</option>
                             <option value="Ngày mai">Ngày mai</option> 
-                            <option value="Ngày mốt">Ngày mốt</option> 
-                            <!-- <option value="5 Ngày tới">5 Ngày tới</option>  -->
+                            <option value="Ngày mốt">Ngày mốt</option>  
                         </select>
                     </div>
                     <div class="add-film">
@@ -153,8 +162,8 @@
                             <i class="fa-solid fa-plus"></i>
                             THÊM LỊCH CHIẾU
                         </button>
-                    </div> 
-                </div>
+                    </div>  -->
+                </div> 
                 <div class="card mb-4">                        
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
@@ -171,7 +180,7 @@
                               <th class="thDel">Xóa</th>
                             </tr>
                           </thead>
-                          <tbody id="body-table">
+                          <tbody id="body-table" class="hover-row">
                           </tbody>
                         </table>
                       </div>

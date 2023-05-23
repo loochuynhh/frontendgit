@@ -23,7 +23,12 @@ var formUpdateSchedule = document.getElementById("schedule-form-Update");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
 // var overlayAddSchedule = document.getElementById("overlayAddSchedule");
-
+$('input[name="dates"]').daterangepicker({
+    opens: 'right',
+    format: 'DD/MM/YYYY' 
+},function(start, end) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+}) 
 
 load();
 
