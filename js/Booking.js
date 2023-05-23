@@ -30,7 +30,7 @@ function setLayout() {
         document.getElementById('overlayHome').style.display = 'block'; 
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('overlayLogin').style.display = 'block';
-        document.addEventListener("click", handleOutsideClickLogin, true);
+        document.addEventListener("click", handleOutsideClickLogin, true); 
     }
 }
 function handleOutsideClickLogin(event) {
@@ -185,7 +185,11 @@ function loadShow(filmId) {
 
 
 }
-function loadSeat(showId, roomId) {
+function loadSeat(showId, roomId) { 
+    if(localStorage.getItem('token') == null){
+        setLayout();
+        return;
+    }
     document.getElementById("select-film-schedule-panel").classList.add("d-none");
     document.getElementById("select-seat").classList.remove("d-none");
     document.getElementById("select-food").classList.remove("d-none");
@@ -196,9 +200,17 @@ function loadSeat(showId, roomId) {
             'Authorization': "bearer " + localStorage.getItem('token')
         },
     })
-        .then(response => response.json())
-        .then(data => {
-
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "./Forbidden.html"; 
+            }
+            if (response.status == '401') {
+                window.location.href = "./Unauthorized.html" 
+            }
+            return response.json();
+        })
+        .then(data => { 
+            console.log("co thuc hien");
             var listSeat = [];
             data.forEach(element => {
                 var seat = {
