@@ -4,15 +4,7 @@
 
 .ui-datepicker-calendar {
     display: none;
-}
-
-.chart-double{
-    /* padding-top: 1px; */
-    height: 80vh
-}
-#revenueBySeatType{
-    margin-top: 4vh; 
 } 
-#revenueBySeatStatus{
-    margin-left: 10%;
+#layoutSidenav_content{
+    background-color: #f8f9fb;
 }

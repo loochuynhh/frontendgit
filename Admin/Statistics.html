@@ -70,64 +70,113 @@
                 </div>
             </nav>
         </div>
-        <div id="layoutSidenav_content"> 
+        <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
-                <h2 class="name-feature">Thống kê</h2>
-                <div class="d-flex align-items-center">
-                    <p class="">Năm thống kê:</p>
-                    <input class="mx-2 mb-3 form-control w-25" type="number" max="2023" id="yearpicker" onchange="loadRevenueByMonth()">  
-                </div>
-                
-                <!-- chart doanh thu theo thang -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Doanh thu theo tháng
-                    </div> 
-                    <canvas class="ms-3 py-3 px-2" width="1557" height="467" style="display: block; height: 417px; width: 1391px;" id="revenueByMonth"></canvas> 
-                </div> 
-                <!-- chart chung hang -->
+                <h2 class="name-feature">Thống kê</h2>   
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card mb-4 ">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Doanh thu theo loại ghế
-                            </div>  
-                            <div class="chart-double d-flex justify-content-center">
-                                <canvas class="ms-3 mt-4" width="500" height="347" style="display: block; height: 248; width: 496;"  id="revenueBySeatType"></canvas> 
+                    <!-- Doanh thu theo tháng -->
+                    <div class="col-xl-8">
+                        <div class="card mb-4 border-0">
+                            <div class="card-body p-4">
+                                <div class="card-title fs-4 fw-semibold">Doanh thu</div>
+                                <div class="card-subtitle">
+                                    <div class="d-flex align-items-center">
+                                        <p class="mt-2">Năm thống kê:</p>
+                                        <input class="mx-3 mb-1 form-control w-25" type="number" max="" id="yearpicker" onchange="loadRevenueByMonth()">  
+                                    </div>
+                                </div>
+                                <div class="text-end text-primary fs-5 fw-semibold mb-0" id="sumByYear"></div>
+                                <div class="d-flex justify-content-center align-items-center mt-1 mb-3" style="height:300px;margin-top:40px;">
+                                    <canvas class="" width="904" height="336" style="display: block; box-sizing: border-box; height: 300px; width: auto;" id="revenueByMonth"></canvas> 
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Tỉ lệ vé bán, vé hoàn tiền
-                            </div>  
-                            <div class="chart-double ">
-                                <select class="mx-3 mt-2 mb-0 form-control w-25 monthpicker" id="monthPickerForSeatStatus" onchange="loadRevenueBySeatStatus()"></select> 
-                                <canvas class="" width="500" height="347" style="display: block; height: 248; width: 496;" id="revenueBySeatStatus"></canvas> 
+                    <!-- Doanh thu theo loại ghế -->
+                    <div class="col-xl-4"> 
+                        <div class="card mb-4 border-0">
+                            <div class="card-body p-4">
+                                <div class="card-title fs-4 fw-semibold">Doanh Thu Theo Loại Ghế</div>
+                                <div class="card-subtitle" id="yearSeatType"></div>
+                                <!-- <div class="card-subtitle">
+                                    <div class="d-flex align-items-center">
+                                        <p class="">Năm thống kê:</p>
+                                        <input class="mx-2 mb-3 form-control w-50" type="number" max="2023"  onchange="loadRevenueByMonth()">  
+                                    </div>
+                                </div> -->
+                                <div class="text-end text-primary fs-5 fw-semibold" id="sumSeatType"></div>  
+                                <div class="d-flex justify-content-center align-items-center mt-3 mb-2" style="height:300px;margin-top:40px;">
+                                    <canvas class="" width="904" height="336" style="display: block; box-sizing: border-box; height: 300px; width: auto;" id="revenueBySeatType"></canvas> 
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- chart theo phim -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Doanh số theo phim
+                        </div> 
                     </div> 
-                    <select class="mx-3 my-3 form-control w-25 monthpicker" id="monthPickerForFilm" onchange="loadRevenueByFilm()"></select> 
-                    <canvas class="ms-3 py-3 px-2" width="1557" height="467" style="display: block; height: 417px; width: 1391px;" id="revenueByFilm"></canvas> 
                 </div>
-                
-                 
-            </div>  
+                <div class="row">
+                    <div class="col-md-12 ">  
+                        <div class="card mb-4 border-0">
+                            <!-- Header của chi tiết theo tháng -->
+                            <div class="card-body p-4">
+                                <div class="card-title fs-4 fw-semibold">Chi tiết theo tháng</div>
+                                <div class="card-subtitle mt-2">
+                                    <div class="d-flex align-items-center">
+                                        <p>Tháng thống kê:</p>
+                                        <select class="mx-3 mb-3 form-control w-25" id="monthPicker" onchange="loadRevenueDetail()"></select> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- Doanh thu theo phim -->
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-start border-4 border-danger px-3 mb-2">
+                                                    <small class="text-truncate fs-6">Tổng Số Vé</small>
+                                                    <div class="fs-5 fw-semibold" id="sumTicket"></div>
+                                                </div>
+                                            </div> 
+                                            <div class="col-6">
+                                                <div class="border-start border-4 border-info px-3 mb-2">
+                                                    <small class="text-truncate fs-6">Doanh Thu Food/Drinks</small>
+                                                    <div class="fs-5 fw-semibold" id="sumFoodDrinks"></div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="d-flex justify-content-center align-items-center mt-0" style="height:300px;margin-top:40px;">
+                                            <canvas class="" width="904" height="336" style="display: block; box-sizing: border-box; height: 300px; width: auto;" id="revenueByFilm"></canvas> 
+                                        </div>
+                                    </div>
+                                    <!-- Tỉ lệ vé hoàn/ thành công -->
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border-start border-4 border-warning px-3 mb-2">
+                                                    <small class="text-truncate fs-6">Vé Chiếu Thành Công</small>
+                                                    <div class="fs-5 fw-semibold" id="sumSoldTicket"></div>
+                                                </div>
+                                            </div> 
+                                            <div class="col-6">
+                                                <div class="border-start border-4 border-success px-3 mb-2">
+                                                    <small class="text-truncate fs-6">Vé Hoàn Tiền</small>
+                                                    <div class="fs-5 fw-semibold" id="sumRefundTicket"></div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="d-flex justify-content-center align-items-center mt-0 p-4" style="height:300px;margin-top:40px;">
+                                            <canvas class="" width="904" height="336" style="display: block; box-sizing: border-box; height: 300px; width: auto;" id="revenueBySeatStatus"></canvas> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div> 
     <script src="./js/scripts.js"></script> 
-    <script src="/src/chartjs/chart.min.js"></script>
+    <script src="/src/chartjs/chart.min.js"></script>  
+    <script src="/src/chartjs/chartjs-plugin-datalabels.min.js"></script>  
     <script src="./js/Statistics.js"></script>
     <script src="/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+    <script src="/src/sweeralert/sweetalert.min.js"></script>
 </body>
 </html>
