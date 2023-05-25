@@ -198,7 +198,7 @@ function Seat() {
         btnSave.addEventListener("click", async (event) => {
             if (document.getElementById("roomName").value == '') {
                 // alert("Vui lòng nhập tên phòng");
-                Swal.fire('Vui lòng nhập tên phòng', 1000);
+                Swal.fire('Vui lòng nhập tên phòng', 1500);
             } else { Save(); }
         })
         let btnCancel = document.createElement("button");
@@ -317,7 +317,6 @@ function DeleteRoom() {
                         window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
                     } 
                     if (response.status == '400') { 
-                        console.log("vao 400")
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
@@ -332,7 +331,7 @@ function DeleteRoom() {
                             icon: 'success',
                             title: 'Xóa phòng chiếu thành công',
                             showConfirmButton: false,
-                            timer: 1000
+                            timer: 1500
                         }).then((result) => {
                             let select = document.getElementById("RoomNameForSelect");
                             for (let i = select.options.length - 1; i >= 2; i--) {
@@ -387,7 +386,7 @@ function Save() {
                         icon: 'success',
                         title: 'Đổi trạng thái phòng chiếu thành công',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 1500
                     }).then((result) => {
                         location.reload();
                     });  
@@ -429,7 +428,7 @@ function Save() {
                         icon: 'success',
                         title: 'Cập nhật phòng chiếu thành công',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 1500
                     }).then((result) => {
                         location.reload();
                     });  

@@ -156,12 +156,12 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
     event.preventDefault();
     if(document.getElementById('formFilmUpdate').value == 'Chọn một phim'){
         // showAlertTimeOut('Vui lòng chọn 1 phim');
-        Swal.fire('Vui lòng chọn 1 phim', 1000);
+        Swal.fire('Vui lòng chọn 1 phim', 1500);
         return;
     }
     if(document.getElementById('formRoomUpdate').value == 'Chọn một phòng chiếu'){
         // showAlertTimeOut('Vui lòng chọn 1 phòng chiếu');
-        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1000);
+        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
         return;
     }
     const filmEl = document.querySelector('#formFilmUpdate');
@@ -193,46 +193,58 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
         response.text().then(errorMessage => {
             if(errorMessage == 'This room has schedule conflict'){
                 // showAlertTimeOut("Phòng chiếu này đã có lịch chiếu trong khung giờ này");
+                document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'Lỗi',
                     text: 'Sửa lịch chiếu không thành công',
                     footer: '<a>Phòng chiếu đã có lịch trong khung giờ này</a>',
-                    timer: 1000
-                  })
+                    timer: 2000
+                  }).then(() => {
+                    document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+                  });
             }
             if(errorMessage == 'Film deleted'){
                 // showAlertTimeOut("Phim này đã bị xóa");
+                document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'Lỗi',
                     text: 'Sửa lịch chiếu không thành công',
                     footer: '<a>Phim này đã bị xóa</a>',
-                    timer: 1000
-                  })
+                    timer: 2000
+                  }).then(() => {
+                    document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+                  });
             }
             if(errorMessage == 'Room is repairing'){
                 // showAlertTimeOut("Phòng chiếu đang sửa chữa");
+                document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'Lỗi',
                     text: 'Sửa lịch chiếu không thành công',
                     footer: '<a>Phòng chiếu đang sửa chữa</a>',
-                    timer: 1000
-                  })
+                    timer: 2000
+                  }).then(() => {
+                    document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+                  });
             }
         })
         //showAlertTimeOut('Chỉnh sửa không thành công');
+        document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
         Swal.fire({
             position: 'top',
             icon: 'error',
             title: 'Lỗi',
             text: 'Chỉnh sửa không thành công',
-            timer: 1000
-          })
+            timer: 2000
+          }).then(() => {
+            document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+          });
         //location.reload();
         throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
     }
@@ -242,7 +254,7 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
         icon: 'success',
         title: 'Sửa lịch chiếu thành công',
         showConfirmButton: false,
-        timer: 800
+        timer: 1500
       })
     //location.reload();
     })
@@ -326,25 +338,25 @@ scheduleform.addEventListener('submit', async (event) => {
     const timeEl = document.querySelector('.form-select[type="time"]');
     if (!filmEl.value || filmEl.value === 'Chọn một phim') {
         // showAlertTimeOut('Vui lòng chọn một phim.');
-        Swal.fire('Vui lòng chọn 1 phim', 1000);
+        Swal.fire('Vui lòng chọn 1 phim', 1500);
         return;
     }
 
     if (!roomEl.value || roomEl.value === 'Chọn một phòng chiếu') {
         // showAlertTimeOut('Vui lòng chọn một phòng chiếu.');
-        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1000);
+        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
         return;
     }
 
     if (!dateEl.value) {
         // showAlertTimeOut('Vui lòng nhập ngày chiếu.');
-        Swal.fire('Vui lòng nhập ngày chiếu', 1000);
+        Swal.fire('Vui lòng nhập ngày chiếu', 1500);
         return;
     }
 
     if (!timeEl.value) {
         // showAlertTimeOut('Vui lòng nhập giờ chiếu.');
-        Swal.fire('Vui lòng nhập giờ chiếu', 1000);
+        Swal.fire('Vui lòng nhập giờ chiếu', 1500);
         return;
     }
     const dateValue = document.getElementById('dateSchedule').value;
@@ -373,13 +385,16 @@ scheduleform.addEventListener('submit', async (event) => {
             if (!response.ok) {
                 //location.reload();
                 // showAlertTimeOut('Thêm lịch chiếu mới không thành công');
+                document.removeEventListener("click", handleOutsideClickAddSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'Lỗi',
                     text: 'Thêm lịch chiếu mới không thành công',
-                    timer: 1000
-                  })
+                    timer: 2000
+                  }).then(() => {
+                    document.addEventListener("click", handleOutsideClickAddSchedule, true);
+                  });
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
             //location.reload();
@@ -389,19 +404,22 @@ scheduleform.addEventListener('submit', async (event) => {
                 icon: 'success',
                 title: 'Thêm lịch chiếu mới thành công',
                 showConfirmButton: false,
-                timer: 800
+                timer: 1500
               })
         })
         .catch(error => {
             //location.reload();
             // showAlertTimeOut('Thêm lịch chiếu không thành công');
+            document.removeEventListener("click", handleOutsideClickAddSchedule, true);
             Swal.fire({
                 position: 'top',
                 icon: 'error',
                 title: 'Lỗi',
                 text: 'Thêm lịch chiếu mới không thành công',
                 timer: 1000
-              })
+              }).then(() => {
+                document.addEventListener("click", handleOutsideClickAddSchedule, true);
+              });
             console.error(error);
         });
 
@@ -431,7 +449,7 @@ function deleteSchedule(i) {
                     title: 'Lỗi',
                     text: 'Xóa lịch chiếu không thành công',
                     footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-                    timer: 1000
+                    timer: 2000
                   })
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
@@ -443,7 +461,7 @@ function deleteSchedule(i) {
                 title: 'Lỗi',
                 text: 'Xóa lịch chiếu không thành công',
                 footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-                timer: 1000
+                timer: 2000
               })
         })
         .catch(error => {
@@ -455,7 +473,7 @@ function deleteSchedule(i) {
                 title: 'Lỗi',
                 text: 'Xóa lịch chiếu không thành công',
                 footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-                timer: 1000
+                timer: 2000
               })
             console.error(error);
         });

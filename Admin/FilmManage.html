@@ -152,7 +152,8 @@
             required
           />
         </div>
-        <button class="formbold-btn" id="buttonAddFilm">Thêm phim mới</button>
+        <input type="submit" class="formbold-btn" id="buttonUpdateFilm" value="Thêm phim mới">
+        <!-- <button class="formbold-btn" id="buttonAddFilm">Thêm phim mới</button> -->
       </form>
     </div>
     <div class="contentSignup bg-body-tertiary" id="overlayUpdateFilm" style="display:none; z-index: 1;">
@@ -271,8 +272,8 @@
         <div>
           <input class = "my-2" type="checkbox" id="posterChange">
           <label for="posterChange">Thay đổi các Poster</label>
-          <button id = "viewImagePoster" class="btn btn-outline-dark custombuttonViewPoster">Xem Poster</button>
-          <button id = "viewImageAdPoster" class="btn btn-outline-dark custombuttonViewAdsPoster">Xem AdsPoster</button>
+          <button type = "button" id = "viewImagePoster" class="btn btn-outline-dark custombuttonViewPoster">Xem Poster</button>
+          <button type = "button" id = "viewImageAdPoster" class="btn btn-outline-dark custombuttonViewAdsPoster">Xem AdsPoster</button>
         </div>
         
         <div class="formbold-form-file-flex" style="display:none" id = "poterfile">
@@ -283,19 +284,18 @@
             id="updateMoviePoster"
             class="formbold-form-file"
           />
-          <button id = "reviewImagePoster" class="btn btn-outline-dark custombuttonposter">Xem trước Poster</button>
+          <button type="button" id = "reviewImagePoster" class="btn btn-outline-dark custombuttonposter">Xem trước Poster</button>
           <label for="updateMovieAdposter" class="formbold-form-label">AdsPoster</label>
           <input
             type="file"
             name="updateMovieAdposter"
             id="updateMovieAdposter"
             class="formbold-form-file"
-            
           />
-          <button id = "reviewImageAdPoster" class="btn btn-outline-dark custombuttonadposter">Xem trước AdsPoster</button>
+          <button type="button" id = "reviewImageAdPoster" class="btn btn-outline-dark custombuttonadposter">Xem trước AdsPoster</button>
         </div>
-        
-        <button class="formbold-btn" id="buttonUpdateFilm">Chỉnh sửa</button>
+        <input type="submit" class="formbold-btn" id="buttonUpdateFilm" value="Chỉnh sửa">
+        <!-- <button class="formbold-btn" id="buttonUpdateFilm">Chỉnh sửa</button> -->
       </form>
     </div>
     <div class="col-6 position-relative top-50 start-50 translate-middle" id = "overlayReview" style="display:none; z-index: 10;">
