@@ -90,11 +90,7 @@ fetch(URLALLFILM)
                 }  
             }) 
             billInfo.room = roomNameSended;
-            billInfo.filmShow = showTimeSended;
-        
-            // filmIdSended = null;
-            // showIdSended = null;
-            // roomIdSended = null; 
+            billInfo.filmShow = showTimeSended; 
         }
         if (filmIdSended !== null) {
             const allFilmSelect = document.querySelectorAll(".list-film-select");
@@ -193,6 +189,7 @@ function loadSeat(showId, roomId) {
     document.getElementById("select-film-schedule-panel").classList.add("d-none");
     document.getElementById("select-seat").classList.remove("d-none");
     document.getElementById("select-food").classList.remove("d-none");
+    loadFood();
     const URLSEAT = "https://localhost:44308/api/seat?roomId=" + roomId + "&showId=" + showId;
     fetch(URLSEAT, {
         method: 'GET',
@@ -209,8 +206,7 @@ function loadSeat(showId, roomId) {
             }
             return response.json();
         })
-        .then(data => { 
-            console.log("co thuc hien");
+        .then(data => {  
             var listSeat = [];
             data.forEach(element => {
                 var seat = {
@@ -322,6 +318,7 @@ function prevToSeat() {
     document.getElementById("bill").classList.add("d-none");
     document.getElementById("select-seat").classList.remove("d-none");
     document.getElementById("select-food").classList.remove("d-none");
+    // loadFood();
 }
 function prevToFilmAndShow() {
     document.getElementById("select-film-schedule-panel").classList.remove("d-none");
@@ -337,24 +334,22 @@ function contToPay() {
         document.getElementById("select-food").classList.add("d-none");
         document.getElementById("bill").classList.remove("d-none");
 
-        var food = ""
-        if (parseInt(document.getElementById("number1").value) !== 0) {
-            if (food.length === 0) food += "Bắp (" + document.getElementById("number1").value + ")"
-            else food += ", " + "Bắp (" + document.getElementById("number1").value + ")"
-        }
-        if (parseInt(document.getElementById("number2").value) !== 0) {
-            if (food.length === 0) food += "Nước Cola (" + document.getElementById("number2").value + ")"
-            else food += ", " + "Nước Cola (" + document.getElementById("number2").value + ")"
-        }
-        if (parseInt(document.getElementById("number3").value) !== 0) {
-            if (food.length === 0) food += "Combo bắp nước (" + document.getElementById("number3").value + ")"
-            else food += ", " + "Combo bắp nước (" + document.getElementById("number3").value + ")"
-        }
-        if (parseInt(document.getElementById("number4").value) !== 0) {
-            if (food.length === 0) food += "Combo cặp đôi (" + document.getElementById("number4").value + ")"
-            else food += ", " + "Combo cặp đôi (" + document.getElementById("number4").value + ")"
-        }
+        var food = "";
+        var totalCost = 0;  
+        var tbody = document.getElementById("tbody-food"); 
 
+        for (var i = 0; i < tbody.rows.length; i++) {
+            var row = tbody.rows[i]; 
+            var nameFood = row.cells[0].querySelector('span').innerText;
+            var numberFood = row.cells[1].querySelector('input').value;
+          
+            if (parseInt(numberFood) !== 0) {
+                // console.log("rowcell1",row.cells[1].value)
+                if (food.length === 0) food += nameFood + "(" + numberFood + ")";
+                else food += ", " + nameFood + "(" + numberFood + ")"; 
+                totalCost += parseInt(row.cells[3].innerText.replace(/,/g, ''));
+            }
+        } 
         billInfo.food = food;
         let seat = "";
         billInfo.seat.forEach((element, idx) => {
@@ -366,11 +361,7 @@ function contToPay() {
         document.getElementById("bill-show").innerHTML = billInfo.filmShow;
         document.getElementById("bill-room").innerHTML = billInfo.room;
         document.getElementById("bill-food").innerHTML = billInfo.food;
-        document.getElementById("bill-seat").innerHTML = seat;
-
-        var totalCost = 0;
-        totalCost = ((parseInt(document.getElementById("number1").value)) * 20000) + ((parseInt(document.getElementById("number2").value)) * 15000)
-            + ((parseInt(document.getElementById("number3").value)) * 30000) + ((parseInt(document.getElementById("number4").value)) * 50000);
+        document.getElementById("bill-seat").innerHTML = seat; 
 
         let availableSeat = document.querySelectorAll(".seatMap:not(.Booked)");
         availableSeat.forEach(element => {
@@ -385,44 +376,20 @@ function contToPay() {
 
 }
 function pay() {
-    var foodOrderDTOs = [
-        {
-            foodId: 1,
-            count: document.getElementById("number1").value
-        },
-        {
-            foodId: 2,
-            count: document.getElementById("number2").value
-        },
-        {
-            foodId: 3,
-            count: document.getElementById("number3").value
-        },
-        {
-            foodId: 4,
-            count: document.getElementById("number4").value
-        },
-    ]
-    var food = ""
-    if (parseInt(document.getElementById("number1").value) !== 0) {
-        if (food.length === 0) food += "Bắp (" + document.getElementById("number1").value + ")"
-        else food += ", " + "Bắp (" + document.getElementById("number1").value + ")"
-    }
-    if (parseInt(document.getElementById("number2").value) !== 0) {
-        if (food.length === 0) food += "Nước Cola (" + document.getElementById("number2").value + ")"
-        else food += ", " + "Nước Cola (" + document.getElementById("number2").value + ")"
-    }
-    if (parseInt(document.getElementById("number3").value) !== 0) {
-        if (food.length === 0) food += "Combo bắp nước (" + document.getElementById("number3").value + ")"
-        else food += ", " + "Combo bắp nước (" + document.getElementById("number3").value + ")"
-    }
-    if (parseInt(document.getElementById("number4").value) !== 0) {
-        if (food.length === 0) food += "Combo cặp đôi (" + document.getElementById("number4").value + ")"
-        else food += ", " + "Combo cặp đôi (" + document.getElementById("number4").value + ")"
-    }
+    var foodOrderDTOs = []
+    var tbody = document.getElementById("tbody-food"); 
 
-    billInfo.food = food;
-    console.log(showId, seatId,foodOrderDTOs);
+    for (var i = 0; i < tbody.rows.length; i++) {
+        var row = tbody.rows[i];  
+        
+        if (parseInt(row.cells[1].querySelector('input').value) !== 0) {
+            var food = {};
+            food.foodId = row.cells[1].querySelector('input').id;
+            food.count = row.cells[1].querySelector('input').value;
+            foodOrderDTOs.push(food); 
+        }
+        
+    } 
     const URLBILL = "https://localhost:44308/api/bill";
     fetch(URLBILL, {
         method: "POST",
@@ -450,8 +417,7 @@ function pay() {
                 title: 'Mua vé thất bại',
                 text: 'Khách hàng chưa đủ tuổi đặt phim này',
                 showConfirmButton: true,
-                timer: 2000
-                // timer: 5000
+                timer: 2000 
             }).then((result) => {
                 if (result.isConfirmed) window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
                 else window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
@@ -471,6 +437,67 @@ function pay() {
     })  
 
 }
+function loadFood(){
+    fetch("https://localhost:44308/api/food", {
+        method: 'GET',
+        headers: {
+            'Authorization': "bearer " + localStorage.getItem('token')
+        },
+    })
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "./Forbidden.html"; 
+            }
+            if (response.status == '401') {
+                window.location.href = "./Unauthorized.html" 
+            }
+            return response.json();
+        })
+        .then(data => {  
+            document.getElementById("tbody-food").innerHTML = "";
+            data.forEach(food =>{ 
+                const td1 = document.createElement("td"); 
+                const spFoodName = document.createElement("span");
+                spFoodName.classList.add("fs-5", "fw-bold", "text-success");
+                spFoodName.textContent = food.name;
+                const pSize = document.createElement("p");
+                pSize.classList.add("mt-2", "mb-0", "fst-italic", "fw-lighter", "fs-6");
+                pSize.textContent = food.description; 
+                td1.appendChild(spFoodName);
+                td1.appendChild(pSize);
+
+                const td4 = document.createElement("td");
+                td4.classList.add("text-center");
+                td4.textContent = "0"; 
+                td4.setAttribute("id", "cost" + food.id);
+
+                const td2 = document.createElement("td");
+                td2.classList.add("text-center");
+                var input = document.createElement("input");
+                input.setAttribute("type", "number");                                                                            
+                input.setAttribute("min", "0");
+                input.setAttribute("value", "0");                                       
+                input.setAttribute("step", "0");                                                           
+                input.setAttribute("id", food.id);
+                input.addEventListener("change", function(){
+                    td4.textContent = (parseInt(food.cost) * parseInt(input.value)).toLocaleString();
+                });
+                td2.appendChild(input);
+
+                const td3 = document.createElement("td");
+                td3.classList.add("text-center");
+                td3.textContent = (food.cost).toLocaleString(); 
+
+                const trFood = document.createElement("tr");
+                trFood.appendChild(td1);
+                trFood.appendChild(td2);
+                trFood.appendChild(td3);
+                trFood.appendChild(td4);
+                document.getElementById("tbody-food").appendChild(trFood);
+            })
+        })
+        .catch(error => console.error(error));
+}
 function formatDate(date) {
     const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('vi-VN', options);
@@ -482,16 +509,4 @@ function formatTime(date) {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
     return formattedTime;
-}
-function selectfood1() {
-    document.getElementById("cost1").textContent = ((parseInt(document.getElementById("number1").value)) * 20000).toLocaleString();
-}
-function selectfood2() {
-    document.getElementById("cost2").textContent = ((parseInt(document.getElementById("number2").value)) * 15000).toLocaleString();
-}
-function selectfood3() {
-    document.getElementById("cost3").textContent = ((parseInt(document.getElementById("number3").value)) * 30000).toLocaleString();
-}
-function selectfood4() {
-    document.getElementById("cost4").textContent = ((parseInt(document.getElementById("number4").value)) * 50000).toLocaleString();
-}
+} 

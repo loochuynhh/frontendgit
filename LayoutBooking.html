@@ -485,43 +485,7 @@
               <th class="col-2">Giá (VNĐ)</th>
               <th class="col-2">Tổng (VNĐ)</th>
           </thead>
-          <tbody>
-              <tr>
-                <td>
-                  <span class="fs-5 fw-bold text-success">Bắp</span>
-                  <p class="mt-2 mb-0 fst-italic fw-lighter fs-6">Size M</p>
-                </td>
-                  <td class="text-center"><input type="number" min="0" value="0" step="0" id="number1" onchange="selectfood1()"></td>
-                  <td class="text-center">20,000</td>
-                  <td class="text-center" id="cost1">0</td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="fs-5 fw-bold text-success">Nước Cola</span>
-                  <p class="mt-2 mb-0 fst-italic fw-lighter fs-6">Size M</p>
-                </td>
-                  <td class="text-center"><input type="number" min="0" value="0" step="0" id="number2" onchange="selectfood2()"></td>
-                  <td class="text-center">15,000</td>
-                  <td class="text-center" id="cost2">0</td>
-              </tr>
-              <tr>
-                  <td>
-                    <span class="fs-5 fw-bold text-success">Combo Bắp Nước</span>
-                    <p class="mt-2 mb-0 fst-italic fw-lighter fs-6">1 Bắp size M + 1 Cola size M</p>
-                  </td>
-                  <td class="text-center"><input type="number" min="0" value="0" step="0" id="number3" onchange="selectfood3()"></td>
-                  <td class="text-center">30,000</td>
-                  <td class="text-center" id="cost3">0</td>
-              </tr>
-              <tr>
-                  <td>
-                    <span class="fs-5 fw-bold text-success">Combo Cặp Đôi</span>
-                    <p class="mt-2 mb-0 fst-italic fw-lighter fs-6">2 Bắp size M + 2 Cola size M</p>
-                  </td> 
-                  <td class="text-center"><input type="number" min="0" value="0" step="0" id="number4" onchange="selectfood4()"></td>
-                  <td class="text-center">50,000</td>
-                  <td class="text-center" id="cost4">0</td>
-              </tr>
+          <tbody id="tbody-food"> 
           </tbody>
       </table>
       <div class="d-flex justify-content-between">
@@ -569,26 +533,26 @@
 </div>
   <!-- Bill -->
 
-    <!-- Footer -->
-    <footer>
-        <!-- <div class="container"> -->
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <div class="col-md-6 d-flex align-items-center">
-                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-                </a>
-                <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Cinema Company, LHD</span>
-            </div>
-        
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/GithubLogo.png" alt="Github icon" width="24" height="24"></a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/FacebookLogo.png" alt="Facebook icon" width="24" height="24"></svg></a></li>
-                <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/InstagramLogo.png" alt="Instagram icon" width="24" height="24"></li>
-            </ul>
-            </footer>
-        <!-- </div> -->
-    </footer>
-    <!-- Footer -->
+  <!-- Footer -->
+  <footer>
+      <!-- <div class="container"> -->
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div class="col-md-6 d-flex align-items-center">
+              <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Cinema Company, LHD</span>
+          </div>
+      
+          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/GithubLogo.png" alt="Github icon" width="24" height="24"></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/FacebookLogo.png" alt="Facebook icon" width="24" height="24"></svg></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/InstagramLogo.png" alt="Instagram icon" width="24" height="24"></li>
+          </ul>
+          </footer>
+      <!-- </div> -->
+  </footer>
+  <!-- Footer -->
     
 </body> 
 <!-- <script src = "./js/HomePage.js"></script>  -->
