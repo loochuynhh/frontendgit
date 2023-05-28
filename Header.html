@@ -4,15 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rạp Chiếu Phim</title>  
-    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="./css/Film.css">
-    <link rel="stylesheet" href="./css/HomePage.css"> 
-    <link rel="stylesheet" href="./css/style.css"> 
-    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">   
+    <link rel="stylesheet" href="./css/style.css">  
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
-
+    <!-- <script src="./src/jquery/jquery-3.7.0.js"></script> -->
+    <script src = "./js/Header.js"></script> 
 </head>
 <body>
   <!-- Overlay -->
@@ -381,11 +379,11 @@
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">  
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-between mb-md-0">
-            <li class = "nav-item"><a href="./HomePage.html" class="nav-link px-2 text-white">Trang chủ</a></li>
-            <li class = "nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-white">Phim</a></li>
-            <li class = "nav-item"><a href="./LayoutSchedule.html" class="nav-link px-2 text-white">Lịch chiếu</a></li>
-            <li class = "nav-item"><a href="./LayoutBooking.html" class="nav-link px-2 text-white">Mua vé</a></li>
-            <li class = "nav-item"><a href="./LayoutFeedback.html" class="nav-link px-2 text-secondary">Góp ý</a></li>
+            <li class = "nav-item"><a href="./HomePage.html" class="nav-link px-2 text-white" id="homepage-link">Trang chủ</a></li>
+            <li class = "nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-white" id="film-link">Phim</a></li>
+            <li class = "nav-item"><a href="./LayoutSchedule.html" class="nav-link px-2 text-white" id="schedule-link">Lịch chiếu</a></li>
+            <li class = "nav-item"><a href="./LayoutBooking.html" class="nav-link px-2 text-white" id="booking-link">Mua vé</a></li>
+            <li class = "nav-item"><a href="./LayoutFeedback.html" class="nav-link px-2 text-white" id="about-link">Giới thiệu</a></li>
           </ul> 
           <form class="col-12 col-lg-3 mb-3 mb-lg-0 me-lg-5 ms-auto" role="search" onsubmit="event.preventDefault();Search()">
             <input type="search" class="nav-item form-control form-control-dark text-bg-dark" placeholder="Search..." id="search">
@@ -396,9 +394,9 @@
               <img src="./Image/user.png" alt="mdo" width="50" height="auto" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" id = "info" href="#">Thông tin</a></li>
-              <li><a class="dropdown-item" href="#">Cài đặt</a></li>
-              <li><a class="dropdown-item" href="#">Giới thiệu</a></li>
+              <li><a class="dropdown-item" id = "info" href="#">Tài khoản</a></li>
+              <li><a class="dropdown-item" href="/LayoutMyDeal.html">Lịch sử giao dịch</a></li>
+              <!-- <li><a class="dropdown-item" href="#">Giới thiệu</a></li> -->
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#" id = "logout">Đăng xuất</a></li>
             </ul>
@@ -430,31 +428,9 @@
       </div>
     </div>
   </div>
-  <!-- Thông báo -->
-
-  <footer>
-    <!-- <div class="container"> -->
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-6 d-flex align-items-center">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Cinema Company, LHD</span>
-        </div>
-    
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/GithubLogo.png" alt="Github icon" width="24" height="24"></a></li>
-          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/FacebookLogo.png" alt="Facebook icon" width="24" height="24"></svg></a></li>
-          <li class="ms-3"><a class="text-body-secondary" href="#"><img src="./Image/InstagramLogo.png" alt="Instagram icon" width="24" height="24"></li>
-        </ul>
-      </footer>
-    <!-- </div> -->
-  </footer>
-    
-</body> 
-  <script src = "./js/HomePage.js"></script>
-  <script src = "./js/javascriptHome.js"></script>
-  <script src = "./js/Film.js"></script>
+  <!-- Thông báo -->   
+</body>  
+  <script src = "./js/javascriptHome.js"></script>  
   <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
   <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
   <script src="./src/sweeralert/sweetalert.min.js"></script> 

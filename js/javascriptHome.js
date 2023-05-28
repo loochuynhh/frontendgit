@@ -27,7 +27,12 @@ var newPassword = document.getElementById("newPasswordInfo");
 var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo");
 var passwordLogin = document.getElementById('passwordLogin');
 var forgotPasswordLink = document.getElementById('forgot-password-link');
-var overlayForgotPassword = document.getElementById('overlayForgotPassword');
+var overlayForgotPassword = document.getElementById('overlayForgotPassword'); 
+
+function Search() {
+  console.log("Giá trị đã nhập:", document.getElementById("search").value);   
+  window.location.href = "http://127.0.0.1:5502/LayoutFilm.html" + "?filmName=" + document.getElementById("search").value;
+}
 
 document.querySelector('#formForgotPassword').addEventListener('submit', function (event) {
   event.preventDefault();
@@ -618,4 +623,4 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       document.addEventListener("click", handleOutsideClickInfo, true);
     });
   }
-});
+}); 

@@ -1,8 +1,13 @@
-var URLFILM = 'https://localhost:44308/api/film/showing';
 const URLFILMDETAIL = 'http://127.0.0.1:5502/FilmDetails.html';
 const URLBOOKING = 'http://127.0.0.1:5502/LayoutBooking.html'
 
-window.onload = loadFilm(URLFILM);
+var URLFILM = 'https://localhost:44308/api/film/showing';
+const queryString = window.location.search; 
+const urlParams = new URLSearchParams(queryString); 
+var filmName = urlParams.get('filmName'); 
+if (filmName !== null) URLFILM = "https://localhost:44308/api/film?name=" + filmName; 
+
+window.onload = loadFilm(URLFILM); 
 
 function selectShowingFilm(event) {
     const links = document.querySelectorAll('.status-film');
@@ -27,17 +32,17 @@ function selectIncomingFilm(event) {
     loadFilm(URLFILM);
 }
 
-function loadFilm(URLFILM) {
-    if (localStorage.getItem('token') != null) {
-        document.getElementById('overlayUser').style.display = 'block';
-        document.getElementById('overlayHome').style.display = 'none';
-    } else {
-        document.getElementById('overlayUser').style.display = 'none';
-        document.getElementById('overlayHome').style.display = 'block';
-    }
+function loadFilm(URLFILM) { 
     fetch(URLFILM)
         .then(response => response.json())
         .then(data => {
+            if (data.length === 0){
+                // document.getElementById('film-list').innerHTML = "Không Tìm Thấy Kết Quả";
+                const divNoSchedule =  document.createElement("div");
+                divNoSchedule.classList.add("text-center", "text-secondary", "fs-3", "fw-bold", "p-3");
+                divNoSchedule.innerHTML = "Không Tìm Thấy Kết Quả.";
+                document.getElementById("film-list").appendChild(divNoSchedule);
+            }
             let divRow = document.getElementById('film-list');
 
             for (let i = 0; i < data.length; i++) {

@@ -1,17 +1,14 @@
 window.onload = loadCalendar(); 
 const URLBOOKING = "http://127.0.0.1:5502/LayoutBooking.html"
 var daySended = ""
-
-function loadCalendar() {  
-    if (localStorage.getItem('token') != null) {
-        console.log('user');
-        document.getElementById('overlayUser').style.display = 'block';
-        document.getElementById('overlayHome').style.display = 'none';
-      } else {
-        console.log('home');
-        document.getElementById('overlayUser').style.display = 'none';
-        document.getElementById('overlayHome').style.display = 'block';
-      }
+$(function(){
+    $("#header").load("header.html",function(){ 
+      $("#schedule-link").removeClass("text-white");
+      $("#schedule-link").addClass("text-secondary");
+    });  
+    $("#footer").load("footer.html"); 
+  }) 
+function loadCalendar() {   
     var currentDate = new Date(); 
     var nextDays = [];
     for (var i = 0; i <= 6; i++) {
@@ -24,8 +21,9 @@ function loadCalendar() {
         // console.log(dayOfWeek + ", ngày " + dayOfMonth);
 
         const btnDayOption = document.createElement("button");
-        btnDayOption.className = "btn btn-outline-secondary multiline-button mx-4 btn-sm w-100";  
+        btnDayOption.className = "btn btn-outline-secondary mx-4 btn-sm w-100";  
         const spDayOfWeek = document.createElement("span");
+        spDayOfWeek.className = "d-block";
         const spDayOfMonth = document.createElement("span");
         spDayOfWeek.textContent = dayOfWeek;
         spDayOfMonth.textContent = dayOfMonth.toString().padStart(2, '0');

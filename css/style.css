@@ -289,3 +289,6 @@ select.formbold-form-input,
 .formbold-w-45 {
   width: 45%;
 }
+.min-vh-50{
+  min-height:50vh!important
+}

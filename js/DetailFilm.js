@@ -3,16 +3,13 @@ const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('filmId'); 
 const URLBOOKING = "http://127.0.0.1:5502/LayoutBooking.html"
 
-window.onload = setLayout();
-function setLayout(){
-    if (localStorage.getItem('token') != null) { 
-        document.getElementById('overlayUser').style.display = 'block';
-        document.getElementById('overlayHome').style.display = 'none';
-      } else { 
-        document.getElementById('overlayUser').style.display = 'none';
-        document.getElementById('overlayHome').style.display = 'block';
-      }
-} 
+$(function(){
+    $("#header").load("header.html",function(){ 
+      $("#film-link").removeClass("text-white");
+      $("#film-link").addClass("text-secondary");
+    });  
+    $("#footer").load("footer.html"); 
+}) 
 
 const URLFILM = `https://localhost:44308/api/film/${id}`;
 fetch(URLFILM)

@@ -2,12 +2,12 @@
     font-size: 1.2em;
 }
 
-.multiline-button {
+/* .multiline-button {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .selectedButton{
     background: #6e757c;

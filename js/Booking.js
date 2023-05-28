@@ -18,21 +18,18 @@ var maxColCoords = 0;
 
 var billInfo = {}
 billInfo.seat = [];
-
-window.onload = setLayout();
-
-function setLayout() {
-    if (localStorage.getItem('token') != null) {
-        document.getElementById('overlayUser').style.display = 'block';
-        document.getElementById('overlayHome').style.display = 'none';
-    } else {
-        document.getElementById('overlayUser').style.display = 'none';
-        document.getElementById('overlayHome').style.display = 'block'; 
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('overlayLogin').style.display = 'block';
-        document.addEventListener("click", handleOutsideClickLogin, true); 
-    }
-}
+$(function() {
+    $("#header").load("header.html", function() {
+      $("#booking-link").removeClass("text-white").addClass("text-secondary");
+      if (!localStorage.getItem('token')) {
+        $('#overlay').css('display', 'block');
+        $('#overlayLogin').css('display', 'block');
+        $(document).on("click", handleOutsideClickLogin);
+      }
+    }); 
+    $("#footer").load("footer.html");
+  });
+  
 function handleOutsideClickLogin(event) {
     if (!OverlayLogin.contains(event.target)) {
       OverlayLogin.style.display = "none";
