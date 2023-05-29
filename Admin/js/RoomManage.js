@@ -1,12 +1,21 @@
-// const URLROOM = "https://636b935c7f47ef51e13457fd.mockapi.io/room";
-const URLROOM = "https://localhost:44308/api/room";
-// const token = localStorage.getItem('token');
+const URLROOM = "https://localhost:44308/api/room"; 
 var genre = 1, roomSelected = "", checkUpdate = 1, checkRoomStatus;
 
-window.onload = loadListRoom();
-window.onload = loadData();
+window.onload = init();
+
+function init(){
+    document.getElementById("RoomNameForSelect").value = "-1";
+    document.getElementById("roomName").value = "";
+    document.getElementById("row").value = "";
+    document.getElementById("col").value = "";  
+    loadListRoom();
+    loadData();
+}
 
 function loadListRoom() {
+    document.getElementById("roomName").value = "";
+    document.getElementById("row").value = "";
+    document.getElementById("col").value = "";  
     fetch(URLROOM, {
         method: 'GET',
         headers: {
@@ -15,10 +24,10 @@ function loadListRoom() {
     })
         .then(response => {
             if (response.status == '403') {
-                window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                window.location.href = "/Forbidden.html"
             }
             if (response.status == '401') {
-                window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                window.location.href = "/Unauthorized.html"
             }
             return response.json()
         })
@@ -34,6 +43,7 @@ function loadListRoom() {
         }).catch(error => console.error(error));
 }
 function loadData() {
+    checkUpdate = 1;
     roomSelected = document.getElementById("RoomNameForSelect").value;
     document.getElementById("selectedRoomStatus").disabled = false;
     if (roomSelected !== "-1" && roomSelected !== "-2") {
@@ -170,8 +180,7 @@ function Seat() {
             for (let j = 0; j <= parseInt(col) + 1; j++) {
                 let li = document.createElement("li");
                 if (j == "0" || j == parseInt(col) + 1) {
-                    li.className = "seat-root";
-                    // console.log(65 + i);
+                    li.className = "seat-root"; 
                     li.textContent = String.fromCharCode(64 + i);
                 } else {
                     li.className = "seatMap";
@@ -193,17 +202,20 @@ function Seat() {
 
         let btnSave = document.createElement("button");
         btnSave.classList.add("btn", "btn-outline-primary", "btn-save-cancel");
-        btnSave.textContent = "LƯU";
-        //btnSave.addEventListener("click", Save);
+        btnSave.textContent = "LƯU"; 
         btnSave.addEventListener("click", async (event) => {
-            if (document.getElementById("roomName").value == '') {
-                // alert("Vui lòng nhập tên phòng");
-                Swal.fire('Vui lòng nhập tên phòng', 1500);
+            if (document.getElementById("roomName").value == '') { 
+                Swal.fire('Vui lòng nhập tên phòng');
             } else { Save(); }
         })
         let btnCancel = document.createElement("button");
         btnCancel.classList.add("btn", "btn-outline-secondary", "btn-save-cancel");
-        btnCancel.addEventListener("click", loadData);
+        btnCancel.addEventListener("click", function(){
+            document.getElementById("roomName").value = "";
+            document.getElementById("row").value = "";
+            document.getElementById("col").value = "";  
+            loadData();
+        });
         btnCancel.textContent = "HỦY BỎ";
 
         divSaveCancel.appendChild(btnSave);
@@ -215,13 +227,33 @@ function Seat() {
 }
 function GetRowCol() {
     row = document.getElementById("row").value;
-    col = document.getElementById("col").value;
-    document.getElementById("seat").innerHTML = "";
-    Seat();
+    col = document.getElementById("col").value; 
+    if(parseInt(row) > 25){
+        Swal.fire({
+            position: 'top',
+            text: 'Số lượng hàng ghế không được lớn hơn 25',
+            icon: 'error', 
+            confirmButtonText: 'OK'
+        }).then((result) => { 
+            document.getElementById("row").value = "";
+        });
+    }else if (parseInt(col) > 20){
+        Swal.fire({
+            position: 'top',
+            text: 'Số lượng cột ghế không được lớn hơn 20',
+            icon: 'error', 
+            confirmButtonText: 'OK'
+        }).then((result) => { 
+            document.getElementById("col").value = "";
+        }); 
+    }else{
+        document.getElementById("seat").innerHTML = "";
+        Seat();
+    } 
 }
 function AddRoom() {
     checkUpdate = 0;
-    checkRoomStatus = "Đang sửa";
+    checkRoomStatus = "Đang sửa"; 
     document.getElementById("roomName").disabled = false;
     document.getElementById("row").disabled = false;
     document.getElementById("col").disabled = false;
@@ -337,7 +369,8 @@ function DeleteRoom() {
                             for (let i = select.options.length - 1; i >= 2; i--) {
                                 select.remove(i);
                             } 
-                            location.reload();
+                            init();
+                            // location.reload();
                         });  
                     }
                 })
@@ -388,7 +421,7 @@ function Save() {
                         showConfirmButton: false,
                         timer: 1500
                     }).then((result) => {
-                        location.reload();
+                        init();
                     });  
                 }
             })
@@ -430,7 +463,7 @@ function Save() {
                         showConfirmButton: false,
                         timer: 1500
                     }).then((result) => {
-                        location.reload();
+                        init();
                     });  
                 }
             })
@@ -472,7 +505,7 @@ function Save() {
                     showConfirmButton: false,
                     timer: 1000
                 }).then((result) => {
-                    location.reload();
+                    init();
                 });  
             }
         }) 
