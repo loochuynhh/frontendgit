@@ -6,12 +6,10 @@ const Users = `users`;
 const Password = "change-password";
 const ForgotPassword = "forgot-password";
 const token = localStorage.getItem('token');
-// const myObject = new wn();
+
 var Overlay = document.getElementById("overlay");
 var loginButton = document.getElementById("login-button");
-var buttonLogin = document.getElementById("buttonLogin");
 var OverlayLogin = document.getElementById("overlayLogin");
-var buttonSignup = document.getElementById("signup-button");
 var signupButton = document.getElementById("signupButton");
 var OverlaySignup = document.getElementById("overlaySignup");
 var homeLink = document.getElementById('home');
@@ -27,10 +25,10 @@ var newPassword = document.getElementById("newPasswordInfo");
 var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo");
 var passwordLogin = document.getElementById('passwordLogin');
 var forgotPasswordLink = document.getElementById('forgot-password-link');
-var overlayForgotPassword = document.getElementById('overlayForgotPassword'); 
+var overlayForgotPassword = document.getElementById('overlayForgotPassword');
 
 function Search() {
-  console.log("Giá trị đã nhập:", document.getElementById("search").value);   
+  console.log("Giá trị đã nhập:", document.getElementById("search").value);
   window.location.href = "http://127.0.0.1:5502/LayoutFilm.html" + "?filmName=" + document.getElementById("search").value;
 }
 
@@ -47,7 +45,7 @@ document.querySelector('#formForgotPassword').addEventListener('submit', functio
     email: username
   });
   // getNewPassword(params);
-  fetch(`${url}/${Users}/${ForgotPassword}?`+ params.toString(), {
+  fetch(`${url}/${Users}/${ForgotPassword}?` + params.toString(), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -62,9 +60,9 @@ document.querySelector('#formForgotPassword').addEventListener('submit', functio
           title: 'Lỗi',
           text: 'Email không hợp lệ',
           timer: 2000
-        }).then(()=>{document.addEventListener("click", handleOutsideClickForgotPassword, true);});
+        }).then(() => { document.addEventListener("click", handleOutsideClickForgotPassword, true); });
         throw new Error('Unauthorized');
-      }else{
+      } else {
         Swal.fire({
           position: 'top',
           icon: 'success',
@@ -93,19 +91,6 @@ forgotPasswordLink.addEventListener("click", function () {
   document.addEventListener("click", handleOutsideClickForgotPassword, true);
 });
 
-// window.onload = loadSlide();
-
-// function loadSlide() {
-//   if (localStorage.getItem('token') != null) {
-//     console.log(localStorage.getItem('token'));
-//     document.getElementById('overlayUser').style.display = 'block';
-//     document.getElementById('overlayHome').style.display = 'none';
-//   } 
-//   else {
-//     document.getElementById('overlayUser').style.display = 'none';
-//     document.getElementById('overlayHome').style.display = 'block';
-//   }
-// }
 
 
 function handleOutsideClickLogin(event) {
@@ -209,7 +194,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       title: 'Lỗi',
       text: 'Ngày sinh không quá 3 tuổi và trước 1900',
       timer: 2500
-    }).then( () => {document.addEventListener("click", handleOutsideClickSignup, true);});
+    }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
   var Role = "USER";
@@ -258,7 +243,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
         text: 'Đăng ký thất bại',
         footer: '<a>Thông tin đăng ký không hợp lệ/a>',
         timer: 2000
-      }).then( () => {document.addEventListener("click", handleOutsideClickSignup, true);});
+      }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
       console.error("Lỗi khi đăng ký tài khoản:", error);
     });
 });
@@ -559,7 +544,7 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       .then(response => {
         if (response.ok) {
           // showAlert("Thay đổi thành công!");
-        } 
+        }
         else {
           response.text().then(errorMessage => {
             if (errorMessage == 'Wrong password') {

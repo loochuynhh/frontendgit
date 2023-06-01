@@ -8,25 +8,25 @@ var overlaySignup = document.getElementById("overlaySignup");
 var addStaff = document.getElementById("addStaff");
 
 function handleOutsideClickAddStaff(event) {
-    if (!overlaySignup.contains(event.target)) {
-        overlaySignup.style.display = "none";
-        Overlay.style.display = "none";
-        document.removeEventListener("click", handleOutsideClickAddStaff, true);
-    }
+  if (!overlaySignup.contains(event.target)) {
+    overlaySignup.style.display = "none";
+    Overlay.style.display = "none";
+    document.removeEventListener("click", handleOutsideClickAddStaff, true);
+  }
 }
 addStaff.addEventListener("click", function () {
-    Overlay.style.display = "block";
-    overlaySignup.style.display = "block";
-    document.addEventListener("click", handleOutsideClickAddStaff, true);
+  Overlay.style.display = "block";
+  overlaySignup.style.display = "block";
+  document.addEventListener("click", handleOutsideClickAddStaff, true);
 });
 
-getStaff();
-function getStaff(){
+getStaffFunction();
+function getStaffFunction() {
   fetch(`${url}/${admins}/${getStaff}`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
   })
     .then(response => response.json())
@@ -196,7 +196,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      'Authorization' : "bearer " + localStorage.getItem('token')
+      'Authorization': "bearer " + localStorage.getItem('token')
     },
     body: JSON.stringify({
       id: 0,
@@ -219,7 +219,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          getStaff();
+          getStaffFunction();
         });
       } else {
 
@@ -276,7 +276,7 @@ function deleteUsers(i) {
         showConfirmButton: false,
         timer: 2000
       }).then(() => {
-        getStaff();
+        getStaffFunction();
       });
       //location.reload();
     })

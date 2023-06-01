@@ -1,24 +1,27 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LHD Cinema</title>    
-    <link rel="stylesheet" href="./css/Film.css">
-    <link rel="stylesheet" href="./css/HomePage.css"> 
-    <link rel="stylesheet" href="./css/style.css">  
-    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
-    <script src="./src/jquery/jquery-3.7.0.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LHD Cinema</title>
+  <link rel="stylesheet" href="./css/Film.css">
+  <link rel="stylesheet" href="./css/HomePage.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+  <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+  <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
+
 </head>
-<body> 
+
+<body>
   <div id="header"></div>
   <!--Slide ảnh  -->
-  <div id="carouselExampleIndicators" class="carousel slide h-75" data-bs-ride="carousel">  
+  <div id="carouselExampleIndicators" class="carousel slide h-75" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+        aria-current="true"></button>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
@@ -41,35 +44,40 @@
         <img id="slide-img5" class="d-block w-100 h-100" alt="...">
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <!-- <span class="visually-hidden">Previous</span> -->
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <!-- <span class="visually-hidden">Next</span> -->
     </button>
-  </div> 
-  <!-- Slide ảnh -->  
+  </div>
+  <!-- Slide ảnh -->
 
-  <!-- List Film --> 
-  <div class="container mt-3 mb-3">  
-    <span class="status-film-homepage">PHIM ĐANG CHIẾU</span> 
+  <!-- List Film -->
+  <div class="container mt-3 mb-3">
+    <span class="status-film-homepage">PHIM ĐANG CHIẾU</span>
     <hr>
-  </div> 
+  </div>
   <div class="container">
     <div class="row text-center" id="film-list">
     </div>
     <div class="container d-flex justify-content-end">
-      <button type="button" class="btn btn-outline-success" onclick= "showmore()">Xem thêm <i class="fa-solid fa-right-long"></i></button> 
+      <button type="button" class="btn btn-outline-success" onclick="showmore()">Xem thêm <i
+          class="fa-solid fa-right-long"></i></button>
     </div>
   </div>
   <!-- List Film -->
   <div id="footer"></div>
-</body> 
-  <script src = "./js/HomePage.js"></script>  
-  <script src = "./js/Film.js"></script>  
-  <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
-  <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./src/sweeralert/sweetalert.min.js"></script>  
+</body>
+<script src="./src/jquery/jquery-3.7.0.js"></script>
+<script src="./js/HomePage.js"></script>
+<script src="./js/Film.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+<script src="./src/sweeralert/sweetalert.min.js"></script>
+
 </html>

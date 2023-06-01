@@ -18,10 +18,6 @@ var buttonAddSchedule = document.getElementById("buttonAddSchedule");
 var scheduleform = document.getElementById("schedule-form");
 var overlayUpdateSchedule = document.getElementById("overlayUpdateSchedule");
 var formUpdateSchedule = document.getElementById("schedule-form-Update");
-// var selectTimeSchedule = document.getElementById("selectTimeSchedule");
-// var overlayAddSchedule = document.getElementById("overlayAddSchedule");
-// var overlayAddSchedule = document.getElementById("overlayAddSchedule");
-// var overlayAddSchedule = document.getElementById("overlayAddSchedule"); 
 
 window.onload = loadSchedule(getCurrentDate(), getCurrentDate());
 
@@ -80,13 +76,9 @@ async function loadSchedule(startTime, endTime) {
                 tdEndTime.classList.add("tdCenter", "col-4");
                 let tdFilm = document.createElement("td");
                 tdFilm.className = "tdCenter";
-                //tdFilmStatus.classList.add("tdCenter","col-2");
                 let tdDelete = document.createElement("td");
                 tdDelete.className = "tdCenter";
                 let btnDelete = document.createElement("button");
-                //tdRoom.className = "tdCenter";
-                //btnDelete.className = "btnDelete";
-                //btnDelete.className = "tdCenter";
                 btnDelete.classList.add("btn", "btn-danger");
                 btnDelete.innerHTML = "X";
                 tdDelete.appendChild(btnDelete);
@@ -94,7 +86,6 @@ async function loadSchedule(startTime, endTime) {
                 tdRoom.className = "tdCenter";
                 tdStartTime.innerHTML = formatTime(new Date(data[j].startTime)) + " - " + formatDate(new Date(data[j].startTime));
                 tdEndTime.innerHTML = formatTime(new Date(data[j].endTime)) + " - " + formatDate(new Date(data[j].endTime));
-                //tdEndTime.innerHTML = data[i][j].endTime;
                 tdFilm.innerHTML = data[j].filmName;
                 for (let t = 0; t < formRoom.options.length; t++) {
                     if (data[j].roomId == formRoom.options[t].id) {
@@ -172,7 +163,7 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
     const datetimeString = dateValue + 'T' + timeValue + ':00.000Z';
     const startTime = new Date(datetimeString);
     console.log(startTime);
-    
+
     const dateList = [];
     const Schedule = {
         id: idglobal,
@@ -382,7 +373,7 @@ scheduleform.addEventListener('submit', async (event) => {
         const year = date.getFullYear();
         const month = `0${date.getMonth() + 1}`.slice(-2);
         const day = `0${date.getDate()}`.slice(-2);
-        const formattedDate = `${year}-${month}-${day}`+ 'T' + timeValue ;
+        const formattedDate = `${year}-${month}-${day}` + 'T' + timeValue;
         dateList.push(formattedDate);
         var newSchedule = {
             id: 0,
@@ -412,7 +403,7 @@ scheduleform.addEventListener('submit', async (event) => {
                 // showAlertTimeOut('Thêm lịch chiếu mới không thành công');
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
-                  })
+                })
                 document.removeEventListener("click", handleOutsideClickAddSchedule, true);
                 Swal.fire({
                     position: 'top',
@@ -460,7 +451,7 @@ async function load() {
 }
 
 function deleteSchedule(i) {
-    
+
     fetch(`${url}/${bill}/${refund}/${i}`, {
         method: 'GET',
         headers: {
@@ -483,7 +474,7 @@ function deleteSchedule(i) {
             }
             //location.reload();
             // showAlertTimeOut('Xóa lịch chiếu mới thành công');
-           
+
         })
         .catch(error => {
             //location.reload();
@@ -541,28 +532,7 @@ async function updateSchedule(id) {
     // Đặt giá trị vào các thẻ input
     document.getElementById("dateScheduleUpdate").value = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
     document.getElementById("hourScheduleUpdate").value = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute);
-    // const releaseDate = new Date(movie.releaseDate);
-    // const formattedReleaseDate = releaseDate.toISOString().slice(0,10);
-    // document.getElementById('updateMovieDateOfRelease').value = formattedReleaseDate;
 
-    // const checkboxes = document.querySelectorAll('#genre-list2 input[type=checkbox]');
-    // if (movie && movie.genres) {
-    //   const genres = movie.genres;
-    //   checkboxes.forEach((checkbox) => {
-    //     checkbox.checked = false;
-    //     genres.forEach((genre) => {
-    //       if(genre.id == checkbox.value){
-    //         checkbox.checked = true;
-    //       }
-    //     })
-    //   });
-    // }
-    // viewImagePoster.addEventListener("click", function () {
-    //   window.open(movie.posterUrl, 'Ảnh Poster');
-    // });
-    // viewImageAdPoster.addEventListener("click", function () {
-    //   window.open(movie.adPosterUrl, 'Ảnh Poser');
-    // });
     idglobal = id;
 }
 

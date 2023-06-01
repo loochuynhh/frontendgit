@@ -1,88 +1,92 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch Sử Giao Dịch</title>  
-    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="/css/style.css"> 
-    <link rel="stylesheet" href="/css/MyDeal.css"> 
+    <title>Lịch Sử Giao Dịch</title>
+    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/MyDeal.css">
     <link rel="stylesheet" href="./css/Film.css">
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
+    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
     <link rel="stylesheet" type="text/css" href="src/datetimepicker/daterangepicker.css" />
     <script src="./src/jquery/jquery-3.7.0.js"></script>
 </head>
+
 <body>
     <div id="header"></div>
 
     <!-- MyDeal -->
     <div class="container mt-4 mb-4">
-        <div class="d-flex align-items-center "> 
+        <div class="d-flex align-items-center ">
             <span class="fs-5" style="width: 20%;">Chọn khoảng ngày: </span>
-            <input  type="text" name="dates" class="form-control" style="width: 30%;"> 
+            <input type="text" name="dates" class="form-control" style="width: 30%;">
         </div>
     </div>
-    <div class="container mb-4" style="min-height: 20%;"> 
+    <div class="container mb-4" style="min-height: 20%;">
         <table class="table table-bordered table-hover">
-            <thead id="thead-bill" >
-              <tr>
-                <th class="text-center" style="width: 15%; height: 30px;" >Ngày</th>
-                <th class="text-center" style="width: 15%;">Suất Chiếu</th>
-                <th class="text-center" style="width: 30%;">Phim</th>
-                <th class="text-center" style="width: 10%;">Phòng Chiếu</th>
-                <th class="text-center" style="width: 10%;">Số Ghế</th>
-                <th class="text-center" style="width: 15%;">Giá Trị</th>
-              </tr>
+            <thead id="thead-bill">
+                <tr>
+                    <th class="text-center" style="width: 15%; height: 30px;">Ngày</th>
+                    <th class="text-center" style="width: 15%;">Suất Chiếu</th>
+                    <th class="text-center" style="width: 30%;">Phim</th>
+                    <th class="text-center" style="width: 10%;">Phòng Chiếu</th>
+                    <th class="text-center" style="width: 10%;">Số Ghế</th>
+                    <th class="text-center" style="width: 15%;">Giá Trị</th>
+                </tr>
             </thead>
-            <tbody id="tbody-bill" class="text-center">  
+            <tbody id="tbody-bill" class="text-center">
             </tbody>
-          </table>
-        </div>
+        </table>
+    </div>
     </div>
     <!-- MyDeal -->
 
-    <!-- Listfilm --> 
-    <div class="container mt-3 mb-3">  
-        <span class="status-film-homepage">PHIM ĐANG CHIẾU</span> 
+    <!-- Listfilm -->
+    <div class="container mt-3 mb-3">
+        <span class="status-film-homepage">PHIM ĐANG CHIẾU</span>
         <hr>
-      </div>
+    </div>
     <div class="container">
         <div class="row text-center" id="film-list">
         </div>
         <div class="container d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-success" onclick= "showmore()">Xem thêm <i class="fa-solid fa-right-long"></i></button> 
+            <button type="button" class="btn btn-outline-success" onclick="showmore()">Xem thêm <i
+                    class="fa-solid fa-right-long"></i></button>
         </div>
-    </div> 
+    </div>
     <!-- Listfilm -->
 
     <!-- Thông báo -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modal-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <p id="modal-message"></p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-        </div>
-        </div>
-    </div>
     </div>
     <!-- Thông báo -->
     <div id="footer"></div>
-</body> 
-    <script type="text/javascript" src="./src/datetimepicker/jquery.min.js"></script>
-    <script type="text/javascript" src="./src/datetimepicker/moment.min.js"></script>
-    <script type="text/javascript" src="./src/datetimepicker/daterangepicker.min.js"></script>       
-    <script src = "./js/MyDeal.js"></script>
-    <script src = "./js/Film.js"></script>
-    <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
-    <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./src/sweeralert/sweetalert.min.js"></script> 
+</body>
+<script type="text/javascript" src="./src/datetimepicker/jquery.min.js"></script>
+<script type="text/javascript" src="./src/datetimepicker/moment.min.js"></script>
+<script type="text/javascript" src="./src/datetimepicker/daterangepicker.min.js"></script>
+<script src="./js/MyDeal.js"></script>
+<script src="./js/Film.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+<script src="./src/sweeralert/sweetalert.min.js"></script>
+
 </html>

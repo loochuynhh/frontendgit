@@ -1,122 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lí phim</title> 
-  <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
+  <title>Quản lí phim</title>
+  <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/FilmManage.css">
-  <link rel="stylesheet" href="./css/styles.css"> 
-  <link rel="stylesheet" href="/css/style.css"> 
-  <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
-  <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
-  <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
-  
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+  <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+  <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
+
 </head>
-<body> 
+
+<body>
   <div class="overlay" id="overlay" style="display:none">
     <div class="contentSignup bg-body-tertiary" id="overlayAddFilm" style="display:none">
       <div class="py-5 text-center">
-          <img class="mb-4" src="Image/logo.png" alt="" width="30%" height="auto">
-          <h2>Thêm phim</h2>
+        <img class="mb-4" src="Image/logo.png" alt="" width="30%" height="auto">
+        <h2>Thêm phim</h2>
       </div>
       <form id="movie-form">
         <div class="formbold-input-flex">
           <div>
-            <label for="name" class="formbold-form-label"> Tên Phim  <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Tên Phim"
-              class="formbold-form-input"
-              required
-            />
+            <label for="name" class="formbold-form-label"> Tên Phim <label class="text-danger">*</label></label>
+            <input type="text" name="name" id="name" placeholder="Tên Phim" class="formbold-form-input" required />
           </div>
-      
+
           <div>
-            <label for="country" class="formbold-form-label"> Quốc gia  <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="country"
-              id="country"
-              placeholder="Quốc gia sản xuất"
-              class="formbold-form-input"
-              required
-            />
+            <label for="country" class="formbold-form-label"> Quốc gia <label class="text-danger">*</label></label>
+            <input type="text" name="country" id="country" placeholder="Quốc gia sản xuất" class="formbold-form-input"
+              required />
           </div>
         </div>
-      
+
         <div class="formbold-input-flex">
           <div>
-            <label for="actor" class="formbold-form-label"> Diễn viên  <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="actor"
-              id="actor"
-              placeholder="Diễn viên chính"
-              class="formbold-form-input"
-              required
-            />
+            <label for="actor" class="formbold-form-label"> Diễn viên <label class="text-danger">*</label></label>
+            <input type="text" name="actor" id="actor" placeholder="Diễn viên chính" class="formbold-form-input"
+              required />
           </div>
-      
+
           <div>
-            <label for="director" class="formbold-form-label"> Đạo diễn  <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="director"
-              id="director"
-              placeholder="Tên đạo diễn"
-              class="formbold-form-input"
-              required
-            />
+            <label for="director" class="formbold-form-label"> Đạo diễn <label class="text-danger">*</label></label>
+            <input type="text" name="director" id="director" placeholder="Tên đạo diễn" class="formbold-form-input"
+              required />
           </div>
         </div>
-      
+
         <div class="formbold-input-flex">
           <div>
-            <label for="trailer" class="formbold-form-label"> Trailer Phim  <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="trailer"
-              id="trailer"
-              placeholder="Trailer phim"
-              class="formbold-form-input"
-              required
-            />
+            <label for="trailer" class="formbold-form-label"> Trailer Phim <label class="text-danger">*</label></label>
+            <input type="text" name="trailer" id="trailer" placeholder="Trailer phim" class="formbold-form-input"
+              required />
           </div>
-      
+
           <div>
-            <label for="length" class="formbold-form-label"> Độ dài phim  <label class="text-danger">*</label></label>
-            <input
-              type="number"
-              name="length"
-              id="length"
-              placeholder="Độ dài phim"
-              class="formbold-form-input"
-              required
-            />
+            <label for="length" class="formbold-form-label"> Độ dài phim <label class="text-danger">*</label></label>
+            <input type="number" name="length" id="length" placeholder="Độ dài phim" class="formbold-form-input"
+              required />
           </div>
         </div>
-      
+
         <div class="formbold-mb-3">
-          <label for="genre-list1" class="formbold-form-label"> Thể loại  <label class="text-danger">*</label></label>
+          <label for="genre-list1" class="formbold-form-label"> Thể loại <label class="text-danger">*</label></label>
           <div class="container" id="genre-list1"></div>
         </div>
-      
+
         <div class="formbold-mb-3">
-          <label for="age" class="formbold-form-label"> Giới hạn tuổi  <label class="text-danger">*</label></label>
-          <input
-            type="number"
-            name="age"
-            id="age"
-            class="formbold-form-input"
-            required
-          />
+          <label for="age" class="formbold-form-label"> Giới hạn tuổi <label class="text-danger">*</label></label>
+          <input type="number" name="age" id="age" class="formbold-form-input" required />
         </div>
         <div class="formbold-mb-3">
-          <label for="dateOfRelease" class="formbold-form-label">Ngày Phát hành <label class="text-danger">*</label></label>
+          <label for="dateOfRelease" class="formbold-form-label">Ngày Phát hành <label
+              class="text-danger">*</label></label>
           <div class="input-group has-validation">
             <input type="date" class="form-select" id="dateOfRelease" required>
           </div>
@@ -124,33 +84,15 @@
         <div class="formbold-mb-3">
           <label for="content" class="formbold-form-label">
             Nội dung chính phim
-          <label class="text-danger">*</label></label>
-          <textarea
-            rows="8"
-            name="content"
-            id="content"
-            class="formbold-form-input"
-            required
-          ></textarea>
+            <label class="text-danger">*</label></label>
+          <textarea rows="8" name="content" id="content" class="formbold-form-input" required></textarea>
         </div>
-      
+
         <div class="formbold-form-file-flex">
           <label for="poster" class="formbold-form-label">Poster</label>
-          <input
-            type="file"
-            name="poster"
-            id="poster"
-            class="formbold-form-file"
-            required
-          />
+          <input type="file" name="poster" id="poster" class="formbold-form-file" required />
           <label for="adposter" class="formbold-form-label">AdsPoster</label>
-          <input
-            type="file"
-            name="adposter"
-            id="adposter"
-            class="formbold-form-file"
-            required
-          />
+          <input type="file" name="adposter" id="adposter" class="formbold-form-file" required />
         </div>
         <input type="submit" class="formbold-btn" id="buttonUpdateFilm" value="Thêm phim mới">
         <!-- <button class="formbold-btn" id="buttonAddFilm">Thêm phim mới</button> -->
@@ -158,83 +100,53 @@
     </div>
     <div class="contentSignup bg-body-tertiary" id="overlayUpdateFilm" style="display:none; z-index: 1;">
       <div class="py-5 text-center">
-          <img class="mb-4" src="Image/logo.png" alt="" width="30%" height="auto">
-          <h2>Chỉnh sửa thông tin phim</h2>
+        <img class="mb-4" src="Image/logo.png" alt="" width="30%" height="auto">
+        <h2>Chỉnh sửa thông tin phim</h2>
       </div>
       <form id="movieformUpdate">
         <div class="formbold-input-flex">
           <div>
-            <label for="updateMovieName" class="formbold-form-label"> Tên Phim <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="updateMovieName"
-              id="updateMovieName"
-              placeholder="Tên Phim"
-              class="formbold-form-input"
-              required
-            />
+            <label for="updateMovieName" class="formbold-form-label"> Tên Phim <label
+                class="text-danger">*</label></label>
+            <input type="text" name="updateMovieName" id="updateMovieName" placeholder="Tên Phim"
+              class="formbold-form-input" required />
           </div>
-      
+
           <div>
-            <label for="updateMovieCountry" class="formbold-form-label"> Quốc gia <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="updateMovieCountry"
-              id="updateMovieCountry"
-              placeholder="Quốc gia sản xuất"
-              class="formbold-form-input"
-              required
-            />
+            <label for="updateMovieCountry" class="formbold-form-label"> Quốc gia <label
+                class="text-danger">*</label></label>
+            <input type="text" name="updateMovieCountry" id="updateMovieCountry" placeholder="Quốc gia sản xuất"
+              class="formbold-form-input" required />
           </div>
         </div>
         <div class="formbold-input-flex">
           <div>
-            <label for="updateMovieActor" class="formbold-form-label"> Diễn viên <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="updateMovieActor"
-              id="updateMovieActor"
-              placeholder="Diễn viên chính"
-              class="formbold-form-input"
-              required
-            />
+            <label for="updateMovieActor" class="formbold-form-label"> Diễn viên <label
+                class="text-danger">*</label></label>
+            <input type="text" name="updateMovieActor" id="updateMovieActor" placeholder="Diễn viên chính"
+              class="formbold-form-input" required />
           </div>
-      
+
           <div>
-            <label for="updateMovieDirector" class="formbold-form-label"> Đạo diễn <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="updateMovieDirector"
-              id="updateMovieDirector"
-              placeholder="Tên đạo diễn"
-              class="formbold-form-input"
-              required
-            />
+            <label for="updateMovieDirector" class="formbold-form-label"> Đạo diễn <label
+                class="text-danger">*</label></label>
+            <input type="text" name="updateMovieDirector" id="updateMovieDirector" placeholder="Tên đạo diễn"
+              class="formbold-form-input" required />
           </div>
         </div>
         <div class="formbold-input-flex">
           <div>
-            <label for="updateMovieTrailer" class="formbold-form-label"> Trailer Phim <label class="text-danger">*</label></label>
-            <input
-              type="text"
-              name="updateMovieTrailer"
-              id="updateMovieTrailer"
-              placeholder="Trailer phim"
-              class="formbold-form-input"
-              required
-            />
+            <label for="updateMovieTrailer" class="formbold-form-label"> Trailer Phim <label
+                class="text-danger">*</label></label>
+            <input type="text" name="updateMovieTrailer" id="updateMovieTrailer" placeholder="Trailer phim"
+              class="formbold-form-input" required />
           </div>
-      
+
           <div>
-            <label for="updateMovieLength" class="formbold-form-label"> Độ dài phim <label class="text-danger">*</label></label>
-            <input
-              type="number"
-              name="updateMovieLength"
-              id="updateMovieLength"
-              placeholder="Độ dài phim"
-              class="formbold-form-input"
-              required
-            />
+            <label for="updateMovieLength" class="formbold-form-label"> Độ dài phim <label
+                class="text-danger">*</label></label>
+            <input type="number" name="updateMovieLength" id="updateMovieLength" placeholder="Độ dài phim"
+              class="formbold-form-input" required />
           </div>
         </div>
         <div class="formbold-mb-3">
@@ -242,17 +154,13 @@
           <div id="genre-list2"></div>
         </div>
         <div class="formbold-mb-3">
-          <label for="updateMovieAge" class="formbold-form-label"> Giới hạn tuổi <label class="text-danger">*</label></label>
-          <input
-            type="number"
-            name="updateMovieAge"
-            id="updateMovieAge"
-            class="formbold-form-input"
-            required
-          />
+          <label for="updateMovieAge" class="formbold-form-label"> Giới hạn tuổi <label
+              class="text-danger">*</label></label>
+          <input type="number" name="updateMovieAge" id="updateMovieAge" class="formbold-form-input" required />
         </div>
         <div class="formbold-mb-3">
-          <label for="updateMovieDateOfRelease" class="formbold-form-label">Ngày Phát hành <label class="text-danger">*</label></label>
+          <label for="updateMovieDateOfRelease" class="formbold-form-label">Ngày Phát hành <label
+              class="text-danger">*</label></label>
           <div class="input-group has-validation">
             <input type="date" class="form-select" id="updateMovieDateOfRelease" required>
           </div>
@@ -260,152 +168,142 @@
         <div class="formbold-mb-3">
           <label for="updateMovieContent" class="formbold-form-label">
             Nội dung chính phim
-          <label class="text-danger">*</label></label>
-          <textarea
-            rows="8"
-            name="updateMovieContent"
-            id="updateMovieContent"
-            class="formbold-form-input"
-            required
-          ></textarea>
+            <label class="text-danger">*</label></label>
+          <textarea rows="8" name="updateMovieContent" id="updateMovieContent" class="formbold-form-input"
+            required></textarea>
         </div>
         <div>
-          <input class = "my-2" type="checkbox" id="posterChange">
+          <input class="my-2" type="checkbox" id="posterChange">
           <label for="posterChange">Thay đổi các Poster</label>
-          <button type = "button" id = "viewImagePoster" class="btn btn-outline-dark custombuttonViewPoster">Xem Poster</button>
-          <button type = "button" id = "viewImageAdPoster" class="btn btn-outline-dark custombuttonViewAdsPoster">Xem AdsPoster</button>
+          <button type="button" id="viewImagePoster" class="btn btn-outline-dark custombuttonViewPoster">Xem
+            Poster</button>
+          <button type="button" id="viewImageAdPoster" class="btn btn-outline-dark custombuttonViewAdsPoster">Xem
+            AdsPoster</button>
         </div>
-        
-        <div class="formbold-form-file-flex" style="display:none" id = "poterfile">
+
+        <div class="formbold-form-file-flex" style="display:none" id="poterfile">
           <label for="updateMoviePoster" class="formbold-form-label">Poster</label>
-          <input
-            type="file"
-            name="updateMoviePoster"
-            id="updateMoviePoster"
-            class="formbold-form-file"
-          />
-          <button type="button" id = "reviewImagePoster" class="btn btn-outline-dark custombuttonposter">Xem trước Poster</button>
+          <input type="file" name="updateMoviePoster" id="updateMoviePoster" class="formbold-form-file" />
+          <button type="button" id="reviewImagePoster" class="btn btn-outline-dark custombuttonposter">Xem trước
+            Poster</button>
           <label for="updateMovieAdposter" class="formbold-form-label">AdsPoster</label>
-          <input
-            type="file"
-            name="updateMovieAdposter"
-            id="updateMovieAdposter"
-            class="formbold-form-file"
-          />
-          <button type="button" id = "reviewImageAdPoster" class="btn btn-outline-dark custombuttonadposter">Xem trước AdsPoster</button>
+          <input type="file" name="updateMovieAdposter" id="updateMovieAdposter" class="formbold-form-file" />
+          <button type="button" id="reviewImageAdPoster" class="btn btn-outline-dark custombuttonadposter">Xem trước
+            AdsPoster</button>
         </div>
         <input type="submit" class="formbold-btn" id="buttonUpdateFilm" value="Chỉnh sửa">
         <!-- <button class="formbold-btn" id="buttonUpdateFilm">Chỉnh sửa</button> -->
       </form>
     </div>
-    <div class="col-6 position-relative top-50 start-50 translate-middle" id = "overlayReview" style="display:none; z-index: 10;">
-      <img src="" alt="" id = "reviewPoster" class = "img-fluid col-8" style="display:none">
-      <img src="" alt="" id = "reviewAdPoster" class = "img-fluid" style="display:none">
+    <div class="col-6 position-relative top-50 start-50 translate-middle" id="overlayReview"
+      style="display:none; z-index: 10;">
+      <img src="" alt="" id="reviewPoster" class="img-fluid col-8" style="display:none">
+      <img src="" alt="" id="reviewAdPoster" class="img-fluid" style="display:none">
     </div>
   </div>
   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Logo cinema-->
     <a class="navbar-brand ps-5 pt-2" href="index.html">
-        <img src="./Image/logo.png" width="65%" height="auto" alt="">
+      <img src="./Image/logo.png" width="65%" height="auto" alt="">
     </a>
     <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-        id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+        class="fas fa-bars"></i></button>
     <!-- Logo admin -->
     <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
-        <div class="nav-link"><i class="fas fa-user-tie fa-fw"></i>
-            Hello, admin</div>
+      <div class="nav-link"><i class="fas fa-user-tie fa-fw"></i>
+        Hello, admin</div>
     </ul>
   </nav>
   <div id="layoutSidenav">
-      <div id="layoutSidenav_nav">
-          <nav class="sb-sidenav accordion sb-sidenav-dark"
-              id="sidenavAccordion">
-              <div class="sb-sidenav-menu">
-                  <div class="nav pt-4">  
-                      <a class="nav-link" href="Statistics.html">
-                          <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                          Thống kê
-                      </a>
-                      <a class="nav-link" href="StaffManage.html">
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
-                          Quản lý nhân viên
-                      </a>
-                      <a class="nav-link" href="RoomManage.html">
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-couch"></i></div>
-                          Quản lý phòng chiếu
-                      </a> 
-                      <a class="nav-link text-white" href="FilmManage.html" >
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
-                          Quản lý phim
-                      </a>
-                      <a class="nav-link" href="ScheduleManage.html">
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-tv"></i></div>
-                          Quản lý lịch chiếu
-                      </a>  
-                      <a class="nav-link" onclick="adminlogout()" href="/HomePage.html">
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></div>
-                          Đăng xuất
-                      </a>
-                  </div>
-              </div>
-              <div class="sb-sidenav-footer">
-                  <div class="small">Logged in as:</div>
-                  Admin
-              </div>
-          </nav>
-      </div>
+    <div id="layoutSidenav_nav">
+      <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+          <div class="nav pt-4">
+            <a class="nav-link" href="Statistics.html">
+              <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+              Thống kê
+            </a>
+            <a class="nav-link" href="StaffManage.html">
+              <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+              Quản lý nhân viên
+            </a>
+            <a class="nav-link" href="RoomManage.html">
+              <div class="sb-nav-link-icon"><i class="fa-solid fa-couch"></i></div>
+              Quản lý phòng chiếu
+            </a>
+            <a class="nav-link text-white" href="FilmManage.html">
+              <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
+              Quản lý phim
+            </a>
+            <a class="nav-link" href="ScheduleManage.html">
+              <div class="sb-nav-link-icon"><i class="fa-solid fa-tv"></i></div>
+              Quản lý lịch chiếu
+            </a>
+            <a class="nav-link" onclick="adminlogout()" href="/HomePage.html">
+              <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></div>
+              Đăng xuất
+            </a>
+          </div>
+        </div>
+        <div class="sb-sidenav-footer">
+          <div class="small">Logged in as:</div>
+          Admin
+        </div>
+      </nav>
+    </div>
 
-      <div id="layoutSidenav_content"> 
-          <div class="container-fluid px-4">
-              <h2 class="name-feature">Quản lý phim</h2>  
-              <div class="add-film">
-                  <button type="button" id = "addFilm" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                      <i class="fa-solid fa-plus"></i>
-                      THÊM PHIM
-                  </button>
-              </div> 
-              <div class="card mb-4">                        
-                  <div class="card-header">
-                      <i class="fas fa-table me-1"></i>
-                      Danh sách phim
-                  </div>
-                  <div class="table-body"> 
-                      <table class="table table-bordered text-center fixed-table">
-                          <thead>
-                              <tr>
-                                  <th id="thFilm">Tên Phim</th>
-                                  <th id="thDirector">Đạo Diễn</th>
-                                  <th id="thLength">Thời Lượng</th>
-                                  <th id="thStatus">Quốc Gia</th>
-                                  <th id="thDel">Xóa</th>
-                              </tr> 
-                          </thead>
-                          <tbody id="body-table"> 
-                          </tbody>
-                      </table>
-                  </div> 
-              </div>
-          </div>  
-      </div>
-  </div>     
- 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div id="layoutSidenav_content">
+      <div class="container-fluid px-4">
+        <h2 class="name-feature">Quản lý phim</h2>
+        <div class="add-film">
+          <button type="button" id="addFilm" class="btn btn-primary" data-mdb-toggle="modal"
+            data-mdb-target="#exampleModal">
+            <i class="fa-solid fa-plus"></i>
+            THÊM PHIM
+          </button>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Danh sách phim
           </div>
-          <div class="modal-body">
-            <p id="modal-message"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id = "btOK" data-bs-dismiss="modal">OK</button>
-            <button type="button" class="btn btn-secondary" id = "btCancel" data-bs-dismiss="modal">Cancel</button>
+          <div class="table-body">
+            <table class="table table-bordered text-center fixed-table">
+              <thead>
+                <tr>
+                  <th id="thFilm">Tên Phim</th>
+                  <th id="thDirector">Đạo Diễn</th>
+                  <th id="thLength">Thời Lượng</th>
+                  <th id="thStatus">Quốc Gia</th>
+                  <th id="thDel">Xóa</th>
+                </tr>
+              </thead>
+              <tbody id="body-table">
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="modal-message"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="btOK" data-bs-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-secondary" id="btCancel" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -423,12 +321,14 @@
       </div>
     </div>
   </div>
-  <script src="./js/scripts.js"></script>
-  <script src="./js/datatables-simple-demo.js"></script>
-  <script src="./js/FilmManage.js"></script>
-  <script src="/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
-  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
-  <script src="/src/sweeralert/sweetalert.min.js"></script>
-  
-  </body>
+
+
+</body>
+<script src="./js/scripts.js"></script>
+<script src="./js/datatables-simple-demo.js"></script>
+<script src="./js/FilmManage.js"></script>
+<script src="/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
+<script src="/src/sweeralert/sweetalert.min.js"></script>
+
 </html>

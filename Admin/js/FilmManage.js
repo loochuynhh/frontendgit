@@ -207,7 +207,7 @@ reviewImagePoster.addEventListener('click', function (event) {
     Swal.fire('Vui lòng chọn file', 1500).then(() => {
       document.addEventListener("click", handleOutsideClickUpdateFilm, true);
     });
-    
+
   }
 });
 function handleOutsideClickReviewAdPoster(event) {
@@ -674,7 +674,7 @@ async function callApi3(formData3) {
 
 }
 GetFilm();
-function GetFilm(){
+function GetFilm() {
   fetch(`${url}/${film}`, {
     method: 'GET',
     headers: {
@@ -772,16 +772,10 @@ fetch(`${url}/${genre}`, {
       checkbox.value = genre.id;
       checkbox.id = `genre-${genre.id}`;
       checkbox.className = 'chk-genre-film';
-      // checkbox.style.marginRight = '15px';
-      // checkbox.style.marginLeft = '30px';
-      // checkbox.style.marginLeft = '20px';
       const label = document.createElement('label');
       label.htmlFor = `genre-${genre.id}`;
       label.appendChild(document.createTextNode(genre.name));
-      // checkbox.style.marginLeft = '50px';
       label.className = 'lb-genre-film'
-      // label.style.width = '170px';
-      // checkbox.style.marginLeft = '25px';
       genreListDiv1.appendChild(checkbox);
       genreListDiv1.appendChild(label);
     });
@@ -802,16 +796,10 @@ fetch(`${url}/${genre}`, {
       checkbox.value = genre.id;
       checkbox.id = `genre-${genre.id}`;
       checkbox.className = 'chk-genre-film';
-      // checkbox.style.marginRight = '15px';
-      // checkbox.style.marginLeft = '30px';
-      // checkbox.style.marginLeft = '20px';
       const label = document.createElement('label');
       label.htmlFor = `genre-${genre.id}`;
       label.appendChild(document.createTextNode(genre.name));
-      // checkbox.style.marginLeft = '50px'
       label.className = 'lb-genre-film';
-      // label.style.width = '170px';
-      // checkbox.style.marginLeft = '25px';
       genreListDiv2.appendChild(checkbox);
       genreListDiv2.appendChild(label);
     });
@@ -906,7 +894,7 @@ form.addEventListener('submit', async (event) => {
       }).then(() => {
         GetFilm();
       });
-      
+
     })
     .catch(error => {
       //location.reload();

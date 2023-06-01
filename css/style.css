@@ -80,6 +80,7 @@ ul.nav2 {
   border-radius: 10px;
   /* Bo tròn viền của div con */
 }
+
 .contentAddSchedule {
   position: absolute;
   top: 50%;
@@ -98,6 +99,7 @@ ul.nav2 {
   border-radius: 10px;
   /* Bo tròn viền của div con */
 }
+
 .contentInfo {
   position: absolute;
   top: 50%;
@@ -116,6 +118,7 @@ ul.nav2 {
   border-radius: 10px;
   /* Bo tròn viền của div con */
 }
+
 .contentAddFilm {
   position: absolute;
   top: 50%;
@@ -134,6 +137,7 @@ ul.nav2 {
   border-radius: 10px;
   /* Bo tròn viền của div con */
 }
+
 footer {
   bottom: 0;
   left: 0;
@@ -289,14 +293,19 @@ select.formbold-form-input,
 .formbold-w-45 {
   width: 45%;
 }
-.min-vh-50{
-  min-height:50vh!important
-}
-.fs-7{font-size:0.8rem!important}
 
-.custom-hover{
+.min-vh-50 {
+  min-height: 50vh !important
+}
+
+.fs-7 {
+  font-size: 0.8rem !important
+}
+
+.custom-hover {
   color: white;
 }
+
 .custom-hover:hover {
   color: rgb(242, 139, 4);
 }

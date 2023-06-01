@@ -1,54 +1,56 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rạp Chiếu Phim</title>  
-    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">   
-    <link rel="stylesheet" href="./css/style.css">  
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
-    <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
-    <script src = "./js/Header.js"></script> 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rạp Chiếu Phim</title>
+  <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+  <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+  <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
+
 </head>
+
 <body>
   <!-- Overlay -->
-  <div class = "overlay" id="overlay" style="display:none">
-    <div class="contentLogin whitebg text-center" id = "overlayLogin" style="display:none">
-     <div class="form-signin w-100 m-auto">
-       <form class="needs-validation" id = "formLogin" novalidate>
-         <img class="mb-3" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
-         <h1 class="h3 mb-4 fw-normal">ĐĂNG NHẬP</h1>
-     
-         <div class="input-group mb-3 has-validation">
-           <input type="email" class="form-control" id="emailLogin" placeholder="Địa chỉ Email" required>
-           <div class="invalid-feedback">
-            Vui lòng nhập địa chỉ Email hợp lệ
-           </div> 
-         </div> 
-         <div class="input-group col-md-4  has-validation">
-           <input type="password" class="form-control" id="passwordLogin" placeholder="Mật khẩu" required>
-           <div class="invalid-feedback">
-            Vui lòng nhập mật khẩu
-           </div> 
-         </div> 
-         <a href="#" id="forgot-password-link" class="btn btn-link">Quên mật khẩu</a>
-         <button type="submit" class="w-100 btn btn-lg btn-primary" >Đăng nhập</button>
-       </form>
-     </div>
-    </div>
-    <div class="contentLogin whitebg text-center" id = "overlayForgotPassword" style="display:none">
+  <div class="overlay" id="overlay" style="display:none">
+    <div class="contentLogin whitebg text-center" id="overlayLogin" style="display:none">
       <div class="form-signin w-100 m-auto">
-        <form class="needs-validation" id = "formForgotPassword" novalidate>
+        <form class="needs-validation" id="formLogin" novalidate>
+          <img class="mb-3" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
+          <h1 class="h3 mb-4 fw-normal">ĐĂNG NHẬP</h1>
+
+          <div class="input-group mb-3 has-validation">
+            <input type="email" class="form-control" id="emailLogin" placeholder="Địa chỉ Email" required>
+            <div class="invalid-feedback">
+              Vui lòng nhập địa chỉ Email hợp lệ
+            </div>
+          </div>
+          <div class="input-group col-md-4  has-validation">
+            <input type="password" class="form-control" id="passwordLogin" placeholder="Mật khẩu" required>
+            <div class="invalid-feedback">
+              Vui lòng nhập mật khẩu
+            </div>
+          </div>
+          <a href="#" id="forgot-password-link" class="btn btn-link">Quên mật khẩu</a>
+          <button type="submit" class="w-100 btn btn-lg btn-primary">Đăng nhập</button>
+        </form>
+      </div>
+    </div>
+    <div class="contentLogin whitebg text-center" id="overlayForgotPassword" style="display:none">
+      <div class="form-signin w-100 m-auto">
+        <form class="needs-validation" id="formForgotPassword" novalidate>
           <img class="mb-3" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
           <h1 class="h3 mb-4 fw-normal">Nhập Email của bạn</h1>
           <div class="input-group mb-3 has-validation">
             <input type="email" class="form-control" id="emailForgotPassword" placeholder="Địa chỉ Email" required>
             <div class="invalid-feedback">
-             Vui lòng nhập địa chỉ Email hợp lệ
-            </div> 
-          </div> 
-          <button type="submit" class="w-100 btn btn-lg btn-primary" >Xác nhận</button>
+              Vui lòng nhập địa chỉ Email hợp lệ
+            </div>
+          </div>
+          <button type="submit" class="w-100 btn btn-lg btn-primary">Xác nhận</button>
         </form>
       </div>
     </div>
@@ -58,13 +60,13 @@
           <img class="mb-4" src="./Image/Logo.jpg" alt="" width="20%" height="auto">
           <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
         </div>
-    
+
         <div class="col-8 mx-auto">
           <h4 class="mb-3">Điền thông tin của bạn</h4>
-          <form class="needs-validation" id = "formSignup" novalidate >
+          <form class="needs-validation" id="formSignup" novalidate>
             <div class="row g-3">
               <div class="col-12">
-                <label for="name" class="form-label">Họ và tên <label class="text-danger">*</label></label> 
+                <label for="name" class="form-label">Họ và tên <label class="text-danger">*</label></label>
                 <div class="input-group has-validation">
                   <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn tại đây" required>
                   <div class="invalid-feedback">
@@ -72,7 +74,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="col-12">
                 <label for="email" class="form-label">Email <label class="text-danger">*</label></label>
                 <div class="input-group has-validation">
@@ -82,69 +84,73 @@
                   </div>
                 </div>
               </div>
-  
+
               <div class="col-12">
                 <label for="phoneNumber" class="form-label">Số điện thoại <label class="text-danger">*</label></label>
-                <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây" required>
+                <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại của bạn tại đây"
+                  required>
                 <div class="invalid-feedback">
                   Vui lòng nhập số điện thoại hợp lệ
                 </div>
               </div>
-  
+
               <div class="col-12">
                 <label for="address" class="form-label">Địa chỉ</label>
                 <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ của bạn tại đây">
               </div>
-  
+
               <div class="col-md-5">
                 <label for="gender" class="form-label">Giới tính</label>
                 <select class="form-select" id="gender" required>
-  
+
                   <option value="0">Nam</option>
                   <option value="1">Nữ</option>
                 </select>
                 <div class="invalid-feedback">
                   Vui lòng chọn giới tính
                 </div>
-                </div>
-  
-                <div class="col-md-7">
-                  <label for="dateOfBirth" class="form-label">Ngày Sinh <label class="text-danger">*</label></label>
-                  <div class="input-group has-validation">
-                    <input type="date" class="form-select" id="dateOfBirth" required>
-                    <div class="invalid-feedback">
-                      Vui lòng nhập ngày sinh
-                    </div>
+              </div>
+
+              <div class="col-md-7">
+                <label for="dateOfBirth" class="form-label">Ngày Sinh <label class="text-danger">*</label></label>
+                <div class="input-group has-validation">
+                  <input type="date" class="form-select" id="dateOfBirth" required>
+                  <div class="invalid-feedback">
+                    Vui lòng nhập ngày sinh
                   </div>
                 </div>
-                <div class="col-12">
-                  <label for="password" class="form-label">Mật khẩu <label class="text-danger">*</label></label>
-                  <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu tại đây" required>
-                    <div class="invalid-feedback">
-                      Mật khẩu là bắt buộc
-                    </div>
+              </div>
+              <div class="col-12">
+                <label for="password" class="form-label">Mật khẩu <label class="text-danger">*</label></label>
+                <div class="input-group has-validation">
+                  <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu tại đây"
+                    required>
+                  <div class="invalid-feedback">
+                    Mật khẩu là bắt buộc
                   </div>
                 </div>
-                <div class="col-12">
-                  <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu <label class="text-danger">*</label></label>
-                  <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="passwordConfirm" placeholder="Xác nhận lại mật khẩu" required>
-                    <div class="invalid-feedback">
-                      Cần xác nhận lại mật khẩu chính xác
-                    </div>
+              </div>
+              <div class="col-12">
+                <label for="passwordConfirm" class="form-label">Xác nhận mật khẩu <label
+                    class="text-danger">*</label></label>
+                <div class="input-group has-validation">
+                  <input type="password" class="form-control" id="passwordConfirm" placeholder="Xác nhận lại mật khẩu"
+                    required>
+                  <div class="invalid-feedback">
+                    Cần xác nhận lại mật khẩu chính xác
                   </div>
                 </div>
+              </div>
             </div>
-  
+
             <hr class="my-4">
             <!-- id="signup-button" -->
             <button type="submit" class="w-100 btn btn-primary btn-lg">Đăng ký</button>
           </form>
         </div>
       </div>
-    
-      
+
+
     </div>
     <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display:none">
       <strong>Lỗi!</strong> Đăng nhập thất bại.
@@ -153,15 +159,15 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none">
       <strong>Thành công!</strong> Đăng nhập thành công.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div> 
-    <div class="container contentInfo" id ="overlayInfo" style="display:none">
+    </div>
+    <div class="container contentInfo" id="overlayInfo" style="display:none">
       <div class="py-5 text-center">
         <img class="mb-4" src="./Image/Logo.jpg" alt="" width="25%" height="auto">
         <h2>Thông tin tài khoản</h2>
       </div>
       <div class="col-8 mx-auto">
         <h4 class="mb-3">Chỉnh sửa thông tin của bạn</h4>
-        <form class="needs-validation" id = "formInfo" novalidate >
+        <form class="needs-validation" id="formInfo" novalidate>
           <div class="row g-3 my-2">
             <div class="col-12">
               <label for="nameInfo" class="form-label">Họ và tên <label class="text-danger">*</label></label>
@@ -176,7 +182,8 @@
             <div class="col-12">
               <label for="emailInfo" class="form-label">Email <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="email" class="form-control" id="emailInfo" placeholder="Nhập Email của bạn tại đây" required>
+                <input type="email" class="form-control" id="emailInfo" placeholder="Nhập Email của bạn tại đây"
+                  required>
                 <div class="invalid-feedback">
                   Email phải có dạng example@abc.xyz
                 </div>
@@ -185,7 +192,8 @@
 
             <div class="col-12">
               <label for="phoneNumberInfo" class="form-label">Số điện thoại <label class="text-danger">*</label></label>
-              <input type="tel" class="form-control" id="phoneNumberInfo" placeholder="Nhập số điện thoại của bạn tại đây" required>
+              <input type="tel" class="form-control" id="phoneNumberInfo"
+                placeholder="Nhập số điện thoại của bạn tại đây" required>
               <div class="invalid-feedback">
                 Vui lòng nhập số điện thoại hợp lệ
               </div>
@@ -206,28 +214,29 @@
               <div class="invalid-feedback">
                 Vui lòng chọn giới tính
               </div>
-              </div>
+            </div>
 
-              <div class="col-md-7">
-                <label for="dateOfBirthInfo" class="form-label">Ngày Sinh <label class="text-danger">*</label></label>
-                <div class="input-group has-validation">
-                  <input type="date" class="form-select" id="dateOfBirthInfo" required>
-                  <div class="invalid-feedback">
-                    Vui lòng nhập ngày sinh
-                  </div>
+            <div class="col-md-7">
+              <label for="dateOfBirthInfo" class="form-label">Ngày Sinh <label class="text-danger">*</label></label>
+              <div class="input-group has-validation">
+                <input type="date" class="form-select" id="dateOfBirthInfo" required>
+                <div class="invalid-feedback">
+                  Vui lòng nhập ngày sinh
                 </div>
               </div>
-              
+            </div>
+
           </div>
           <div>
-            <input class = "my-2" type="checkbox" id="passwordChangeInfo">
+            <input class="my-2" type="checkbox" id="passwordChangeInfo">
             <label for="passwordChangeInfo">Thay đổi mật khẩu</label>
           </div>
-          <div class="row g-3" id ="changePasswordFormInfo" style="display:none">
+          <div class="row g-3" id="changePasswordFormInfo" style="display:none">
             <div class="col-12">
               <label for="oldPasswordInfo" class="form-label">Mật khẩu cũ <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="oldPasswordInfo" placeholder="Nhập mật khẩu cũ của bạn tại đây" novalidate>
+                <input type="password" class="form-control" id="oldPasswordInfo"
+                  placeholder="Nhập mật khẩu cũ của bạn tại đây" novalidate>
                 <div class="invalid-feedback">
                   Yêu cầu nhập mật khẩu trước đó
                 </div>
@@ -236,75 +245,88 @@
             <div class="col-12">
               <label for="newPasswordInfo" class="form-label">Mật khẩu mới <label class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="newPasswordInfo" placeholder="Nhập mật khẩu mới của bạn tại đây" novalidate>
+                <input type="password" class="form-control" id="newPasswordInfo"
+                  placeholder="Nhập mật khẩu mới của bạn tại đây" novalidate>
                 <div class="invalid-feedback">
-                  Vui lòng nhập mật khẩu mới 
+                  Vui lòng nhập mật khẩu mới
                 </div>
               </div>
             </div>
             <div class="col-12">
-              <label for="newPasswordConfirmInfo" class="form-label">Xác nhận mật khẩu mới <label class="text-danger">*</label></label>
+              <label for="newPasswordConfirmInfo" class="form-label">Xác nhận mật khẩu mới <label
+                  class="text-danger">*</label></label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="newPasswordConfirmInfo" placeholder="Xác nhận mật khẩu mới của bạn tại đây" novalidate>
+                <input type="password" class="form-control" id="newPasswordConfirmInfo"
+                  placeholder="Xác nhận mật khẩu mới của bạn tại đây" novalidate>
                 <div class="invalid-feedback">
-                  Vui lòng nhập mật khẩu mới chính xác 
+                  Vui lòng nhập mật khẩu mới chính xác
                 </div>
               </div>
             </div>
           </div>
           <hr class="my-4">
           <div class="col-8 mx-auto">
-            <button id ="updatebutton" type="submit" class="w-100 btn btn-primary btn-lg">Chỉnh sửa</button>
+            <button id="updatebutton" type="submit" class="w-100 btn btn-primary btn-lg">Chỉnh sửa</button>
           </div>
         </form>
       </div>
     </div>
-    
+
     <div class="b-example-divider"></div>
   </div>
   <!-- /Overlay  -->
 
   <!-- Header -->
-  <header class="header text-bg-dark"> 
+  <header class="header text-bg-dark">
     <div class="container d-flex align-items-center">
       <div class="col-7">
-        <ul class="nav d-flex justify-content-center p-0"> 
-          <li class = "nav-item"><a href="./HomePage.html" class="nav-link px-2 text-white fs-6" id="homepage-link">TRANG CHỦ</a></li>
-          <li class = "nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-white fs-6" id="film-link">PHIM</a></li>
-          <li class = "nav-item"><a href="./LayoutSchedule.html" class="nav-link px-2 text-white fs-6" id="schedule-link">LỊCH CHIẾU</a></li>
-          <li class = "nav-item"><a href="./LayoutBooking.html" class="nav-link px-2 text-white fs-6" id="booking-link">MUA VÉ</a></li>
-          <li class = "nav-item"><a href="./LayoutFeedback.html" class="nav-link px-2 text-white fs-6" id="about-link">GIỚI THIỆU</a></li> 
-        </ul> 
+        <ul class="nav d-flex justify-content-center p-0">
+          <li class="nav-item"><a href="./HomePage.html" class="nav-link px-2 text-white fs-6" id="homepage-link">TRANG
+              CHỦ</a></li>
+          <li class="nav-item"><a href="./LayoutFilm.html" class="nav-link px-2 text-white fs-6" id="film-link">PHIM</a>
+          </li>
+          <li class="nav-item"><a href="./LayoutSchedule.html" class="nav-link px-2 text-white fs-6"
+              id="schedule-link">LỊCH CHIẾU</a></li>
+          <li class="nav-item"><a href="./LayoutBooking.html" class="nav-link px-2 text-white fs-6"
+              id="booking-link">MUA VÉ</a></li>
+          <li class="nav-item"><a href="./LayoutFeedback.html" class="nav-link px-2 text-white fs-6"
+              id="about-link">GIỚI THIỆU</a></li>
+        </ul>
       </div>
       <div class="col-3">
         <form class="" role="search" onsubmit="event.preventDefault();Search()">
-          <input type="search" class="nav-item form-control form-control-dark text-bg-dark fs-7" placeholder="Tìm tên phim..." id="search">
-        </form> 
+          <input type="search" class="nav-item form-control form-control-dark text-bg-dark fs-7"
+            placeholder="Tìm tên phim..." id="search">
+        </form>
       </div>
 
-      
-      <div class="col-2 text-end" id = "overlayUser" style="display: none;"> 
-        <div class="dropdown"> 
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+      <div class="col-2 text-end" id="overlayUser" style="display: none;">
+        <div class="dropdown">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
             <img src="./Image/user.png" alt="mdo" width="48" height="auto" class="rounded-circle">
             <span class="fs-6 text-white me-3 ms-2">Xin Chào</span>
           </a>
           <ul class="dropdown-menu text-small mx-4 my-1">
-            <li><a class="dropdown-item" id = "info" href="#">Tài khoản</a></li>
-            <li><a class="dropdown-item" href="/LayoutMyDeal.html">Lịch sử giao dịch</a></li> 
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#" id = "logout">Đăng xuất</a></li>
+            <li><a class="dropdown-item" id="info" href="#">Tài khoản</a></li>
+            <li><a class="dropdown-item" href="/LayoutMyDeal.html">Lịch sử giao dịch</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#" id="logout">Đăng xuất</a></li>
           </ul>
         </div>
-      </div> 
-      
-      <div class="col-2 text-center px-3" id= "overlayHome" style="display: none;"> 
-        <a class="text-decoration-none fs-7 custom-hover fw-bold" id= "login-button" type="button" class="">ĐĂNG NHẬP </a>
+      </div>
+
+      <div class="col-2 text-center px-3" id="overlayHome" style="display: none;">
+        <a class="text-decoration-none fs-7 custom-hover fw-bold" id="login-button" type="button" class="">ĐĂNG NHẬP
+        </a>
         <a>/</a>
-        <a class="text-decoration-none fs-7 custom-hover fw-bold" id= "signupButton" type="button" class=""> ĐĂNG KÝ</a> 
-      </div> 
-    </div> 
-  </header> 
+        <a class="text-decoration-none fs-7 custom-hover fw-bold" id="signupButton" type="button" class=""> ĐĂNG KÝ</a>
+      </div>
+    </div>
+  </header>
   <!-- Header -->
 
   <!-- Thông báo -->
@@ -324,10 +346,12 @@
       </div>
     </div>
   </div>
-  <!-- Thông báo -->   
-</body>  
-  <script src = "./js/javascriptHome.js"></script>  
-  <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
-  <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./src/sweeralert/sweetalert.min.js"></script> 
+  <!-- Thông báo -->
+</body>
+<script src="./js/Header.js"></script>
+<script src="./js/javascriptHome.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+<script src="./src/sweeralert/sweetalert.min.js"></script>
+
 </html>

@@ -2,12 +2,12 @@ const URLFILMDETAIL = 'http://127.0.0.1:5502/FilmDetails.html';
 const URLBOOKING = 'http://127.0.0.1:5502/LayoutBooking.html'
 
 var URLFILM = 'https://localhost:44308/api/film/showing';
-const queryString = window.location.search; 
-const urlParams = new URLSearchParams(queryString); 
-var filmName = urlParams.get('filmName'); 
-if (filmName !== null) URLFILM = "https://localhost:44308/api/film?name=" + filmName; 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+var filmName = urlParams.get('filmName');
+if (filmName !== null) URLFILM = "https://localhost:44308/api/film?name=" + filmName;
 
-window.onload = loadFilm(URLFILM); 
+window.onload = loadFilm(URLFILM);
 
 function selectShowingFilm(event) {
     const links = document.querySelectorAll('.status-film');
@@ -32,13 +32,13 @@ function selectIncomingFilm(event) {
     loadFilm(URLFILM);
 }
 
-function loadFilm(URLFILM) { 
+function loadFilm(URLFILM) {
     fetch(URLFILM)
         .then(response => response.json())
         .then(data => {
-            if (data.length === 0){
+            if (data.length === 0) {
                 // document.getElementById('film-list').innerHTML = "Không Tìm Thấy Kết Quả";
-                const divNoSchedule =  document.createElement("div");
+                const divNoSchedule = document.createElement("div");
                 divNoSchedule.classList.add("text-center", "text-secondary", "fs-3", "fw-bold", "p-3");
                 divNoSchedule.innerHTML = "Không Tìm Thấy Kết Quả.";
                 document.getElementById("film-list").appendChild(divNoSchedule);

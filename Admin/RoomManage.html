@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý phòng chiếu</title>
     <link href="./css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/RoomManage.css"> 
+    <link rel="stylesheet" href="./css/RoomManage.css">
     <link rel="stylesheet" href="/src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
     <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
-    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
+    <link rel="stylesheet" href="/src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
 </head>
+
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Logo cinema-->
@@ -19,8 +21,8 @@
             <img src="./Image/logo.png" width="65%" height="auto" alt="">
         </a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-            id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
         <!-- Logo admin -->
         <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="nav-link"><i class="fas fa-user-tie fa-fw"></i>
@@ -29,10 +31,9 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark"
-                id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
-                    <div class="nav pt-4">  
+                    <div class="nav pt-4">
                         <a class="nav-link" href="Statistics.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Thống kê
@@ -44,17 +45,18 @@
                         <a class="nav-link text-white" href="RoomManage.html">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-couch"></i></div>
                             Quản lý phòng chiếu
-                        </a> 
-                        <a class="nav-link" href="FilmManage.html" >
+                        </a>
+                        <a class="nav-link" href="FilmManage.html">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
                             Quản lý phim
                         </a>
                         <a class="nav-link" href="ScheduleManage.html">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tv"></i></div>
                             Quản lý lịch chiếu
-                        </a>  
+                        </a>
                         <a class="nav-link" onclick="adminlogout()" href="/HomePage.html">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket fa-rotate-180"></i>
+                            </div>
                             Đăng xuất
                         </a>
                     </div>
@@ -68,17 +70,19 @@
         <div id="layoutSidenav_content">
             <div class="container-fluid px-4">
                 <h2 class="name-feature">Quản lý phòng chiếu</h2>
-                <div class="change-room"> 
+                <div class="change-room">
                     <select class="form-select" id="RoomNameForSelect" onchange="loadData()">
-                        <option value="-2" style="display: none;" selected disabled ></option>
-                        <option value="-1" selected disabled>Chọn một lựa chọn</option> 
+                        <option value="-2" style="display: none;" selected disabled></option>
+                        <option value="-1" selected disabled>Chọn một lựa chọn</option>
                     </select>
                     <div class="add-remove-room">
-                        <button class="btn btn-primary" onclick="AddRoom()" ><i class="fa-solid fa-plus"></i> Thêm phòng chiếu</button>
-                        <button class="btn btn-danger" onclick="DeleteRoom()"><i class="fa-regular fa-trash"></i> Xóa phòng chiếu</button> 
-                    </div> 
+                        <button class="btn btn-primary" onclick="AddRoom()"><i class="fa-solid fa-plus"></i> Thêm phòng
+                            chiếu</button>
+                        <button class="btn btn-danger" onclick="DeleteRoom()"><i class="fa-regular fa-trash"></i> Xóa
+                            phòng chiếu</button>
+                    </div>
                 </div>
-                <div class="info">  
+                <div class="info">
                     <div class="input-group mb-3">
                         <span class="input-group-text">Tên phòng chiếu:</span>
                         <input type="text" class="form-control" id="roomName">
@@ -90,31 +94,32 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text">Số lượng cột ghế:</span>
                         <input type="number" class="form-control number-only" id="col" onchange="GetRowCol()">
-                    </div> 
-                </div> 
-                <div class="room-option" >  
+                    </div>
+                </div>
+                <div class="room-option">
                     <label>Trạng thái phòng chiếu:</label>
                     <select class="form-select select-option" id="selectedRoomStatus">
-                        <option value="Bình thường" selected="" >Bình thường</option> 
-                        <option value="Đang sửa">Đang sửa</option>  
+                        <option value="Bình thường" selected="">Bình thường</option>
+                        <option value="Đang sửa">Đang sửa</option>
                     </select>
                 </div>
-                <div class="seat-option" >  
+                <div class="seat-option">
                     <label>Chọn loại ghế:</label>
-                    <select class="form-select select-option" id="selectedSeatGenre"  onchange="getSeatOption()">
-                        <option value="VIP" selected="">VIP</option> 
-                        <option value="Đôi">Đôi</option> 
-                        <option value="Thường">Thường</option> 
+                    <select class="form-select select-option" id="selectedSeatGenre" onchange="getSeatOption()">
+                        <option value="VIP" selected="">VIP</option>
+                        <option value="Đôi">Đôi</option>
+                        <option value="Thường">Thường</option>
                     </select>
                 </div>
-                <div class="d-flex flex-column align-items-center" id="seat">    
-                </div>   
-            </div>  
-        </div> 
+                <div class="d-flex flex-column align-items-center" id="seat">
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="./js/scripts.js"></script> 
+    <script src="./js/scripts.js"></script>
     <script src="./js/RoomManage.js"></script>
     <script src="/src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
     <script src="/src/sweeralert/sweetalert.min.js"></script>
 </body>
+
 </html>

@@ -18,25 +18,18 @@ var maxColCoords = 0;
 
 var billInfo = {}
 billInfo.seat = [];
-$(function() {
-    $("#header").load("header.html", function() {
-      $("#booking-link").removeClass("text-white").addClass("text-secondary");
-      if (!localStorage.getItem('token')) {
-        $('#overlay').css('display', 'block');
-        $('#overlayLogin').css('display', 'block');
-        $(document).on("click", handleOutsideClickLogin);
-      }
-    }); 
+$(function () {
+    $("#header").load("header.html", function () {
+        $("#booking-link").removeClass("text-white").addClass("text-secondary");
+        if (!localStorage.getItem('token')) {
+            overlay.style.display = "block";
+            overlayLogin.style.display = "block";
+            document.addEventListener("click", handleOutsideClickLogin, true);
+        }
+    });
     $("#footer").load("footer.html");
-  });
-  
-function handleOutsideClickLogin(event) {
-    if (!OverlayLogin.contains(event.target)) {
-      OverlayLogin.style.display = "none";
-      Overlay.style.display = "none";
-      document.removeEventListener("click", handleOutsideClickLogin, true);
-    }
-}
+});
+
 fetch(URLALLFILM)
     .then(response => response.json())
     .then(data => {
@@ -79,15 +72,15 @@ fetch(URLALLFILM)
         if (filmIdSended !== null && showIdSended !== null && roomIdSended !== null) {
             showId = showIdSended;
             loadSeat(showIdSended, roomIdSended);
-        
+
             const allFilmSelect = document.querySelectorAll(".list-film-select");
-            allFilmSelect.forEach(element => { 
-                if (element.getAttribute("film-id-value") === filmIdSended){
-                    billInfo.filmName = element.getAttribute("film-name-value"); 
-                }  
-            }) 
+            allFilmSelect.forEach(element => {
+                if (element.getAttribute("film-id-value") === filmIdSended) {
+                    billInfo.filmName = element.getAttribute("film-name-value");
+                }
+            })
             billInfo.room = roomNameSended;
-            billInfo.filmShow = showTimeSended; 
+            billInfo.filmShow = showTimeSended;
         }
         if (filmIdSended !== null) {
             const allFilmSelect = document.querySelectorAll(".list-film-select");
@@ -100,7 +93,7 @@ fetch(URLALLFILM)
             loadShow(filmIdSended);
         }
     })
-    .catch(error => console.error(error)); 
+    .catch(error => console.error(error));
 
 function loadShow(filmId) {
     const URLSHOW = "https://localhost:44308/api/show?filmId=" + filmId + "&roomId=0";
@@ -178,8 +171,8 @@ function loadShow(filmId) {
 
 
 }
-function loadSeat(showId, roomId) { 
-    if(localStorage.getItem('token') == null){
+function loadSeat(showId, roomId) {
+    if (localStorage.getItem('token') == null) {
         setLayout();
         return;
     }
@@ -196,14 +189,14 @@ function loadSeat(showId, roomId) {
     })
         .then(response => {
             if (response.status == '403') {
-                window.location.href = "./Forbidden.html"; 
+                window.location.href = "./Forbidden.html";
             }
             if (response.status == '401') {
-                window.location.href = "./Unauthorized.html" 
+                window.location.href = "./Unauthorized.html"
             }
             return response.json();
         })
-        .then(data => {  
+        .then(data => {
             var listSeat = [];
             data.forEach(element => {
                 var seat = {
@@ -263,7 +256,7 @@ function loadTypeSeat(listSeat) {
         let rowCoords = Math.floor(index / maxColCoords) + 1;       // lấy tọa độ hàng
         let colCoords = index % maxColCoords + 1;                   // lấy tọa độ cột  
         listSeat.forEach(element => {
-            if (rowCoords == element.rowCoords && colCoords == element.colCoords) { 
+            if (rowCoords == element.rowCoords && colCoords == element.colCoords) {
                 if (element.isBooked) liList[index].classList.add("Booked");
                 else {
                     liList[index].setAttribute("data-value", element.seatId);
@@ -332,21 +325,21 @@ function contToPay() {
         document.getElementById("bill").classList.remove("d-none");
 
         var food = "";
-        var totalCost = 0;  
-        var tbody = document.getElementById("tbody-food"); 
+        var totalCost = 0;
+        var tbody = document.getElementById("tbody-food");
 
         for (var i = 0; i < tbody.rows.length; i++) {
-            var row = tbody.rows[i]; 
+            var row = tbody.rows[i];
             var nameFood = row.cells[0].querySelector('span').innerText;
             var numberFood = row.cells[1].querySelector('input').value;
-          
+
             if (parseInt(numberFood) !== 0) {
                 // console.log("rowcell1",row.cells[1].value)
                 if (food.length === 0) food += nameFood + "(" + numberFood + ")";
-                else food += ", " + nameFood + "(" + numberFood + ")"; 
+                else food += ", " + nameFood + "(" + numberFood + ")";
                 totalCost += parseInt(row.cells[3].innerText.replace(/,/g, ''));
             }
-        } 
+        }
         billInfo.food = food;
         let seat = "";
         billInfo.seat.forEach((element, idx) => {
@@ -358,7 +351,7 @@ function contToPay() {
         document.getElementById("bill-show").innerHTML = billInfo.filmShow;
         document.getElementById("bill-room").innerHTML = billInfo.room;
         document.getElementById("bill-food").innerHTML = billInfo.food;
-        document.getElementById("bill-seat").innerHTML = seat; 
+        document.getElementById("bill-seat").innerHTML = seat;
 
         let availableSeat = document.querySelectorAll(".seatMap:not(.Booked)");
         availableSeat.forEach(element => {
@@ -374,19 +367,19 @@ function contToPay() {
 }
 function pay() {
     var foodOrderDTOs = []
-    var tbody = document.getElementById("tbody-food"); 
+    var tbody = document.getElementById("tbody-food");
 
     for (var i = 0; i < tbody.rows.length; i++) {
-        var row = tbody.rows[i];  
-        
+        var row = tbody.rows[i];
+
         if (parseInt(row.cells[1].querySelector('input').value) !== 0) {
             var food = {};
             food.foodId = row.cells[1].querySelector('input').id;
             food.count = row.cells[1].querySelector('input').value;
-            foodOrderDTOs.push(food); 
+            foodOrderDTOs.push(food);
         }
-        
-    } 
+
+    }
     const URLBILL = "https://localhost:44308/api/bill";
     fetch(URLBILL, {
         method: "POST",
@@ -401,26 +394,26 @@ function pay() {
         })
     }).then(response => {
         console.log(response.status);
-        if (response.status == '403') { 
+        if (response.status == '403') {
             window.location.href = "http://127.0.0.1:5502/Forbidden.html"
         }
-        if (response.status == '401') { 
+        if (response.status == '401') {
             window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
         }
-        if(response.status == '400'){
+        if (response.status == '400') {
             Swal.fire({
                 position: 'top',
                 icon: 'error',
                 title: 'Mua vé thất bại',
                 text: 'Khách hàng chưa đủ tuổi đặt phim này',
                 showConfirmButton: true,
-                timer: 2000 
+                timer: 2000
             }).then((result) => {
                 if (result.isConfirmed) window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
                 else window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
-            }); 
+            });
         }
-        if(response.ok){ 
+        if (response.ok) {
             Swal.fire({
                 position: 'top',
                 icon: 'success',
@@ -428,13 +421,13 @@ function pay() {
                 showConfirmButton: false,
                 timer: 1500
             }).then((result) => {
-                window.location.href = "http://127.0.0.1:5502/LayoutBooking.html" 
-            }); 
+                window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
+            });
         }
-    })  
+    })
 
 }
-function loadFood(){
+function loadFood() {
     fetch("https://localhost:44308/api/food", {
         method: 'GET',
         headers: {
@@ -443,47 +436,47 @@ function loadFood(){
     })
         .then(response => {
             if (response.status == '403') {
-                window.location.href = "./Forbidden.html"; 
+                window.location.href = "./Forbidden.html";
             }
             if (response.status == '401') {
-                window.location.href = "./Unauthorized.html" 
+                window.location.href = "./Unauthorized.html"
             }
             return response.json();
         })
-        .then(data => {  
+        .then(data => {
             document.getElementById("tbody-food").innerHTML = "";
-            data.forEach(food =>{ 
-                const td1 = document.createElement("td"); 
+            data.forEach(food => {
+                const td1 = document.createElement("td");
                 const spFoodName = document.createElement("span");
                 spFoodName.classList.add("fs-5", "fw-bold", "text-success");
                 spFoodName.textContent = food.name;
                 const pSize = document.createElement("p");
                 pSize.classList.add("mt-2", "mb-0", "fst-italic", "fw-lighter", "fs-6");
-                pSize.textContent = food.description; 
+                pSize.textContent = food.description;
                 td1.appendChild(spFoodName);
                 td1.appendChild(pSize);
 
                 const td4 = document.createElement("td");
                 td4.classList.add("text-center");
-                td4.textContent = "0"; 
+                td4.textContent = "0";
                 td4.setAttribute("id", "cost" + food.id);
 
                 const td2 = document.createElement("td");
                 td2.classList.add("text-center");
                 var input = document.createElement("input");
-                input.setAttribute("type", "number");                                                                            
+                input.setAttribute("type", "number");
                 input.setAttribute("min", "0");
-                input.setAttribute("value", "0");                                       
-                input.setAttribute("step", "0");                                                           
+                input.setAttribute("value", "0");
+                input.setAttribute("step", "0");
                 input.setAttribute("id", food.id);
-                input.addEventListener("change", function(){
+                input.addEventListener("change", function () {
                     td4.textContent = (parseInt(food.cost) * parseInt(input.value)).toLocaleString();
                 });
                 td2.appendChild(input);
 
                 const td3 = document.createElement("td");
                 td3.classList.add("text-center");
-                td3.textContent = (food.cost).toLocaleString(); 
+                td3.textContent = (food.cost).toLocaleString();
 
                 const trFood = document.createElement("tr");
                 trFood.appendChild(td1);
