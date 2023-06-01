@@ -3,21 +3,24 @@
     height: 24vw;
     width: 16vw;
 }
-.status-film{ 
+
+.status-film {
     padding: 1%;
     font-weight: 520;
     font-size: 1.1em;
     font-family: sans-serif;
     color: black;
-    text-decoration: none; 
+    text-decoration: none;
 }
-.status-film:hover{ 
-    color: rgb(242, 139, 4);
-} 
 
-.active-film-status { 
+.status-film:hover {
     color: rgb(242, 139, 4);
 }
+
+.active-film-status {
+    color: rgb(242, 139, 4);
+}
+
 ul li {
     list-style: none;
 }
@@ -47,12 +50,18 @@ ul li {
     cursor: pointer;
     /* padding: 2% 2% 2%; */
 }
-.hide-content{
-    max-height: 2.4em; /* chiều cao tối đa là 2 dòng (tương đương 2.4em với font-size là 1.2em) */
-    overflow: hidden; /* ẩn phần dư thừa */
-    text-overflow: ellipsis; /* hiển thị dấu ba chấm */
-    white-space: nowrap; /* ngăn không cho nội dung xuống dòng */
+
+.hide-content {
+    max-height: 2.4em;
+    /* chiều cao tối đa là 2 dòng (tương đương 2.4em với font-size là 1.2em) */
+    overflow: hidden;
+    /* ẩn phần dư thừa */
+    text-overflow: ellipsis;
+    /* hiển thị dấu ba chấm */
+    white-space: nowrap;
+    /* ngăn không cho nội dung xuống dòng */
 }
+
 .divInfo {
     padding-bottom: 8px;
     box-sizing: border-box;
@@ -60,7 +69,7 @@ ul li {
 
 span {
     font-family: "SairaSemiCondensed-Regular", sans-serif;
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .spAgelimit {
@@ -69,7 +78,8 @@ span {
     font-weight: bold;
     padding: 0% 4% 0%;
 }
-.spLength{
+
+.spLength {
     white-space: pre-wrap;
 }
 
@@ -101,6 +111,6 @@ span {
 }
 
 .btn-book:hover {
-    background-color: #ff5400; 
+    background-color: #ff5400;
     color: white;
 }

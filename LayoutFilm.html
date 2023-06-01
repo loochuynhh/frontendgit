@@ -1,40 +1,44 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phim</title>  
-    <link rel="stylesheet" href="/css/style.css"> 
-    <link rel="stylesheet" href="./css/Film.css">    
-    <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css"> 
-    <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
-    <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
-    <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
-    <script src="./src/jquery/jquery-3.7.0.js"></script>
-</head> 
-<body>     
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phim</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="./css/Film.css">
+  <link rel="stylesheet" href="./src/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css">
+  <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css">
+  <link rel="stylesheet" href="./src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css">
+  <script src="./src/jquery/jquery-3.7.0.js"></script>
+</head>
+
+<body>
   <div id="header"></div>
 
   <!-- Phim đang chiếu/ Phim sắp chiếu  -->
-  <div class="container mt-3 mb-3"> 
-    <a href="#" class="status-film active-film-status" onclick="selectShowingFilm(event)" id="showing-film">PHIM ĐANG CHIẾU</a>
-    <a href="#" class="status-film" onclick="selectIncomingFilm(event)" id="incoming-film">PHIM SẮP CHIẾU</a> 
+  <div class="container mt-3 mb-3">
+    <a href="#" class="status-film active-film-status" onclick="selectShowingFilm(event)" id="showing-film">PHIM ĐANG
+      CHIẾU</a>
+    <a href="#" class="status-film" onclick="selectIncomingFilm(event)" id="incoming-film">PHIM SẮP CHIẾU</a>
     <hr>
   </div>
   <!-- Phim đang chiếu/ Phim sắp chiếu  -->
 
   <!-- ListFilm -->
   <div class="container">
-    <div class="row text-center min-vh-50" id="film-list"> </div> 
-  </div> 
+    <div class="row text-center min-vh-50" id="film-list"> </div>
+  </div>
   <!-- ListFilm -->
 
-  <div id="footer"></div> 
-</body> 
-<script src = "./js/Film.js"></script> 
-<script src = "./js/HeaderFilmHelper.js"></script> 
-<script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
+  <div id="footer"></div>
+</body>
+<script src="./js/Film.js"></script>
+<script src="./js/HeaderFilmHelper.js"></script>
+<script src="./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
-<script src="./src/bootstrap-5.2.2-dist/umd/poper.min.js"></script> 
+<script src="./src/bootstrap-5.2.2-dist/umd/poper.min.js"></script>
 <script src="./src/sweeralert/sweetalert.min.js"></script>
+
 </html>

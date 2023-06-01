@@ -13,7 +13,7 @@ function loadRevenueByMonth() {
     var currentMonth = currentDate.getMonth() + 1;
 
     var selectedYear = parseInt(document.getElementById('yearpicker').value);
-    if(selectedYear > currentYear){
+    if (selectedYear > currentYear) {
         Swal.fire({
             position: 'top',
             icon: 'error',
@@ -21,11 +21,11 @@ function loadRevenueByMonth() {
             showConfirmButton: true,
             timer: 3000
         }).then((result) => {
-            location.reload();  
-        });   
-    } 
-    document.getElementById('yearpicker').setAttribute("max", currentYear); 
-    document.getElementById('yearSeatType').innerHTML = "Năm " + selectedYear;  
+            location.reload();
+        });
+    }
+    document.getElementById('yearpicker').setAttribute("max", currentYear);
+    document.getElementById('yearSeatType').innerHTML = "Năm " + selectedYear;
     // console.log(selectedYear); 
     var months = [];
     if (selectedYear < currentYear) {
@@ -186,7 +186,7 @@ function loadRevenueDetail() {
         })
         .then(data => {
             loadRevenueByFilm(data);
-            loadRevenueBySeatStatus(data); 
+            loadRevenueBySeatStatus(data);
         })
         .catch(error => console.error(error));
 }
@@ -197,10 +197,10 @@ function loadRevenueBySeatType(data) {
     revenue.push(data.seatRevenue.Đôi);
     revenue.push(data.seatRevenue.VIP);
     var sumAllSeat = data.seatRevenue.Thường + data.seatRevenue.Đôi + data.seatRevenue.VIP
-    if(sumAllSeat !== 0){
-        pcThuong = ((data.seatRevenue.Thường/sumAllSeat)*100).toFixed(1) + "%";
-        pcDoi = ((data.seatRevenue.Đôi/sumAllSeat)*100).toFixed(1) + "%";
-        pcVip = ((data.seatRevenue.VIP/sumAllSeat)*100).toFixed(1) + "%";
+    if (sumAllSeat !== 0) {
+        pcThuong = ((data.seatRevenue.Thường / sumAllSeat) * 100).toFixed(1) + "%";
+        pcDoi = ((data.seatRevenue.Đôi / sumAllSeat) * 100).toFixed(1) + "%";
+        pcVip = ((data.seatRevenue.VIP / sumAllSeat) * 100).toFixed(1) + "%";
     }
     console.log("seat", revenue);
     var chartData = {
@@ -208,52 +208,52 @@ function loadRevenueBySeatType(data) {
         datasets: [{
             label: "Doanh thu (VNĐ)",
             data: revenue,
-            backgroundColor: [ "rgb(116, 201, 143)", "rgb(78, 70, 220)", "rgb(236, 203, 82)"]
+            backgroundColor: ["rgb(116, 201, 143)", "rgb(78, 70, 220)", "rgb(236, 203, 82)"]
         }]
     };
-    
+
     var options = {
         responsive: true,
         plugins: {
-            legend: { 
+            legend: {
                 position: 'bottom',
-            },  
-            datalabels:{
-                formatter: function(value, context) {
+            },
+            datalabels: {
+                formatter: function (value, context) {
                     if (context.dataIndex === 0) {
                         return pcThuong;
                     } else if (context.dataIndex === 1) {
                         return pcDoi;
-                    }else if (context.dataIndex === 2) {
+                    } else if (context.dataIndex === 2) {
                         return pcVip;
                     }
-                }, 
-                font:{
+                },
+                font: {
                     weight: 'bold',
                     size: 13,
                 },
                 color: 'white'
             }
-        }, 
+        },
 
     }
-    
+
     var ctx = document.getElementById("revenueBySeatType").getContext("2d");
     if (window.chartRevenueBySeatType) {
         window.chartRevenueBySeatType.destroy();
-    } 
-    if(data.seatRevenue.Thường !== undefined && data.seatRevenue.Đôi !== undefined && data.seatRevenue.VIP !== undefined){
+    }
+    if (data.seatRevenue.Thường !== undefined && data.seatRevenue.Đôi !== undefined && data.seatRevenue.VIP !== undefined) {
         chartRevenueBySeatType = new Chart(ctx, {
             type: "doughnut",
             data: chartData,
             options: options,
             plugins: [ChartDataLabels]
-        }); 
+        });
         document.getElementById("sumSeatType").innerHTML = (data.seatRevenue.Thường + data.seatRevenue.Đôi + data.seatRevenue.VIP).toLocaleString() + " VNĐ"
-    }else document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
+    } else document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
 }
-function loadRevenueByFilm(data){ 
-    var keys = Object.keys(data.filmRevenue[document.getElementById("monthPicker").value - 1]); 
+function loadRevenueByFilm(data) {
+    var keys = Object.keys(data.filmRevenue[document.getElementById("monthPicker").value - 1]);
     var filteredKeys = keys.filter(function (key) {
         return key !== "undefined";
     });
@@ -277,7 +277,7 @@ function loadRevenueByFilm(data){
     }
     var options = {
         responsive: true,
-        scales: { 
+        scales: {
             x: {
                 ticks: {
                     font: {
@@ -290,7 +290,7 @@ function loadRevenueByFilm(data){
             },
             y: {
                 beginAtZero: true,
-                ticks: { 
+                ticks: {
                     font: {
                         // family: 'Arial',
                         weight: 'italic',
@@ -301,7 +301,7 @@ function loadRevenueByFilm(data){
                 },
             },
         },
-        indexAxis: 'y', 
+        indexAxis: 'y',
         barThickness: 20,
         elements: {
             bar: {
@@ -312,7 +312,7 @@ function loadRevenueByFilm(data){
         plugins: {
             legend: {
                 position: 'bottom',
-            }, 
+            },
         }
     };
     var ctx = document.getElementById("revenueByFilm").getContext("2d");
@@ -325,57 +325,57 @@ function loadRevenueByFilm(data){
         options: options,
     });
     var sumTicket = 0;
-    filmvalues.forEach(filmvalue =>{
-        sumTicket += filmvalue;  
+    filmvalues.forEach(filmvalue => {
+        sumTicket += filmvalue;
     })
     document.getElementById("sumTicket").innerHTML = sumTicket.toLocaleString() + " vé";
 }
 function loadRevenueBySeatStatus(data) {
     var seatSold = data.seatSold[document.getElementById("monthPicker").value - 1];
-    var seatRefund = data.seatRefund[document.getElementById("monthPicker").value - 1];  
+    var seatRefund = data.seatRefund[document.getElementById("monthPicker").value - 1];
     var percentSeatSold, percentSeatRefund;
-    if((seatSold + seatRefund) !== 0){
-        percentSeatSold = (seatSold/(seatSold + seatRefund)*100).toFixed(1) + "%"
-        percentSeatRefund = (seatRefund/(seatSold + seatRefund)*100).toFixed(1) + "%"
+    if ((seatSold + seatRefund) !== 0) {
+        percentSeatSold = (seatSold / (seatSold + seatRefund) * 100).toFixed(1) + "%"
+        percentSeatRefund = (seatRefund / (seatSold + seatRefund) * 100).toFixed(1) + "%"
     }
     var chartData = {
         labels: ["Vé Chiếu Thành Công", "Vé Hoàn Tiền"],
         datasets: [{
             label: "Số lượng",
             data: [seatSold, seatRefund],
-            backgroundColor: ["rgb(246, 195, 68)","rgb(64, 133, 88)"]
+            backgroundColor: ["rgb(246, 195, 68)", "rgb(64, 133, 88)"]
         }]
-    } 
+    }
     var options = {
         responsive: true,
         plugins: {
             legend: {
                 // position: 'bottom',
                 display: false
-            },  
-            tooltips:{
+            },
+            tooltips: {
                 enabled: false
             },
-            datalabels:{
-                formatter: function(value, context) {
+            datalabels: {
+                formatter: function (value, context) {
                     if (context.dataIndex === 0) {
                         return percentSeatSold;
                     } else if (context.dataIndex === 1) {
                         return percentSeatRefund;
                     }
-                }, 
-                font:{
+                },
+                font: {
                     weight: 'bold',
                     size: 14,
                 },
                 color: 'white'
             }
-        } 
+        }
     };
     var ctx = document.getElementById("revenueBySeatStatus").getContext("2d");
     if (window.chartRevenueBySeatStatus) {
         window.chartRevenueBySeatStatus.destroy();
-    } 
+    }
     chartRevenueBySeatStatus = new Chart(ctx, {
         type: "pie",
         data: chartData,
