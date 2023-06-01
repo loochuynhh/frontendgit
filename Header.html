@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/fontawesome.css"> 
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/brands.css"> 
     <link rel="stylesheet" href="src/fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/solid.css"> 
-    <!-- <script src="./src/jquery/jquery-3.7.0.js"></script> -->
     <script src = "./js/Header.js"></script> 
 </head>
 <body>
@@ -284,13 +283,13 @@
       </div>
 
       
-      <div class="col-2 text-center" id = "overlayUser" style="display: none;"> 
+      <div class="col-2 text-end" id = "overlayUser" style="display: none;"> 
         <div class="dropdown"> 
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="fs-6 text-white me-2 ms-2">Xin Chào</span>
             <img src="./Image/user.png" alt="mdo" width="48" height="auto" class="rounded-circle">
+            <span class="fs-6 text-white me-3 ms-2">Xin Chào</span>
           </a>
-          <ul class="dropdown-menu text-small">
+          <ul class="dropdown-menu text-small mx-4 my-1">
             <li><a class="dropdown-item" id = "info" href="#">Tài khoản</a></li>
             <li><a class="dropdown-item" href="/LayoutMyDeal.html">Lịch sử giao dịch</a></li> 
             <li><hr class="dropdown-divider"></li>
@@ -299,10 +298,10 @@
         </div>
       </div> 
       
-      <div class="col-2 text-center" id= "overlayHome" style="display: none;"> 
-        <a class="text-decoration-none fs-7 custom-hover" id= "login-button" type="button" class="">ĐĂNG NHẬP </a>
+      <div class="col-2 text-center px-3" id= "overlayHome" style="display: none;"> 
+        <a class="text-decoration-none fs-7 custom-hover fw-bold" id= "login-button" type="button" class="">ĐĂNG NHẬP </a>
         <a>/</a>
-        <a class="text-decoration-none fs-7 custom-hover" id= "signupButton" type="button" class=""> ĐĂNG KÝ</a> 
+        <a class="text-decoration-none fs-7 custom-hover fw-bold" id= "signupButton" type="button" class=""> ĐĂNG KÝ</a> 
       </div> 
     </div> 
   </header> 
