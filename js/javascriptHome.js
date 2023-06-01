@@ -333,7 +333,7 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
               icon: 'success',
               title: 'Đăng nhập thành công',
               showConfirmButton: false,
-              timer: 1000
+              timer: 1500
             })
             overlayHome.style.display = "none";
             overlayUser.style.display = "block";

@@ -292,3 +292,11 @@ select.formbold-form-input,
 .min-vh-50{
   min-height:50vh!important
 }
+.fs-7{font-size:0.8rem!important}
+
+.custom-hover{
+  color: white;
+}
+.custom-hover:hover {
+  color: rgb(242, 139, 4);
+}
