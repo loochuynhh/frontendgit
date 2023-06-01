@@ -12,7 +12,7 @@ $('input[name="dates"]').daterangepicker({
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     loadBill(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
 })
-// window.load = loadBill(getCurrentDate(),getCurrentDate());
+window.load = loadBill(getCurrentDate(),getCurrentDate());
 function loadBill(startTime, endTime) {
     var URLBILL = "https://localhost:44308/api/bill?startDate=" + startTime + "&endDate=" + endTime;
     fetch(URLBILL, {

@@ -4,6 +4,10 @@ var genre = 1, roomSelected = "", checkUpdate = 1, checkRoomStatus;
 window.onload = init();
 
 function init(){
+    let select = document.getElementById("RoomNameForSelect");
+    for (let i = select.options.length - 1; i >= 2; i--) {
+        select.remove(i);
+    } 
     document.getElementById("RoomNameForSelect").value = "-1";
     document.getElementById("roomName").value = "";
     document.getElementById("row").value = "";
@@ -364,13 +368,8 @@ function DeleteRoom() {
                             title: 'Xóa phòng chiếu thành công',
                             showConfirmButton: false,
                             timer: 1500
-                        }).then((result) => {
-                            let select = document.getElementById("RoomNameForSelect");
-                            for (let i = select.options.length - 1; i >= 2; i--) {
-                                select.remove(i);
-                            } 
-                            init();
-                            // location.reload();
+                        }).then((result) => { 
+                            init(); 
                         });  
                     }
                 })
