@@ -119,7 +119,9 @@ async function loadSchedule(startTime, endTime) {
                                 'Deleted!',
                                 'Lịch chiếu đã được xóa',
                                 'success'
-                            )
+                            ).then(() => {
+                                loadSchedule(getCurrentDate(), getCurrentDate());
+                            });
                         }
                     })
                 });
@@ -260,16 +262,15 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                 title: 'Sửa lịch chiếu thành công',
                 showConfirmButton: false,
                 timer: 1500
-            })
-            //location.reload();
+            }).then(() => {
+                loadSchedule(getCurrentDate(), getCurrentDate());
+            });
         })
         .catch(error => {
             //location.reload();
             console.error(error);
         });
-
 })
-
 
 fetch(`${url}/${film}`, {
     method: 'GET',
@@ -279,7 +280,6 @@ fetch(`${url}/${film}`, {
 })
     .then(response => response.json())
     .then(data => {
-
         data.forEach(movie => {
             const optionEl = document.createElement('option');
             optionEl.value = movie.name;
@@ -320,7 +320,6 @@ async function getRoom() {
         .catch(error => console.error(error));
 }
 
-
 function handleOutsideClickAddSchedule(event) {
     if (!overlayAddSchedule.contains(event.target)) {
         overlay.style.display = "none";
@@ -334,7 +333,6 @@ btAddSchedule.addEventListener("click", function () {
     overlayAddSchedule.style.display = "block";
     document.addEventListener("click", handleOutsideClickAddSchedule, true);
 });
-
 
 scheduleform.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -435,7 +433,9 @@ scheduleform.addEventListener('submit', async (event) => {
                 title: 'Thêm lịch chiếu mới thành công',
                 showConfirmButton: false,
                 timer: 1500
-            })
+            }).then(() => {
+                loadSchedule(getCurrentDate(), getCurrentDate());
+            });
         })
         .catch(error => {
             //location.reload();
@@ -456,14 +456,11 @@ scheduleform.addEventListener('submit', async (event) => {
 });
 async function load() {
     await getRoom();
-    //await getSchedule();
     await loadSchedule(getCurrentDate(), getCurrentDate());
 }
 
 function deleteSchedule(i) {
-    // const param = new URLSearchParams({
-    //     id: i
-    // })
+    
     fetch(`${url}/${bill}/${refund}/${i}`, {
         method: 'GET',
         headers: {
@@ -486,14 +483,7 @@ function deleteSchedule(i) {
             }
             //location.reload();
             // showAlertTimeOut('Xóa lịch chiếu mới thành công');
-            Swal.fire({
-                position: 'top',
-                icon: 'error',
-                title: 'Lỗi',
-                text: 'Xóa lịch chiếu không thành công',
-                footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-                timer: 2000
-            })
+           
         })
         .catch(error => {
             //location.reload();
@@ -575,116 +565,6 @@ async function updateSchedule(id) {
     // });
     idglobal = id;
 }
-
-// async function getSchedule() {
-//     loadSchedule(getCurrentDate(),getCurrentDate());
-//     const today = new Date();
-//     const dateStr = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-//     const params = new URLSearchParams({
-//         date: dateStr,
-//         filmId: 0,
-//         roomId: 0
-//     });
-//     await fetch(`${url}/${show}?` + params.toString(), {
-//         method: 'GET',
-//     })
-//         .then(response => {
-//             if (response.status == '403') {
-//                 window.location.href = "/Forbidden.html"; 
-//             }
-//             if (response.status == '401') {
-//                 window.location.href = "/Unauthorized.html" 
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             let tbody = document.getElementById("body-table");
-//             for (let i = 0; i < data.length; i++) {
-//                 for (let j = 0; j < data[i].length; j++) {
-//                     let trFilmTable = document.createElement("tr");
-//                     trFilmTable.addEventListener('dblclick', function () {
-//                         click(data[i]);
-//                     });
-//                     let tdStartTime = document.createElement("td");
-//                     let tdEndTime = document.createElement("td");
-//                     tdStartTime.className = "tdCenter";
-//                     tdEndTime.classList.add("tdCenter", "col-4");
-//                     let tdFilm = document.createElement("td");
-//                     tdFilm.className = "tdCenter";
-//                     //tdFilmStatus.classList.add("tdCenter","col-2");
-//                     let tdDelete = document.createElement("td");
-//                     tdDelete.className = "tdCenter";
-//                     let btnDelete = document.createElement("button");
-//                     //tdRoom.className = "tdCenter";
-//                     //btnDelete.className = "btnDelete";
-//                     //btnDelete.className = "tdCenter";
-//                     btnDelete.classList.add("btn", "btn-danger");
-//                     btnDelete.innerHTML = "X";
-//                     tdDelete.appendChild(btnDelete);
-//                     let tdRoom = document.createElement("td");
-//                     tdRoom.className = "tdCenter";
-//                     //tdStartTime.innerHTML = data[i][j].startTime;
-//                     //tdEndTime.innerHTML = data[i][j].endTime;
-//                     tdStartTime.innerHTML = formatTime(new Date(data[i][j].startTime)) + " - " + formatDate(new Date(data[i][j].startTime));
-//                     tdEndTime.innerHTML = formatTime(new Date(data[i][j].endTime)) + " - " + formatDate(new Date(data[i][j].endTime));
-//                     tdFilm.innerHTML = data[i][j].filmName;
-//                     for (let t = 0; t < formRoom.options.length; t++) {
-//                         if (data[i][j].roomId == formRoom.options[t].id) {
-//                             tdRoom.innerHTML = formRoom.options[t].value;
-//                         }
-//                     } 
-//                     var checkdelete = true;
-//                     btnDelete.addEventListener("click", function () {
-//                         checkdelete = false;
-//                         //showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
-//                         Swal.fire({
-//                             title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
-//                             icon: 'warning',
-//                             showCancelButton: true,
-//                             confirmButtonColor: '#3085d6',
-//                             cancelButtonColor: '#d33',
-//                             confirmButtonText: 'OK'
-//                           }).then((result) => {
-//                             if (result.isConfirmed) {
-//                               deleteSchedule(data[i][j].id);
-//                               Swal.fire(
-//                                 'Deleted!',
-//                                 'Lịch chiếu đã được xóa',
-//                                 'success'
-//                               )
-//                             }
-//                           })
-//                         // btCancel.addEventListener('click', function () {
-//                         //     const modal = document.getElementById('exampleModal');
-//                         //     const modalInstance = bootstrap.Modal.getInstance(modal);
-//                         //     modalInstance.hide();
-//                         // });
-//                         // btOK.addEventListener('click', function () {
-//                         //     const modal = document.getElementById('exampleModal');
-//                         //     const modalInstance = bootstrap.Modal.getInstance(modal);
-//                         //     modalInstance.hide();
-//                         //     deleteSchedule(data[i][j].id);
-//                         // });
-//                     });
-//                     trFilmTable.addEventListener("click", function () {
-//                         if (checkdelete == true) {
-//                             // const id = this.getAttribute("data-id");
-//                             updateSchedule(data[i][j].id);
-//                         }
-//                     });
-
-//                     trFilmTable.appendChild(tdStartTime);
-//                     trFilmTable.appendChild(tdEndTime);
-//                     trFilmTable.appendChild(tdFilm);
-//                     trFilmTable.appendChild(tdRoom);
-//                     trFilmTable.appendChild(tdDelete);
-//                     tbody.appendChild(trFilmTable);
-//                 }
-//             }
-//             hover();
-//         })
-//         .catch(error => console.error(error));
-// }
 
 function formatDate(date) {
     const options = { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' };

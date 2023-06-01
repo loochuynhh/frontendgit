@@ -6,11 +6,6 @@ const deleteStaff = 'delete-staff';
 var Overlay = document.getElementById("overlay");
 var overlaySignup = document.getElementById("overlaySignup");
 var addStaff = document.getElementById("addStaff");
-// var Overlay = document.getElementById("overlay");
-// var Overlay = document.getElementById("overlay");
-// var Overlay = document.getElementById("overlay");
-// var Overlay = document.getElementById("overlay");
-// var Overlay = document.getElementById("overlay");
 
 function handleOutsideClickAddStaff(event) {
     if (!overlaySignup.contains(event.target)) {
@@ -25,7 +20,9 @@ addStaff.addEventListener("click", function () {
     document.addEventListener("click", handleOutsideClickAddStaff, true);
 });
 
-fetch(`${url}/${admins}/${getStaff}`, {
+getStaff();
+function getStaff(){
+  fetch(`${url}/${admins}/${getStaff}`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
@@ -35,6 +32,7 @@ fetch(`${url}/${admins}/${getStaff}`, {
     .then(response => response.json())
     .then(data => {
       let tbody = document.getElementById("body-table");
+      tbody.innerHTML = "";
       for (let i = 0; i < data.length; i++) {
         let trFilmTable = document.createElement("tr");
         trFilmTable.setAttribute("data-id", data[i].id);
@@ -86,12 +84,6 @@ fetch(`${url}/${admins}/${getStaff}`, {
             }
           })
         });
-        // trFilmTable.addEventListener("click", function () {
-        //   if (checkdelete == true) {
-        //     const id = this.getAttribute("data-id");
-        //     updateFilm(id);
-        //   }
-        // });
         trFilmTable.appendChild(tdNameStaff);
         trFilmTable.appendChild(tdEmail);
         trFilmTable.appendChild(tdGender);
@@ -102,6 +94,8 @@ fetch(`${url}/${admins}/${getStaff}`, {
       hover();
     })
     .catch(error => console.error(error));
+}
+
 function hover() {
   // Lấy danh sách tất cả các hàng trong bảng
   let rows = document.querySelectorAll('tbody tr');
@@ -218,18 +212,17 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
   })
     .then(response => {
       if (response.ok) {
-        // showSuccess();
-        //showAlert("Đăng ký thành công!");
         Swal.fire({
           position: 'top',
           icon: 'success',
           title: 'Thêm nhân viên thành công',
           showConfirmButton: false,
           timer: 1500
-        })
+        }).then(() => {
+          getStaff();
+        });
       } else {
-        // showUnsuccess();
-        // showAlertTimeOutSignup("Đăng ký thất bại!");
+
       }
     })
     .catch(error => {
@@ -282,7 +275,9 @@ function deleteUsers(i) {
         title: 'Xóa nhân viên thành công',
         showConfirmButton: false,
         timer: 2000
-      })
+      }).then(() => {
+        getStaff();
+      });
       //location.reload();
     })
     .catch((error) => {

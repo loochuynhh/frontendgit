@@ -203,7 +203,11 @@ reviewImagePoster.addEventListener('click', function (event) {
     reader.readAsDataURL(updateMoviePoster.files[0]);
   } else {
     // alert('Vui lòng chọn file');
-    Swal.fire('Vui lòng chọn file', 1500);
+    document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+    Swal.fire('Vui lòng chọn file', 1500).then(() => {
+      document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+    });
+    
   }
 });
 function handleOutsideClickReviewAdPoster(event) {
@@ -229,8 +233,10 @@ reviewImageAdPoster.addEventListener('click', function (event) {
     });
     reader.readAsDataURL(updateMovieAdposter.files[0]);
   } else {
-    // alert('Vui lòng chọn file');
-    Swal.fire('Vui lòng chọn file', 1500);
+    document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+    Swal.fire('Vui lòng chọn file', 1500).then(() => {
+      document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+    });
   }
 });
 
@@ -338,8 +344,9 @@ formUpdate.addEventListener('submit', async (event) => {
               title: 'Sửa phim thành công',
               showConfirmButton: false,
               timer: 1500
-            })
-            //location.reload();
+            }).then(() => {
+              GetFilm();
+            });
           })
           .catch(error => {
             //location.reload();
@@ -520,7 +527,9 @@ formUpdate.addEventListener('submit', async (event) => {
             title: 'Chỉnh sửa phim thành công',
             showConfirmButton: false,
             timer: 1500
-          })
+          }).then(() => {
+            GetFilm();
+          });
           //location.reload();
         } else if (check == 1) {
           if (errorMessageglobal != '') {
@@ -664,89 +673,81 @@ async function callApi3(formData3) {
     });
 
 }
-
-fetch(`${url}/${film}`, {
-  method: 'GET',
-  headers: {
-    "Content-Type": "application/json"
-  },
-})
-  .then(response => response.json())
-  .then(data => {
-    let tbody = document.getElementById("body-table");
-    for (let i = 0; i < data.length; i++) {
-      let trFilmTable = document.createElement("tr");
-      trFilmTable.setAttribute("data-id", data[i].id);
-      let tdName = document.createElement("td");
-      tdName.classList.add("text-start")
-      let tdLength = document.createElement("td");
-      let tdDirector = document.createElement("td");
-      // tdLength.className = "tdCenter"; 
-      tdLength.classList.add("tdCenter", "col-4");
-      let tdFilmStatus = document.createElement("td");
-      // tdFilmStatus.className = "tdCenter";
-      tdFilmStatus.classList.add("tdCenter", "col-2");
-      let tdDelete = document.createElement("td");
-      tdDelete.className = "tdCenter";
-      let btnDelete = document.createElement("button");
-      btnDelete.className = "btnDelete";
-      // btnDelete.className = "tdCenter";
-      // btnDelete.classList.add("btn","btn-danger");
-      btnDelete.innerHTML = "X";
-      tdDelete.appendChild(btnDelete);
-      tdName.innerHTML = data[i].name;
-      tdDirector.innerHTML = data[i].director;
-      tdLength.innerHTML = data[i].length;
-      tdFilmStatus.innerHTML = data[i].country;
-      var checkdelete = true;
-      btnDelete.addEventListener("click", function () {
-        checkdelete = false;
-        //showAlert("Bạn có chắc chắn muốn xóa");
-        Swal.fire({
-          title: 'Bạn có chắc chắn muốn xóa',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'OK'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            deleteUsers(data[i].id);
-            Swal.fire(
-              'Deleted!',
-              'Phim đã được xóa',
-              'success'
-            )
-          }
-        })
-        // btCancel.addEventListener('click', function() {
-        //   const modal = document.getElementById('exampleModal');
-        //   const modalInstance = bootstrap.Modal.getInstance(modal);
-        //   modalInstance.hide();
-        // });
-        // btOK.addEventListener('click', function() {
-        //   const modal = document.getElementById('exampleModal');
-        //   const modalInstance = bootstrap.Modal.getInstance(modal);
-        //   modalInstance.hide();
-        //   deleteUsers(data[i].id);
-        // });
-      });
-      trFilmTable.addEventListener("click", function () {
-        if (checkdelete == true) {
-          const id = this.getAttribute("data-id");
-          updateFilm(id);
-        }
-      });
-      trFilmTable.appendChild(tdName);
-      trFilmTable.appendChild(tdDirector);
-      trFilmTable.appendChild(tdLength);
-      trFilmTable.appendChild(tdFilmStatus);
-      trFilmTable.appendChild(tdDelete);
-      tbody.appendChild(trFilmTable);
-    }
-    hover();
+GetFilm();
+function GetFilm(){
+  fetch(`${url}/${film}`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json"
+    },
   })
-  .catch(error => console.error(error));
+    .then(response => response.json())
+    .then(data => {
+      let tbody = document.getElementById("body-table");
+      tbody.innerHTML = '';
+      for (let i = 0; i < data.length; i++) {
+        let trFilmTable = document.createElement("tr");
+        trFilmTable.setAttribute("data-id", data[i].id);
+        let tdName = document.createElement("td");
+        tdName.classList.add("text-start")
+        let tdLength = document.createElement("td");
+        let tdDirector = document.createElement("td");
+        // tdLength.className = "tdCenter"; 
+        tdLength.classList.add("tdCenter", "col-4");
+        let tdFilmStatus = document.createElement("td");
+        // tdFilmStatus.className = "tdCenter";
+        tdFilmStatus.classList.add("tdCenter", "col-2");
+        let tdDelete = document.createElement("td");
+        tdDelete.className = "tdCenter";
+        let btnDelete = document.createElement("button");
+        btnDelete.className = "btnDelete";
+        // btnDelete.className = "tdCenter";
+        // btnDelete.classList.add("btn","btn-danger");
+        btnDelete.innerHTML = "X";
+        tdDelete.appendChild(btnDelete);
+        tdName.innerHTML = data[i].name;
+        tdDirector.innerHTML = data[i].director;
+        tdLength.innerHTML = data[i].length;
+        tdFilmStatus.innerHTML = data[i].country;
+        var checkdelete = true;
+        btnDelete.addEventListener("click", function () {
+          checkdelete = false;
+          //showAlert("Bạn có chắc chắn muốn xóa");
+          Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              deleteUsers(data[i].id);
+              Swal.fire(
+                'Deleted!',
+                'Phim đã được xóa',
+                'success'
+              )
+            }
+          })
+        });
+        trFilmTable.addEventListener("click", function () {
+          if (checkdelete == true) {
+            const id = this.getAttribute("data-id");
+            updateFilm(id);
+          }
+        });
+        trFilmTable.appendChild(tdName);
+        trFilmTable.appendChild(tdDirector);
+        trFilmTable.appendChild(tdLength);
+        trFilmTable.appendChild(tdFilmStatus);
+        trFilmTable.appendChild(tdDelete);
+        tbody.appendChild(trFilmTable);
+      }
+      hover();
+    })
+    .catch(error => console.error(error));
+}
 
 function handleOutsideClickAddFilm(event) {
   if (!overlayAddFilm.contains(event.target)) {
@@ -902,8 +903,10 @@ form.addEventListener('submit', async (event) => {
         title: 'Thêm phim mới thành công',
         showConfirmButton: false,
         timer: 1500
-      })
-      //location.reload();
+      }).then(() => {
+        GetFilm();
+      });
+      
     })
     .catch(error => {
       //location.reload();
