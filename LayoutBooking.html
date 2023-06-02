@@ -30,35 +30,38 @@
   </div>
   <!-- Select film & schedule -->
 
-  <!-- Select Seat --> 
-  <div class="container col-md-9 mt-5 d-none" id="select-seat">
+  <!-- Select Seat -->  
+  <div class="container col-bg-9 mt-5 d-none" id="select-seat">
       <h5 class="name-selected-type text-center">CHỌN GHẾ</h5> 
       <div class="d-flex flex-column align-items-center" id="seat">    
       </div> 
-      <div class="d-flex justify-content-end mt-4"> 
+      <hr class="my-3 text-dark" style="border-width: 2px;">
+      <div class="d-flex justify-content-end mt-4">  
         <div class="d-flex align-items-center">
-          <button class="seat-exp VIP mx-1"></button><span class="fst-italic"> Ghế VIP: 80,000 (VND)</span>
+          <img class="mx-2" src="/Admin/Image/seatVip.svg" width="45vw" alt=""><span class="fst-italic fs-6" id="span-seat-vip"></span>
         </div>
         <div class="d-flex align-items-center">
-          <button class="seat-exp Normal mx-1"></button><span class="fst-italic"> Ghế Thường: 50,000 (VND)</span>
+          <img class="mx-2" src="/Admin/Image/seatNormal.svg" width="45vw" alt=""><span class="fst-italic fs-6" id="span-seat-normal"></span>
         </div>
         <div class="d-flex align-items-center">
-          <button class="seat-exp Double mx-1"></button><span class="fst-italic"> Ghế Đôi: 70,000 (VND)</span>
+          <img class="mx-2" src="/Admin/Image/seatDouble.svg" width="45vw" alt=""><span class="fst-italic fs-6" id="span-seat-double"></span>
         </div> 
       </div>
       <div class="d-flex justify-content-end mt-2 mb-2"> 
         <div class="d-flex align-items-center">
-          <button class="seat-exp Booked mx-1"></button><span class="fst-italic fs-6"> Ghế đã bán</span>
+          <!-- <button class="seat-exp mx-1 text-bg-danger"></button><span class="fst-italic fs-6"> Ghế đã bán</span> -->
+          <img class="mx-2" src="/Admin/Image/seatBooked.svg" width="45vw" alt=""><span class="fst-italic fs-6"> Ghế đã bán</span>
         </div>
         <div class="d-flex align-items-center">
-          <button class="seat-exp selected mx-1"></button><span class="fst-italic"> Ghế đang chọn</span>
+          <!-- <button class="mx-1 btn btn-outline-success w-100"></button><span class="fst-italic"> Ghế đang chọn</span> -->
+          <img class="mx-2 " src="/Admin/Image/seatSelected.svg" width="45vw" alt=""><span class="fst-italic"> Ghế đang chọn</span>
         </div> 
       </div>
   </div>
   <!-- Select Seat -->
 
   <!-- Select Food --> 
-  <div class="container col-md-9 mt-4 d-none" id="select-food">
+  <div class="container col-bg-9 mt-4 d-none" id="select-food">
       <h5 class="name-selected-type text-center mb-0">CHỌN THỨC ĂN/ĐỒ UỐNG</h5>
       <table class="table table-bordered equal-height-rows">
           <thead class="text-center" id="thead-food">
@@ -120,8 +123,7 @@
   <!-- Footer -->
     
 </body> 
-<script src="./src/jquery/jquery-3.7.0.js"></script>  
-<!-- <script src = "./js/Header.js"></script> -->
+<script src="./src/jquery/jquery-3.7.0.js"></script>   
 <script src="./js/Booking.js"></script> 
 <script src = "./src/bootstrap-5.2.2-dist/js/bootstrap.min.js"></script>
 <script src="./src/bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>

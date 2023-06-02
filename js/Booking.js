@@ -18,6 +18,7 @@ var maxColCoords = 0;
 
 var billInfo = {}
 billInfo.seat = [];
+var VipCost, DoubleCost, NormalCost;
 $(function () {
     $("#header").load("header.html", function () {
         $("#booking-link").removeClass("text-white").addClass("text-secondary");
@@ -242,6 +243,9 @@ function loadTypeSeat(listSeat) {
                 li.textContent = String.fromCharCode(64 + i);
             } else {
                 li.className = "seatMap";
+                li.style.backgroundImage = "url('/Admin/Image/seatNormal.svg')";
+                li.style.backgroundSize = "cover";
+                li.style.backgroundPosition = "center";
                 li.setAttribute("position-value", String.fromCharCode(64 + i) + j);
                 li.textContent = j;
             }
@@ -257,18 +261,29 @@ function loadTypeSeat(listSeat) {
         let colCoords = index % maxColCoords + 1;                   // lấy tọa độ cột  
         listSeat.forEach(element => {
             if (rowCoords == element.rowCoords && colCoords == element.colCoords) {
-                if (element.isBooked) liList[index].classList.add("Booked");
+                if (element.isBooked){
+                    li.classList.add("Booked");
+                    li.style.backgroundImage = "url('/Admin/Image/seatBooked.svg')";
+                    li.style.backgroundSize = "cover";
+                    li.style.backgroundPosition = "center";
+                } 
                 else {
-                    liList[index].setAttribute("data-value", element.seatId);
+                    li.setAttribute("data-value", element.seatId);
                     switch (element.seatTypeId) {
                         case 1:
                             {
-                                liList[index].classList.add("VIP");
+                                li.classList.add("VIP");
+                                li.style.backgroundImage = "url('/Admin/Image/seatVip.svg')";
+                                li.style.backgroundSize = "cover";
+                                li.style.backgroundPosition = "center";
                                 break;
                             }
                         case 2:
                             {
-                                liList[index].classList.add("Double");
+                                li.classList.add("Double");
+                                li.style.backgroundImage = "url('/Admin/Image/seatDouble.svg')";
+                                li.style.backgroundSize = "cover";
+                                li.style.backgroundPosition = "center";
                                 break;
                             }
                     }
@@ -284,6 +299,9 @@ function loadTypeSeat(listSeat) {
         element.addEventListener("click", function () {
             if (element.classList.contains("selected")) {
                 element.classList.remove("selected");
+                // element.style.backgroundImage = "url('/Admin/Image/seatNormal.svg')";
+                // element.style.backgroundSize = "cover";
+                // element.style.backgroundPosition = "center";
                 const index = seatId.indexOf(element.getAttribute("data-value"));
                 if (index > -1) {
                     seatId.splice(index, 1);
@@ -293,6 +311,9 @@ function loadTypeSeat(listSeat) {
             }
             else {
                 element.classList.add("selected");
+                // element.style.backgroundImage = "url('/Admin/Image/seatSelected.svg')";
+                // element.style.backgroundSize = "cover";
+                // element.style.backgroundPosition = "center";
                 if (!seatId.includes(element.getAttribute("data-value"))) {
                     seatId.push(element.getAttribute("data-value"));
                 }
@@ -302,7 +323,40 @@ function loadTypeSeat(listSeat) {
             }
         })
     })
-
+    //Hiển thị giá ghế
+    fetch("https://localhost:44308/api/seat-type", {
+        method: 'GET',
+        headers: {
+            'Authorization': "bearer " + localStorage.getItem('token')
+        },
+    })
+        .then(response => {
+            if (response.status == '403') {
+                window.location.href = "./Forbidden.html";
+            }
+            if (response.status == '401') {
+                window.location.href = "./Unauthorized.html"
+            }
+            return response.json();
+        })
+        .then(data => { 
+            data.forEach(element =>{
+                if (element.name === "VIP"){
+                    VipCost = element.cost;
+                    document.getElementById("span-seat-vip").innerHTML = "Ghế " + element.name + ": " +(element.cost).toLocaleString() + " VNĐ";
+                } 
+                else if(element.name === "Đôi"){
+                    DoubleCost = element.cost;
+                    document.getElementById("span-seat-double").innerHTML = "Ghế " + element.name + ": " +(element.cost).toLocaleString() + " VNĐ";
+                }
+                else if(element.name === "Thường"){
+                    NormalCost = element.cost;
+                    document.getElementById("span-seat-normal").innerHTML = "Ghế " + element.name + ": " +(element.cost).toLocaleString() + " VNĐ";
+                }
+            })
+            
+        })
+        .catch(error => console.error(error)); 
 }
 function prevToSeat() {
     document.getElementById("bill").classList.add("d-none");
@@ -356,9 +410,9 @@ function contToPay() {
         let availableSeat = document.querySelectorAll(".seatMap:not(.Booked)");
         availableSeat.forEach(element => {
             if (element.classList.contains("selected")) {
-                if (element.classList.contains("VIP")) totalCost += 80000;
-                else if (element.classList.contains("Double")) totalCost += 70000;
-                else totalCost += 50000;
+                if (element.classList.contains("VIP")) totalCost += VipCost;
+                else if (element.classList.contains("Double")) totalCost += DoubleCost;
+                else totalCost += NormalCost;
             }
         })
         document.getElementById("total-cost").innerHTML = totalCost.toLocaleString();
@@ -462,17 +516,53 @@ function loadFood() {
                 td4.setAttribute("id", "cost" + food.id);
 
                 const td2 = document.createElement("td");
-                td2.classList.add("text-center");
-                var input = document.createElement("input");
-                input.setAttribute("type", "number");
-                input.setAttribute("min", "0");
+                td2.classList.add("text-center"); 
+                const input = document.createElement("input");
+                input.classList.add("form-control", "text-center");
+                input.setAttribute("type", "text");
                 input.setAttribute("value", "0");
                 input.setAttribute("step", "0");
-                input.setAttribute("id", food.id);
-                input.addEventListener("change", function () {
-                    td4.textContent = (parseInt(food.cost) * parseInt(input.value)).toLocaleString();
+                input.setAttribute("id", food.id);  
+                input.addEventListener("input", function(event) {
+                    const inputValue = event.target.value;
+                    const numericValue = parseInt(inputValue);
+                  
+                    if (isNaN(numericValue)) {
+                      event.target.value = 0;
+                    } else {
+                      event.target.value = numericValue;
+                    }
+                  });                   
+                input.addEventListener("change", function() { 
+                    if(input.value === "") td4.textContent = "0";
+                    else td4.textContent = (parseInt(food.cost) * parseInt(input.value)).toLocaleString(); 
+                }); 
+                const divInput = document.createElement("div");
+                divInput.classList.add("input-group"); 
+                const btnIncrease = document.createElement("button");
+                btnIncrease.innerHTML = "+";
+                btnIncrease.classList.add("btn", "btn-outline-warning"); 
+                btnIncrease.addEventListener('click', () => {
+                    const currentValue = parseInt(input.value) || 0;
+                    input.value = currentValue + 1;
+                    if(input.value === "") td4.textContent = "0";
+                    else td4.textContent = (parseInt(food.cost) * parseInt(input.value)).toLocaleString();
                 });
-                td2.appendChild(input);
+                const btnDecrease = document.createElement("button");
+                btnDecrease.innerHTML = "-";
+                btnDecrease.classList.add("btn", "btn-outline-warning"); 
+                btnDecrease.addEventListener('click', () => {
+                    const currentValue = parseInt(input.value) || 0;
+                    if (currentValue > 0) {
+                        input.value = currentValue - 1;
+                        if(input.value === "") td4.textContent = "0";
+                        else td4.textContent = (parseInt(food.cost) * parseInt(input.value)).toLocaleString();
+                    }
+                });
+                divInput.appendChild(btnDecrease);
+                divInput.appendChild(input);
+                divInput.appendChild(btnIncrease); 
+                td2.appendChild(divInput); 
 
                 const td3 = document.createElement("td");
                 td3.classList.add("text-center");

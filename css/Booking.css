@@ -33,8 +33,7 @@ ul li {
 }
 
 .page-control {
-    text-decoration: none;
-
+    text-decoration: none; 
     color: #e17346;
 }
 
@@ -51,51 +50,39 @@ ul li {
 }
 
 .seat-root {
-    background-color: transparent;
-    /* border: 0.2px solid #000; */
-    color: black;
-
+    background-color: transparent; 
+    color: black; 
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin-right: 7px;
+    width: 30px;
+    height: 30px; 
+    margin: 0px 0.8vw;
     text-align: center;
     line-height: 40px;
-    color: 44464b;
-    cursor: pointer;
+    color: #44464b;
+    font-weight: bold;  
 }
 
-.seatMap {
-    /* text-align: center; */
-    display: inline-block;
-    background-color: #dcdee1;
-    width: 40px;
-    height: 40px;
-    margin-right: 7px;
+.seatMap { 
+    display: inline-block; 
+    width: 60px;
+    height: 60px;
+    margin-right: 0.2vw;
     text-align: center;
     line-height: 40px;
-    color: 44464b;
+    color: #ca3939;
+    font-size: 15px;  
+    font-weight: bolder;   
     cursor: pointer;
-}
+} 
 
-.VIP {
-    background-color: #f5c342;
-    color: white;
-}
+.Double { 
+    width: 62px !important; 
+    height: 56px;  
+    margin-right: 0.3vw; 
+} 
 
-.Double {
-    background-color: green;
-    color: white;
-}
-
-.Booked {
-    background-color: red;
-    color: black;
-}
-
-.selected {
-    background-color: aqua;
-    color: black;
+.selected { 
+    border: 2px solid rgb(30, 190, 113);   
 }
 
 #bill-child {
@@ -122,17 +109,7 @@ ul li {
 
 .mb-20vh {
     margin-bottom: 20vh;
-}
-
-.seat-exp {
-    width: 15px;
-    height: 15px;
-    border: none;
-}
-
-.Normal {
-    background-color: #b8babc;
-}
+} 
 
 .equal-height-rows td {
     height: 80px;

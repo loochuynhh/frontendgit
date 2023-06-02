@@ -22,26 +22,22 @@
 
 /* Own CSS */
 .seat-root {
-    background-color: transparent;
-    /* border: 0.2px solid #000; */
+    background-color: transparent; 
     color: black;
 }
 
-.VIP {
-    /* background-color: #f5c342; */
+.VIP { 
     color: white;
 }
 
-.Double {
-    /* background-color: green; */
+.Double { 
     width: 62px !important; 
     height: 56px; 
     color: white;
     margin-right: 2.1px; 
 }
 
-.Normal {
-    /* background-color: #dcdee1; */
+.Normal { 
     color: black;
 }
 
@@ -75,31 +71,22 @@
 
 .room-option label {
     padding-right: 2%;
-}
-
-.divSaveCancel {
-    /* padding-left: 2.2vw; */
-}
-
+} 
 .btn-save-cancel {
-    width: 7vw !important;
-    /* padding-left: 10vw; */
+    width: 7vw !important; 
 } 
 
 li { 
-    display: inline-block;
-    /* background-color: #dcdee1; */
+    display: inline-block; 
     width: 60px;
-    height: 60px;
-    /* margin-right: 1px; */
+    height: 60px; 
     text-align: center;
     line-height: 40px;
-    color: 44464b;
+    color: #44464b;
     cursor: pointer;
 }
 .seat-label { 
-    color: #ca3939;
-    /* color: black; */
+    color: #ca3939; 
     font-size: 15px;  
     font-weight: bolder;   
 }
