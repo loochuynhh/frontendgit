@@ -148,12 +148,20 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (document.getElementById('formFilmUpdate').value == 'Chọn một phim') {
         // showAlertTimeOut('Vui lòng chọn 1 phim');
-        Swal.fire('Vui lòng chọn 1 phim', 1500);
+        // Swal.fire('Vui lòng chọn 1 phim', 1500);
+        document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
+        Swal.fire('Vui lòng chọn 1 phim', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+        });
         return;
     }
     if (document.getElementById('formRoomUpdate').value == 'Chọn một phòng chiếu') {
         // showAlertTimeOut('Vui lòng chọn 1 phòng chiếu');
-        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
+        // Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
+        document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
+        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+        });
         return;
     }
     const filmEl = document.querySelector('#formFilmUpdate');
@@ -333,25 +341,41 @@ scheduleform.addEventListener('submit', async (event) => {
     const timeEl = document.querySelector('.form-select[type="time"]');
     if (!filmEl.value || filmEl.value === 'Chọn một phim') {
         // showAlertTimeOut('Vui lòng chọn một phim.');
-        Swal.fire('Vui lòng chọn 1 phim', 1500);
+        // Swal.fire('Vui lòng chọn 1 phim', 1500);
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire('Vui lòng chọn 1 phim', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
         return;
     }
 
     if (!roomEl.value || roomEl.value === 'Chọn một phòng chiếu') {
         // showAlertTimeOut('Vui lòng chọn một phòng chiếu.');
-        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
+        // Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
         return;
     }
 
     if (!dateEl.value) {
         // showAlertTimeOut('Vui lòng nhập ngày chiếu.');
-        Swal.fire('Vui lòng nhập ngày chiếu', 1500);
+        // Swal.fire('Vui lòng nhập ngày chiếu', 1500);
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire('Vui lòng nhập ngày chiếu', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
         return;
     }
 
     if (!timeEl.value) {
         // showAlertTimeOut('Vui lòng nhập giờ chiếu.');
-        Swal.fire('Vui lòng nhập giờ chiếu', 1500);
+        // Swal.fire('Vui lòng nhập giờ chiếu', 1500);
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire('Vui lòng nhập giờ chiếu', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
         return;
     }
 
@@ -362,7 +386,11 @@ scheduleform.addEventListener('submit', async (event) => {
     const endDate = new Date(dateToValue);
     const startDate = new Date(dateFromValue);
     if (startDate > endDate) {
-        Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500);
+        // Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500);
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
         return;
     }
     const dateList = [];
@@ -399,7 +427,7 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-                
+
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
                     if (errorMessage.toString().includes("schedule conflict")) {
@@ -469,7 +497,7 @@ scheduleform.addEventListener('submit', async (event) => {
             });
         })
         .catch(error => {
-            
+
             console.error(error);
         });
 

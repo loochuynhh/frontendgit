@@ -199,11 +199,11 @@ function loadRevenueBySeatType(data) {
     else revenue.push(0);
     if (data.seatRevenue.VIP !== undefined) revenue.push(data.seatRevenue.VIP);
     else revenue.push(0);
-    var sumAllSeat = data.seatRevenue.Thường + data.seatRevenue.Đôi + data.seatRevenue.VIP
+    var sumAllSeat = revenue[0] + revenue[1] + revenue[2]
     if (sumAllSeat !== 0) {
-        pcThuong = ((data.seatRevenue.Thường / sumAllSeat) * 100).toFixed(1) + "%";
-        pcDoi = ((data.seatRevenue.Đôi / sumAllSeat) * 100).toFixed(1) + "%";
-        pcVip = ((data.seatRevenue.VIP / sumAllSeat) * 100).toFixed(1) + "%";
+        pcThuong = ((revenue[0] / sumAllSeat) * 100).toFixed(1) + "%";
+        pcDoi = ((revenue[1] / sumAllSeat) * 100).toFixed(1) + "%";
+        pcVip = ((revenue[2] / sumAllSeat) * 100).toFixed(1) + "%";
     }
     console.log("seat", revenue);
     var chartData = {
@@ -245,15 +245,19 @@ function loadRevenueBySeatType(data) {
     if (window.chartRevenueBySeatType) {
         window.chartRevenueBySeatType.destroy();
     }
-    if (data.seatRevenue.Thường !== undefined && data.seatRevenue.Đôi !== undefined && data.seatRevenue.VIP !== undefined) {
+    // data.seatRevenue.Thường !== undefined && data.seatRevenue.Đôi !== undefined && data.seatRevenue.VIP !== undefined
+    if (revenue[0] == 0 && revenue[1] == 0 && revenue[2] == 0) {
+        document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
+        console.log("a");
+    } else {
         chartRevenueBySeatType = new Chart(ctx, {
             type: "doughnut",
             data: chartData,
             options: options,
             plugins: [ChartDataLabels]
         });
-        document.getElementById("sumSeatType").innerHTML = (data.seatRevenue.Thường + data.seatRevenue.Đôi + data.seatRevenue.VIP).toLocaleString() + " VNĐ"
-    } else document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
+        document.getElementById("sumSeatType").innerHTML = (revenue[0] + revenue[1] + revenue[2]).toLocaleString() + " VNĐ"
+    }
 }
 function loadRevenueByFilm(data) {
     var keys = Object.keys(data.filmRevenue[document.getElementById("monthPicker").value - 1]);
