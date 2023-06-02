@@ -45,7 +45,7 @@ function loadBill(startTime, endTime) {
                 const td4 = document.createElement("td");
                 td4.innerHTML = bill.showDTO.roomName;
                 const td5 = document.createElement("td");
-                td5.innerHTML = (bill.seatIds).length;
+                td5.innerHTML = (bill.reservations).length;
                 const td6 = document.createElement("td");
                 td6.innerHTML = (bill.totalCost).toLocaleString()
 
