@@ -67,6 +67,7 @@ function getStaffFunction() {
           checkdelete = false;
           //showAlert("Bạn có chắc chắn muốn xóa");
           Swal.fire({
+            position: 'top',
             title: 'Bạn có chắc chắn muốn xóa',
             icon: 'warning',
             showCancelButton: true,
@@ -76,11 +77,18 @@ function getStaffFunction() {
           }).then((result) => {
             if (result.isConfirmed) {
               deleteUsers(data[i].id);
-              Swal.fire(
-                'Deleted!',
-                'Phim đã được xóa',
-                'success'
-              )
+              // Swal.fire(
+              //   'Deleted!',
+              //   'Phim đã được xóa',
+              //   'success'
+              // )
+              Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'Phim đã được xóa',
+                showConfirmButton: false,
+                timer: 1500
+              })
             }
           })
         });
@@ -138,9 +146,8 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     Swal.fire({
       position: 'top',
       icon: 'error',
-      title: 'Lỗi',
-      text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-      timer: 2000
+      title: 'THẤT BẠI',
+      text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số', 
     }).then(() => {
       document.addEventListener("click", handleOutsideClickAddStaff, true);
     });
@@ -162,10 +169,10 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     Swal.fire({
       position: 'top',
       icon: 'error',
-      title: 'Lỗi',
-      text: 'Số điện thoại không hợp lệ',
-      footer: '<a>Số điện thoại gồm 10 số</a>',
-      timer: 2000
+      title: 'THẤT BẠI',
+      text: 'Số điện thoại gồm 10 số',
+      // footer: '<a>Số điện thoại gồm 10 số</a>',
+      // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickAddStaff, true);
     });
@@ -182,9 +189,9 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     Swal.fire({
       position: 'top',
       icon: 'error',
-      title: 'Lỗi',
+      title: 'THẤT BẠI',
       text: 'Tuôi không quá 18 tuổi và năm sinh nhỏ hơn 1900',
-      timer: 2000
+      // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickAddStaff, true);
     });
@@ -232,10 +239,10 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       Swal.fire({
         position: 'top',
         icon: 'error',
-        title: 'Lỗi',
-        text: 'Thêm nhân viên thất bại',
-        footer: '<a>Thông tin nhập vào không hợp lệ/a>',
-        timer: 1000
+        title: 'THẤT BẠI',
+        text: 'Thông tin nhập vào không hợp lệ',
+        // footer: '<a>Thông tin nhập vào không hợp lệ/a>',
+        // timer: 1000
       }).then(() => {
         document.addEventListener("click", handleOutsideClickAddStaff, true);
       });
@@ -261,9 +268,9 @@ function deleteUsers(i) {
         Swal.fire({
           position: 'top',
           icon: 'error',
-          title: 'Lỗi',
+          title: 'THẤT BẠI',
           text: 'Xóa nhân viên thất bại',
-          timer: 2000
+          // timer: 2000
         })
         //location.reload();
         throw new Error('Đã xảy ra lỗi khi xóa phim');
@@ -274,7 +281,7 @@ function deleteUsers(i) {
         icon: 'success',
         title: 'Xóa nhân viên thành công',
         showConfirmButton: false,
-        timer: 2000
+        timer: 1500
       }).then(() => {
         getStaffFunction();
       });

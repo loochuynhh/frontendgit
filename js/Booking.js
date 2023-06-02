@@ -371,8 +371,13 @@ function prevToFilmAndShow() {
     if (showIdSended !== null && roomIdSended !== null) window.location.href = "http://127.0.0.1:5502/LayoutSchedule.html"
 }
 function contToPay() {
-    if (billInfo.seat.length === 0) {
-        Swal.fire('Vui lòng chọn số ghế');
+    if (billInfo.seat.length === 0) { 
+        Swal.fire({
+            position: 'top',
+            text: 'Vui lòng chọn số ghế',
+            icon: 'warning', 
+            confirmButtonText: 'OK'
+        }) 
     } else {
         document.getElementById("select-seat").classList.add("d-none");
         document.getElementById("select-food").classList.add("d-none");
@@ -458,10 +463,9 @@ function pay() {
             Swal.fire({
                 position: 'top',
                 icon: 'error',
-                title: 'Mua vé thất bại',
+                title: 'THẤT BẠI',
                 text: 'Khách hàng chưa đủ tuổi đặt phim này',
-                showConfirmButton: true,
-                timer: 2000
+                showConfirmButton: true, 
             }).then((result) => {
                 if (result.isConfirmed) window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
                 else window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
@@ -471,10 +475,10 @@ function pay() {
             Swal.fire({
                 position: 'top',
                 icon: 'success',
-                text: 'Mua vé thành công',
+                title: 'Mua Vé Thành Công',
                 showConfirmButton: false,
                 timer: 1500
-            }).then((result) => {
+            }).then(() => {
                 window.location.href = "http://127.0.0.1:5502/LayoutBooking.html"
             });
         }

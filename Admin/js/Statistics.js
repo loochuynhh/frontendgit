@@ -16,11 +16,10 @@ function loadRevenueByMonth() {
     if (selectedYear > currentYear) {
         Swal.fire({
             position: 'top',
-            icon: 'error',
-            title: 'Năm thống kê không được lớn hơn năm hiện tại',
-            showConfirmButton: true,
-            timer: 3000
-        }).then((result) => {
+            icon: 'warning',
+            text: 'Năm thống kê không được lớn hơn năm hiện tại',
+            showConfirmButton: true, 
+        }).then(() => {
             location.reload();
         });
     }

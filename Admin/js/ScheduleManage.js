@@ -97,7 +97,8 @@ async function loadSchedule(startTime, endTime) {
                     checkdelete = false;
                     // showAlert("Khi xóa lịch chiếu có vé sẽ hoàn tiền lại cho khách hàng, bạn có chắn chắn muốn xóa");
                     Swal.fire({
-                        title: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
+                        position: 'top',
+                        text: 'Khi xóa lịch chiếu có vé sẽ hoàn tiền cho khách hàng đã mua, Bạn có chắc chắn muốn xóa',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -106,13 +107,23 @@ async function loadSchedule(startTime, endTime) {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             deleteSchedule(data[j].id);
-                            Swal.fire(
-                                'Deleted!',
-                                'Lịch chiếu đã được xóa',
-                                'success'
-                            ).then(() => {
+                            // Swal.fire(
+                            //     'Deleted!',
+                            //     'Lịch chiếu đã được xóa',
+                            //     'success'
+                            // ).then(() => {
+                            //     loadSchedule(getCurrentDate(), getCurrentDate());
+                            // });
+                            Swal.fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: 'Lịch chiếu đã được xóa',
+                                showConfirmButton: false,
+                                timer: 1500 
+                            }).then(() => {
                                 loadSchedule(getCurrentDate(), getCurrentDate());
                             });
+                          
                         }
                     })
                 });
@@ -150,16 +161,33 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
         // showAlertTimeOut('Vui lòng chọn 1 phim');
         // Swal.fire('Vui lòng chọn 1 phim', 1500);
         document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
-        Swal.fire('Vui lòng chọn 1 phim', 1500).then(() => {
+        // Swal.fire('Vui lòng chọn 1 phim', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Vui lòng chọn 1 phim',
+            showConfirmButton: true, 
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
         });
+      
         return;
     }
     if (document.getElementById('formRoomUpdate').value == 'Chọn một phòng chiếu') {
         // showAlertTimeOut('Vui lòng chọn 1 phòng chiếu');
         // Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
         document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
-        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500).then(() => {
+        // Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Vui lòng chọn 1 phòng chiếu',
+            showConfirmButton: true, 
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
         });
         return;
@@ -203,10 +231,10 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Sửa lịch chiếu không thành công',
-                            footer: '<a>Phòng chiếu đã có lịch trong khung giờ này</a>',
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phòng chiếu đã có lịch trong khung giờ này',
+                            // footer: '<a>Phòng chiếu đã có lịch trong khung giờ này</a>',
+                            // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
                         });
@@ -217,10 +245,10 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Sửa lịch chiếu không thành công',
-                            footer: '<a>Phim này đã bị xóa</a>',
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phim này đã bị xóa',
+                            // footer: '<a>Phim này đã bị xóa</a>',
+                            // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
                         });
@@ -231,10 +259,10 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Sửa lịch chiếu không thành công',
-                            footer: '<a>Phòng chiếu đang sửa chữa</a>',
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phòng chiếu đang sửa chữa',
+                            // footer: '<a>Phòng chiếu đang sửa chữa</a>',
+                            // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
                         });
@@ -245,9 +273,8 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Chỉnh sửa không thành công',
-                    timer: 2000
+                    title: 'THẤT BẠI',
+                    text: 'Chỉnh sửa không thành công', 
                 }).then(() => {
                     document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
                 });
@@ -343,9 +370,17 @@ scheduleform.addEventListener('submit', async (event) => {
         // showAlertTimeOut('Vui lòng chọn một phim.');
         // Swal.fire('Vui lòng chọn 1 phim', 1500);
         document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        Swal.fire('Vui lòng chọn 1 phim', 1500).then(() => {
+        // Swal.fire('Vui lòng chọn 1 phim', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Vui lòng chọn 1 phim',
+            showConfirmButton: true, 
+          }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        });
+          }); 
         return;
     }
 
@@ -353,9 +388,17 @@ scheduleform.addEventListener('submit', async (event) => {
         // showAlertTimeOut('Vui lòng chọn một phòng chiếu.');
         // Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500);
         document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500).then(() => {
+        // Swal.fire('Vui lòng chọn 1 phòng chiếu', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Vui lòng chọn 1 phòng chiếu',
+            showConfirmButton: true, 
+          }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        });
+          }); 
         return;
     }
 
@@ -363,9 +406,17 @@ scheduleform.addEventListener('submit', async (event) => {
         // showAlertTimeOut('Vui lòng nhập ngày chiếu.');
         // Swal.fire('Vui lòng nhập ngày chiếu', 1500);
         document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        Swal.fire('Vui lòng nhập ngày chiếu', 1500).then(() => {
+        // Swal.fire('Vui lòng nhập ngày chiếu', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Vui lòng nhập ngày chiếu',
+            showConfirmButton: true, 
+          }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        });
+          }); 
         return;
     }
 
@@ -373,9 +424,17 @@ scheduleform.addEventListener('submit', async (event) => {
         // showAlertTimeOut('Vui lòng nhập giờ chiếu.');
         // Swal.fire('Vui lòng nhập giờ chiếu', 1500);
         document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        Swal.fire('Vui lòng nhập giờ chiếu', 1500).then(() => {
+        // Swal.fire('Vui lòng nhập giờ chiếu', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Vui lòng nhập giờ chiếu',
+            showConfirmButton: true, 
+          }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        });
+          }); 
         return;
     }
 
@@ -388,9 +447,17 @@ scheduleform.addEventListener('submit', async (event) => {
     if (startDate > endDate) {
         // Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500);
         document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500).then(() => {
+        // Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500).then(() => {
+        //     document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        // });
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc',
+            showConfirmButton: true, 
+          }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        });
+          }); 
         return;
     }
     const dateList = [];
@@ -436,10 +503,10 @@ scheduleform.addEventListener('submit', async (event) => {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Thêm lịch chiếu không thành công',
-                            footer: "<a> Phòng chiếu đã có lịch chiếu trong khung giờ này </a>",
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phòng chiếu đã có lịch chiếu trong khung giờ này',
+                            // footer: "<a> Phòng chiếu đã có lịch chiếu trong khung giờ này </a>",
+                            // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
@@ -450,10 +517,10 @@ scheduleform.addEventListener('submit', async (event) => {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Thêm lịch chiếu không thành công',
-                            footer: '<a>Phim này đã bị xóa</a>',
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phim này đã bị xóa',
+                            // footer: '<a>Phim này đã bị xóa</a>',
+                            // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
@@ -464,10 +531,10 @@ scheduleform.addEventListener('submit', async (event) => {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Thêm lịch chiếu không thành công',
-                            footer: '<a>Phòng chiếu đang sửa chữa</a>',
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phòng chiếu đang sửa chữa',
+                            // footer: '<a>Phòng chiếu đang sửa chữa</a>',
+                            // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
@@ -477,9 +544,9 @@ scheduleform.addEventListener('submit', async (event) => {
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Lỗi',
+                    title: 'THẤT BẠI',
                     text: 'Thêm không thành công',
-                    timer: 2000
+                    // timer: 2000
                 }).then(() => {
                     document.addEventListener("click", handleOutsideClickAddSchedule, true);
                 });
@@ -522,10 +589,10 @@ function deleteSchedule(i) {
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Xóa lịch chiếu không thành công',
-                    footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-                    timer: 2000
+                    title: 'THẤT BẠI',
+                    text: 'Thông tin bạn nhập vào không hợp lệ',
+                    // footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+                    // timer: 2000
                 })
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
@@ -539,10 +606,10 @@ function deleteSchedule(i) {
             Swal.fire({
                 position: 'top',
                 icon: 'error',
-                title: 'Lỗi',
-                text: 'Xóa lịch chiếu không thành công',
-                footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-                timer: 2000
+                title: 'THẤT BẠI',
+                text: 'Thông tin bạn nhập vào không hợp lệ',
+                // footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+                // timer: 2000
             })
             console.error(error);
         });

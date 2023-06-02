@@ -96,19 +96,18 @@ function deleteUsers(i) {
         Swal.fire({
           position: 'top',
           icon: 'error',
-          title: 'Xóa phim thất bại',
-          text: 'Phim đã có lịch chiếu',
-          timer: 2000,
+          title: 'THẤT BẠI',
+          text: 'Phim đã có lịch chiếu', 
         })
       }
       if (response.ok) {
         Swal.fire({
           position: 'top',
           icon: 'success',
-          title: 'Xóa phim thành công',
+          title: 'Xóa Phim Thành Công',
           showConfirmButton: false,
           timer: 1500
-        }).then((result) => {
+        }).then(() => {
           location.reload();
         });
       }
@@ -204,9 +203,17 @@ reviewImagePoster.addEventListener('click', function (event) {
   } else {
     // alert('Vui lòng chọn file');
     document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
-    Swal.fire('Vui lòng chọn file', 1500).then(() => {
+    Swal.fire({
+      position: 'top',
+      icon: 'warning',
+      text: 'Vui lòng chọn file',
+      showConfirmButton: true, 
+    }).then(() => {
       document.addEventListener("click", handleOutsideClickUpdateFilm, true);
     });
+    // Swal.fire('Vui lòng chọn file', 1500).then(() => {
+    //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+    // });
 
   }
 });
@@ -234,9 +241,17 @@ reviewImageAdPoster.addEventListener('click', function (event) {
     reader.readAsDataURL(updateMovieAdposter.files[0]);
   } else {
     document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
-    Swal.fire('Vui lòng chọn file', 1500).then(() => {
+    Swal.fire({
+      position: 'top',
+      icon: 'warning',
+      text: 'Vui lòng chọn file',
+      showConfirmButton: true, 
+    }).then(() => {
       document.addEventListener("click", handleOutsideClickUpdateFilm, true);
     });
+    // Swal.fire('Vui lòng chọn file', 1500).then(() => {
+    //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+    // });
   }
 });
 
@@ -254,9 +269,18 @@ formUpdate.addEventListener('submit', async (event) => {
       // alert('Vui lòng chọn ít nhất một thể loại!');
       //Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
       document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
-      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+      // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+      //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      // });
+      Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        text: 'Vui lòng chọn ít nhất 1 thể loại',
+        showConfirmButton: true, 
+      }).then(() => {
         document.addEventListener("click", handleOutsideClickUpdateFilm, true);
       });
+  
       return;
     }
     Swal.fire({
@@ -317,9 +341,8 @@ formUpdate.addEventListener('submit', async (event) => {
                   Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Phim đã có đặt lịch chiếu',
-                    timer: 2000
+                    title: 'THẤT BẠI',
+                    text: 'Phim đã có đặt lịch chiếu', 
                   }).then(() => {
                     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
                   });
@@ -330,9 +353,8 @@ formUpdate.addEventListener('submit', async (event) => {
                   Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Chỉnh sửa thất bại',
-                    timer: 2000
+                    title: 'THẤT BẠI',
+                    text: 'Chỉnh sửa thất bại', 
                   }).then(() => {
                     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
                   });
@@ -358,7 +380,13 @@ formUpdate.addEventListener('submit', async (event) => {
           });
         //Swal.fire('Đã lưu', '', 'success')
       } else if (result.isDenied) {
-        Swal.fire('Các thay đổi không được lưu', '', 'info')
+        // Swal.fire('Các thay đổi không được lưu', '', 'info')
+        Swal.fire({
+          position: 'top',
+          icon: 'warning',
+          text: 'Các thay đổi không được lưu',
+          showConfirmButton: true, 
+        })  
       }
     })
 
@@ -368,18 +396,36 @@ formUpdate.addEventListener('submit', async (event) => {
       // alert('Vui lòng chọn Poster');
       // Swal.fire('Vui lòng chọn ảnh Poster', 1500);
       document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
-      Swal.fire('Vui lòng chọn ảnh Poster', 1500).then(() => {
+      // Swal.fire('Vui lòng chọn ảnh Poster', 1500).then(() => {
+      //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      // });
+      Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        text: 'Vui lòng chọn ảnh Poster',
+        showConfirmButton: true, 
+      }).then(() => {
         document.addEventListener("click", handleOutsideClickUpdateFilm, true);
       });
+  
       return;
     }
     if (!updateMovieAdposter.files || updateMovieAdposter.files.length === 0) {
       // alert('Vui lòng chọn ảnh AdsPoster');
       // Swal.fire('Vui lòng chọn AdsPoster', 1500);
       document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
-      Swal.fire('Vui lòng chọn AdsPoster', 1500).then(() => {
+      // Swal.fire('Vui lòng chọn AdsPoster', 1500).then(() => {
+      //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      // });
+      Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        text: 'Vui lòng chọn AdsPoster',
+        showConfirmButton: true, 
+      }).then(() => {
         document.addEventListener("click", handleOutsideClickUpdateFilm, true);
       });
+  
       return;
     }
 
@@ -404,9 +450,18 @@ formUpdate.addEventListener('submit', async (event) => {
       // alert('Vui lòng chọn ít nhất một thể loại!');
       // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
       document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
-      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+      // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+      //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      // });
+      Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        text: 'Vui lòng chọn ít nhất 1 thể loại',
+        showConfirmButton: true, 
+      }).then(() => {
         document.addEventListener("click", handleOutsideClickUpdateFilm, true);
       });
+  
       return;
     }
     const name = document.getElementById('updateMovieName').value;
@@ -554,9 +609,8 @@ formUpdate.addEventListener('submit', async (event) => {
             Swal.fire({
               position: 'top',
               icon: 'error',
-              title: 'Lỗi',
-              text: 'Phim đã đặt lịch chiếu',
-              timer: 2000
+              title: 'THẤT BẠI',
+              text: 'Phim đã đặt lịch chiếu', 
             }).then(() => {
               document.addEventListener("click", handleOutsideClickUpdateFilm, true);
             });
@@ -566,9 +620,8 @@ formUpdate.addEventListener('submit', async (event) => {
           Swal.fire({
             position: 'top',
             icon: 'error',
-            title: 'Lỗi',
-            text: 'Thông tin phim mới không hợp lệ',
-            timer: 2000
+            title: 'THẤT BẠI',
+            text: 'Thông tin phim mới không hợp lệ', 
           }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateFilm, true);
           });
@@ -579,9 +632,8 @@ formUpdate.addEventListener('submit', async (event) => {
           Swal.fire({
             position: 'top',
             icon: 'error',
-            title: 'Lỗi',
-            text: 'Ảnh thêm vào poster không hợp lệ',
-            timer: 2000
+            title: 'THẤT BẠI',
+            text: 'Ảnh thêm vào poster không hợp lệ', 
           }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateFilm, true);
           });
@@ -592,9 +644,8 @@ formUpdate.addEventListener('submit', async (event) => {
           Swal.fire({
             position: 'top',
             icon: 'error',
-            title: 'Lỗi',
-            text: 'Ảnh thêm vào AdsPoster không hợp lệ',
-            timer: 2000
+            title: 'THẤT BẠI',
+            text: 'Ảnh thêm vào AdsPoster không hợp lệ', 
           }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateFilm, true);
           });
@@ -603,7 +654,13 @@ formUpdate.addEventListener('submit', async (event) => {
         //Swal.fire('Đã lưu', '', 'success')
       }
       else if (result.isDenied) {
-        Swal.fire('Các thay đổi không được lưu', '', 'info')
+        // Swal.fire('Các thay đổi không được lưu', '', 'info')
+        Swal.fire({
+          position: 'top',
+          icon: 'warning',
+          text: 'Các thay đổi không được lưu',
+          showConfirmButton: true, 
+        })  
       }
     })
   }
@@ -835,9 +892,18 @@ form.addEventListener('submit', async (event) => {
     // alert('Vui lòng chọn ít nhất một thể loại!');
     // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
     document.removeEventListener("click", handleOutsideClickAddFilm, true);
-      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+      // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+      //   document.addEventListener("click", handleOutsideClickAddFilm, true);
+      // });
+      Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        text: 'Vui lòng chọn ít nhất 1 thể loại',
+        showConfirmButton: true, 
+      }).then(() => {
         document.addEventListener("click", handleOutsideClickAddFilm, true);
       });
+  
     return;
   }
   const name = document.getElementById('name').value;
@@ -894,10 +960,10 @@ form.addEventListener('submit', async (event) => {
         Swal.fire({
           position: 'top',
           icon: 'error',
-          title: 'Lỗi',
-          text: 'Thêm phim mới không thành công',
-          footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
-          timer: 2000
+          title: 'THẤT BẠI',
+          text: 'Thông tin bạn nhập vào không hợp lệ',
+          // footer: '<a>Thông tin bạn nhập vào không hợp lệ</a>',
+          // timer: 2000
         }).then(() => {
           document.addEventListener("click", handleOutsideClickAddFilm, true);
         });

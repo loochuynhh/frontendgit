@@ -324,7 +324,12 @@ function Seat() {
         btnSave.textContent = "LƯU"; 
         btnSave.addEventListener("click", async (event) => {
             if (document.getElementById("roomName").value == '') { 
-                Swal.fire('Vui lòng nhập tên phòng');
+                Swal.fire({
+                    position: 'top',
+                    text: 'Vui lòng nhập tên phòng',
+                    icon: 'warning', 
+                    confirmButtonText: 'OK'
+                }) 
             } else { Save(); }
         })
         let btnCancel = document.createElement("button");
@@ -351,18 +356,18 @@ function GetRowCol() {
         Swal.fire({
             position: 'top',
             text: 'Số lượng hàng ghế không được lớn hơn 25',
-            icon: 'error', 
+            icon: 'warning', 
             confirmButtonText: 'OK'
-        }).then((result) => { 
+        }).then(() => { 
             document.getElementById("row").value = "";
         });
     }else if (parseInt(col) > 15){
         Swal.fire({
             position: 'top',
             text: 'Số lượng cột ghế không được lớn hơn 15',
-            icon: 'error', 
+            icon: 'warning', 
             confirmButtonText: 'OK'
-        }).then((result) => { 
+        }).then(() => { 
             document.getElementById("col").value = "";
         }); 
     }else{
@@ -444,16 +449,16 @@ function createRoomforUpdate() {
     return newRoom;
 }
 function DeleteRoom() {
-    Swal.fire({
-        title: 'Bạn có chắc chắn muốn xóa phòng này',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            if (roomSelected !== "-1" && roomSelected !== "-2") {
+    if (roomSelected !== "-1" && roomSelected !== "-2"){
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa phòng này',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK',  
+        }).then((result) => {
+            if (result.isConfirmed) {
                 fetch(URLROOM + "/" + roomSelected, {
                     method: 'DELETE',
                     headers: {
@@ -471,27 +476,33 @@ function DeleteRoom() {
                         Swal.fire({
                             position: 'top',
                             icon: 'error',
-                            title: 'Xóa phòng chiếu thất bại',
-                            text: 'Phòng chiếu đã tồn tại lịch chiếu',
-                            timer: 2000
+                            title: 'THẤT BẠI',
+                            text: 'Phòng chiếu đã tồn tại lịch chiếu', 
                         })
                     }
                     if (response.ok) { 
                         Swal.fire({
                             position: 'top',
                             icon: 'success',
-                            title: 'Xóa phòng chiếu thành công',
+                            title: 'Xóa Phòng Chiếu Thành Công',
                             showConfirmButton: false,
                             timer: 1500
-                        }).then((result) => { 
+                        }).then(() => { 
                             init(); 
                         });  
                     }
                 })
-
             }
-        }
-    })
+        })
+    }else{
+        Swal.fire({
+            position: 'top',
+            text: 'Chọn 1 phòng chiếu để xóa',
+            icon: 'warning', 
+            confirmButtonText: 'OK'
+        }) 
+    }
+    
 }
 
 function Save() {
@@ -520,10 +531,9 @@ function Save() {
                     Swal.fire({
                         position: 'top',
                         icon: 'error',
-                        title: 'Đổi trạng thái phòng chiếu thất bại',
-                        text: 'Phòng chiếu đã có lịch đặt',
-                        // footer: '<a>Phòng chiếu đã có lịch đặt</a>',
-                        timer: 2000
+                        title: 'THẤT BẠI',
+                        text: 'Phòng chiếu đã có lịch đặt', 
+                        // footer: '<a>Phòng chiếu đã có lịch đặt</a>', 
                     })
                 }
                 if (response.ok) {
@@ -531,10 +541,11 @@ function Save() {
                     Swal.fire({
                         position: 'top',
                         icon: 'success',
-                        title: 'Đổi trạng thái phòng chiếu thành công',
+                        title: 'Đổi Trạng Thái Phòng Chiếu Thành Công',
                         showConfirmButton: false,
+                        width: '50%',
                         timer: 1500
-                    }).then((result) => {
+                    }).then(() => {
                         init();
                     });  
                 }
@@ -563,9 +574,8 @@ function Save() {
                     Swal.fire({
                         position: 'top',
                         icon: 'error',
-                        title: 'Đổi trạng thái phòng chiếu thất bại',
-                        text: 'Phòng chiếu phải ở trạng thái đang sửa',
-                        timer: 2000, 
+                        title: 'THẤT BẠI',
+                        text: 'Phòng chiếu phải ở trạng thái đang sửa', 
                     })
                 } 
                 if (response.ok) {
@@ -573,10 +583,11 @@ function Save() {
                     Swal.fire({
                         position: 'top',
                         icon: 'success',
-                        title: 'Cập nhật phòng chiếu thành công',
+                        title: 'Cập Nhật Phòng Chiếu Thành Công',
                         showConfirmButton: false,
-                        timer: 1500
-                    }).then((result) => {
+                        timer: 1500,
+                        width: '50%'
+                    }).then(() => {
                         init();
                     });  
                 }
@@ -606,19 +617,18 @@ function Save() {
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
-                    title: 'Thêm phòng chiếu thất bại',
-                    text: 'Tên phòng chiếu đã tồn tại',
-                    timer: 2000
+                    title: 'THẤT BẠI',
+                    text: 'Tên Phòng Chiếu Đã Tồn Tại', 
                 })
             }
             if (response.ok) { 
                 Swal.fire({
                     position: 'top',
                     icon: 'success',
-                    title: 'Thêm phòng chiếu thành công',
+                    title: 'Thêm Phòng Chiếu Thành Công',
                     showConfirmButton: false,
                     timer: 1000
-                }).then((result) => {
+                }).then(() => {
                     init();
                 });  
             }
