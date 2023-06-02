@@ -399,25 +399,65 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-                //location.reload();
-                // showAlertTimeOut('Thêm lịch chiếu mới không thành công');
+                
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
+                    if (errorMessage.toString().includes("schedule conflict")) {
+                        // showAlertTimeOut("Phòng chiếu này đã có lịch chiếu trong khung giờ này");
+                        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Thêm lịch chiếu không thành công',
+                            footer: "<a> Phòng chiếu đã có lịch chiếu trong khung giờ này </a>",
+                            timer: 2000
+                        }).then(() => {
+                            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+                        });
+                    }
+                    if (errorMessage == 'Film deleted') {
+                        // showAlertTimeOut("Phim này đã bị xóa");
+                        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Thêm lịch chiếu không thành công',
+                            footer: '<a>Phim này đã bị xóa</a>',
+                            timer: 2000
+                        }).then(() => {
+                            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+                        });
+                    }
+                    if (errorMessage == 'Room is repairing') {
+                        // showAlertTimeOut("Phòng chiếu đang sửa chữa");
+                        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Thêm lịch chiếu không thành công',
+                            footer: '<a>Phòng chiếu đang sửa chữa</a>',
+                            timer: 2000
+                        }).then(() => {
+                            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+                        });
+                    }
                 })
                 document.removeEventListener("click", handleOutsideClickAddSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'Lỗi',
-                    text: 'Thêm lịch chiếu mới không thành công',
+                    text: 'Thêm không thành công',
                     timer: 2000
                 }).then(() => {
                     document.addEventListener("click", handleOutsideClickAddSchedule, true);
                 });
-                throw new Error('Đã xảy ra lỗi khi thêm lịch chiếu mới');
+                //location.reload();
+                throw new Error('Đã xảy ra lỗi khi thêm phim');
             }
-            //location.reload();
-            // showAlertTimeOut('Thêm lịch chiếu mới thành công');
             Swal.fire({
                 position: 'top',
                 icon: 'success',
@@ -429,18 +469,7 @@ scheduleform.addEventListener('submit', async (event) => {
             });
         })
         .catch(error => {
-            //location.reload();
-            // showAlertTimeOut('Thêm lịch chiếu không thành công');
-            document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-            Swal.fire({
-                position: 'top',
-                icon: 'error',
-                title: 'Lỗi',
-                text: 'Thêm lịch chiếu mới không thành công',
-                timer: 1000
-            }).then(() => {
-                document.addEventListener("click", handleOutsideClickAddSchedule, true);
-            });
+            
             console.error(error);
         });
 
@@ -520,8 +549,6 @@ async function updateSchedule(id) {
     var Schedule = await getScheduleById(id);
     document.getElementById('formFilmUpdate').value = Schedule.filmName;
     document.getElementById('formRoomUpdate').value = Schedule.roomName;
-    // document.getElementById('dateScheduleUpdate').value = movie.actor;
-    // document.getElementById('hourScheduleUpdate').value = movie.director;
     var date = new Date(Schedule.startTime);
     var day = date.getDate();
     var month = date.getMonth() + 1; // Tháng tính từ 0 đến 11, cần cộng thêm 1 để đúng tháng
