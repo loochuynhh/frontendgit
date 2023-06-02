@@ -193,9 +193,12 @@ function loadRevenueDetail() {
 
 function loadRevenueBySeatType(data) {
     var revenue = []
-    revenue.push(data.seatRevenue.Thường);
-    revenue.push(data.seatRevenue.Đôi);
-    revenue.push(data.seatRevenue.VIP);
+    if (data.seatRevenue.Thường !== undefined) revenue.push(data.seatRevenue.Thường);
+    else revenue.push(0);
+    if (data.seatRevenue.Đôi !== undefined) revenue.push(data.seatRevenue.Đôi);
+    else revenue.push(0);
+    if (data.seatRevenue.VIP !== undefined) revenue.push(data.seatRevenue.VIP);
+    else revenue.push(0);
     var sumAllSeat = data.seatRevenue.Thường + data.seatRevenue.Đôi + data.seatRevenue.VIP
     if (sumAllSeat !== 0) {
         pcThuong = ((data.seatRevenue.Thường / sumAllSeat) * 100).toFixed(1) + "%";
