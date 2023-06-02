@@ -28,17 +28,20 @@
 }
 
 .VIP {
-    background-color: #f5c342;
+    /* background-color: #f5c342; */
     color: white;
 }
 
 .Double {
-    background-color: green;
+    /* background-color: green; */
+    width: 62px !important; 
+    height: 56px; 
     color: white;
+    margin-right: 2.1px; 
 }
 
 .Normal {
-    background-color: #dcdee1;
+    /* background-color: #dcdee1; */
     color: black;
 }
 
@@ -83,17 +86,27 @@
     /* padding-left: 10vw; */
 } 
 
-li {
-    /* text-align: center; */
+li { 
     display: inline-block;
-    background-color: #dcdee1;
-    width: 40px;
-    height: 40px;
-    margin-right: 7px;
+    /* background-color: #dcdee1; */
+    width: 60px;
+    height: 60px;
+    /* margin-right: 1px; */
     text-align: center;
     line-height: 40px;
     color: 44464b;
     cursor: pointer;
+}
+.seat-label { 
+    color: #ca3939;
+    /* color: black; */
+    font-size: 15px;  
+    font-weight: bolder;   
+}
+
+.seat-label-double{
+    position: relative;
+    right: -50%;
 }
 
 .screen {

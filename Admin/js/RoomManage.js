@@ -1,5 +1,5 @@
 const URLROOM = "https://localhost:44308/api/room"; 
-var genre = 1, roomSelected = "", checkUpdate = 1, checkRoomStatus;
+var genre = 1, roomSelected = "", checkUpdate = 1, checkRoomStatus, row, col;
 
 window.onload = init();
 
@@ -128,12 +128,18 @@ function loadTypeSeat(listSeat) {
                 switch (element.seatTypeId) {
                     case 1:
                         {
-                            liList[index].classList.add("selected", "VIP");
+                            li.classList.add("selected", "VIP");
+                            li.style.backgroundImage = "url('./Image/seatVip.svg')";
+                            li.style.backgroundSize = "cover";
+                            li.style.backgroundPosition = "center";
                             break;
                         }
                     case 2:
                         {
-                            liList[index].classList.add("selected", "Double");
+                            li.classList.add("selected", "Double");
+                            li.style.backgroundImage = "url('./Image/seatDouble.svg')";
+                            li.style.backgroundSize = "cover";
+                            li.style.backgroundPosition = "center";
                             break;
                         }
                 }
@@ -149,28 +155,128 @@ function changeSeatOption(li) {
     if (genre === "VIP") {
         if (!li.classList.contains("selected")) {
             li.classList.add("selected", "VIP");
+            li.style.backgroundImage = "url('./Image/seatVip.svg')";
+            li.style.backgroundSize = "cover";
+            li.style.backgroundPosition = "center";
         } else {
             if (li.classList.contains("Double")) {
                 li.classList.remove("Double");
                 li.classList.add("VIP");
-            } else
+                li.style.backgroundImage = "url('./Image/seatVip.svg')";
+                li.style.backgroundSize = "cover";
+                li.style.backgroundPosition = "center";
+            } else{
                 li.classList.remove("selected", "Double", "VIP");
+                li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+                li.style.backgroundSize = "cover";
+                li.style.backgroundPosition = "center";
+            }
         }
     }
     if (genre === "Đôi") {
         if (!li.classList.contains("selected")) {
             li.classList.add("selected", "Double");
+            li.style.backgroundImage = "url('./Image/seatDouble.svg')";
+            li.style.backgroundSize = "cover";
+            li.style.backgroundPosition = "center";
         } else {
             if (li.classList.contains("VIP")) {
                 li.classList.remove("VIP");
                 li.classList.add("Double");
-            } else
+                li.style.backgroundImage = "url('./Image/seatDouble.svg')";
+                li.style.backgroundSize = "cover";
+                li.style.backgroundPosition = "center";
+            } else{
                 li.classList.remove("selected", "Double", "VIP");
+                li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+                li.style.backgroundSize = "cover";
+                li.style.backgroundPosition = "center";
+            }
         }
     }
     if (genre === "Thường") {
         li.classList.remove("selected", "VIP", "Double");
+        li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+        li.style.backgroundSize = "cover";
+        li.style.backgroundPosition = "center";
     }
+}
+function changeRowSeatOption(liRow, rowIndex){
+    getSeatOption();
+    let liList = document.querySelectorAll(".seatMap");
+    let colCount = document.getElementById("col").value;
+    if(!liRow.classList.contains("selected")) console.log("!selected")
+
+    liList.forEach((li, index) => {
+        let rowCoords = Math.floor(index / colCount) + 1; // lấy tọa độ hàng
+        let colCoords = index % colCount + 1; // lấy tọa độ cột   
+        if (rowCoords == rowIndex){ 
+            if (genre === "VIP") {
+                if (!liRow.classList.contains("selected") || (liRow.classList.contains("selected") && liRow.classList.contains("seatRootDouble"))) {
+                    li.classList.remove("Double");
+                    li.classList.add("selected", "VIP");
+                    li.style.backgroundImage = "url('./Image/seatVip.svg')";
+                    li.style.backgroundSize = "cover";
+                    li.style.backgroundPosition = "center";  
+                } else {
+                    li.classList.remove("selected", "Double", "VIP");
+                    li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+                    li.style.backgroundSize = "cover";
+                    li.style.backgroundPosition = "center";  
+                }
+            }
+            else if (genre === "Đôi") {
+                if (!liRow.classList.contains("selected") || (liRow.classList.contains("selected") && liRow.classList.contains("seatRootVIP"))) {
+                    li.classList.remove("VIP");
+                    li.classList.add("selected", "Double");
+                    li.style.backgroundImage = "url('./Image/seatDouble.svg')";
+                    li.style.backgroundSize = "cover";
+                    li.style.backgroundPosition = "center"; 
+                    // liRow.classList.add("seatRootDouble");
+                } else {
+                    li.classList.remove("selected", "Double", "VIP");
+                    li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+                    li.style.backgroundSize = "cover";
+                    li.style.backgroundPosition = "center";   
+                }
+            }
+            else if (genre === "Thường") {
+                li.classList.remove("selected", "Double", "VIP");
+                li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+                li.style.backgroundSize = "cover";
+                li.style.backgroundPosition = "center";  
+            }
+        } 
+    }); 
+    if (genre === "VIP") {
+        if (!liRow.classList.contains("selected")) { 
+            liRow.classList.add("seatRootVIP");
+            liRow.classList.add("selected");
+        } else {
+            if (liRow.classList.contains("seatRootDouble")){ 
+                liRow.classList.remove("seatRootDouble");
+                liRow.classList.add("seatRootVIP");
+            } 
+            liRow.classList.remove("selected");
+        }
+    }
+    else if (genre === "Đôi") {
+        if (!liRow.classList.contains("selected")) { 
+            liRow.classList.add("seatRootDouble");
+            liRow.classList.add("selected");
+        } else {
+            if(liRow.classList.contains("seatRootVIP")){ 
+                liRow.classList.remove("seatRootVIP");
+                liRow.classList.add("seatRootDouble");
+            }  
+            liRow.classList.remove("selected");
+        }
+    }
+    else if (genre === "Thường") {
+        liRow.classList.remove("seatRootVIP", "seatRootDouble","selected");  
+    }
+    // if (!liRow.classList.contains("selected")) liRow.classList.add("selected");
+    // else liRow.classList.remove("selected");
 }
 function Seat() {
     if (col !== "" && row !== "") {
@@ -186,9 +292,18 @@ function Seat() {
                 if (j == "0" || j == parseInt(col) + 1) {
                     li.className = "seat-root"; 
                     li.textContent = String.fromCharCode(64 + i);
+                    li.addEventListener("click", function () { 
+                        changeRowSeatOption(this,i);
+                    });
                 } else {
-                    li.className = "seatMap";
-                    li.textContent = j;
+                    li.className = "seatMap"; 
+                    li.style.backgroundImage = "url('./Image/seatNormal.svg')";
+                    li.style.backgroundSize = "cover";
+                    li.style.backgroundPosition = "center";
+                    let span = document.createElement("span");
+                    span.textContent = j;
+                    span.classList.add("seat-label");
+                    li.appendChild(span); 
                     if (checkRoomStatus === "Đang sửa") {
                         li.addEventListener("click", function () {
                             changeSeatOption(this);
@@ -241,10 +356,10 @@ function GetRowCol() {
         }).then((result) => { 
             document.getElementById("row").value = "";
         });
-    }else if (parseInt(col) > 20){
+    }else if (parseInt(col) > 15){
         Swal.fire({
             position: 'top',
-            text: 'Số lượng cột ghế không được lớn hơn 20',
+            text: 'Số lượng cột ghế không được lớn hơn 15',
             icon: 'error', 
             confirmButtonText: 'OK'
         }).then((result) => { 
