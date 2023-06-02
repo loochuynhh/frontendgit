@@ -252,7 +252,11 @@ formUpdate.addEventListener('submit', async (event) => {
     });
     if (!isChecked) {
       // alert('Vui lòng chọn ít nhất một thể loại!');
-      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
+      //Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
+      document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+        document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      });
       return;
     }
     Swal.fire({
@@ -362,12 +366,20 @@ formUpdate.addEventListener('submit', async (event) => {
   else {
     if (!updateMoviePoster.files || updateMoviePoster.files.length === 0) {
       // alert('Vui lòng chọn Poster');
-      Swal.fire('Vui lòng chọn ảnh Poster', 1500);
+      // Swal.fire('Vui lòng chọn ảnh Poster', 1500);
+      document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+      Swal.fire('Vui lòng chọn ảnh Poster', 1500).then(() => {
+        document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      });
       return;
     }
     if (!updateMovieAdposter.files || updateMovieAdposter.files.length === 0) {
       // alert('Vui lòng chọn ảnh AdsPoster');
-      Swal.fire('Vui lòng chọn AdsPoster', 1500);
+      // Swal.fire('Vui lòng chọn AdsPoster', 1500);
+      document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+      Swal.fire('Vui lòng chọn AdsPoster', 1500).then(() => {
+        document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      });
       return;
     }
 
@@ -390,7 +402,11 @@ formUpdate.addEventListener('submit', async (event) => {
     });
     if (!isChecked) {
       // alert('Vui lòng chọn ít nhất một thể loại!');
-      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
+      // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
+      document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
+      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+        document.addEventListener("click", handleOutsideClickUpdateFilm, true);
+      });
       return;
     }
     const name = document.getElementById('updateMovieName').value;
@@ -816,8 +832,12 @@ form.addEventListener('submit', async (event) => {
   });
 
   if (!isChecked) {
-    alert('Vui lòng chọn ít nhất một thể loại!');
-    Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
+    // alert('Vui lòng chọn ít nhất một thể loại!');
+    // Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500);
+    document.removeEventListener("click", handleOutsideClickAddFilm, true);
+      Swal.fire('Vui lòng chọn ít nhất 1 thể loại', 1500).then(() => {
+        document.addEventListener("click", handleOutsideClickAddFilm, true);
+      });
     return;
   }
   const name = document.getElementById('name').value;
