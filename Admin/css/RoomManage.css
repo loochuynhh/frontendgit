@@ -27,18 +27,18 @@
 }
 
 .VIP { 
-    color: white;
+    /* color: white; */
 }
 
 .Double { 
     width: 62px !important; 
     height: 56px; 
-    color: white;
+    /* color: white; */
     margin-right: 2.1px; 
 }
 
 .Normal { 
-    color: black;
+    /* color: black; */
 }
 
 .change-room {
@@ -91,10 +91,10 @@ li {
     font-weight: bolder;   
 }
 
-.seat-label-double{
+/* .seat-label-double{
     position: relative;
     right: -50%;
-}
+} */
 
 .screen {
     width: 60%;
