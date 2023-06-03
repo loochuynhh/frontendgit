@@ -12,6 +12,11 @@
     padding: 1%;
     margin-right: 2%;
     margin-left: auto;
+    width: 2.9vw;
+    height: 2.9vw;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .list-film-select:hover {
@@ -83,6 +88,10 @@ ul li {
 
 .selected { 
     border: 2px solid rgb(30, 190, 113);   
+}
+
+.Booked { 
+    color: black;
 }
 
 #bill-child {
