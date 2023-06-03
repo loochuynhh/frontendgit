@@ -85,7 +85,7 @@ function getStaffFunction() {
               Swal.fire({
                 position: 'top',
                 icon: 'success',
-                title: 'Phim đã được xóa',
+                title: 'Nhân viên đã được xóa',
                 showConfirmButton: false,
                 timer: 1500
               })
@@ -147,7 +147,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       position: 'top',
       icon: 'error',
       title: 'THẤT BẠI',
-      text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số', 
+      text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
     }).then(() => {
       document.addEventListener("click", handleOutsideClickAddStaff, true);
     });
@@ -160,7 +160,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
   var Phone = document.getElementById("phoneNumber").value;
   var gender = document.getElementById("gender").value;
   var Gender = false;
-  if (gender.value === "0") {
+  if (gender == "0") {
     Gender = true;
   }
   if (!isValidPhoneNumber(Phone)) {
@@ -218,7 +218,37 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     })
   })
     .then(response => {
-      if (response.ok) {
+      if (!response.ok) {
+        response.text().then(errorMessage => {
+          console.log(errorMessage);
+          if (errorMessage == 'Email already exist') {
+            // showAlertTimeOut("Phòng chiếu này đã có lịch chiếu trong khung giờ này");
+            document.removeEventListener("click", handleOutsideClickAddStaff, true);
+            Swal.fire({
+              position: 'top',
+              icon: 'error',
+              title: 'THẤT BẠI',
+              text: 'Email này đã được sử dụng',
+            }).then(() => {
+              document.addEventListener("click", handleOutsideClickAddStaff, true);
+            });
+          }
+
+        })
+        //showAlertTimeOut('Chỉnh sửa không thành công');
+        document.removeEventListener("click", handleOutsideClickAddStaff, true);
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'THẤT BẠI',
+          text: 'Thông tin nhập vào không hợp lệ',
+        }).then(() => {
+          document.addEventListener("click", handleOutsideClickAddStaff, true);
+        });
+        //location.reload();
+        throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
+      }
+      else {
         Swal.fire({
           position: 'top',
           icon: 'success',
@@ -226,26 +256,14 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
+          Overlay.style.display = "none";
+          overlaySignup.style.display = "none";
           getStaffFunction();
         });
-      } else {
-
       }
+
     })
     .catch(error => {
-      // showUnsuccess();
-      // showAlertTimeOutSignup("Đăng ký thất bại!");
-      document.removeEventListener("click", handleOutsideClickAddStaff, true);
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'THẤT BẠI',
-        text: 'Thông tin nhập vào không hợp lệ',
-        // footer: '<a>Thông tin nhập vào không hợp lệ/a>',
-        // timer: 1000
-      }).then(() => {
-        document.addEventListener("click", handleOutsideClickAddStaff, true);
-      });
       console.error("Lỗi khi thêm tài khoản nhân viên:", error);
     });
 });

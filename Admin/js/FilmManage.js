@@ -62,21 +62,6 @@ function hover() {
   });
 }
 
-function showAlert(message) {
-  document.getElementById("modal-message").innerHTML = message;
-  var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
-  myModal.show();
-}
-
-function showAlertTimeOut(message) {
-  document.getElementById("modal-message2").innerHTML = message;
-  var myModal = new bootstrap.Modal(document.getElementById('exampleModal2'), {});
-  myModal.show();
-  setTimeout(function () {
-    myModal.hide();
-  }, 800);
-}
-
 function deleteUsers(i) {
   console.log(`${url}/${film}/${i}`);
   fetch(`${url}/${film}/${i}`, {
@@ -211,9 +196,6 @@ reviewImagePoster.addEventListener('click', function (event) {
     }).then(() => {
       document.addEventListener("click", handleOutsideClickUpdateFilm, true);
     });
-    // Swal.fire('Vui lòng chọn file', 1500).then(() => {
-    //   document.addEventListener("click", handleOutsideClickUpdateFilm, true);
-    // });
 
   }
 });
@@ -363,7 +345,7 @@ formUpdate.addEventListener('submit', async (event) => {
               //location.reload();
               throw new Error('Đã xảy ra lỗi khi chỉnh sửa phim');
             }
-            showAlertTimeOut('Sửa phim thành công');
+            // showAlertTimeOut('Sửa phim thành công');
             Swal.fire({
               position: 'top',
               icon: 'success',
@@ -589,7 +571,7 @@ formUpdate.addEventListener('submit', async (event) => {
             check = 3;
             console.error(error);
           });
-
+        console.log(check);
         if (check == 0) {
           // showAlertTimeOut('Chỉnh sửa phim thành công');
           Swal.fire({
@@ -599,6 +581,7 @@ formUpdate.addEventListener('submit', async (event) => {
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
+            
             GetFilm();
           });
           //location.reload();

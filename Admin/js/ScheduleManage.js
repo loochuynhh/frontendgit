@@ -289,6 +289,8 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
+                overlay.style.display = "none";
+                overlayAddSchedule.style.display = "none";
                 loadSchedule(getCurrentDate(), getCurrentDate());
             });
         })
@@ -560,6 +562,8 @@ scheduleform.addEventListener('submit', async (event) => {
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
+                overlay.style.display = "none";
+                overlayAddSchedule.style.display = "none";
                 loadSchedule(getCurrentDate(), getCurrentDate());
             });
         })
