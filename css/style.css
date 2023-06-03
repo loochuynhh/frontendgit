@@ -7,6 +7,10 @@ ul.nav2 {
   margin-bottom: 0;
 }
 
+.dropdown-toggle::after {
+  border-top-color: white;
+} 
+
 .nav-link2 {
   padding-right: 0;
   padding-left: 0;

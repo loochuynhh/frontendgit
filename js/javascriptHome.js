@@ -152,10 +152,11 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     document.removeEventListener("click", handleOutsideClickSignup, true);
     Swal.fire({
       position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
+      icon: 'warning',
+      // title: 'Lỗi',
       text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-      timer: 2000
+      confirmButtonText: 'OK'
+      // timer: 2000
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
@@ -174,11 +175,12 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     document.removeEventListener("click", handleOutsideClickSignup, true);
     Swal.fire({
       position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
-      text: 'Số điện thoại không hợp lệ',
-      footer: '<a>Số điện thoại gồm 10 số</a>',
-      timer: 2000
+      icon: 'warning',
+      // title: 'Lỗi',
+      text: 'Số điện thoại gồm 10 số',
+      confirmButtonText: 'OK'
+      // footer: '<a>Số điện thoại gồm 10 số</a>',
+      // timer: 2000
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
@@ -191,10 +193,11 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     document.removeEventListener("click", handleOutsideClickSignup, true);
     Swal.fire({
       position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
+      icon: 'warning',
+      // title: 'Lỗi',
       text: 'Ngày sinh không quá 3 tuổi và trước 1900',
-      timer: 2500
+      confirmButtonText: 'OK'
+      // timer: 2500
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
@@ -287,10 +290,11 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
     document.removeEventListener("click", handleOutsideClickLogin, true);
     Swal.fire({
       position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
+      icon: 'warning',
+      // title: 'Lỗi',
       text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-      timer: 2500
+      confirmButtonText: 'OK'
+      // timer: 2500
     }).then(() => {
       document.addEventListener("click", handleOutsideClickLogin, true);
     });
@@ -312,11 +316,13 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
         document.removeEventListener("click", handleOutsideClickLogin, true);
         Swal.fire({
           position: 'top',
-          icon: 'error',
-          title: 'Lỗi',
-          text: 'Tài khoản không chính xác',
-          footer: '<a>Có thể bạn đã nhập sai mật khẩu hoặc tài khoản không tồn tại</a>',
-          timer: 2000
+          icon: 'warning',
+          title: 'Tài khoản không chính xác',
+          text: 'Có thể bạn đã nhập sai mật khẩu hoặc tài khoản không tồn tại',
+          confirmButtonText: 'OK',
+          width: '45%'
+          // footer: '<a>Có thể bạn đã nhập sai mật khẩu hoặc tài khoản không tồn tại</a>',
+          // timer: 2000
         }).then(() => {
           document.addEventListener("click", handleOutsideClickLogin, true);
         });
@@ -469,11 +475,12 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
-      text: 'Số điện thoại không hợp lệ',
-      footer: '<a>Số điện thoại gồm 10 số</a>',
-      timer: 2000
+      icon: 'warning',
+      // title: 'Lỗi',
+      text: 'Số điện thoại chỉ được gồm 10 số',
+      confirmButtonText: 'OK'
+      // footer: '<a>Số điện thoại gồm 10 số</a>',
+      // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickInfo, true);
     });
@@ -488,10 +495,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
+      icon: 'warning',
+      // title: 'Lỗi',
       text: 'Ngày sinh không quá 3 tuổi và trước 1900',
-      timer: 2000
+      confirmButtonText: 'OK'
+      // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickInfo, true);
     });
@@ -543,10 +551,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       document.removeEventListener("click", handleOutsideClickInfo, true);
       Swal.fire({
         position: 'top',
-        icon: 'error',
-        title: 'Lỗi',
+        icon: 'warning',
+        // title: 'Lỗi',
         text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-        timer: 2000
+        // timer: 2000
+        confirmButtonText: 'OK'
       }).then(() => {
         document.addEventListener("click", handleOutsideClickInfo, true);
       });
@@ -574,10 +583,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
               document.removeEventListener("click", handleOutsideClickInfo, true);
               Swal.fire({
                 position: 'top',
-                icon: 'error',
-                title: 'Lỗi',
+                icon: 'warning',
+                // title: 'Lỗi',
                 text: 'Mật khẩu cũ không chính xác',
-                timer: 2000
+                confirmButtonText: 'OK'
+                // timer: 2000
               }).then(() => {
                 document.addEventListener("click", handleOutsideClickInfo, true);
               });
@@ -588,10 +598,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
               document.removeEventListener("click", handleOutsideClickInfo, true);
               Swal.fire({
                 position: 'top',
-                icon: 'error',
-                title: 'Lỗi',
-                text: 'Chỉnh sửa mật khẩu thất bại',
-                timer: 2000
+                icon: 'warning',
+                // title: 'Lỗi',
+                title: 'Chỉnh sửa mật khẩu thất bại',
+                // timer: 2000
+                confirmButtonText: 'OK'
               }).then(() => {
                 document.addEventListener("click", handleOutsideClickInfo, true);
               });

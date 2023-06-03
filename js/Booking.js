@@ -51,7 +51,12 @@ fetch(URLALLFILM)
 
             const pAgeLimit = document.createElement("p");
             pAgeLimit.classList.add("age-limit");
-            pAgeLimit.innerHTML = "C" + film.ageLimit;
+            if(film.ageLimit === 0){
+                pAgeLimit.innerHTML = "P";
+                pAgeLimit.classList.add("bg-success");
+            }else{
+                pAgeLimit.innerHTML = "C" + film.ageLimit;
+            }
 
             liFilm.appendChild(imgFilm);
             liFilm.appendChild(pFilmName);
