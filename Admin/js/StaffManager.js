@@ -190,7 +190,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       position: 'top',
       icon: 'error',
       title: 'THẤT BẠI',
-      text: 'Tuôi không quá 18 tuổi và năm sinh nhỏ hơn 1900',
+      text: 'Tối thiểu 18 tuổi và năm sinh nhỏ hơn 1900',
       // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickAddStaff, true);
