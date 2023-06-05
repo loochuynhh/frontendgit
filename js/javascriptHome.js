@@ -526,11 +526,9 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     .then(response => {
       if (response.ok) {
         // showAlert("Chỉnh sửa thành công!");
-
       } else {
         // showAlert("Chỉnh sửa thất bại!");
         localStorage.setItem('put', 1);
-
       }
     })
     .catch(error => {
@@ -608,6 +606,32 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
               });
             }
             localStorage.setItem('put', 4);
+          }).then(() =>{
+            if (localStorage.getItem('put') == 0) {
+              // showAlert("Chỉnh sửa thành công");
+              Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'Chỉnh sửa thành công',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              Overlay.style.display = "none";
+              OverlayInfor.style.display = "none";
+            } else if (localStorage.getItem('put') == 1) {
+              // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
+              document.removeEventListener("click", handleOutsideClickInfo, true);
+              Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Thông tin cá nhân không hợp lệ',
+                footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
+                timer: 2000
+              }).then(() => {
+                document.addEventListener("click", handleOutsideClickInfo, true);
+              });
+            }
           })
           // showAlert("Thay đổi thất thất bại!");
         }
@@ -617,30 +641,32 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
         console.error(error);
       });
   }
-
-  if (localStorage.getItem('put') == 0) {
-    // showAlert("Chỉnh sửa thành công");
-    Swal.fire({
-      position: 'top',
-      icon: 'success',
-      title: 'Chỉnh sửa thành công',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    Overlay.style.display = "none";
-    OverlayInfor.style.display = "none";
-  } else if (localStorage.getItem('put') == 1) {
-    // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
-    document.removeEventListener("click", handleOutsideClickInfo, true);
-    Swal.fire({
-      position: 'top',
-      icon: 'error',
-      title: 'Lỗi',
-      text: 'Thông tin cá nhân không hợp lệ',
-      footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
-      timer: 2000
-    }).then(() => {
-      document.addEventListener("click", handleOutsideClickInfo, true);
-    });
+  else{
+    if (localStorage.getItem('put') == 0) {
+      // showAlert("Chỉnh sửa thành công");
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Chỉnh sửa thành công',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      Overlay.style.display = "none";
+      OverlayInfor.style.display = "none";
+    } else if (localStorage.getItem('put') == 1) {
+      // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
+      document.removeEventListener("click", handleOutsideClickInfo, true);
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Thông tin cá nhân không hợp lệ',
+        footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
+        timer: 2000
+      }).then(() => {
+        document.addEventListener("click", handleOutsideClickInfo, true);
+      });
+    }
   }
+  
 }); 
