@@ -268,9 +268,18 @@ function loadTypeSeat(listSeat) {
             if (rowCoords == element.rowCoords && colCoords == element.colCoords) {
                 if (element.isBooked){
                     li.classList.add("Booked");
-                    li.style.backgroundImage = "url('/Admin/Image/seatBooked.svg')";
-                    li.style.backgroundSize = "cover";
-                    li.style.backgroundPosition = "center";
+                    if(element.seatTypeId === 1 || element.seatTypeId === 3){
+                        console.log("toa do", element.rowCoords, element.rowCoords);
+                        li.style.backgroundImage = "url('/Admin/Image/seatBooked.svg')";
+                        li.style.backgroundSize = "cover";
+                        li.style.backgroundPosition = "center";
+                    }else if (element.seatTypeId === 2){
+                        console.log("toa do",element.rowCoords, element.rowCoords);
+                        li.style.backgroundImage = "url('/Admin/Image/seatBookedDouble.svg')";
+                        li.style.backgroundSize = "cover";
+                        li.style.backgroundPosition = "center";
+                    }
+
                 } 
                 else {
                     li.setAttribute("data-value", element.seatId);
