@@ -85,7 +85,7 @@ function deleteUsers(i) {
           text: 'Phim đã có lịch chiếu', 
         })
       }
-      if (response.ok) {
+      else if (response.ok) {
         Swal.fire({
           position: 'top',
           icon: 'success',
