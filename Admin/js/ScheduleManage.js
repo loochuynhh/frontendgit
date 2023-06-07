@@ -267,6 +267,20 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
                         });
                     }
+                    if (errorMessage == 'This show had ticket') {
+                        // showAlertTimeOut("Phòng chiếu đang sửa chữa");
+                        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'THẤT BẠI',
+                            text: 'Lịch chiếu đã có vé đặt',
+                            // footer: '<a>Phòng chiếu đang sửa chữa</a>',
+                            // timer: 2000
+                        }).then(() => {
+                            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+                        });
+                    }
                 })
                 //showAlertTimeOut('Chỉnh sửa không thành công');
                 document.removeEventListener("click", handleOutsideClickUpdateSchedule, true);
@@ -541,13 +555,14 @@ scheduleform.addEventListener('submit', async (event) => {
                             document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
                     }
+                    
                 })
                 document.removeEventListener("click", handleOutsideClickAddSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'THẤT BẠI',
-                    text: 'Thêm không thành công',
+                    text: 'Thêm lịch chiếu không thành công',
                     // timer: 2000
                 }).then(() => {
                     document.addEventListener("click", handleOutsideClickAddSchedule, true);

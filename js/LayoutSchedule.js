@@ -21,6 +21,7 @@ function loadCalendar() {
         // console.log(dayOfWeek + ", ngày " + dayOfMonth);
 
         const btnDayOption = document.createElement("button");
+        
         btnDayOption.className = "btn btn-outline-secondary mx-4 btn-sm w-100";
         const spDayOfWeek = document.createElement("span");
         spDayOfWeek.className = "d-block";
@@ -32,6 +33,7 @@ function loadCalendar() {
         btnDayOption.appendChild(spDayOfMonth);
 
         btnDayOption.addEventListener("click", function () {
+               
             const buttons = document.querySelectorAll("#day-option .btn");
             buttons.forEach(button => button.classList.remove('selectedButton'));
             this.classList.add("selectedButton");
@@ -45,7 +47,7 @@ function loadCalendar() {
 
             selectDay(URLSCHEDULE);
         })
-
+        
         document.getElementById("day-option").appendChild(btnDayOption);
     });
 

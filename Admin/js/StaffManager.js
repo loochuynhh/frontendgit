@@ -6,6 +6,7 @@ const deleteStaff = 'delete-staff';
 var Overlay = document.getElementById("overlay");
 var overlaySignup = document.getElementById("overlaySignup");
 var addStaff = document.getElementById("addStaff");
+var overlayView = document.getElementById("overlayView");
 
 function handleOutsideClickAddStaff(event) {
   if (!overlaySignup.contains(event.target)) {
@@ -19,6 +20,49 @@ addStaff.addEventListener("click", function () {
   overlaySignup.style.display = "block";
   document.addEventListener("click", handleOutsideClickAddStaff, true);
 });
+
+function handleOutsideClickViewStaff(event) {
+  if (!overlayView.contains(event.target)) {
+    overlayView.style.display = "none";
+    Overlay.style.display = "none";
+    document.removeEventListener("click", handleOutsideClickViewStaff, true);
+  }
+}
+function viewStaff(id) {
+  Overlay.style.display = "block";
+  overlayView.style.display = "block";
+  document.addEventListener("click", handleOutsideClickViewStaff, true);
+  fetch(`${url}/${admins}/${getStaff}`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      'Authorization': "bearer " + localStorage.getItem('token')
+    },
+  })
+    .then(response => response.json())
+    .then(data => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].id == id) {
+          document.getElementById('nameView').value = data[i].name;
+          document.getElementById('emailView').value = data[i].email;
+          document.getElementById('phoneNumberView').value = data[i].phone;
+          document.getElementById('addressView').value = data[i].address;
+          var gender = document.getElementById("genderView");
+          if (data[i].gender == true) {
+            gender.value = "0";
+          }
+          else { gender.value = "1" }
+          var date = new Date(data[i].birth);
+          var day = date.getDate();
+          var month = date.getMonth() + 1; // Tháng tính từ 0 đến 11, cần cộng thêm 1 để đúng tháng
+          var year = date.getFullYear();
+
+          // Đặt giá trị vào các thẻ input
+          document.getElementById("dateOfBirthView").value = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+        }
+      }
+    })
+}
 
 getStaffFunction();
 function getStaffFunction() {
@@ -60,7 +104,13 @@ function getStaffFunction() {
         tdDelete.appendChild(btnDelete);
         tdNameStaff.innerHTML = data[i].name;
         tdEmail.innerHTML = data[i].email;
-        tdGender.innerHTML = data[i].gender;
+        console.log(data[i].gender);
+        if(data[i].gender == false){
+          tdGender.innerHTML = "Nữ";
+        }else{
+          tdGender.innerHTML = "Nam";
+        }
+        // tdGender.innerHTML = data[i].gender;
         tdPhoneNumber.innerHTML = data[i].phone;
         var checkdelete = true;
         btnDelete.addEventListener("click", function () {
@@ -91,6 +141,11 @@ function getStaffFunction() {
               })
             }
           })
+        });
+        trFilmTable.addEventListener("click", function () {
+          if (checkdelete == true) {
+            viewStaff(data[i].id);
+          }
         });
         trFilmTable.appendChild(tdNameStaff);
         trFilmTable.appendChild(tdEmail);

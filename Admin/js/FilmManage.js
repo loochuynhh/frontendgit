@@ -862,6 +862,7 @@ fetch(`${url}/${genre}`, {
   });
 
 form.addEventListener('submit', async (event) => {
+  
   event.preventDefault();
   const checkboxes = document.querySelectorAll('#genre-list1 input[type=checkbox]:checked');
   let isChecked = false;
@@ -961,6 +962,18 @@ form.addEventListener('submit', async (event) => {
         showConfirmButton: false,
         timer: 1500
       }).then(() => {
+        for (var i = 0; i < form.elements.length; i++) {
+          var element = form.elements[i];
+          if (element.type !== "submit" && element.type !== "button") {
+            element.value = "";
+          }
+          var checkboxes = document.querySelectorAll('#genre-list1 input[type=checkbox]');
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+          });
+        }
+        overlay.style.display = "none";
+        overlayAddFilm.style.display = "none";
         GetFilm();
       });
 
