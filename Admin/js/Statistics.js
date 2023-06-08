@@ -246,7 +246,7 @@ function loadRevenueBySeatType(data) {
     }
     // data.seatRevenue.Thường !== undefined && data.seatRevenue.Đôi !== undefined && data.seatRevenue.VIP !== undefined
     if (revenue[0] == 0 && revenue[1] == 0 && revenue[2] == 0) {
-        document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
+        // document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
         console.log("a");
     } else {
         chartRevenueBySeatType = new Chart(ctx, {
@@ -255,7 +255,7 @@ function loadRevenueBySeatType(data) {
             options: options,
             plugins: [ChartDataLabels]
         });
-        document.getElementById("sumSeatType").innerHTML = (revenue[0] + revenue[1] + revenue[2]).toLocaleString() + " VNĐ"
+        // document.getElementById("sumSeatType").innerHTML = (revenue[0] + revenue[1] + revenue[2]).toLocaleString() + " VNĐ"
     }
 }
 function loadRevenueByFilm(data) {
@@ -277,7 +277,7 @@ function loadRevenueByFilm(data) {
         labels: filmnames,
         datasets: [{
             label: "Số vé được đặt",
-            backgroundColor: "rgb(203, 68, 74)",
+            backgroundColor: "#FE6244",
             data: filmvalues
         }]
     }
@@ -308,7 +308,7 @@ function loadRevenueByFilm(data) {
             },
         },
         indexAxis: 'y',
-        barThickness: 20,
+        barThickness: 12,
         elements: {
             bar: {
                 borderWidth: 2,
