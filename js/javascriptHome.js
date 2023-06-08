@@ -26,7 +26,7 @@ var newPasswordConfirm = document.getElementById("newPasswordConfirmInfo");
 var passwordLogin = document.getElementById('passwordLogin');
 var forgotPasswordLink = document.getElementById('forgot-password-link');
 var overlayForgotPassword = document.getElementById('overlayForgotPassword');
-
+var overlaySignuplink = document.getElementById('overlaySignup-link');
 function Search() {
   console.log("Giá trị đã nhập:", document.getElementById("search").value);
   window.location.href = "http://127.0.0.1:5502/LayoutFilm.html" + "?filmName=" + document.getElementById("search").value;
@@ -90,7 +90,13 @@ forgotPasswordLink.addEventListener("click", function () {
   document.removeEventListener("click", handleOutsideClickLogin, true);
   document.addEventListener("click", handleOutsideClickForgotPassword, true);
 });
-
+overlaySignuplink.addEventListener("click", function(){
+  Overlay.style.display = "block";
+  OverlayLogin.style.display = "none";
+  OverlaySignup.style.display = "block";
+  document.removeEventListener("click", handleOutsideClickLogin, true);
+  document.addEventListener("click", handleOutsideClickSignup, true);
+});
 
 
 function handleOutsideClickLogin(event) {

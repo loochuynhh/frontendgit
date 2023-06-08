@@ -107,13 +107,6 @@ async function loadSchedule(startTime, endTime) {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             deleteSchedule(data[j].id);
-                            // Swal.fire(
-                            //     'Deleted!',
-                            //     'Lịch chiếu đã được xóa',
-                            //     'success'
-                            // ).then(() => {
-                            //     loadSchedule(getCurrentDate(), getCurrentDate());
-                            // });
                             Swal.fire({
                                 position: 'top',
                                 icon: 'success',
@@ -125,6 +118,8 @@ async function loadSchedule(startTime, endTime) {
                             });
                           
                         }
+                        checkdelete = true;
+                        
                     })
                 });
                 trFilmTable.addEventListener("click", function () {
@@ -265,6 +260,20 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                             // timer: 2000
                         }).then(() => {
                             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
+                        });
+                    }
+                    if (errorMessage == 'This show had ticket') {
+                        // showAlertTimeOut("Phòng chiếu đang sửa chữa");
+                        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+                        Swal.fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'THẤT BẠI',
+                            text: 'Lịch chiếu đã có vé đặt',
+                            // footer: '<a>Phòng chiếu đang sửa chữa</a>',
+                            // timer: 2000
+                        }).then(() => {
+                            document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
                     }
                 })
@@ -496,7 +505,7 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-
+                
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
                     if (errorMessage.toString().includes("schedule conflict")) {
@@ -541,13 +550,14 @@ scheduleform.addEventListener('submit', async (event) => {
                             document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
                     }
+                    
                 })
                 document.removeEventListener("click", handleOutsideClickAddSchedule, true);
                 Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'THẤT BẠI',
-                    text: 'Thêm không thành công',
+                    text: 'Thêm lịch chiếu không thành công',
                     // timer: 2000
                 }).then(() => {
                     document.addEventListener("click", handleOutsideClickAddSchedule, true);

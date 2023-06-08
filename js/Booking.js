@@ -158,6 +158,11 @@ function loadShow(filmId) {
                         btnSchedule.innerHTML = formatTime(new Date(time.startTime)) + " - " + formatTime(new Date(time.endTime));
 
                         btnSchedule.addEventListener("click", function () {
+                            if (!localStorage.getItem('token')) {
+                                overlay.style.display = "block";
+                                overlayLogin.style.display = "block";
+                                document.addEventListener("click", handleOutsideClickLogin, true);
+                            }
                             document.getElementById("seat").innerHTML = "";
                             billInfo.room = time.roomName;
                             billInfo.filmShow = btnSchedule.innerHTML + " | " + formatDate(result.Day);
