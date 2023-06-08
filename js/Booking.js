@@ -13,8 +13,8 @@ const URLALLFILM = "https://localhost:44308/api/film";
 var showId;                 //dùng cho hàm LoadSeat()
 var seatId = [];            //dùng lưu position, type của ghế
 
-var maxRowCoords = 0;
-var maxColCoords = 0;
+// var maxRowCoords = 0;
+// var maxColCoords = 0;
 
 var billInfo = {}
 billInfo.seat = [];
@@ -218,7 +218,10 @@ function loadSeat(showId, roomId) {
         })
         .catch(error => console.error(error));
 }
-function loadTypeSeat(listSeat) {
+function loadTypeSeat(listSeat) { 
+    console.log(listSeat);
+    var maxRowCoords = 0;
+    var maxColCoords = 0;
     listSeat.forEach(seat => {
         var rowCoords = parseInt(seat.rowCoords);
         var colCoords = parseInt(seat.colCoords);
