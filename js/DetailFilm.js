@@ -61,7 +61,12 @@ fetch(URLFILM)
         spPremiere.append(formattedDate);
 
         spLength.append(data.length);
-        spAgeLimit.append("C" + data.ageLimit);
+        if(data.ageLimit === 0){
+            spAgeLimit.append("P");
+            spAgeLimit.classList.add("text-success");
+        }else{
+            spAgeLimit.append("C" + data.ageLimit);
+        }
 
         const img = document.getElementById("imgFilm");
         img.src = data.posterUrl;

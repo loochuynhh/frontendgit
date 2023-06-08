@@ -112,7 +112,13 @@ function loadFilm(URLFILM) {
                 divGenre.appendChild(spGenre);
 
                 spLength.append(data[i].length + " Phút   |");
-                spAgeLimit.append("C" + data[i].ageLimit);
+                if(data[i].ageLimit === 0){
+                    spAgeLimit.append("P");
+                    spAgeLimit.classList.add("text-success");
+                }else{
+                    spAgeLimit.append("C" + data[i].ageLimit);
+                }
+                
                 divLength.appendChild(spLength);
                 divLength.appendChild(spAgeLimit);
 
