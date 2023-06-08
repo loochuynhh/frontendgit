@@ -140,6 +140,8 @@ function getStaffFunction() {
                 timer: 1500
               })
             }
+            checkdelete = true;
+            
           })
         });
         trFilmTable.addEventListener("click", function () {

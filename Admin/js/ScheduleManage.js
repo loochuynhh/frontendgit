@@ -107,13 +107,6 @@ async function loadSchedule(startTime, endTime) {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             deleteSchedule(data[j].id);
-                            // Swal.fire(
-                            //     'Deleted!',
-                            //     'Lịch chiếu đã được xóa',
-                            //     'success'
-                            // ).then(() => {
-                            //     loadSchedule(getCurrentDate(), getCurrentDate());
-                            // });
                             Swal.fire({
                                 position: 'top',
                                 icon: 'success',
@@ -125,6 +118,8 @@ async function loadSchedule(startTime, endTime) {
                             });
                           
                         }
+                        checkdelete = true;
+                        
                     })
                 });
                 trFilmTable.addEventListener("click", function () {
@@ -510,7 +505,7 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-
+                
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
                     if (errorMessage.toString().includes("schedule conflict")) {

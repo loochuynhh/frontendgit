@@ -316,15 +316,17 @@ formUpdate.addEventListener('submit', async (event) => {
         })
           .then(response => {
             if (!response.ok) {
+              console.log(response);
               response.text().then(errorMessage => {
-                if (errorMessage == 'The movie has a schedule but hasn\'t shown yet') {
+                console.log(errorMessage);
+                if (errorMessage == 'Can\'t update length when have show') {
                   // showAlertTimeOut("Phim đã có đặt lịch chiếu");
                   document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
                   Swal.fire({
                     position: 'top',
                     icon: 'error',
                     title: 'THẤT BẠI',
-                    text: 'Phim đã có đặt lịch chiếu', 
+                    text: 'Không thể chỉnh độ dài phim khi có lịch chiếu', 
                   }).then(() => {
                     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
                   });
@@ -336,7 +338,7 @@ formUpdate.addEventListener('submit', async (event) => {
                     position: 'top',
                     icon: 'error',
                     title: 'THẤT BẠI',
-                    text: 'Chỉnh sửa thất bại', 
+                    text: 'Chỉnh sửa phim thất bại', 
                   }).then(() => {
                     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
                   });
@@ -779,12 +781,8 @@ function GetFilm() {
           }).then((result) => {
             if (result.isConfirmed) {
               deleteUsers(data[i].id);
-              Swal.fire(
-                'Deleted!',
-                'Phim đã được xóa',
-                'success'
-              )
             }
+            checkdelete = true;
           })
         });
         trFilmTable.addEventListener("click", function () {
@@ -939,6 +937,7 @@ form.addEventListener('submit', async (event) => {
   })
     .then(response => {
       if (!response.ok) {
+        
         // showAlertTimeOut('Thêm phim mới không thành công');
         document.removeEventListener("click", handleOutsideClickAddFilm, true);
         Swal.fire({
