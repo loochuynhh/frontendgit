@@ -370,6 +370,24 @@ function GetRowCol() {
         }).then(() => { 
             document.getElementById("col").value = "";
         }); 
+    }else if(parseInt(row) === 0){
+        Swal.fire({
+            position: 'top',
+            text: 'Số lượng hàng ghế không được bằng 0',
+            icon: 'warning', 
+            confirmButtonText: 'OK'
+        }).then(() => { 
+            document.getElementById("row").value = "";
+        });
+    }else if(parseInt(col) === 0){
+        Swal.fire({
+            position: 'top',
+            text: 'Số lượng cột ghế không được bằng 0',
+            icon: 'warning', 
+            confirmButtonText: 'OK'
+        }).then(() => { 
+            document.getElementById("col").value = "";
+        }); 
     }else{
         document.getElementById("seat").innerHTML = "";
         Seat();
