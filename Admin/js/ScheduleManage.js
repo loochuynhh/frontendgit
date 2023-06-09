@@ -18,7 +18,8 @@ var buttonAddSchedule = document.getElementById("buttonAddSchedule");
 var scheduleform = document.getElementById("schedule-form");
 var overlayUpdateSchedule = document.getElementById("overlayUpdateSchedule");
 var formUpdateSchedule = document.getElementById("schedule-form-Update");
-
+var startDateRange = getCurrentDate();
+var endDateRange = getCurrentDate();
 window.onload = loadSchedule(getCurrentDate(), getCurrentDate());
 
 $('input[name="dates"]').daterangepicker({
@@ -28,7 +29,9 @@ $('input[name="dates"]').daterangepicker({
     }
 }, function (start, end) {
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    loadSchedule(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
+    startDateRange = start.format('YYYY-MM-DD');
+    endDateRange = end.format('YYYY-MM-DD')
+    loadSchedule(startDateRange, endDateRange);
 })
 
 load();
@@ -290,7 +293,7 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
             }).then(() => {
                 overlay.style.display = "none";
                 overlayAddSchedule.style.display = "none";
-                loadSchedule(getCurrentDate(), getCurrentDate());
+                loadSchedule(startDateRange, endDateRange);
             });
         })
         .catch(error => {
@@ -564,7 +567,7 @@ scheduleform.addEventListener('submit', async (event) => {
             }).then(() => {
                 overlay.style.display = "none";
                 overlayAddSchedule.style.display = "none";
-                loadSchedule(getCurrentDate(), getCurrentDate());
+                loadSchedule(startDateRange, endDateRange);
             });
         })
         .catch(error => {
@@ -575,7 +578,7 @@ scheduleform.addEventListener('submit', async (event) => {
 });
 async function load() {
     await getRoom();
-    await loadSchedule(getCurrentDate(), getCurrentDate());
+    await loadSchedule(startDateRange, endDateRange);;
 }
 
 function deleteSchedule(i) {
@@ -608,7 +611,7 @@ function deleteSchedule(i) {
                     showConfirmButton: false,
                     timer: 1500 
                 }).then(() => {
-                    loadSchedule(getCurrentDate(), getCurrentDate());
+                    loadSchedule(startDateRange, endDateRange);
                 });
             }
             //location.reload();
