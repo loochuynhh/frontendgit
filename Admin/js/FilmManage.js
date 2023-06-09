@@ -93,7 +93,7 @@ function deleteUsers(i) {
           showConfirmButton: false,
           timer: 1500
         }).then(() => {
-          location.reload();
+          GetFilm();
         });
       }
     })

@@ -127,18 +127,7 @@ function getStaffFunction() {
           }).then((result) => {
             if (result.isConfirmed) {
               deleteUsers(data[i].id);
-              // Swal.fire(
-              //   'Deleted!',
-              //   'Phim đã được xóa',
-              //   'success'
-              // )
-              Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: 'Nhân viên đã được xóa',
-                showConfirmButton: false,
-                timer: 1500
-              })
+              
             }
             checkdelete = true;
             
