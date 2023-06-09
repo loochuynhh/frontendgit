@@ -107,16 +107,6 @@ async function loadSchedule(startTime, endTime) {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             deleteSchedule(data[j].id);
-                            Swal.fire({
-                                position: 'top',
-                                icon: 'success',
-                                title: 'Lịch chiếu đã được xóa',
-                                showConfirmButton: false,
-                                timer: 1500 
-                            }).then(() => {
-                                loadSchedule(getCurrentDate(), getCurrentDate());
-                            });
-                          
                         }
                         checkdelete = true;
                         
@@ -609,6 +599,17 @@ function deleteSchedule(i) {
                     // timer: 2000
                 })
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
+            }
+            else{
+                Swal.fire({
+                    position: 'top',
+                    icon: 'success',
+                    title: 'Lịch chiếu đã được xóa',
+                    showConfirmButton: false,
+                    timer: 1500 
+                }).then(() => {
+                    loadSchedule(getCurrentDate(), getCurrentDate());
+                });
             }
             //location.reload();
             // showAlertTimeOut('Xóa lịch chiếu mới thành công');
