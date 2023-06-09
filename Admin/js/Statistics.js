@@ -330,11 +330,11 @@ function loadRevenueByFilm(data) {
         data: chartData,
         options: options,
     });
-    var sumTicket = 0;
-    filmvalues.forEach(filmvalue => {
-        sumTicket += filmvalue;
-    })
-    document.getElementById("sumTicket").innerHTML = sumTicket.toLocaleString() + " vé";
+    // var sumTicket = 0;
+    // filmvalues.forEach(filmvalue => {
+    //     sumTicket += filmvalue;
+    // })
+    // document.getElementById("sumTicket").innerHTML = sumTicket.toLocaleString() + " vé";
 }
 function loadRevenueBySeatStatus(data) {
     var seatSold = data.seatSold[document.getElementById("monthPicker").value - 1];
@@ -390,5 +390,6 @@ function loadRevenueBySeatStatus(data) {
     });
     document.getElementById("sumSoldTicket").innerHTML = seatSold + " vé";
     document.getElementById("sumRefundTicket").innerHTML = seatRefund + " vé";
+    document.getElementById("sumTicket").innerHTML = (parseInt(seatSold) + parseInt(seatRefund)).toLocaleString() + " vé";
     document.getElementById("sumFoodDrinks").innerHTML = data.foodRevenue[document.getElementById("monthPicker").value - 1].toLocaleString() + " VNĐ"
 } 

@@ -47,7 +47,10 @@ function loadBill(startTime, endTime) {
                 const td5 = document.createElement("td");
                 td5.innerHTML = (bill.reservations).length;
                 const td6 = document.createElement("td");
-                td6.innerHTML = (bill.totalCost).toLocaleString()
+                td6.innerHTML = (bill.totalCost).toLocaleString();
+                const td7 = document.createElement("td");
+                if (bill.billStatus === "PAID") td7.innerHTML = "Thành Công"
+                if (bill.billStatus === "REFUNDED") td7.innerHTML = "Hoàn Tiền"
 
                 trBill.appendChild(td1);
                 trBill.appendChild(td2);
@@ -55,6 +58,7 @@ function loadBill(startTime, endTime) {
                 trBill.appendChild(td4);
                 trBill.appendChild(td5);
                 trBill.appendChild(td6);
+                trBill.appendChild(td7);
 
                 document.getElementById("tbody-bill").appendChild(trBill);
             });
