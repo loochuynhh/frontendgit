@@ -201,7 +201,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       position: 'top',
       icon: 'warning',
       // title: 'Lỗi',
-      text: 'Ngày sinh không quá 3 tuổi và trước 1900',
+      text: 'Tối thiểu 3 tuổi và năm sinh sau 1900',
       confirmButtonText: 'OK'
       // timer: 2500
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
@@ -503,7 +503,7 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       position: 'top',
       icon: 'warning',
       // title: 'Lỗi',
-      text: 'Ngày sinh không quá 3 tuổi và trước 1900',
+      text: 'Tối thiểu 3 tuổi và năm sinh sau 1900',
       confirmButtonText: 'OK'
       // timer: 2000
     }).then(() => {

@@ -127,18 +127,7 @@ function getStaffFunction() {
           }).then((result) => {
             if (result.isConfirmed) {
               deleteUsers(data[i].id);
-              // Swal.fire(
-              //   'Deleted!',
-              //   'Phim đã được xóa',
-              //   'success'
-              // )
-              Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: 'Nhân viên đã được xóa',
-                showConfirmButton: false,
-                timer: 1500
-              })
+              
             }
             checkdelete = true;
             
@@ -247,7 +236,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       position: 'top',
       icon: 'error',
       title: 'THẤT BẠI',
-      text: 'Tối thiểu 18 tuổi và năm sinh nhỏ hơn 1900',
+      text: 'Tối thiểu 18 tuổi và năm sinh sau 1900',
       // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickAddStaff, true);
