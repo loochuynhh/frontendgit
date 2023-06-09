@@ -12,7 +12,7 @@
     width: auto;
     height: auto;
     margin: 0.8vw;
-    line-height: 1px; 
+    line-height: 1px;
 }
 
 .form-control {
@@ -22,23 +22,14 @@
 
 /* Own CSS */
 .seat-root {
-    background-color: transparent; 
+    background-color: transparent;
     color: black;
 }
 
-.VIP { 
-    /* color: white; */
-}
-
-.Double { 
-    width: 62px !important; 
-    height: 56px; 
-    /* color: white; */
-    margin-right: 2.1px; 
-}
-
-.Normal { 
-    /* color: black; */
+.Double {
+    width: 62px !important;
+    height: 56px;
+    margin-right: 2.1px;
 }
 
 .change-room {
@@ -52,7 +43,6 @@
     display: flex;
     align-items: center;
     margin-left: 0.3vw;
-    /* margin: 0.9vw; */
 }
 
 .name-feature {
@@ -71,35 +61,32 @@
 
 .room-option label {
     padding-right: 2%;
-} 
-.btn-save-cancel {
-    width: 7vw !important; 
-} 
+}
 
-li { 
-    display: inline-block; 
+.btn-save-cancel {
+    width: 7vw !important;
+}
+
+li {
+    display: inline-block;
     width: 60px;
-    height: 60px; 
+    height: 60px;
     text-align: center;
     line-height: 40px;
     color: #44464b;
     cursor: pointer;
 }
-.seat-label { 
-    color: #ca3939; 
-    font-size: 15px;  
-    font-weight: bolder;   
-}
 
-/* .seat-label-double{
-    position: relative;
-    right: -50%;
-} */
+.seat-label {
+    color: #ca3939;
+    font-size: 15px;
+    font-weight: bolder;
+}
 
 .screen {
     width: 60%;
     margin-top: 2vh;
-    margin-bottom: 4vh; 
+    margin-bottom: 4vh;
     background-image: repeating-linear-gradient(50deg, #E3E3E3 0px, #E3E3E3 3px,
             transparent 3px, transparent 4px, #E3E3E3 0px);
     color: #0e1d2f;

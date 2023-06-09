@@ -61,10 +61,10 @@ fetch(URLFILM)
         spPremiere.append(formattedDate);
 
         spLength.append(data.length);
-        if(data.ageLimit === 0){
+        if (data.ageLimit === 0) {
             spAgeLimit.append("P");
             spAgeLimit.classList.add("text-success");
-        }else{
+        } else {
             spAgeLimit.append("C" + data.ageLimit);
         }
 
@@ -91,7 +91,7 @@ fetch(URLFILM)
         document.getElementById("trailer").src = "https://www.youtube.com/embed/" + urlTrailer.substring(urlTrailer.indexOf("=") + 1);
 
     });
-
+//Chuyển sang giao dịch đặt vé
 function Booking() {
     window.location.href = URLBOOKING + '?filmId=' + id;
 }

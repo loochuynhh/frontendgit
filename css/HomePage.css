@@ -1,36 +1,36 @@
-hr{
-    /* color: rgb(242, 139, 4); */
-    /* border: 1px solid rgb(228, 35, 35); */
+hr {
     border: 0.8px solid black;
 }
-.divInfo > div:not(.Name) {
+
+.divInfo>div:not(.Name) {
     display: none;
 }
+
 .row ul:nth-child(n+9) {
     display: none;
-  }
+}
 
-.show-more{
-    /* padding: ; */
+.show-more {
     font-size: 18px;
-    padding: 0.6% 2.2%; 
+    padding: 0.6% 2.2%;
     position: relative;
     left: 70.2vw;
 }
-.status-film{ 
+
+.status-film {
     padding: 1%;
     font-weight: 520;
     font-size: 1.2em;
     font-family: sans-serif;
-    /* color: black; */
     color: rgb(242, 139, 4);
-    text-decoration: none; 
+    text-decoration: none;
 }
-.status-film-homepage{ 
+
+.status-film-homepage {
     padding: 1%;
     font-weight: 520;
     font-size: 1.4em;
     font-family: sans-serif;
     color: rgb(242, 107, 4);
-    text-decoration: none;  
-} 
+    text-decoration: none;
+}

@@ -3,16 +3,18 @@ $(function () {
     $("#footer").load("footer.html");
 })
 
+window.load = loadBill(getCurrentDate(), getCurrentDate());
+
+
 $('input[name="dates"]').daterangepicker({
     opens: 'right',
     locale: {
         format: 'DD/MM/YYYY'
     }
-}, function (start, end) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+}, function (start, end) { 
     loadBill(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
 })
-window.load = loadBill(getCurrentDate(), getCurrentDate());
+
 function loadBill(startTime, endTime) {
     var URLBILL = "https://localhost:44308/api/bill?startDate=" + startTime + "&endDate=" + endTime;
     fetch(URLBILL, {
@@ -30,8 +32,7 @@ function loadBill(startTime, endTime) {
             }
             return response.json();
         })
-        .then(data => {
-            console.log(data);
+        .then(data => { 
             document.getElementById("tbody-bill").innerHTML = "";
             data.forEach(bill => {
                 const trBill = document.createElement("tr");

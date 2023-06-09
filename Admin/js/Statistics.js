@@ -24,8 +24,7 @@ function loadRevenueByMonth() {
         });
     }
     document.getElementById('yearpicker').setAttribute("max", currentYear);
-    document.getElementById('yearSeatType').innerHTML = "Năm " + selectedYear;
-    // console.log(selectedYear); 
+    document.getElementById('yearSeatType').innerHTML = "Năm " + selectedYear; 
     var months = [];
     if (selectedYear < currentYear) {
         for (var i = 1; i <= 12; i++) {
@@ -36,12 +35,9 @@ function loadRevenueByMonth() {
         for (var i = 1; i <= currentMonth; i++) {
             months.push("Tháng " + i);
         }
-    }
-    // console.log("m",months);  
-    if (months.length !== 0) {
-        // var URLSTATISTIC = "";
-        URLSTATISTIC = "https://localhost:44308/api/statistic?year=" + document.getElementById('yearpicker').value;
-        console.log(URLSTATISTIC);
+    } 
+    if (months.length !== 0) { 
+        URLSTATISTIC = "https://localhost:44308/api/statistic?year=" + document.getElementById('yearpicker').value; 
 
         fetch(URLSTATISTIC, {
             method: 'GET',
@@ -51,22 +47,20 @@ function loadRevenueByMonth() {
         })
             .then(response => {
                 if (response.status == '403') {
-                    window.location.href = "http://127.0.0.1:5502/Forbidden.html"
+                    window.location.href = "/Forbidden.html"
                 }
                 if (response.status == '401') {
-                    window.location.href = "http://127.0.0.1:5502/Unauthorized.html"
+                    window.location.href = "/Unauthorized.html"
                 }
                 return response.json()
             })
-            .then(data => {
-                console.log(data);
+            .then(data => { 
                 var revenue = []
                 var sumByYear = 0;
                 for (let i = 0; i < months.length; i++) {
                     revenue.push(data.monthlyRevenue[i]);
                     sumByYear += data.monthlyRevenue[i];
-                }
-                console.log("month", revenue)
+                } 
                 var chartData = {
                     labels: months,
                     datasets: [{
@@ -90,8 +84,7 @@ function loadRevenueByMonth() {
                     scales: {
                         x: {
                             ticks: {
-                                font: {
-                                    // family: 'Arial',
+                                font: { 
                                     weight: 'bold',
                                     size: 13,
                                     color: 'black'
@@ -100,8 +93,7 @@ function loadRevenueByMonth() {
                         },
                         y: {
                             ticks: {
-                                font: {
-                                    // family: 'Arial',
+                                font: { 
                                     weight: 'bold',
                                     size: 13,
                                     color: 'black'
@@ -125,8 +117,7 @@ function loadRevenueByMonth() {
                 loadRevenueByFilm(data);
                 loadRevenueBySeatStatus(data);
 
-                document.getElementById("sumByYear").innerHTML = sumByYear.toLocaleString() + " VNĐ";
-
+                document.getElementById("sumByYear").innerHTML = sumByYear.toLocaleString() + " VNĐ"; 
             })
             .catch(error => console.error(error));
     } else {
@@ -163,10 +154,9 @@ function generateCalendar() {
         monthpicker.value = currentMonth;
     }
 }
-
+//2 chart ở phía dưới
 function loadRevenueDetail() {
-    URLSTATISTIC = "https://localhost:44308/api/statistic?year=" + document.getElementById('yearpicker').value;
-    console.log(URLSTATISTIC);
+    URLSTATISTIC = "https://localhost:44308/api/statistic?year=" + document.getElementById('yearpicker').value; 
 
     fetch(URLSTATISTIC, {
         method: 'GET',
@@ -189,7 +179,7 @@ function loadRevenueDetail() {
         })
         .catch(error => console.error(error));
 }
-
+//chart đôi, thường, vip
 function loadRevenueBySeatType(data) {
     var revenue = []
     if (data.seatRevenue.Thường !== undefined) revenue.push(data.seatRevenue.Thường);
@@ -203,8 +193,7 @@ function loadRevenueBySeatType(data) {
         pcThuong = ((revenue[0] / sumAllSeat) * 100).toFixed(1) + "%";
         pcDoi = ((revenue[1] / sumAllSeat) * 100).toFixed(1) + "%";
         pcVip = ((revenue[2] / sumAllSeat) * 100).toFixed(1) + "%";
-    }
-    console.log("seat", revenue);
+    } 
     var chartData = {
         labels: ["Thường", "Đôi", "VIP"],
         datasets: [{
@@ -243,35 +232,30 @@ function loadRevenueBySeatType(data) {
     var ctx = document.getElementById("revenueBySeatType").getContext("2d");
     if (window.chartRevenueBySeatType) {
         window.chartRevenueBySeatType.destroy();
-    }
-    // data.seatRevenue.Thường !== undefined && data.seatRevenue.Đôi !== undefined && data.seatRevenue.VIP !== undefined
+    } 
     if (revenue[0] == 0 && revenue[1] == 0 && revenue[2] == 0) {
-        // document.getElementById("sumSeatType").innerHTML = "0 VNĐ";
-        console.log("a");
+        // document.getElementById("sumSeatType").innerHTML = "0 VNĐ"; 
     } else {
         chartRevenueBySeatType = new Chart(ctx, {
             type: "doughnut",
             data: chartData,
             options: options,
             plugins: [ChartDataLabels]
-        });
-        // document.getElementById("sumSeatType").innerHTML = (revenue[0] + revenue[1] + revenue[2]).toLocaleString() + " VNĐ"
+        }); 
     }
 }
 function loadRevenueByFilm(data) {
     var keys = Object.keys(data.filmRevenue[document.getElementById("monthPicker").value - 1]);
+    //Lọc những giá trị undefined
     var filteredKeys = keys.filter(function (key) {
         return key !== "undefined";
     });
 
-    var filmnames = filteredKeys; // Mảng chứa các giá trị "cc", "duy"
+    var filmnames = filteredKeys; // Mảng chứa các giá trị tên phim
 
-    var filmvalues = filteredKeys.map(function (key) {
+    var filmvalues = filteredKeys.map(function (key) {          // Mảng chứa các giá trị doanh thu
         return data.filmRevenue[document.getElementById("monthPicker").value - 1][key];
-    }); // Mảng chứa các giá trị 520000, 150000
-
-    console.log(filmnames); // Output: ["cc", "duy"]
-    console.log(filmvalues); // Output: [520000, 150000] 
+    }); 
 
     var chartData = {
         labels: filmnames,
@@ -286,8 +270,7 @@ function loadRevenueByFilm(data) {
         scales: {
             x: {
                 ticks: {
-                    font: {
-                        // family: 'Arial',
+                    font: { 
                         weight: 'bold',
                         size: 11,
                         color: 'black'
@@ -297,10 +280,8 @@ function loadRevenueByFilm(data) {
             y: {
                 beginAtZero: true,
                 ticks: {
-                    font: {
-                        // family: 'Arial',
-                        weight: 'italic',
-                        // color: 'rgba(0, 0, 0, 0.5)',
+                    font: { 
+                        weight: 'italic', 
                         size: 12,
                         color: 'black'
                     },
@@ -329,12 +310,7 @@ function loadRevenueByFilm(data) {
         type: "bar",
         data: chartData,
         options: options,
-    });
-    // var sumTicket = 0;
-    // filmvalues.forEach(filmvalue => {
-    //     sumTicket += filmvalue;
-    // })
-    // document.getElementById("sumTicket").innerHTML = sumTicket.toLocaleString() + " vé";
+    }); 
 }
 function loadRevenueBySeatStatus(data) {
     var seatSold = data.seatSold[document.getElementById("monthPicker").value - 1];
@@ -355,8 +331,7 @@ function loadRevenueBySeatStatus(data) {
     var options = {
         responsive: true,
         plugins: {
-            legend: {
-                // position: 'bottom',
+            legend: { 
                 display: false
             },
             tooltips: {

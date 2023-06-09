@@ -11,12 +11,9 @@ var OverlaySignup = document.getElementById("overlaySignup");
 
 const URLALLFILM = "https://localhost:44308/api/film";
 var showId;                 //dùng cho hàm LoadSeat()
-var seatId = [];            //dùng lưu position, type của ghế
+var seatId = [];            //dùng lưu position, type của ghế 
 
-// var maxRowCoords = 0;
-// var maxColCoords = 0;
-
-var billInfo = {}
+var billInfo = {}           //hiển thị nội dung đặt vé
 billInfo.seat = [];
 var VipCost, DoubleCost, NormalCost;
 $(function () {
@@ -30,7 +27,7 @@ $(function () {
     });
     $("#footer").load("footer.html");
 });
-
+//Lấy danh sách phim
 fetch(URLALLFILM)
     .then(response => response.json())
     .then(data => {
@@ -70,13 +67,15 @@ fetch(URLALLFILM)
                 liFilm.classList.add("film-selected")
                 document.getElementById("list-showpanel").innerHTML = "";
                 billInfo.filmName = film.name;
-                filmIdSended = null;
+                filmIdSended = null; 
                 loadShow(film.id);
             })
             document.getElementById("list-filmpanel").appendChild(liFilm);
         });
+        //Từ giao diện lịch chiếu tới
         if (filmIdSended !== null && showIdSended !== null && roomIdSended !== null) {
             showId = showIdSended;
+            //Giao diện chọn ghế
             loadSeat(showIdSended, roomIdSended);
 
             const allFilmSelect = document.querySelectorAll(".list-film-select");
@@ -88,6 +87,7 @@ fetch(URLALLFILM)
             billInfo.room = roomNameSended;
             billInfo.filmShow = showTimeSended;
         }
+        //Từ giao diện phim
         if (filmIdSended !== null) {
             const allFilmSelect = document.querySelectorAll(".list-film-select");
             allFilmSelect.forEach(element => {
@@ -178,13 +178,11 @@ function loadShow(filmId) {
                 })
             }
         })
-        .catch(error => console.error(error));
-
-
+        .catch(error => console.error(error)); 
 }
+//Giao diện chọn ghế, tạo giá trị từng ghế
 function loadSeat(showId, roomId) {
-    if (localStorage.getItem('token') == null) {
-        setLayout();
+    if (localStorage.getItem('token') == null) { 
         return;
     }
     document.getElementById("select-film-schedule-panel").classList.add("d-none");
@@ -219,12 +217,12 @@ function loadSeat(showId, roomId) {
                 };
                 listSeat.push(seat);
             });
+            //Hiển thị loại ghế
             loadTypeSeat(listSeat);
         })
         .catch(error => console.error(error));
 }
-function loadTypeSeat(listSeat) { 
-    console.log(listSeat);
+function loadTypeSeat(listSeat) {  
     var maxRowCoords = 0;
     var maxColCoords = 0;
     listSeat.forEach(seat => {
@@ -276,13 +274,11 @@ function loadTypeSeat(listSeat) {
             if (rowCoords == element.rowCoords && colCoords == element.colCoords) {
                 if (element.isBooked){
                     li.classList.add("Booked");
-                    if(element.seatTypeId === 1 || element.seatTypeId === 3){
-                        console.log("toa do", element.rowCoords, element.rowCoords);
+                    if(element.seatTypeId === 1 || element.seatTypeId === 3){ 
                         li.style.backgroundImage = "url('/Admin/Image/seatBooked.svg')";
                         li.style.backgroundSize = "cover";
                         li.style.backgroundPosition = "center";
-                    }else if (element.seatTypeId === 2){
-                        console.log("toa do",element.rowCoords, element.rowCoords);
+                    }else if (element.seatTypeId === 2){ 
                         li.style.backgroundImage = "url('/Admin/Image/seatBookedDouble.svg')";
                         li.style.backgroundSize = "cover";
                         li.style.backgroundPosition = "center";
@@ -320,10 +316,7 @@ function loadTypeSeat(listSeat) {
     availableSeat.forEach(element => {
         element.addEventListener("click", function () {
             if (element.classList.contains("selected")) {
-                element.classList.remove("selected");
-                // element.style.backgroundImage = "url('/Admin/Image/seatNormal.svg')";
-                // element.style.backgroundSize = "cover";
-                // element.style.backgroundPosition = "center";
+                element.classList.remove("selected"); 
                 const index = seatId.indexOf(element.getAttribute("data-value"));
                 if (index > -1) {
                     seatId.splice(index, 1);
@@ -332,10 +325,7 @@ function loadTypeSeat(listSeat) {
                 if (idxBill > -1) billInfo.seat.splice(idxBill, 1);
             }
             else {
-                element.classList.add("selected");
-                // element.style.backgroundImage = "url('/Admin/Image/seatSelected.svg')";
-                // element.style.backgroundSize = "cover";
-                // element.style.backgroundPosition = "center";
+                element.classList.add("selected"); 
                 if (!seatId.includes(element.getAttribute("data-value"))) {
                     seatId.push(element.getAttribute("data-value"));
                 }
@@ -345,6 +335,7 @@ function loadTypeSeat(listSeat) {
             }
         })
     })
+
     //Hiển thị giá ghế
     fetch("https://localhost:44308/api/seat-type", {
         method: 'GET',
@@ -383,8 +374,7 @@ function loadTypeSeat(listSeat) {
 function prevToSeat() {
     document.getElementById("bill").classList.add("d-none");
     document.getElementById("select-seat").classList.remove("d-none");
-    document.getElementById("select-food").classList.remove("d-none");
-    // loadFood();
+    document.getElementById("select-food").classList.remove("d-none"); 
 }
 function prevToFilmAndShow() {
     document.getElementById("select-film-schedule-panel").classList.remove("d-none");
@@ -414,8 +404,7 @@ function contToPay() {
             var nameFood = row.cells[0].querySelector('span').innerText;
             var numberFood = row.cells[1].querySelector('input').value;
 
-            if (parseInt(numberFood) !== 0) {
-                // console.log("rowcell1",row.cells[1].value)
+            if (parseInt(numberFood) !== 0) { 
                 if (food.length === 0) food += nameFood + "(" + numberFood + ")";
                 else food += ", " + nameFood + "(" + numberFood + ")";
                 totalCost += parseInt(row.cells[3].innerText.replace(/,/g, ''));
@@ -446,6 +435,7 @@ function contToPay() {
     }
 
 }
+//Sự kiện khi ấn thanh toán
 function pay() {
     var foodOrderDTOs = []
     var tbody = document.getElementById("tbody-food");
@@ -473,8 +463,7 @@ function pay() {
             seatIds: seatId,
             foodOrderDTOs: foodOrderDTOs
         })
-    }).then(response => {
-        console.log(response.status);
+    }).then(response => { 
         if (response.status == '403') {
             window.location.href = "http://127.0.0.1:5502/Forbidden.html"
         }
