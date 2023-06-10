@@ -1,3 +1,4 @@
+//Khai báo các hằng
 const url = 'https://localhost:44308/api';
 const Login = 'login';
 const signup = 'register';
@@ -6,13 +7,12 @@ const Users = `users`;
 const Password = "change-password";
 const ForgotPassword = "forgot-password";
 const token = localStorage.getItem('token');
-
+//Khai báo các biến
 var Overlay = document.getElementById("overlay");
 var loginButton = document.getElementById("login-button");
 var OverlayLogin = document.getElementById("overlayLogin");
 var signupButton = document.getElementById("signupButton");
 var OverlaySignup = document.getElementById("overlaySignup");
-var homeLink = document.getElementById('home');
 var overlayUser = document.getElementById("overlayUser");
 var overlayHome = document.getElementById("overlayHome");
 var OverlayInfor = document.getElementById("overlayInfo");
@@ -27,11 +27,12 @@ var passwordLogin = document.getElementById('passwordLogin');
 var forgotPasswordLink = document.getElementById('forgot-password-link');
 var overlayForgotPassword = document.getElementById('overlayForgotPassword');
 var overlaySignuplink = document.getElementById('overlaySignup-link');
+//Chức năng search
 function Search() {
   console.log("Giá trị đã nhập:", document.getElementById("search").value);
   window.location.href = "http://127.0.0.1:5502/LayoutFilm.html" + "?filmName=" + document.getElementById("search").value;
 }
-
+//Chức năng quên mật khẩu
 document.querySelector('#formForgotPassword').addEventListener('submit', function (event) {
   event.preventDefault();
   event.stopPropagation();
@@ -73,7 +74,7 @@ document.querySelector('#formForgotPassword').addEventListener('submit', functio
       }
     })
 });
-
+//Xử lý sự kiện kích ra ngoài quên mật khẩu
 function handleOutsideClickForgotPassword(event) {
   if (!overlayForgotPassword.contains(event.target)) {
     overlayForgotPassword.style.display = "none";
@@ -83,6 +84,7 @@ function handleOutsideClickForgotPassword(event) {
     document.removeEventListener("click", handleOutsideClickForgotPassword, true);
   }
 }
+//Mở overlay Quên mật khẩu
 forgotPasswordLink.addEventListener("click", function () {
   Overlay.style.display = "block";
   OverlayLogin.style.display = "none";
@@ -90,6 +92,7 @@ forgotPasswordLink.addEventListener("click", function () {
   document.removeEventListener("click", handleOutsideClickLogin, true);
   document.addEventListener("click", handleOutsideClickForgotPassword, true);
 });
+//Chuyển sang từ đăng nhập overlay Đăng ký
 overlaySignuplink.addEventListener("click", function(){
   Overlay.style.display = "block";
   OverlayLogin.style.display = "none";
@@ -97,8 +100,7 @@ overlaySignuplink.addEventListener("click", function(){
   document.removeEventListener("click", handleOutsideClickLogin, true);
   document.addEventListener("click", handleOutsideClickSignup, true);
 });
-
-
+//Xử lý sự kiện kích chuột ra ngoài đăng nhập
 function handleOutsideClickLogin(event) {
   if (!OverlayLogin.contains(event.target)) {
     OverlayLogin.style.display = "none";
@@ -106,13 +108,14 @@ function handleOutsideClickLogin(event) {
     document.removeEventListener("click", handleOutsideClickLogin, true);
   }
 }
+//Xử lý sự kiện Nút đăng nhập ngoài Header
 loginButton.addEventListener("click", function () {
   Overlay.style.display = "block";
   OverlayLogin.style.display = "block";
   OverlaySignup.style.display = "none";
   document.addEventListener("click", handleOutsideClickLogin, true);
 });
-
+//Xử lý sự kiện Kích chuột ngoài overlay đăng ký
 function handleOutsideClickSignup(event) {
   if (!OverlaySignup.contains(event.target)) {
     OverlaySignup.style.display = "none";
@@ -120,20 +123,20 @@ function handleOutsideClickSignup(event) {
     document.removeEventListener("click", handleOutsideClickSignup, true);
   }
 }
+//Xử lý sự kiện kích chuột nút đăng ký ngoài header
 signupButton.addEventListener("click", function () {
   Overlay.style.display = "block";
   OverlaySignup.style.display = "block";
   OverlayLogin.style.display = "none";
   document.addEventListener("click", handleOutsideClickSignup, true);
 });
-
-
+//Xác thực số điện thoại
 function isValidPhoneNumber(phoneNumber) {
   // Xác thực theo chuẩn số điện thoại Việt Nam
   const regex = /^(0[1-9]|1[0-9]|2[0-9]|3[2-9]|5[6|8|9]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{8}$/;
   return regex.test(phoneNumber);
 }
-
+//Submit đăng ký tài khoản mới
 document.querySelector('#formSignup').addEventListener('submit', function (event) {
   event.preventDefault();
   event.stopPropagation();
@@ -154,15 +157,12 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
   }
   if (passwordRegex.test(Password)) {
   } else {
-    // showAlertTimeOutSignup('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
     document.removeEventListener("click", handleOutsideClickSignup, true);
     Swal.fire({
       position: 'top',
       icon: 'warning',
-      // title: 'Lỗi',
       text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
       confirmButtonText: 'OK'
-      // timer: 2000
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
@@ -177,16 +177,12 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     Gender = true;
   }
   if (!isValidPhoneNumber(Phone)) {
-    // showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
     document.removeEventListener("click", handleOutsideClickSignup, true);
     Swal.fire({
       position: 'top',
       icon: 'warning',
-      // title: 'Lỗi',
       text: 'Số điện thoại gồm 10 số',
       confirmButtonText: 'OK'
-      // footer: '<a>Số điện thoại gồm 10 số</a>',
-      // timer: 2000
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
@@ -200,10 +196,8 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
     Swal.fire({
       position: 'top',
       icon: 'warning',
-      // title: 'Lỗi',
       text: 'Tối thiểu 3 tuổi và năm sinh sau 1900',
       confirmButtonText: 'OK'
-      // timer: 2500
     }).then(() => { document.addEventListener("click", handleOutsideClickSignup, true); });
     return;
   }
@@ -230,7 +224,6 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       if (!response.ok) {
         response.text().then(errorMessage => {
           if (errorMessage == 'Email already exist') {
-            // showAlertTimeOut("Phim đã có đặt lịch chiếu");
             document.removeEventListener("click", handleOutsideClickSignup, true);
             Swal.fire({
               position: 'top',
@@ -242,7 +235,6 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
             });
           }
           else {
-            // showAlertTimeOut('Chỉnh sửa không thành công');
             document.removeEventListener("click", handleOutsideClickSignup, true);
             Swal.fire({
               position: 'top',
@@ -254,12 +246,8 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
             });
           }
         })
-        //location.reload();
-        
       }
       if (response.ok) {
-        // showSuccess();
-        //showAlert("Đăng ký thành công!");
         Swal.fire({
           position: 'top',
           icon: 'success',
@@ -272,13 +260,10 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
       } 
     })
     .catch(error => {
-      // showUnsuccess();
-      // showAlertTimeOutSignup("Đăng ký thất bại!");
-      
       console.error("Lỗi khi đăng ký tài khoản:", error);
     });
 });
-
+//Submit Đăng nhập tài khoản
 document.querySelector('#formLogin').addEventListener('submit', function (event) {
   event.preventDefault();
   event.stopPropagation();
@@ -292,15 +277,12 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
   }
   if (passwordRegex.test(password)) {
   } else {
-    // showAlertTimeOutLogin('Mật khẩu có tối thiểu 6 kí tự và có cả chữ lẫn số');
     document.removeEventListener("click", handleOutsideClickLogin, true);
     Swal.fire({
       position: 'top',
       icon: 'warning',
-      // title: 'Lỗi',
       text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
       confirmButtonText: 'OK'
-      // timer: 2500
     }).then(() => {
       document.addEventListener("click", handleOutsideClickLogin, true);
     });
@@ -318,7 +300,6 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
   })
     .then(response => {
       if (!response.ok) {
-        //showAlertTimeOutLogin('Tài khoản không chính xác');
         document.removeEventListener("click", handleOutsideClickLogin, true);
         Swal.fire({
           position: 'top',
@@ -327,8 +308,6 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
           text: 'Có thể bạn đã nhập sai mật khẩu hoặc tài khoản không tồn tại',
           confirmButtonText: 'OK',
           width: '45%'
-          // footer: '<a>Có thể bạn đã nhập sai mật khẩu hoặc tài khoản không tồn tại</a>',
-          // timer: 2000
         }).then(() => {
           document.addEventListener("click", handleOutsideClickLogin, true);
         });
@@ -360,16 +339,14 @@ document.querySelector('#formLogin').addEventListener('submit', function (event)
             OverlayLogin.style.display = "none";
           }
           else if (response.status == '200') {
-            // showAlertTimeOut('Đăng nhập thành công');
             window.location.assign("./Admin/Statistics.html");
-            // new sweetAlert('Đăng nhập thành công');
           }
 
         })
 
     });
 });
-
+//Sự kiện Thay đổi password
 passwordChange.addEventListener("change", function () {
   if (this.checked) {
     changePasswordForm.style.display = 'block';
@@ -383,7 +360,7 @@ passwordChange.addEventListener("change", function () {
     newPasswordConfirm.removeAttribute('required');
   }
 });
-
+//Mở dropdown
 dropdownlogout.onclick = function () {
   overlayHome.style.display = "block";
   overlayUser.style.display = "none";
@@ -392,6 +369,7 @@ dropdownlogout.onclick = function () {
   passwordLogin.value = '';
   localStorage.clear();
 }
+//Hiện dữ liệu trong chỉnh sửa tài khoản
 function showdata(person) {
   var name = document.getElementById("nameInfo");
   var email = document.getElementById("emailInfo");
@@ -399,8 +377,6 @@ function showdata(person) {
   var phoneNumber = document.getElementById("phoneNumberInfo");
   var gender = document.getElementById("genderInfo");
   var dateOfBirth = document.getElementById("dateOfBirthInfo");
-  //var password = document.getElementById("password");
-  //var passwordConfirm = document.getElementById("passwordConfirm");
 
   name.value = person.name;
   email.value = person.email;
@@ -412,8 +388,8 @@ function showdata(person) {
   else { gender.value = "1" }
   const dateISO = person.birth.split('T')[0];
   dateOfBirth.value = dateISO;
-  // console.log(person);
 }
+//Lấy dữ liệu tài khoản
 function getInfo() {
   fetch(`${url}/${Users}`, {
     method: 'GET',
@@ -436,7 +412,7 @@ function getInfo() {
       console.error('Lỗi API: ', error);
     });
 }
-
+//Sự kiện kích ngoài overlay Chỉnh sửa tài khoản
 function handleOutsideClickInfo(event) {
   if (!OverlayInfor.contains(event.target)) {
     OverlaySignup.style.display = "none";
@@ -445,13 +421,14 @@ function handleOutsideClickInfo(event) {
     document.removeEventListener("click", handleOutsideClickInfo, true);
   }
 }
+//dropdown info
 dropdowninfo.addEventListener("click", function () {
   Overlay.style.display = "block";
   OverlayInfor.style.display = "block";
   getInfo();
   document.addEventListener("click", handleOutsideClickInfo, true);
 });
-
+//Submit form chỉnh sửa thông tin
 document.querySelector('#formInfo').addEventListener('submit', function (event) {
   event.preventDefault();
   event.stopPropagation();
@@ -477,16 +454,12 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
   }
 
   if (!isValidPhoneNumber(phoneNumber)) {
-    // showAlertTimeOutSignup('Số điện thoại không hợp lệ!');
     document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
       icon: 'warning',
-      // title: 'Lỗi',
       text: 'Số điện thoại chỉ được gồm 10 số',
       confirmButtonText: 'OK'
-      // footer: '<a>Số điện thoại gồm 10 số</a>',
-      // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickInfo, true);
     });
@@ -497,15 +470,12 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
   let currentYear = new Date().getFullYear() - 3;
   if (year >= 1900 && year <= currentYear) {
   } else {
-    // showAlertTimeOutSignup('Ngày sinh không quá 3 tuổi và trước 1900');
     document.removeEventListener("click", handleOutsideClickInfo, true);
     Swal.fire({
       position: 'top',
       icon: 'warning',
-      // title: 'Lỗi',
       text: 'Tối thiểu 3 tuổi và năm sinh sau 1900',
       confirmButtonText: 'OK'
-      // timer: 2000
     }).then(() => {
       document.addEventListener("click", handleOutsideClickInfo, true);
     });
@@ -531,9 +501,7 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
   })
     .then(response => {
       if (response.ok) {
-        // showAlert("Chỉnh sửa thành công!");
       } else {
-        // showAlert("Chỉnh sửa thất bại!");
         localStorage.setItem('put', 1);
       }
     })
@@ -551,14 +519,11 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     if (passwordRegex.test(newPassword)) {
     } else {
-      // showAlertTimeOutInfo('Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số');
       document.removeEventListener("click", handleOutsideClickInfo, true);
       Swal.fire({
         position: 'top',
         icon: 'warning',
-        // title: 'Lỗi',
         text: 'Mật khẩu tối thiểu 6 kí tự và có cả chữ lẫn số',
-        // timer: 2000
         confirmButtonText: 'OK'
       }).then(() => {
         document.addEventListener("click", handleOutsideClickInfo, true);
@@ -578,7 +543,6 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     })
       .then(response => {
         if (response.ok) {
-          // showAlert("Thay đổi thành công!");
         }
         else {
           response.text().then(errorMessage => {
@@ -614,7 +578,6 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
             localStorage.setItem('put', 4);
           }).then(() =>{
             if (localStorage.getItem('put') == 0) {
-              // showAlert("Chỉnh sửa thành công");
               Swal.fire({
                 position: 'top',
                 icon: 'success',
@@ -639,7 +602,6 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
               });
             }
           })
-          // showAlert("Thay đổi thất thất bại!");
         }
       })
       .catch(error => {
@@ -649,7 +611,6 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
   }
   else{
     if (localStorage.getItem('put') == 0) {
-      // showAlert("Chỉnh sửa thành công");
       Swal.fire({
         position: 'top',
         icon: 'success',
@@ -660,7 +621,6 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       Overlay.style.display = "none";
       OverlayInfor.style.display = "none";
     } else if (localStorage.getItem('put') == 1) {
-      // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
       document.removeEventListener("click", handleOutsideClickInfo, true);
       Swal.fire({
         position: 'top',
