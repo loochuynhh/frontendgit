@@ -7,7 +7,12 @@ var Overlay = document.getElementById("overlay");
 var overlaySignup = document.getElementById("overlaySignup");
 var addStaff = document.getElementById("addStaff");
 var overlayView = document.getElementById("overlayView");
-
+document.getElementById("nameView").disabled = true;
+document.getElementById("emailView").disabled = true;
+document.getElementById("phoneNumberView").disabled = true;
+document.getElementById("addressView").disabled = true;
+document.getElementById("genderView").disabled = true;
+document.getElementById("dateOfBirthView").disabled = true;
 function handleOutsideClickAddStaff(event) {
   if (!overlaySignup.contains(event.target)) {
     overlaySignup.style.display = "none";

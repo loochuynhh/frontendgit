@@ -1,9 +1,10 @@
+//Khai báo các hằng
 const url = 'https://localhost:44308/api';
 const genre = 'genre';
 const film = 'film';
 const poster = 'poster';
 const adsposter = 'ad-poster';
-
+//Khai báo các biến
 var idglobal = -1;
 var addFilm = document.getElementById("addFilm");
 var overlay = document.getElementById("overlay");
@@ -27,7 +28,7 @@ const viewImageAdPoster = document.getElementById("viewImageAdPoster");
 const reviewPoster = document.getElementById("reviewPoster");
 const reviewAdPoster = document.getElementById("reviewAdPoster");
 const overlayReview = document.getElementById("overlayReview");
-
+//Chỉnh poster
 posterChange.addEventListener("change", function () {
   if (this.checked) {
     poterfile.style.display = "block";
@@ -39,13 +40,13 @@ posterChange.addEventListener("change", function () {
     viewImageAdPoster.style.display = "inline-block";
   }
 });
-
+//Nút thêm phim
 addFilm.addEventListener("click", function () {
   overlay.style.display = "block";
   overlayAddFilm.style.display = "block";
   document.addEventListener("click", handleOutsideClickAddFilm, true);
 });
-
+//Hiệu ứng hover
 function hover() {
   // Lấy danh sách tất cả các hàng trong bảng
   let rows = document.querySelectorAll('tbody tr');
@@ -61,7 +62,7 @@ function hover() {
     });
   });
 }
-
+//Xóa phim
 function deleteUsers(i) {
   console.log(`${url}/${film}/${i}`);
   fetch(`${url}/${film}/${i}`, {
@@ -101,7 +102,7 @@ function deleteUsers(i) {
       console.error("Error:", error);
     });
 }
-
+//Cập nhật phim
 function handleOutsideClickUpdateFilm(event) {
   if (!overlayUpdateFilm.contains(event.target)) {
     overlay.style.display = "none";
@@ -109,7 +110,7 @@ function handleOutsideClickUpdateFilm(event) {
     document.removeEventListener("click", handleOutsideClickUpdateFilm, true);
   }
 }
-
+//Lấy phim theo ID
 async function getMovieById(id) {
   try {
     const response = await fetch(`${url}/${film}/${id}`, {
@@ -123,7 +124,7 @@ async function getMovieById(id) {
     console.error(error);
   }
 }
-
+//Cập nhật phim theo ID
 async function updateFilm(id) {
   overlay.style.display = "block";
   overlayUpdateFilm.style.display = "block";
@@ -162,6 +163,7 @@ async function updateFilm(id) {
   });
   idglobal = id;
 }
+//Kích chuột ngoài Review Poster
 function handleOutsideClickReviewPoster(event) {
   if (!reviewPoster.contains(event.target)) {
     overlayReview.style.display = 'none';
@@ -172,6 +174,7 @@ function handleOutsideClickReviewPoster(event) {
     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
   }
 }
+//Review Poster
 reviewImagePoster.addEventListener('click', function (event) {
   event.preventDefault();
   //const file = updateMoviePoster.files[0]; 
@@ -199,6 +202,7 @@ reviewImagePoster.addEventListener('click', function (event) {
 
   }
 });
+//Kích chuột ngoài Review AdPoster
 function handleOutsideClickReviewAdPoster(event) {
   if (!reviewAdPoster.contains(event.target)) {
     overlayReview.style.display = 'none';
@@ -209,6 +213,7 @@ function handleOutsideClickReviewAdPoster(event) {
     document.addEventListener("click", handleOutsideClickUpdateFilm, true);
   }
 }
+//Review AdPoster
 reviewImageAdPoster.addEventListener('click', function (event) {
   event.preventDefault();
   if (updateMovieAdposter.files && updateMovieAdposter.files[0]) {
@@ -236,8 +241,7 @@ reviewImageAdPoster.addEventListener('click', function (event) {
     // });
   }
 });
-
-
+//Đồng bộ cập nhật phim
 async function CheckUpdate(Movie, formData, formData2){
   try {
     var checkResponse = true;
@@ -375,7 +379,7 @@ async function CheckUpdate(Movie, formData, formData2){
   }
   
 }
-
+//Submit form cập nhật phim
 formUpdate.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (poterfile.style.display == "none") {
@@ -606,7 +610,7 @@ formUpdate.addEventListener('submit', async (event) => {
     })
   }
 })
-
+//Hàm hiện phim
 GetFilm();
 function GetFilm() {
   fetch(`${url}/${film}`, {
@@ -678,7 +682,7 @@ function GetFilm() {
     })
     .catch(error => console.error(error));
 }
-
+//kích chuột ngoài form thêm phim
 function handleOutsideClickAddFilm(event) {
   if (!overlayAddFilm.contains(event.target)) {
     overlay.style.display = "none";
@@ -686,7 +690,7 @@ function handleOutsideClickAddFilm(event) {
     document.removeEventListener("click", handleOutsideClickAddFilm, true);
   }
 }
-
+//Lấy thể loại vào thêm phim
 fetch(`${url}/${genre}`, {
   method: 'GET',
   headers: {
@@ -710,7 +714,7 @@ fetch(`${url}/${genre}`, {
       genreListDiv1.appendChild(label);
     });
   });
-
+//Lấy thể loại vào cập nhật phim
 fetch(`${url}/${genre}`, {
   method: 'GET',
   headers: {
@@ -734,9 +738,8 @@ fetch(`${url}/${genre}`, {
       genreListDiv2.appendChild(label);
     });
   });
-
+//Submit form thêm phim
 form.addEventListener('submit', async (event) => {
-  
   event.preventDefault();
   const checkboxes = document.querySelectorAll('#genre-list1 input[type=checkbox]:checked');
   let isChecked = false;

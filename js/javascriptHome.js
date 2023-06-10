@@ -27,6 +27,8 @@ var passwordLogin = document.getElementById('passwordLogin');
 var forgotPasswordLink = document.getElementById('forgot-password-link');
 var overlayForgotPassword = document.getElementById('overlayForgotPassword');
 var overlaySignuplink = document.getElementById('overlaySignup-link');
+document.getElementById("emailInfo").disabled = true;
+document.getElementById("dateOfBirthInfo").disabled = true;
 //Chức năng search
 function Search() {
   console.log("Giá trị đã nhập:", document.getElementById("search").value);
@@ -93,7 +95,7 @@ forgotPasswordLink.addEventListener("click", function () {
   document.addEventListener("click", handleOutsideClickForgotPassword, true);
 });
 //Chuyển sang từ đăng nhập overlay Đăng ký
-overlaySignuplink.addEventListener("click", function(){
+overlaySignuplink.addEventListener("click", function () {
   Overlay.style.display = "block";
   OverlayLogin.style.display = "none";
   OverlaySignup.style.display = "block";
@@ -229,7 +231,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
               position: 'top',
               icon: 'error',
               title: 'THẤT BẠI',
-              text: 'Email này đã được sử dụng', 
+              text: 'Email này đã được sử dụng',
             }).then(() => {
               document.addEventListener("click", handleOutsideClickSignup, true);
             });
@@ -240,7 +242,7 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
               position: 'top',
               icon: 'error',
               title: 'THẤT BẠI',
-              text: 'Đăng ký thất bại', 
+              text: 'Đăng ký thất bại',
             }).then(() => {
               document.addEventListener("click", handleOutsideClickSignup, true);
             });
@@ -255,9 +257,33 @@ document.querySelector('#formSignup').addEventListener('submit', function (event
           showConfirmButton: false,
           timer: 1500
         })
+        // Đặt giá trị rỗng cho thẻ input có id "name"
+        document.getElementById("name").value = "";
+
+        // Đặt giá trị rỗng cho thẻ input có id "email"
+        document.getElementById("email").value = "";
+
+        // Đặt giá trị rỗng cho thẻ input có id "phoneNumber"
+        document.getElementById("phoneNumber").value = "";
+
+        // Đặt giá trị rỗng cho thẻ input có id "address"
+        document.getElementById("address").value = "";
+
+        // Đặt giá trị rỗng cho thẻ select có id "gender"
+        document.getElementById("gender").value = "0";
+
+        // Đặt giá trị rỗng cho thẻ input có id "dateOfBirth"
+        document.getElementById("dateOfBirth").value = "";
+
+        // Đặt giá trị rỗng cho thẻ input có id "password"
+        document.getElementById("password").value = "";
+
+        // Đặt giá trị rỗng cho thẻ input có id "passwordConfirm"
+        document.getElementById("passwordConfirm").value = "";
+
         Overlay.style.display = "none";
         OverlaySignup.style.display = "none";
-      } 
+      }
     })
     .catch(error => {
       console.error("Lỗi khi đăng ký tài khoản:", error);
@@ -429,7 +455,7 @@ dropdowninfo.addEventListener("click", function () {
   document.addEventListener("click", handleOutsideClickInfo, true);
 });
 //Submit form chỉnh sửa thông tin
-document.querySelector('#formInfo').addEventListener('submit', function (event) {
+document.querySelector('#formInfo').addEventListener('submit', async (event) => {
   event.preventDefault();
   event.stopPropagation();
 
@@ -481,39 +507,20 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
     });
     return;
   }
-  localStorage.setItem('put', 0);
-  fetch(`${url}/${Users}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "bearer " + token
-    },
-    body: JSON.stringify({
-      id: localStorage.getItem('id'),
-      name: name,
-      email: email,
-      gender: gender,
-      birth: birth,
-      phone: phoneNumber,
-      address: address,
-      RoleName: localStorage.getItem('roleName')
-    })
-  })
-    .then(response => {
-      if (response.ok) {
-      } else {
-        localStorage.setItem('put', 1);
-      }
-    })
-    .catch(error => {
-      localStorage.setItem('put', 1);
-      console.error(error);
-    });
-
+  const inforUserFetch = {
+    id: localStorage.getItem('id'),
+    name: name,
+    email: email,
+    gender: gender,
+    birth: birth,
+    phone: phoneNumber,
+    address: address,
+    RoleName: localStorage.getItem('roleName')
+  }
+  var passwordFetch = "";
   if (changePasswordForm.style.display == 'block') {
     if (newPassword != newPasswordConfirm) {
       document.getElementById("newPasswordConfirmInfo").classList.add("is-invalid");
-      console.log("2");
       return;
     }
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
@@ -530,109 +537,101 @@ document.querySelector('#formInfo').addEventListener('submit', function (event) 
       });
       return;
     }
-    fetch(`${url}/${Users}/${Password}`, {
+    passwordFetch = {
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    }
+  }
+  UpdateInfor(inforUserFetch, passwordFetch);
+});
+async function UpdateInfor(inforUserFetch, passwordFetch) {
+  try {
+    var checkResponse = true;
+    var checkChangePassword = false;
+    const response = await fetch(`${url}/${Users}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "bearer " + localStorage.getItem('token')
+        'Authorization': "bearer " + token
       },
-      body: JSON.stringify({
-        oldPassword: oldPassword,
-        newPassword: newPassword
-      })
+      body: JSON.stringify(inforUserFetch)
     })
-      .then(response => {
-        if (response.ok) {
-        }
-        else {
-          response.text().then(errorMessage => {
-            if (errorMessage == 'Wrong password') {
-              // showAlertTimeOut("Phim đã có đặt lịch chiếu");
-              document.removeEventListener("click", handleOutsideClickInfo, true);
-              Swal.fire({
-                position: 'top',
-                icon: 'warning',
-                // title: 'Lỗi',
-                text: 'Mật khẩu cũ không chính xác',
-                confirmButtonText: 'OK'
-                // timer: 2000
-              }).then(() => {
-                document.addEventListener("click", handleOutsideClickInfo, true);
-              });
-              localStorage.setItem('put', 4);
-            }
-            else {
-              // showAlertTimeOut('Chỉnh sửa không thành công');
-              document.removeEventListener("click", handleOutsideClickInfo, true);
-              Swal.fire({
-                position: 'top',
-                icon: 'warning',
-                // title: 'Lỗi',
-                title: 'Chỉnh sửa mật khẩu thất bại',
-                // timer: 2000
-                confirmButtonText: 'OK'
-              }).then(() => {
-                document.addEventListener("click", handleOutsideClickInfo, true);
-              });
-            }
-            localStorage.setItem('put', 4);
-          }).then(() =>{
-            if (localStorage.getItem('put') == 0) {
-              Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: 'Chỉnh sửa thành công',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              Overlay.style.display = "none";
-              OverlayInfor.style.display = "none";
-            } else if (localStorage.getItem('put') == 1) {
-              // showAlertTimeOutInfo("Thông tin cá nhân không hợp lệ");
-              document.removeEventListener("click", handleOutsideClickInfo, true);
-              Swal.fire({
-                position: 'top',
-                icon: 'error',
-                title: 'Lỗi',
-                text: 'Thông tin cá nhân không hợp lệ',
-                footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
-                timer: 2000
-              }).then(() => {
-                document.addEventListener("click", handleOutsideClickInfo, true);
-              });
-            }
-          })
-        }
-      })
-      .catch(error => {
-        localStorage.setItem('put', 4);
-        console.error(error);
-      });
-  }
-  else{
-    if (localStorage.getItem('put') == 0) {
-      Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Chỉnh sửa thành công',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      Overlay.style.display = "none";
-      OverlayInfor.style.display = "none";
-    } else if (localStorage.getItem('put') == 1) {
+    console.log(response.status);
+    if (!response.ok) {
+      checkResponse = false;
+      const errorMessage = await response.text();
+      console.log(errorMessage);
       document.removeEventListener("click", handleOutsideClickInfo, true);
-      Swal.fire({
+      await Swal.fire({
         position: 'top',
         icon: 'error',
-        title: 'Lỗi',
-        text: 'Thông tin cá nhân không hợp lệ',
-        footer: '<a>Kiểm tra thông tin các trường bạn nhập vào',
-        timer: 2000
-      }).then(() => {
-        document.addEventListener("click", handleOutsideClickInfo, true);
+        title: 'THẤT BẠI',
+        text: 'Đã xảy ra lỗi khi chỉnh sửa tài khoản',
       });
+      document.addEventListener("click", handleOutsideClickInfo, true);
+
+      throw new Error('Đã xảy ra lỗi khi chỉnh sửa tài khoản');
+    }
+    if (changePasswordForm.style.display == 'block') {
+      checkChangePassword = true;
+      const responsePassword = await fetch(`${url}/${Users}/${Password}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "bearer " + localStorage.getItem('token')
+        },
+        body: JSON.stringify(passwordFetch)
+      })
+      console.log("Vô passwordchange");
+      console.log(responsePassword.status);
+      if (!responsePassword.ok) {
+        checkResponse = false;
+        const errorMessage = await responsePassword.text();
+        console.log(errorMessage);
+        if (errorMessage == 'Wrong password') {
+          document.removeEventListener("click", handleOutsideClickInfo, true);
+          Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Mật khẩu cũ không chính xác',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            document.addEventListener("click", handleOutsideClickInfo, true);
+          });
+        }
+        else {
+          document.removeEventListener("click", handleOutsideClickInfo, true);
+          Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            title: 'Chỉnh sửa mật khẩu thất bại',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            document.addEventListener("click", handleOutsideClickInfo, true);
+          });
+        }
+        throw new Error('Đã xảy ra lỗi khi chỉnh sửa mật khẩu');
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    console.log(checkResponse);
+    if (checkResponse == true) {
+      await Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Chỉnh sửa tài khoản thành công',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      passwordChange.checked = false;
+      oldPassword.value = "";
+      newPassword.value = "";
+      newPasswordConfirm.value = "";
+      changePasswordForm.style.display = 'none';
+      Overlay.style.display = "none";
+      OverlayInfor.style.display = "none";
     }
   }
-  
-}); 
+}
