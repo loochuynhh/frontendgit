@@ -514,7 +514,7 @@ function loadFood() {
         })
         .then(data => {
             document.getElementById("tbody-food").innerHTML = "";
-            data.forEach(food => {
+            data.forEach((food,index) => {
                 const td1 = document.createElement("td");
                 const spFoodName = document.createElement("span");
                 spFoodName.classList.add("fs-5", "fw-bold", "text-success");
@@ -522,8 +522,34 @@ function loadFood() {
                 const pSize = document.createElement("p");
                 pSize.classList.add("mt-2", "mb-0", "fst-italic", "fw-lighter", "fs-6");
                 pSize.textContent = food.description;
-                td1.appendChild(spFoodName);
-                td1.appendChild(pSize);
+                const imgFood = document.createElement("img");
+                imgFood.style.width = '20%'
+                switch (index) {
+                    case 0:
+                        imgFood.src = "/Image/popcorn.jpg"
+                        break;
+                    case 1:
+                        imgFood.src = "/Image/coca.jpg"
+                        break;
+                    case 2:
+                        imgFood.src = "/Image/bapnuoc.jpg"
+                        break;
+                    case 3:
+                        imgFood.src = "/Image/combo4.jpg"
+                        break; 
+                    default:
+                        break;
+                }
+                const divNameDes = document.createElement("div");
+                divNameDes.classList.add("ms-3");
+                divNameDes.appendChild(spFoodName);
+                divNameDes.appendChild(pSize);
+
+                // td1.appendChild(spFoodName);
+                // td1.appendChild(pSize);
+                td1.classList.add("d-flex")
+                td1.appendChild(imgFood);
+                td1.appendChild(divNameDes);
 
                 const td4 = document.createElement("td");
                 td4.classList.add("text-center");
