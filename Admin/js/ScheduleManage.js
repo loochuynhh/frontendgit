@@ -562,6 +562,7 @@ scheduleform.addEventListener('submit', async (event) => {
                 position: 'top',
                 icon: 'success',
                 title: 'Thêm lịch chiếu mới thành công',
+                width: '42%',
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
