@@ -8,6 +8,7 @@ $(function () {
     });
     $("#footer").load("footer.html");
 })
+// Hiển thị danh sách ngày
 function loadCalendar() {
     var currentDate = new Date();
     var nextDays = [];
@@ -17,8 +18,7 @@ function loadCalendar() {
     }
     nextDays.forEach(function (date) {
         var dayOfWeek = date.toLocaleDateString("vi-VN", { weekday: "long" }, { day: "numeric" });
-        var dayOfMonth = date.getDate();
-        // console.log(dayOfWeek + ", ngày " + dayOfMonth);
+        var dayOfMonth = date.getDate(); 
 
         const btnDayOption = document.createElement("button");
         
@@ -42,8 +42,7 @@ function loadCalendar() {
             const daySelected = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + dayOfMonth.toString().padStart(2, '0');
             const URLSCHEDULE = "https://localhost:44308/api/show?" + "date=" + daySelected + "&filmId=0&roomId=0";
 
-            daySended = "Thứ " + getDayOfWeek(date) + ", " + formatDate(date);
-            // const URLSCHEDULE = "https://localhost:44308/api/show?" + "date=" + "2023-05-08" +"&filmId=0&roomId=0";
+            daySended = "Thứ " + getDayOfWeek(date) + ", " + formatDate(date); 
 
             selectDay(URLSCHEDULE);
         })
@@ -53,12 +52,11 @@ function loadCalendar() {
 
     document.getElementById("center-month").innerHTML = "Tháng " + (currentDate.getMonth() + 1);
 }
-
+// Hiển thị danh sách phim và lịch chiếu
 function selectDay(URLSCHEDULE) {
     const h4txtSelectSchedule = document.createElement("h4");
     h4txtSelectSchedule.innerHTML = "Chọn lịch chiếu";
-    document.getElementById("film-for-select-schedule").appendChild(h4txtSelectSchedule);
-    // document.getElementById("film-for-select-schedule").setAttribute("min-height", "1000px");
+    document.getElementById("film-for-select-schedule").appendChild(h4txtSelectSchedule); 
 
     fetch(URLSCHEDULE)
         .then(response => response.json())
@@ -68,18 +66,14 @@ function selectDay(URLSCHEDULE) {
                 divNoSchedule.classList.add("text-center", "text-secondary");
                 divNoSchedule.innerHTML = "Ngày Bạn Chọn Hiện Không Có Lịch Chiếu Nào. Vui Lòng Chọn Ngày Khác.";
                 document.getElementById("film-for-select-schedule").appendChild(divNoSchedule);
-            }
-            console.log(data);
-            for (let i = 0; i < data.length; i++) {
-
-                console.log((data[i])[0].filmId);
+            } 
+            for (let i = 0; i < data.length; i++) { 
                 const divFilm = document.createElement("div");
                 divFilm.classList.add("ms-4", "mt-3", "mb-3");
 
                 const h6Name = document.createElement("h6");
                 h6Name.classList.add("fw-bold", "text-uppercase");
-                h6Name.textContent = (data[i])[0].filmName;
-                console.log((data[i])[0].filmName);
+                h6Name.textContent = (data[i])[0].filmName; 
 
                 const divFilmInfo = document.createElement("div");
                 divFilmInfo.classList.add("container", "d-flex");
