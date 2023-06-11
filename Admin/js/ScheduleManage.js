@@ -478,27 +478,27 @@ scheduleform.addEventListener('submit', async (event) => {
     }
     const currentDate2 = new Date();
     const selectedTime = new Date();
-
     // Lấy giờ và phút từ giá trị thời gian
     const [hours, minutes] = timeValue.split(':');
-
     // Đặt giờ và phút cho đối tượng selectedTime
     selectedTime.setHours(hours);
     selectedTime.setMinutes(minutes);
-
     // So sánh selectedTime với thời gian hiện tại
     if (selectedTime < currentDate2) {
-        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        Swal.fire({
-            position: 'top',
-            icon: 'warning',
-            text: 'Không thể đặt lịch ở quá khứ',
-            showConfirmButton: true,
-        }).then(() => {
-            document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        });
-        return;
-    } 
+        if (startDate > currentDate) {
+        } else {
+            document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+            Swal.fire({
+                position: 'top',
+                icon: 'warning',
+                text: 'Không thể đặt lịch ở quá khứ',
+                showConfirmButton: true,
+            }).then(() => {
+                document.addEventListener("click", handleOutsideClickAddSchedule, true);
+            });
+            return;
+        }
+    }
     const dateList = [];
     const newListSchedule = [];
     // Lặp qua các ngày từ ngày bắt đầu đến ngày kết thúc
@@ -524,7 +524,25 @@ scheduleform.addEventListener('submit', async (event) => {
         newListSchedule.push(newSchedule);
         i++;
     }
+    var date = new Date(dateFromValue)
+    const year = await date.getFullYear();
+    const month = `0${date.getMonth() + 1}`.slice(-2);
+    const day = `0${date.getDate()}`.slice(-2);
+    const formattedDate = `${year}-${month}-${day}` + 'T' + timeValue;
+    var releaseDate = await getReleaseDateFilm(filmEl.options[formFilm.selectedIndex].id);
 
+    if (formattedDate < releaseDate) {
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Không thể đặt lịch trước ngày công chiếu',
+            showConfirmButton: true,
+        }).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
+        return;
+    }
     fetch(`${url}/${show}`, {
         method: 'POST',
         headers: {
@@ -535,7 +553,6 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
                     if (errorMessage.toString().includes("schedule conflict")) {
@@ -595,18 +612,20 @@ scheduleform.addEventListener('submit', async (event) => {
                 //location.reload();
                 throw new Error('Đã xảy ra lỗi khi thêm phim');
             }
-            Swal.fire({
-                position: 'top',
-                icon: 'success',
-                title: 'Thêm lịch chiếu mới thành công',
-                width: '42%',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                overlay.style.display = "none";
-                overlayAddSchedule.style.display = "none";
-                loadSchedule(startDateRange, endDateRange);
-            });
+            else {
+                Swal.fire({
+                    position: 'top',
+                    icon: 'success',
+                    title: 'Thêm lịch chiếu mới thành công',
+                    width: '42%',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    overlay.style.display = "none";
+                    overlayAddSchedule.style.display = "none";
+                    loadSchedule(startDateRange, endDateRange);
+                });
+            }
         })
         .catch(error => {
 
@@ -733,4 +752,16 @@ function getCurrentDate() {
     var day = String(currentDate.getDate()).padStart(2, '0');
     var formattedDate = year + '-' + month + '-' + day;
     return formattedDate;
-}   
+}
+async function getReleaseDateFilm(id) {
+    var url = `https://localhost:44308/api/film/` + id;
+    var releaseDate;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        releaseDate = data.releaseDate;
+    } catch (error) {
+        console.error(error);
+    }
+    return releaseDate;
+}
