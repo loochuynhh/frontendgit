@@ -14,10 +14,17 @@ function loadSlide() {
     .then(data => {
       var length = data.length;
       if (length > 5) length = 5;
+      var usedIndexes = [];
       for (var i = 1; i <= length; i++) {
+        var randomIndex;
+        do {
+          randomIndex = Math.floor(Math.random() * data.length);
+        } while (usedIndexes.includes(randomIndex));
+        usedIndexes.push(randomIndex);
         var id = "slide-img" + i;
-        document.getElementById(id).src = data[i - 1].adPosterUrl;
+        document.getElementById(id).src = data[randomIndex].adPosterUrl;
       }
+      
     })
     .catch(error => console.error(error));
   $("#header-homepage").addClass("text-secondary");
