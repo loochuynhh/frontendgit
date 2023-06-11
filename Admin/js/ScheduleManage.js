@@ -210,6 +210,7 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
         body: JSON.stringify(Schedule)
     })
         .then(response => {
+            
             if (!response.ok) {
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
@@ -503,7 +504,8 @@ scheduleform.addEventListener('submit', async (event) => {
     const newListSchedule = [];
     // Lặp qua các ngày từ ngày bắt đầu đến ngày kết thúc
     var i = 0;
-    for (let date = new Date(dateFromValue); date <= endDate; date.setDate(date.getDate() + 1)) {
+    var endDate2 = endDate.setDate(endDate.getDate() + 1);
+    for (let date = new Date(dateFromValue); date <= endDate2 ; date.setDate(date.getDate() + 1)) {
         const year = date.getFullYear();
         const month = `0${date.getMonth() + 1}`.slice(-2);
         const day = `0${date.getDate()}`.slice(-2);
@@ -552,6 +554,7 @@ scheduleform.addEventListener('submit', async (event) => {
         body: JSON.stringify(newListSchedule)
     })
         .then(response => {
+            console.log(response.status);
             if (!response.ok) {
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
