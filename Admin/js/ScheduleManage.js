@@ -112,7 +112,7 @@ async function loadSchedule(startTime, endTime) {
                             deleteSchedule(data[j].id);
                         }
                         checkdelete = true;
-                        
+
                     })
                 });
                 trFilmTable.addEventListener("click", function () {
@@ -156,11 +156,11 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
             position: 'top',
             icon: 'warning',
             text: 'Vui lòng chọn 1 phim',
-            showConfirmButton: true, 
+            showConfirmButton: true,
         }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
         });
-      
+
         return;
     }
     if (document.getElementById('formRoomUpdate').value == 'Chọn một phòng chiếu') {
@@ -174,7 +174,7 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
             position: 'top',
             icon: 'warning',
             text: 'Vui lòng chọn 1 phòng chiếu',
-            showConfirmButton: true, 
+            showConfirmButton: true,
         }).then(() => {
             document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
         });
@@ -276,7 +276,7 @@ formUpdateSchedule.addEventListener('submit', async (event) => {
                     position: 'top',
                     icon: 'error',
                     title: 'THẤT BẠI',
-                    text: 'Chỉnh sửa không thành công', 
+                    text: 'Chỉnh sửa không thành công',
                 }).then(() => {
                     document.addEventListener("click", handleOutsideClickUpdateSchedule, true);
                 });
@@ -381,10 +381,10 @@ scheduleform.addEventListener('submit', async (event) => {
             position: 'top',
             icon: 'warning',
             text: 'Vui lòng chọn 1 phim',
-            showConfirmButton: true, 
-          }).then(() => {
+            showConfirmButton: true,
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-          }); 
+        });
         return;
     }
 
@@ -399,10 +399,10 @@ scheduleform.addEventListener('submit', async (event) => {
             position: 'top',
             icon: 'warning',
             text: 'Vui lòng chọn 1 phòng chiếu',
-            showConfirmButton: true, 
-          }).then(() => {
+            showConfirmButton: true,
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-          }); 
+        });
         return;
     }
 
@@ -417,10 +417,10 @@ scheduleform.addEventListener('submit', async (event) => {
             position: 'top',
             icon: 'warning',
             text: 'Vui lòng nhập ngày chiếu',
-            showConfirmButton: true, 
-          }).then(() => {
+            showConfirmButton: true,
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-          }); 
+        });
         return;
     }
 
@@ -435,10 +435,10 @@ scheduleform.addEventListener('submit', async (event) => {
             position: 'top',
             icon: 'warning',
             text: 'Vui lòng nhập giờ chiếu',
-            showConfirmButton: true, 
-          }).then(() => {
+            showConfirmButton: true,
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-          }); 
+        });
         return;
     }
 
@@ -448,22 +448,57 @@ scheduleform.addEventListener('submit', async (event) => {
 
     const endDate = new Date(dateToValue);
     const startDate = new Date(dateFromValue);
+    const currentDate = new Date();
+    endDate.setHours(0, 0, 0, 0);
+    startDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
     if (startDate > endDate) {
-        // Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500);
         document.removeEventListener("click", handleOutsideClickAddSchedule, true);
-        // Swal.fire('Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc', 1500).then(() => {
-        //     document.addEventListener("click", handleOutsideClickAddSchedule, true);
-        // });
         Swal.fire({
             position: 'top',
             icon: 'warning',
             text: 'Ngày bắt đầu chiếu không được lớn hơn ngày kết thúc',
-            showConfirmButton: true, 
-          }).then(() => {
+            showConfirmButton: true,
+        }).then(() => {
             document.addEventListener("click", handleOutsideClickAddSchedule, true);
-          }); 
+        });
         return;
     }
+    if (startDate < currentDate) {
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Không thể đặt lịch ở quá khứ',
+            showConfirmButton: true,
+        }).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
+        return;
+    }
+    const currentDate2 = new Date();
+    const selectedTime = new Date();
+
+    // Lấy giờ và phút từ giá trị thời gian
+    const [hours, minutes] = timeValue.split(':');
+
+    // Đặt giờ và phút cho đối tượng selectedTime
+    selectedTime.setHours(hours);
+    selectedTime.setMinutes(minutes);
+
+    // So sánh selectedTime với thời gian hiện tại
+    if (selectedTime < currentDate2) {
+        document.removeEventListener("click", handleOutsideClickAddSchedule, true);
+        Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            text: 'Không thể đặt lịch ở quá khứ',
+            showConfirmButton: true,
+        }).then(() => {
+            document.addEventListener("click", handleOutsideClickAddSchedule, true);
+        });
+        return;
+    } 
     const dateList = [];
     const newListSchedule = [];
     // Lặp qua các ngày từ ngày bắt đầu đến ngày kết thúc
@@ -473,6 +508,7 @@ scheduleform.addEventListener('submit', async (event) => {
         const month = `0${date.getMonth() + 1}`.slice(-2);
         const day = `0${date.getDate()}`.slice(-2);
         const formattedDate = `${year}-${month}-${day}` + 'T' + timeValue;
+
         dateList.push(formattedDate);
         var newSchedule = {
             id: 0,
@@ -488,6 +524,7 @@ scheduleform.addEventListener('submit', async (event) => {
         newListSchedule.push(newSchedule);
         i++;
     }
+
     fetch(`${url}/${show}`, {
         method: 'POST',
         headers: {
@@ -498,7 +535,7 @@ scheduleform.addEventListener('submit', async (event) => {
     })
         .then(response => {
             if (!response.ok) {
-                
+
                 response.text().then(errorMessage => {
                     console.log(errorMessage);
                     if (errorMessage.toString().includes("schedule conflict")) {
@@ -543,7 +580,7 @@ scheduleform.addEventListener('submit', async (event) => {
                             document.addEventListener("click", handleOutsideClickAddSchedule, true);
                         });
                     }
-                    
+
                 })
                 document.removeEventListener("click", handleOutsideClickAddSchedule, true);
                 Swal.fire({
@@ -604,13 +641,13 @@ function deleteSchedule(i) {
                 })
                 throw new Error('Đã xảy ra lỗi khi thêm phim mới');
             }
-            else{
+            else {
                 Swal.fire({
                     position: 'top',
                     icon: 'success',
                     title: 'Lịch chiếu đã được xóa',
                     showConfirmButton: false,
-                    timer: 1500 
+                    timer: 1500
                 }).then(() => {
                     loadSchedule(startDateRange, endDateRange);
                 });
