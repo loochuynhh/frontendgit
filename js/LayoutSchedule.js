@@ -84,7 +84,7 @@ function selectDay(URLSCHEDULE) {
 
                 const divBtn = document.createElement("div");
                 divBtn.classList.add("ms-5");
-                data[i].forEach(element => {
+                data[i].forEach((element,index) => {
                     const startTime = new Date(element.startTime);
                     const sthours = startTime.getHours();
                     const stminutes = startTime.getMinutes();
@@ -102,8 +102,8 @@ function selectDay(URLSCHEDULE) {
                     var showTimeSended = startTimeFormated + " - " + endTimeFormated + " | " + daySended
 
                     btnSchedule.addEventListener("click", function () {
-                        window.location.href = URLBOOKING + '?filmId=' + (data[i])[0].filmId + "&showId=" + (data[i])[0].id + "&roomId=" + (data[i])[0].roomId
-                            + "&roomName=" + (data[i])[0].roomName + "&showTime=" + showTimeSended
+                        window.location.href = URLBOOKING + '?filmId=' + (data[i])[index].filmId + "&showId=" + (data[i])[index].id + "&roomId=" + (data[i])[index].roomId
+                            + "&roomName=" + (data[i])[index].roomName + "&showTime=" + showTimeSended
                     })
 
                     divBtn.appendChild(btnSchedule);
